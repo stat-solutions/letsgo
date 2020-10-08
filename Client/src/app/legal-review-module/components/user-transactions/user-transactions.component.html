@@ -1,0 +1,103 @@
+
+<div class="container-fluid mb-0 mt-md-1 pt-md-0 pt-3 pb-1  col-xs-12 col-lg-12 ">
+    <div>
+      <div class="container">
+        <div class="row shadow-lg m-3">
+          <div class="col-md-4 colxs-12 col-sm-12 m-2">
+            <h1>
+              <i class="fas fa-user">User</i>
+            </h1>
+          </div>
+          <div class="col-md-4 colxs-12 col-sm-12">
+             
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="conditin m-2" *ngIf="checkTransactionsTable(transactionsTable); else noCustomer">
+            <div class="mytable">
+              <div class="text-center">
+                <h3 class="text-center">ReceivedUsers</h3>
+              </div>
+              <!--table-->
+              <table class="table table-bordered">
+                <thead class="table-dark">
+                  <tr>
+                    <th scope="col">Actions</th>
+                    <th scope="col">ID</th>
+                    <th scope="col">Customer</th>
+                    <th scope="col">LoanType</th>
+                    <th scope="col">LoanProduct</th>
+                    <th scope="col">Tenure(years)</th>
+                    <th scope="col">Amount(shs)</th>
+                    <th scope="col">Stage</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">LoanMovedBy</th>
+                    <th scope="col">StageAt</th>
+                    <th scope="col">HowLong(years)</th>
+                    <th scope="col">CreatedAt</th>
+                    <th scope="col">TotalAge</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let loans of transactionsTable">
+                    <th>
+                      <!--<button class="">
+                        <i class="fas fa-ellipsis-v" style="cursor: pointer;"></i>
+                      </button>-->
+                      <div class="dropdown">
+                        <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <i class="fas fa-ellipsis-v" style="cursor: pointer;"></i>
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                          <a class="dropdown-item" (click)="forward()" style="cursor: pointer;">Forward</a>
+                          <a class="dropdown-item" (click)="forward()" style="cursor: pointer;">Reject</a>
+                          <a class="dropdown-item" (click)="forward()" style="cursor: pointer;">Deffer</a>
+                        </div>
+                      </div>
+                      
+                    </th>
+                    <th>{{loans.Id}}</th>
+                    <th>{{loans.Customer}}</th>
+                    <th>{{loans.LoanType}}</th>
+                    <th>{{loans.LoanProduct}}</th>
+                    <th>{{loans.Tenure}}</th>
+                    <th>{{loans.Amount}}</th>
+                    <th>{{loans.Stage}}</th>
+                    <th>{{loans.Status}}</th>
+                    <th>{{loans.LoanMovedBy}}</th>
+                    <th>{{loans.StageAt}}</th>
+                    <th>{{loans.HowLong}}</th>
+                    <th>{{loans.CreatedAt}}</th>
+                    <th>{{loans.TotalAge}}</th>
+                    
+                  </tr>
+                  <tr>
+                </tbody>
+              </table>
+  
+              <!--table-->
+              <!--loanStatus-->
+              
+            
+              
+            </div>
+            
+          </div>
+          <ng-template #noCustomer>
+            <div class="container shadow-lg">
+              <h2 class="text-center">Loading...</h2>
+            </div>
+          </ng-template>
+        </div>
+        <!--footer-->
+        <div class="container mt-3 mb-2 pb-2">
+          <div class="col-xs-12 col-lg-12">
+            <div class="small text-center text-info">&copy; 2020 - LoanLead</div>
+          </div>
+  
+      </div>
+    </div>
+  </div>
+  
+  
+

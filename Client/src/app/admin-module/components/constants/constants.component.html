@@ -1,0 +1,287 @@
+<div
+  class="container-fluid d-flex flex-row justify-content-center mb-0 mt-md-1 mt-1 pt-md-0 pt-0 pb-3 shadow-lg col-xs-12 col-lg-8"
+>
+  <div class="jumbotron-fluid mb-0 pb-0">
+    <div class="head-icon d-flex justify-content-center mt-3 mb-3 pb-0">
+      <img
+        class="mx-auto mb-0 pb-0"
+        src="assets/img/mafuta-logo-2b.svg"
+        width="35"
+        height="35"
+      />
+  </div>
+  <div class="card-body mt-1 pt-2 mb-0 pb-3 shadow-lg">
+    <h3 class="text-info d-flex justify-content-center mt-2 pt-1 mb-3">
+      create
+    </h3>
+    <form [formGroup]="userForm" (ngSubmit)="register()">
+      <div class="form-group text-primary">
+        <label
+          for="loan_type"
+          [ngClass]="fval.loan_type.valid ? 'text-info' : ''"
+          ><i *ngIf="fval.loan_type.valid" class="material-icons"
+            >check_circle</i
+          >LoanType</label
+        >
+        <div class="input-group mb-2">
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              <i class="fas fa-wallet text-primary mx-auto" style="size: 50px;">
+              </i>
+            </div>
+          </div>
+          <input
+            id="loan_type"
+            formControlName="loan_type"
+            type="text"
+            required
+            class="form-control"
+            [ngClass]="{
+              'is-invalid':
+                (fval.loan_type.touched || fval.loan_type.dirty) &&
+                fval.loan_type.errors
+            }"
+            placeholder="Enter laonType"
+            autocomplete="off"
+          />
+        </div>
+        <div
+          class="text-danger col"
+          *ngIf="
+            (fval.loan_type.touched || fval.loan_type.dirty) &&
+            fval.loan_type.errors?.required
+          "
+        >
+          The loan_type is required!
+        </div>
+        <div
+        class="text-danger col"
+        *ngIf="
+          (fval.loan_type.touched || fval.loan_type.dirty) &&
+          fval.loan_type.errors?.minlength
+        "
+      >
+        Atleast two character required
+      </div>
+
+      </div>
+      
+
+      <div class="form-group text-primary">
+        <label
+          for="loan_product"
+          [ngClass]="fval.loan_product.valid ? 'text-info' : ''"
+          ><i *ngIf="fval.loan_product.valid" class="material-icons"
+            >check_circle</i
+          >LoanProduct</label
+        >
+        <div class="input-group mb-2">
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              <i class="fas fa-wallet text-primary mx-auto" style="size: 50px;">
+              </i>
+            </div>
+          </div>
+          <input
+            id="loan_product"
+            formControlName="loan_product"
+            type="text"
+            required
+            class="form-control"
+            [ngClass]="{
+              'is-invalid':
+                (fval.loan_product.touched || fval.loan_product.dirty) &&
+                fval.loan_product.errors
+            }"
+            placeholder="Enter laon_product"
+            autocomplete="off"
+          />
+        </div>
+        <div
+          class="text-danger col"
+          *ngIf="
+            (fval.loan_product.touched || fval.loan_product.dirty) &&
+            fval.loan_product.errors?.required
+          "
+        >
+          The loan_product is required!
+        </div>
+       
+
+      </div>
+
+
+       
+
+<div class="form-group text-primary">
+        <label for="security" [ngClass]="fval.security.valid ? 'text-info' : ''"
+          >Securities<i *ngIf="fval.security.valid" class="material-icons"
+            >check_circle</i
+          ></label
+        >
+        <div class="input-group mb-1">
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              <i
+                class="fas fa-user-lock text-primary mx-auto"
+                style="size: 50px;"
+              ></i>
+            </div>
+          </div>
+          <input
+            id="security"
+            formControlName="security"
+            type="text"
+            required
+            class="form-control"
+            [ngClass]="{
+              'is-invalid':
+                (fval.security.touched || fval.security.dirty) && fval.security.errors
+            }"
+            placeholder="Enter security"
+            autocomplete="off"
+          />
+        </div>
+        <div
+          class="text-danger col"
+          *ngIf="
+            (fval.security.touched || fval.security.dirty) &&
+            fval.security.errors?.required
+          "
+        >
+          The security  is required!
+        </div>
+      </div>
+
+    <div class="form-group text-primary">
+        <label
+          for="maximum_amount"
+          [ngClass]="fval.maximum_amount.valid ? 'text-info' : ''"
+          >Maximum Amount<i
+            *ngIf="fval.maximum_amount.valid"
+            class="material-icons"
+            >check_circle</i
+          ></label
+        >
+        <div class="input-group mb-2">
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              <i
+                class="fas fa-dollar text-primary mx-auto"
+                style="size: 50px;"
+              ></i>
+            </div>
+          </div>
+          <input
+            id="maximum_amount"
+            formControlName="maximum_amount"
+            type="number"
+            required
+            class="form-control"
+            [ngClass]="{
+              'is-invalid':
+                (fval.maximum_amount.touched ||
+                  fval.maximum_amount.dirty) &&
+                fval.maximum_amount.errors
+            }"
+            placeholder="maximum amount"
+            autocomplete="off"
+          />
+        </div>
+        <div
+          class="text-danger col"
+          *ngIf="
+            (fval.maximum_amount.touched ||
+              fval.maximum_amount.dirty) &&
+            fval.maximum_amount.errors?.required
+          "
+        >
+          maximum_amount number is required!
+        </div>
+      </div>
+
+      
+      
+      <div class="form-group text-primary">
+        <label for="tenure" [ngClass]="fval.tenure.valid ? 'text-info' : ''"
+          >Tenure<i *ngIf="fval.tenure.valid" class="material-icons"
+            >check_circle</i
+          ></label
+        >
+        <div class="input-group mb-1">
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              <i
+                class="fas fa-clock text-primary mx-auto"
+                style="size: 50px;"
+              ></i>
+            </div>
+          </div>
+          <input
+            id="tenure"
+            formControlName="tenure"
+            type="number"
+            required
+            class="form-control"
+            [ngClass]="{
+              'is-invalid':
+                (fval.tenure.touched || fval.tenure.dirty) && fval.tenure.errors
+            }"
+            placeholder="Enter tenure"
+            autocomplete="off"
+          />
+        </div>
+        <div
+          class="text-danger col"
+          *ngIf="
+            (fval.tenure.touched || fval.tenure.dirty) &&
+            fval.tenure.errors?.required
+          "
+        >
+          tenure required
+        </div>
+        
+      </div>
+
+
+
+      <div
+          class="text-danger col"
+          *ngIf="invalid"
+        >
+          all fields are required
+        </div>  
+      <div class="d-flex my-2 py-2 mx-auto">
+        <button
+          type="submit"
+          class="btn btn-info col-5 mx-auto"  
+        >
+          Register
+        </button>
+
+        <button
+          type="button"
+          class="btn btn-info col-5 mx-auto"
+          (click)="returnHome()"
+          routerLink = "/authpage/login"
+        >
+          Cancel
+        </button>
+      </div>
+    </form>
+    <!-- </div>  -->
+    <!-- </div>   -->
+  </div>
+  <!--footer -->
+    <div
+      class="d-flex justify-content-center col-xs-12 col-lg-12 mt-3 mb-2 mx-auto"
+    >
+      <div class="small text-center text-primo">
+       &copy; 2020 - LoanLead
+      </div>
+    </div>
+    <!--/ footer -->
+  </div>
+</div>
+
+

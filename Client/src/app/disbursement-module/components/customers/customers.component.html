@@ -1,0 +1,71 @@
+
+<div class="container-fluid mb-0 mt-md-1 pt-md-0 pt-3 pb-1  col-xs-12 col-lg-12 ">
+    <div>
+      <div class="container">
+        <div class="row shadow-lg m-3">
+          <div class="col-md-4 colxs-12 col-sm-12 m-2">
+            <h1>
+              <i class="fas fa-user">User</i>
+            </h1>
+          </div>
+          <div class="col-md-4 colxs-12 col-sm-12">
+             <div class="form-group m-2 ">
+               <label for="search">search</label>
+               <input type="text" name="" id="search" placeholder="search" class="form-control">
+             </div>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="conditin m-2" *ngIf="checkTable(customerTable); else noCustomer">
+            <div class="mytable">
+              <!--table-->
+              <table class="table table-bordered">
+                <thead class="table-dark">
+                  <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Document_Type</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Phone1</th>
+                    <th scope="col">Phone2</th>
+                    <th scope="col">CreatedAt</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let customer of customerTable">
+                    <th>{{customer.id}}</th>
+                    <th>{{customer.name}}</th>
+                    <th>{{customer.document_type}}</th>
+                    <th>{{customer.status}}</th>
+                    <th>{{customer.phone1}}</th>
+                    <th>{{customer.phone2}}</th>
+                    <th>{{customer.createdAt}}</th>
+                  </tr>
+                  <tr>
+                </tbody>
+              </table>
+  
+              <!--table-->
+              <!--loanStatus-->
+              
+              
+            </div>
+            
+          </div>
+          <ng-template #noCustomer>
+            <div class="container shadow-lg">
+              <h2 class="text-center">Loading...</h2>
+            </div>
+          </ng-template>
+        </div>
+        <!--footer-->
+        <div class="container mt-3 mb-2 pb-2">
+          <div class="col-xs-12 col-lg-12">
+            <div class="small text-center text-info">&copy; 2020 - LoanLead</div>
+          </div>
+  
+      </div>
+    </div>
+  </div>
+  
+

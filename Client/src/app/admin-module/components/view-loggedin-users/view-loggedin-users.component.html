@@ -1,0 +1,69 @@
+
+<div class="container-fluid mb-0 mt-md-1 pt-md-0 pt-3 pb-1  col-xs-12 col-lg-12 ">
+    <div>
+      <div class="container">
+        <div class="row shadow-lg m-3">
+          <div class="col-md-4 colxs-12 col-sm-12 m-2">
+            <h1>
+              <span>
+                <img src="assets/img/default.jpg" alt="Not found" class="img-rounded m-2">
+                AdminName
+              </span>
+            </h1>
+          </div>
+          <div class="col-md-4 colxs-12 col-sm-12">
+             
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="conditin m-2" *ngIf="checkLoggedInUsers(loggedInUsers); else noCustomer">
+            <div class="mytable">
+              <!--table-->
+              <table class="table table-bordered">
+                <thead class="table-dark">
+                  <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Branch</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let logged of loggedInUsers">
+                    <th>{{logged.id}}</th>
+                    <th>{{logged.name}}</th>
+                    <th>{{logged.branch}}</th>
+                    <th>{{logged.email}}</th>
+                    <th>{{logged.status}}</th>
+                  </tr>
+                  <tr>
+                </tbody>
+              </table>
+  
+              <!--table-->
+              <!--loanStatus-->
+              <div class="col-md-12">
+                
+              </div>
+              
+            </div>
+            
+          </div>
+          <ng-template #noCustomer>
+            <div class="container shadow-lg">
+              <h2 class="text-center">Loading...</h2>
+            </div>
+          </ng-template>
+        </div>
+        <!--footer-->
+        <div class="container mt-3 mb-2 pb-2">
+          <div class="col-xs-12 col-lg-12">
+            <div class="small text-center text-info">&copy; 2020 - LoanLead</div>
+          </div>
+  
+      </div>
+    </div>
+  </div>
+ 
+  

@@ -1,0 +1,197 @@
+<div
+  class="container-fluid d-flex flex-row justify-content-center mb-0 mt-md-1 mt-1 pt-md-0 pt-0 pb-3 shadow-lg col-xs-12 col-lg-8"
+>
+  <div class="jumbotron-fluid mb-0 pb-0">
+    <div class="head-icon d-flex justify-content-center mt-3 mb-3 pb-0">
+      <img
+        class="mx-auto mb-0 pb-0"
+        src="assets/img/mafuta-logo-2b.svg"
+        width="35"
+        height="35"
+      />
+  </div>
+  <div class="card-body mt-1 pt-2 mb-0 pb-3 ">
+    <h3 class="text-info d-flex justify-content-center mt-2 pt-1 mb-3">
+      Reports
+    </h3>
+    <form [formGroup]="userForm" (ngSubmit)="register()">
+        <div class="row m-2">
+          <div class="col-md-6">
+            <div class="form-group text-primary">
+              <label
+                for="start_date"
+                [ngClass]="fval.start_date.valid ? 'text-info' : ''"
+                ><i *ngIf="fval.start_date.valid" class="material-icons"
+                  >check_circle</i
+                >Start Date</label
+              >
+      
+              <div class="input-group mb-2">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">
+                    <i
+                      class="fas fa-calendar-alt text-primary mx-auto"
+                      style="size: 50px;"
+                    >
+                    </i>
+                  </div>
+                </div>
+                <input
+                  id="start_date"
+                  formControlName="start_date"
+                  type="text"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid':
+                      (fval.start_date.touched || fval.start_date.dirty) &&
+                      fval.start_date.errors
+                  }"
+                  placeholder="Click to select Date Of Birth"
+                  autocomplete="off"
+                  class="form-control"
+                  bsDatepicker
+                  [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY', isAnimated: true }"
+                  placement="bottom"
+                />
+              </div>
+              <div
+                class="text-danger col"
+                *ngIf="
+                  (fval.start_date.touched || fval.start_date.dirty) &&
+                  fval.start_date.errors?.required
+                "
+              >
+                The start_date is required!
+              </div>
+            </div>
+            
+          </div>
+          <div class="col-md-6">
+            <!--end-date-->
+          <div class="form-group text-primary">
+            <label
+              for="end_date"
+              [ngClass]="fval.end_date.valid ? 'text-info' : ''"
+              ><i *ngIf="fval.end_date.valid" class="material-icons"
+                >check_circle</i
+              >End Date</label
+            >
+    
+            <div class="input-group mb-2">
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <i
+                    class="fas fa-calendar-alt text-primary mx-auto"
+                    style="size: 50px;"
+                  >
+                  </i>
+                </div>
+              </div>
+              <input
+                id="end_date"
+                formControlName="end_date"
+                type="text"
+                class="form-control"
+                [ngClass]="{
+                  'is-invalid':
+                    (fval.end_date.touched || fval.end_date.dirty) &&
+                    fval.end_date.errors
+                }"
+                placeholder="Click to select EndDate Of Birth"
+                autocomplete="off"
+                class="form-control"
+                bsDatepicker
+                [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY', isAnimated: true }"
+                placement="bottom"
+              />
+            </div>
+            <div
+              class="text-danger col"
+              *ngIf="
+                (fval.end_date.touched || fval.end_date.dirty) &&
+                fval.end_date.errors?.required
+              "
+            >
+              The end_date of birth is required!
+            </div>
+          </div>
+     
+          
+        </div>
+            <!--end-date-->
+
+
+          </div>
+
+                      <!--reporttype-->
+            <div class="form-group text-primary">
+              <label
+                for="position"
+                [ngClass]="fval.report_type.valid ? 'text-info' : ''"
+                ><i *ngIf="fval.report_type.valid" class="material-icons"
+                  >check_circle</i
+                >ReportType</label
+              >
+              <div class="input-group mb-2">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">
+                    <i class="fas fa-file text-primary mx-auto" style="size: 50px;">
+                    </i>
+                  </div>
+                </div>
+                <select
+                formControlName="report_type"
+                class="form-control"
+                [ngClass]="{
+                  'is-invalid':
+                    (fval.report_type.touched || fval.report_type.dirty) &&
+                    fval.report_type.errors
+                }"
+                autocomplete="off"
+                placeholder="Select report type"
+                (change) ="getReport($event)"
+                required
+              >
+              <option value="" selected disabled>selectReport</option>
+              <option *ngFor="let reports of reportTypes" [ngValue]="reports.reportType">{{reports.reportType}}</option>
+      
+              </select>
+          </div>
+              <div
+                class="text-danger col"
+                *ngIf="
+                  (fval.report_type.touched || fval.report_type.dirty) &&
+                  fval.report_type.errors?.required
+                "
+              >
+                The report_type is required!
+              </div>
+            </div>
+      
+       
+            <!--reporttype-->
+      
+      <div class="d-flex justify-content-space-evenly">
+        <div class="form-group">
+          <button class="btn btn-primary btn-block" type="submit">Filter</button>
+        </div>
+      </div>
+    </form>
+    <div class="form-group">
+      <button class="btn btn-primary">ExportToExcel</button>
+    </div>
+    <!-- </div>  -->
+    <!-- </div>   -->
+  </div>
+  <!--footer -->
+    <div
+      class="d-flex justify-content-center col-xs-12 col-lg-12 mt-3 mb-2 mx-auto"
+    >
+      <div class="small text-center text-primo">
+       &copy; 2020 - LoanLead
+      </div>
+    </div>
+    <!--/ footer -->
+  </div>
+</div>
+
