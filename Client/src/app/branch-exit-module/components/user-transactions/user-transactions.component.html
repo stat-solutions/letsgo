@@ -6,7 +6,11 @@
         <div class="col-md-4 colxs-12 col-sm-12 m-2">
           <button 
           class="btn btn-success m-4" type="button" 
-          (click)="recievedLoans()"><i class="fa fa-get-pocket">Received</i>
+          (click)="receivedLoans()"><i class="fa fa-get-pocket">Received</i>
+         </button>
+         <button 
+          class="btn btn-success m-4" type="button" 
+          (click)="backLoans()"><i class="fa fa-get-pocket">Back</i>
          </button>
         </div>
         <div class="col-md-4 colxs-12 col-sm-12">
@@ -20,10 +24,10 @@
         <div class="conditin m-2" *ngIf="checkTransactionsTable(transactionsTable); else noCustomer">
           <div class="mytable">
             <div class="text-center">
-              <h3 class="text-center" >{{enableForwarded?usersText:"ReceivedLoans"}}</h3>
+              <h3 class="text-center" >{{enableForwarded||enableReceive?usersText:"ReceivedLoansFromBranchApproval"}}</h3>
             </div>
             <!--table-->
-            <table class="table table-bordered" *ngIf="!enableForwarded; else forwarded">
+            <table class="table table-bordered" *ngIf="!enableForwarded&&!enableReceive;">
               <thead class="table-dark" >
                 <tr>
                   <th scope="col">Actions</th>
@@ -53,6 +57,7 @@
                         <i class="fas fa-ellipsis-v" style="cursor: pointer;"></i>
                       </button>
                       <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" (click)="forward()" style="cursor: pointer;">Receive</a>
                         <a class="dropdown-item" (click)="forward()" style="cursor: pointer;">Forward</a>
                       </div>
                     </div>
@@ -78,52 +83,95 @@
             </table>
 
             <!--table-->
-            <!--loanStatus-->
-            <ng-template #forwarded>
-               <!--forwaded-->
-               <table class="table table-bordered">
-                <thead class="table-dark" >
-                  <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">Customer</th>
-                    <th scope="col">LoanType</th>
-                    <th scope="col">LoanProduct</th>
-                    <th scope="col">Tenure(years)</th>
-                    <th scope="col">Amount(shs)</th>
-                    <th scope="col">Stage</th>
-                    <th scope="col">Status</th>
-                    <th scope="col">LoanMovedBy</th>
-                    <th scope="col">StageAt</th>
-                    <th scope="col">HowLong(years)</th>
-                    <th scope="col">CreatedAt</th>
-                    <th scope="col">TotalAge</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let loans of transactionsTable">
-                    <th>{{loans.Id}}</th>
-                    <th>{{loans.Customer}}</th>
-                    <th>{{loans.LoanType}}</th>
-                    <th>{{loans.LoanProduct}}</th>
-                    <th>{{loans.Tenure}}</th>
-                    <th>{{loans.Amount}}</th>
-                    <th>{{loans.Stage}}</th>
-                    <th>{{loans.Status}}</th>
-                    <th>{{loans.LoanMovedBy}}</th>
-                    <th>{{loans.StageAt}}</th>
-                    <th>{{loans.HowLong}}</th>
-                    <th>{{loans.CreatedAt}}</th>
-                    <th>{{loans.TotalAge}}</th>
-                    
-                  </tr>
-                  <tr>
-                </tbody>
-              </table>
-            
-               <!--forwarded-->
-            </ng-template>
-            
-          
+            <!--receivedLoans-->
+            <table class="table table-bordered" *ngIf="!enableForwarded&& enableReceive;">
+              <thead class="table-dark" >
+                <tr>
+
+                  <th scope="col">ID</th>
+                  <th scope="col">Customer</th>
+                  <th scope="col">LoanType</th>
+                  <th scope="col">LoanProduct</th>
+                  <th scope="col">Tenure(years)</th>
+                  <th scope="col">Amount(shs)</th>
+                  <th scope="col">Stage</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">LoanMovedBy</th>
+                  <th scope="col">StageAt</th>
+                  <th scope="col">HowLong(years)</th>
+                  <th scope="col">CreatedAt</th>
+                  <th scope="col">TotalAge</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let loans of transactionsTable">
+                  
+                  <th>{{loans.Id}}</th>
+                  <th>{{loans.Customer}}</th>
+                  <th>{{loans.LoanType}}</th>
+                  <th>{{loans.LoanProduct}}</th>
+                  <th>{{loans.Tenure}}</th>
+                  <th>{{loans.Amount}}</th>
+                  <th>{{loans.Stage}}</th>
+                  <th>{{loans.Status}}</th>
+                  <th>{{loans.LoanMovedBy}}</th>
+                  <th>{{loans.StageAt}}</th>
+                  <th>{{loans.HowLong}}</th>
+                  <th>{{loans.CreatedAt}}</th>
+                  <th>{{loans.TotalAge}}</th>
+                  
+                </tr>
+                <tr>
+              </tbody>
+            </table>
+
+            <!--receivedLoans-->
+
+            <!--forwarded-->
+            <table class="table table-bordered" *ngIf="enableForwarded&& enableReceive;">
+              <thead class="table-dark" >
+                <tr>
+
+                  <th scope="col">ID</th>
+                  <th scope="col">Customer</th>
+                  <th scope="col">LoanType</th>
+                  <th scope="col">LoanProduct</th>
+                  <th scope="col">Tenure(years)</th>
+                  <th scope="col">Amount(shs)</th>
+                  <th scope="col">Stage</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">LoanMovedBy</th>
+                  <th scope="col">StageAt</th>
+                  <th scope="col">HowLong(years)</th>
+                  <th scope="col">CreatedAt</th>
+                  <th scope="col">TotalAge</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let loans of transactionsTable">
+                  
+                  <th>{{loans.Id}}</th>
+                  <th>{{loans.Customer}}</th>
+                  <th>{{loans.LoanType}}</th>
+                  <th>{{loans.LoanProduct}}</th>
+                  <th>{{loans.Tenure}}</th>
+                  <th>{{loans.Amount}}</th>
+                  <th>{{loans.Stage}}</th>
+                  <th>{{loans.Status}}</th>
+                  <th>{{loans.LoanMovedBy}}</th>
+                  <th>{{loans.StageAt}}</th>
+                  <th>{{loans.HowLong}}</th>
+                  <th>{{loans.CreatedAt}}</th>
+                  <th>{{loans.TotalAge}}</th>
+                  
+                </tr>
+                <tr>
+              </tbody>
+            </table>
+
+
+            <!--forwarded-->
+           
             
           </div>
           

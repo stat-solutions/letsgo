@@ -13,8 +13,10 @@ export class UserTransactionsComponent implements OnInit {
   age = moment(new Date()).format('MM/DD/YYYY, h:mm:ss')
   enableApprove: boolean = false;
   enableDeffered: boolean = false
-  usersText: string = "RecievedUsers"
-
+  usersText: string = "RecievedUsers";
+  enableReceive: boolean = false;
+  enableReject: boolean = false;
+  enableForward:boolean = false;
   constructor(private userTransactions:LandingService) { }
 
   ngOnInit() {
@@ -40,19 +42,61 @@ export class UserTransactionsComponent implements OnInit {
 
   approvedLoans() {
     this.enableApprove = true;
-    this.enableDeffered = false
+    this.enableDeffered = false;
+    this.enableForward = false;
+    this.enableReject = false;
+    this.enableReceive = false;
     this.usersText = "Approved Loans"
     
   }
   defferedLoans() {
     this.enableDeffered = true;
-    this.enableApprove = false
+    this.enableApprove = false;
+    this.enableForward = false;
+    this.enableReject = false;
+    this.enableReceive = false;
     this.usersText = "Deffered Loans"
     
   }
   receivedLoans() {
     this.enableApprove = false;
     this.enableDeffered = false;
+    this.enableForward = false;
+    this.enableReject = false;
+    this.enableReceive = true;
+    this.usersText = "ReceivedLoans"
+  }
+  receiveLoan() {
+    // this.enableApprove = false;
+    // this.enableDeffered = false;
+    // this.enableForward = false;
+    // this.enableReject = false;
+    // this.enableReceive = true;
+    
+  }
+  backLoans() {
+    this.enableApprove = false;
+    this.enableDeffered = false;
+    this.enableForward = false;
+    this.enableReject = false;
+    this.enableReceive = false;
+
+  }
+  rejectedLoans() {
+    this.enableApprove = false;
+    this.enableDeffered = false;
+    this.enableForward = false;
+    this.enableReject = true;
+    this.enableReceive = false;
+    this.usersText = "RejectedLoans"    
+  }
+  forwardedLoans() {
+    this.enableApprove = false;
+    this.enableDeffered = false;
+    this.enableForward = true;
+    this.enableReject = false;
+    this.enableReceive = false;
+    this.usersText = "ForwardedLoans"    
   }
 
 }

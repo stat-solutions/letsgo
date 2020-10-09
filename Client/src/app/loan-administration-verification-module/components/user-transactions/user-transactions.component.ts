@@ -9,7 +9,11 @@ import * as moment from 'moment'
 })
 export class UserTransactionsComponent implements OnInit {
   transactionsTable = []
+  forWardedUsers = []
   age = moment(new Date()).format('MM/DD/YYYY, h:mm:ss')
+  enableForwarded: boolean = false
+  enableReceive: boolean = false
+  usersText: string = "RecievedUsers"
 
   constructor(private userTransactions:LandingService) { }
 
@@ -34,6 +38,22 @@ export class UserTransactionsComponent implements OnInit {
     alert('forwarded')
   }
 
+  forwardedLoans() {
+    this.enableForwarded = true
+    this.usersText = "Forwarded Loans"
+    
+  }
+  backLoans() {
+    this.enableForwarded = false
+    this.enableReceive = false;
+    
+  }
+  receivedLoans() {
+    this.enableForwarded = false;
+    this.enableReceive = true;
+    this.usersText = "ReceivedLoans"
+    
+  }
 
 }
 

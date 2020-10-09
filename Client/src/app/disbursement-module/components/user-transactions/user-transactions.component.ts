@@ -10,6 +10,8 @@ import * as moment from 'moment'
 export class UserTransactionsComponent implements OnInit {
   transactionsTable = []
   age = moment(new Date()).format('MM/DD/YYYY, h:mm:ss')
+  enableReceive: boolean = false;
+  loanText: string;
 
   constructor(private userTransactions:LandingService) { }
 
@@ -32,6 +34,13 @@ export class UserTransactionsComponent implements OnInit {
   }
   forward() {
     alert('forwarded')
+  }
+  receivedLoans() {
+    this.enableReceive = true;
+    this.loanText = "ReceivedLoans"
+  }
+  backToLoans(){
+    this.enableReceive = false;
   }
 
 

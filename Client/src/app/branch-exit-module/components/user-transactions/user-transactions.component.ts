@@ -12,6 +12,7 @@ export class UserTransactionsComponent implements OnInit {
   forWardedUsers = []
   age = moment(new Date()).format('MM/DD/YYYY, h:mm:ss')
   enableForwarded: boolean = false
+  enableReceive: boolean = false
   usersText: string = "RecievedUsers"
 
   constructor(private userTransactions:LandingService) { }
@@ -42,8 +43,15 @@ export class UserTransactionsComponent implements OnInit {
     this.usersText = "Forwarded Loans"
     
   }
-  recievedLoans() {
+  backLoans() {
     this.enableForwarded = false
+    this.enableReceive = false;
+    
+  }
+  receivedLoans() {
+    this.enableForwarded = false;
+    this.enableReceive = true;
+    this.usersText = "ReceivedLoans"
     
   }
 

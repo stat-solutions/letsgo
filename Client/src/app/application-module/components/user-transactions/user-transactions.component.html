@@ -17,7 +17,7 @@
           <div class="conditin m-2" *ngIf="checkTransactionsTable(transactionsTable); else noCustomer">
             <div class="mytable">
               <div class="text-center">
-                <h3 class="text-center" >{{enableForwarded?usersText:"ReceivedLoans"}}</h3>
+                <h3 class="text-center" >{{enableForwarded?usersText:"CreatedLoans"}}</h3>
               </div>
               <!--table-->
               <table class="table table-bordered" *ngIf="!enableForwarded; else forwarded">
