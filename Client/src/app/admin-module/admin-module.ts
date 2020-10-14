@@ -1,3 +1,4 @@
+import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
 import { ReportsComponent } from './components/reports/reports.component';
 import { ViewLoggedinUsersComponent } from './components/view-loggedin-users/view-loggedin-users.component';
 import { LogoutUsersComponent } from './components/logout-users/logout-users.component';
@@ -18,6 +19,8 @@ import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { ConstantsComponent } from './components/constants/constants.component';
 import {ApproveUsersComponent} from './components/approve-users/approve-users.component'
+import { BranchesComponent } from './components/branches/branches.component';
+import { CreateBranchComponent } from './components/create-branch/create-branch.component';
 
 
 
@@ -33,7 +36,10 @@ import {ApproveUsersComponent} from './components/approve-users/approve-users.co
     ApproveUsersComponent,
     LogoutUsersComponent,
     ViewLoggedinUsersComponent,
-    ReportsComponent
+    ReportsComponent,
+    BranchesComponent,
+    CreateBranchComponent,
+    EditProfileComponent
   ],
   imports: [
     CommonModule,

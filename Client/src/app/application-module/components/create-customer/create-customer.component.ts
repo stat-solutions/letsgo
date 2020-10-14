@@ -24,6 +24,7 @@ export class CreateCustomerComponent implements OnInit {
   mySubscription: any;
   positionValue: string;
   invalid: boolean = false;
+
   
   documents: Array<any> = [
     {

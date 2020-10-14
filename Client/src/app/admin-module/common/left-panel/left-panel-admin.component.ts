@@ -71,14 +71,34 @@ export class LeftPanelAdminComponent implements OnInit {
         url: '/admin/constants'
       },
       {
+        name: 'Branches',
+        icon: 'fa fa-code-branch',
+        url: '/admin/branch'
+      },
+      {
         name: 'Reports',
         icon: 'fas fa-file',
         url: '/admin/reports'
       },
       {
+        name: 'Users',
+        icon: 'fas fa-user',
+        url: '/admin/users'
+      },
+      {
+        name: 'Entities',
+        icon: 'fas fa-file',
+        url: '/admin/entities'
+      },
+      {
         name: 'LogOutUsers',
         icon: 'fas fa-users',
         url: '/admin/logout'
+      },
+      {
+        name: 'EditProfile',
+        icon: 'fas fa-user',
+        url: '/admin/editprofile'
       }
     ];
   }

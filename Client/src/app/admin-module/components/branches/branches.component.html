@@ -1,0 +1,61 @@
+<div class="container-fluid">
+  <div class="container">
+    <div class="row shadow-lg m-4">
+      <div class="col-md-4"> <i class="fas fa-code-branch">Branches</i></div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <label for="search">SearchByBranch</label>
+          <input type="text" name="" 
+          formConrolName = "searchText"
+          id="search" class="form-control"
+          (input)="getValue($event)"
+           placeholder="search by branchName"
+          >   
+        </div>
+        <div class="form-group">
+          <button class="btn btn-primary" (click)="getFormValue()">Search</button>
+        </div>
+      </div>
+      <div class="col-md-4">
+      	<div class="form-group">
+      		<button type="button" class="btn btn-info" (click)="createBranch()">CreateBranch</button>
+      	</div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="condition" *ngIf="checkTable(filteredBranches); else nobranch">
+         <div class="col-md-12 m-4"> 
+           <!--table-->
+           <table class="table table-bordered">
+            <thead class="table-dark">
+              <tr>
+                <th scope="col">BranchNo</th>
+                <th scope="col">BranchName</th>
+                <th scope="col">EntityName</th>
+                <th scope="col">District</th>
+                <th scope="col">Town</th>
+                <th scope="col">CreatedAt</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let branch of filteredBranches">
+                <td>{{branch.branchNo}}</td>
+                <td>{{branch.branchName}}</td>
+                <td>{{branch.entityName}}</td>
+                <td>{{branch.district}}</td>
+                <td>{{branch.town}}</td>
+                <td>{{branch.createdAt}}</td>
+              </tr>
+            </tbody>
+          </table>
+           <!--table-->
+         </div>
+      </div>
+      <div class="col-md-12">
+        <ng-template #nobranch>
+          <h2 class="text-center">No Branch Found</h2>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</div>
