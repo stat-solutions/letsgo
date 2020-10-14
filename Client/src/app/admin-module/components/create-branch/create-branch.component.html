@@ -1,0 +1,243 @@
+<div
+  class="container-fluid d-flex flex-row justify-content-center mb-0 mt-md-1 mt-1 pt-md-0 pt-0 pb-3 shadow-lg col-xs-12 col-lg-8"
+>
+  <div class="jumbotron-fluid mb-0 pb-0">
+    <div class="head-icon d-flex justify-content-center mt-3 mb-3 pb-0">
+      <img
+        class="mx-auto mb-0 pb-0"
+        src="assets/img/mafuta-logo-2b.svg"
+        width="35"
+        height="35"
+      />
+  </div>
+  <div class="card-body mt-1 pt-2 mb-0 pb-3 shadow-lg">
+    <h3 class="text-info d-flex justify-content-center mt-2 pt-1 mb-3">
+      create Branch
+    </h3>
+    <form [formGroup]="userForm" (ngSubmit)="register()">
+      <div class="form-group text-primary">
+        <label
+          for="branch_name"
+          [ngClass]="fval.branch_name.valid ? 'text-info' : ''"
+          ><i *ngIf="fval.branch_name.valid" class="material-icons"
+            >check_circle</i
+          >BranchName</label
+        >
+        <div class="input-group mb-2">
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              <i class="fas fa-wallet text-primary mx-auto" style="size: 50px;">
+              </i>
+            </div>
+          </div>
+          <input
+            id="branch_name"
+            formControlName="branch_name"
+            type="text"
+            required
+            class="form-control"
+            [ngClass]="{
+              'is-invalid':
+                (fval.branch_name.touched || fval.branch_name.dirty) &&
+                fval.branch_name.errors
+            }"
+            placeholder="Enter branch_name"
+            autocomplete="off"
+          />
+        </div>
+        <div
+          class="text-danger col"
+          *ngIf="
+            (fval.branch_name.touched || fval.branch_name.dirty) &&
+            fval.branch_name.errors?.required
+          "
+        >
+          The branch_name is required!
+        </div>
+        <div
+        class="text-danger col"
+        *ngIf="
+          (fval.branch_name.touched || fval.branch_name.dirty) &&
+          fval.branch_name.errors?.minlength
+        "
+      >
+        Atleast two character required
+      </div>
+
+      </div>
+      <!--entity-name-->
+       <div class="form-group text-primary">
+        <label
+          for="position"
+          [ngClass]="fval.entityName.valid ? 'text-info' : ''"
+          ><i *ngIf="fval.entityName.valid" class="material-icons"
+            >check_circle</i
+          >EntityName</label
+        >
+        <div class="input-group mb-2">
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              <i class="fas fa-code text-primary mx-auto" style="size: 50px;">
+              </i>
+            </div>
+          </div>
+          <select
+          formControlName="entityName"
+          class="form-control"
+          [ngClass]="{
+            'is-invalid':
+              (fval.entityName.touched || fval.entityName.dirty) &&
+              fval.entityName.errors
+          }"
+          autocomplete="off"
+          placeholder="Select a branch"
+          (change) ="getEntityName($event)"
+          required
+        >
+        <option value="" selected disabled>selectEntityName</option>
+        <option *ngFor="let entity of entity_name" [ngValue]="entity">{{entity}}</option>
+
+        </select>
+    </div>
+        <div
+          class="text-danger col"
+          *ngIf="
+            (fval.entityName.touched || fval.entityName.dirty) &&
+            fval.entityName.errors?.required
+          "
+        >
+          The entity name is required!
+        </div>
+      </div>
+
+      <!--entity-name-->
+
+      
+
+      <div class="form-group text-primary">
+        <label
+          for="district"
+          [ngClass]="fval.district.valid ? 'text-info' : ''"
+          ><i *ngIf="fval.district.valid" class="material-icons"
+            >check_circle</i
+          >District</label
+        >
+        <div class="input-group mb-2">
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              <i class="fas fa-wallet text-primary mx-auto" style="size: 50px;">
+              </i>
+            </div>
+          </div>
+          <input
+            id="district"
+            formControlName="district"
+            type="text"
+            required
+            class="form-control"
+            [ngClass]="{
+              'is-invalid':
+                (fval.district.touched || fval.district.dirty) &&
+                fval.district.errors
+            }"
+            placeholder="Enter district"
+            autocomplete="off"
+          />
+        </div>
+        <div
+          class="text-danger col"
+          *ngIf="
+            (fval.district.touched || fval.district.dirty) &&
+            fval.district.errors?.required
+          "
+        >
+          The district is required!
+        </div>
+       
+
+      </div>
+
+
+       
+
+<div class="form-group text-primary">
+        <label for="town" [ngClass]="fval.town.valid ? 'text-info' : ''"
+          >Town<i *ngIf="fval.town.valid" class="material-icons"
+            >check_circle</i
+          ></label
+        >
+        <div class="input-group mb-1">
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              <i
+                class="fas fa-user-lock text-primary mx-auto"
+                style="size: 50px;"
+              ></i>
+            </div>
+          </div>
+          <input
+            id="town"
+            formControlName="town"
+            type="text"
+            required
+            class="form-control"
+            [ngClass]="{
+              'is-invalid':
+                (fval.town.touched || fval.town.dirty) && fval.town.errors
+            }"
+            placeholder="Enter town"
+            autocomplete="off"
+          />
+        </div>
+        <div
+          class="text-danger col"
+          *ngIf="
+            (fval.town.touched || fval.town.dirty) &&
+            fval.town.errors?.required
+          "
+        >
+          The town  is required!
+        </div>
+      </div>  
+      
+       <div
+          class="text-danger col"
+          *ngIf="invalid"
+        >
+          all fields are required
+        </div>  
+      <div class="d-flex my-2 py-2 mx-auto">
+        <button
+          type="submit"
+          class="btn btn-info col-5 mx-auto"  
+        >
+          Create
+        </button>
+
+        <button
+          type="button"
+          class="btn btn-info col-5 mx-auto"
+          (click)="returnHome()"
+          routerLink = "/authpage/login"
+        >
+          Cancel
+        </button>
+      </div>
+    </form>
+    <!-- </div>  -->
+    <!-- </div>   -->
+  </div>
+  <!--footer -->
+    <div
+      class="d-flex justify-content-center col-xs-12 col-lg-12 mt-3 mb-2 mx-auto"
+    >
+      <div class="small text-center text-primo">
+       &copy; 2020 - LoanLead
+      </div>
+    </div>
+    <!--/ footer -->
+  </div>
+</div>
+
+
+

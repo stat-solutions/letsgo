@@ -24,11 +24,20 @@ import { LoanApplicationModule } from './application-module/loanapplication.modu
 import { ConstantsComponent } from './admin-module/components/constants/constants.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
+import { CustomerDetailsComponent } from './admin-module/components/customer-details/customer-details.component';
+import { EntitiesComponent } from './admin-module/components/entities/entities.component';
+import { UsersComponent } from './admin-module/components/users/users.component';
+import { CustomersComponent } from './admin-module/components/customers/customers.component';
+
 
 
 @NgModule({
   declarations: [
-    AppComponent],
+    AppComponent,
+    CustomerDetailsComponent,
+    EntitiesComponent,
+    UsersComponent,
+    CustomersComponent],
   imports: [
     HttpClientModule,
     AdminModule,
