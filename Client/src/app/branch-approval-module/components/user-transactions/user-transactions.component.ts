@@ -1,105 +1,192 @@
+import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { LandingService } from './../../../shared/services/landing.service';
-import { Component, OnInit } from '@angular/core';
-import * as moment from 'moment'
-import { truncate } from 'fs';
+import { Component, OnInit , OnChanges, TemplateRef} from '@angular/core';
+import {BsModalService, BsModalRef} from 'ngx-bootstrap/modal';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-user-transactions',
   templateUrl: './user-transactions.component.html',
   styleUrls: ['./user-transactions.component.scss']
 })
-export class UserTransactionsComponent implements OnInit {
-  transactionsTable = []
-  forWardedUsers = []
+export class UserTransactionsComponent implements OnInit{
+  receivedLoans = [];
+  forwardedLoansFrom = [];
+  makeLoansReceived = [];
+  makeLoansDeffered = [];
+  makeLoansRejected = [];
+  forwardedLoansTo = [];
   age = moment(new Date()).format('MM/DD/YYYY, h:mm:ss')
-  enableApprove: boolean = false;
-  enableDeffered: boolean = false
   usersText: string = "RecievedUsers";
-  enableReceive: boolean = false;
-  enableReject: boolean = false;
-  enableForward:boolean = false;
-  constructor(private userTransactions:LandingService) { }
+  checkAll: boolean = true;
+  receiveGroupLoans: FormGroup;
+  createError:boolean = false;
+  enableReceive:boolean = false;
+  enableForwardedFrom: boolean = true;
+  enableForwardedTo:boolean;
+  enableApprove:boolean = false;
+  enableDeffered:boolean = false;
+  enableRejected:boolean = false;
+  bsModalRef:BsModalRef;
+  levels = ['Application','BranchExit', 'LoanAdministrationExit'];
+
+
+  constructor(private userTransactions:LandingService, 
+    private fb:FormBuilder, private bsModalService:BsModalService) { }
 
   ngOnInit() {
     setTimeout(() => {
       this.userTransactions.getSpecificCustomers('Application').subscribe(userData => {
-       this.transactionsTable = userData.map(eachUser => {
+       this.forwardedLoansFrom = userData.map(eachUser => {
           const oldDate = eachUser.CreatedAt
           const diffInDates = moment(this.age).diff(moment(oldDate))
           const timeInMonths = moment(diffInDates).format('MM [months] DD [days]')
           return { ...eachUser, TotalAge:timeInMonths }
         })
+        this.receiveGroupLoans = this.createGroupLoans();
+       // this.receivedLoans.push(this.forwardedLoansFrom[0])
 
       })
-    }, 3000)
-    console.log(this.transactionsTable)
+    }, 0)
+    
   }
+    createGroupLoans() {
+    return this.fb.group({
+      selected: this.enableForwardedFrom?
+      this.createFormControls(this.forwardedLoansFrom):
+      this.createFormControls(this.receivedLoans),
+      selectedAll:this.enableForwardedFrom?[false]:[false]
+    })
+  }
+  createFormControls(arrayLoans:Array<any>) {
+    console.log(arrayLoans.length)
+    let arrOfControls = arrayLoans.map(element => {
+      return this.fb.control(false)
+    })
+    return this.fb.array(arrOfControls)
+  }
+  get FormArrayControls(){
+    return <FormArray>this.receiveGroupLoans.get('selected')
+  }
+  closeModal(){
+    this.bsModalRef.hide()
+  }
+
+   getSelectedLoans(template:TemplateRef<any>){
+     this.makeLoansReceived = []
+     this.FormArrayControls.controls.forEach((control, i)=>{
+       if (control.value) {
+         console.log(control.value)
+         this.bsModalRef =  this.bsModalService.show(template)
+         this.closeModal()
+       }
+         
+        //  if(!this.enableReceive&&!this.enableApprove!this.enableReceive&&!this.enableRejected){
+        //    this.bsModalRef = this.bsModalService.show(template)          //this.receivedLoans.push(this.forwardedLoansFrom[i])
+        //  }
+     })
+   
+   }
+   getSelectedLoansWithNoComments(){
+     this.makeLoansReceived = [];
+     this.FormArrayControls.controls.forEach((control, i)=>{
+       if (control.value) {
+         
+       }
+
+     })
+     
+
+   }
+   
+  
   checkTransactionsTable(array: Array<any>) {
     return array.length?true:false
   }
-  forward() {
-    alert('forwarded')
-  }
+  receiveAllLoans(val:boolean){
+    this.checkAll = !val
+    console.log(val)
+    if(val){
+      this.FormArrayControls.controls.forEach((control, i)=>{
+        control.setValue(true)
+        return control.disable()
+      })
+//this.forwardedLoans = []
 
-  approvedLoans() {
-    this.enableApprove = true;
-    this.enableDeffered = false;
-    this.enableForward = false;
-    this.enableReject = false;
-    this.enableReceive = false;
-    this.usersText = "Approved Loans"
-    
+    }
+    else{
+      this.FormArrayControls.controls.forEach((control, i)=>{
+        control.setValue(false)
+        return control.enable()
+      })
+     this.makeLoansReceived = []
+
+    }
+
   }
-  defferedLoans() {
-    this.enableDeffered = true;
-    this.enableApprove = false;
-    this.enableForward = false;
-    this.enableReject = false;
-    this.enableReceive = false;
-    this.usersText = "Deffered Loans"
-    
-  }
-  receivedLoans() {
-    this.enableApprove = false;
-    this.enableDeffered = false;
-    this.enableForward = false;
-    this.enableReject = false;
+  branchApprovalReceivedLoans() {
+    console.log('received')
+    this.receivedLoans.push(this.forwardedLoansFrom[0])
     this.enableReceive = true;
-    this.usersText = "ReceivedLoans"
-  }
-  receiveLoan() {
-    // this.enableApprove = false;
-    // this.enableDeffered = false;
-    // this.enableForward = false;
-    // this.enableReject = false;
-    // this.enableReceive = true;
-    
-  }
-  backLoans() {
+    this.enableForwardedFrom = false;
     this.enableApprove = false;
+    this.enableRejected = false;
     this.enableDeffered = false;
-    this.enableForward = false;
-    this.enableReject = false;
-    this.enableReceive = false;
+    this.usersText = "Received Loans";
+    this.receiveGroupLoans = this.createGroupLoans();
+  
+  }
+
+  onSubmit(){
+    if(this.enableForwardedFrom){
+      console.log('receive')
+    }
+    else{
+      console.log('not received')
+    }
+         if(this.receivedLoans.length){
+       this.createError = false
+     }
+     else return this.createError = true;
+     console.log(this.receivedLoans)
 
   }
-  rejectedLoans() {
-    this.enableApprove = false;
-    this.enableDeffered = false;
-    this.enableForward = false;
-    this.enableReject = true;
-    this.enableReceive = false;
-    this.usersText = "RejectedLoans"    
-  }
-  forwardedLoans() {
-    this.enableApprove = false;
-    this.enableDeffered = false;
-    this.enableForward = true;
-    this.enableReject = false;
-    this.enableReceive = false;
-    this.usersText = "ForwardedLoans"    
-  }
+   branchApprovalForwardedLoans(){
+     this.enableReceive = false;
+     this.enableForwardedFrom = true;
+     this.enableApprove = false;
+     this.enableRejected = false;
+     this.enableDeffered =false
+     this.receiveGroupLoans = this.createGroupLoans();
+   }
+   rejectLoan(){
+     this.receivedLoans.push(this.forwardedLoansFrom[0])
+     this.enableReceive = false;
+     this.enableForwardedFrom = false;
+     this.enableApprove = false;
+     this.enableRejected = true;
+     this.enableDeffered =false;
+     this.receiveGroupLoans = this.createGroupLoans();
+   }
+   defferLoan(){
+     this.receivedLoans.push(this.forwardedLoansFrom[0])
+     this.enableReceive = false;
+     this.enableForwardedFrom = false;
+     this.enableApprove = false;
+     this.enableRejected = false;
+     this.enableDeffered = true;
+     this.receiveGroupLoans = this.createGroupLoans();
+   }
+   approveLoans(){
+     this.receivedLoans.push(this.forwardedLoansFrom[0])
+     this.enableReceive = false;
+     this.enableForwardedFrom = false;
+     this.enableApprove = true;
+     this.enableRejected = false;
+     this.enableDeffered = false;
+     this.receiveGroupLoans = this.createGroupLoans();
+   }
+
 
 
 }
-

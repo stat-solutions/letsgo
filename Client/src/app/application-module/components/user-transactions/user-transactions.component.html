@@ -8,28 +8,18 @@
               <i class="fas fa-user">User</i>
             </h1>
           </div>
-          <div class="col-md-4 colxs-12 col-sm-12">
-             <button 
-             class="btn btn-success m-4" type="button" (click)="applicationReceivedLoans()"><i class="fa fa-forward">ReceivedLoans</i></button>
-          </div>
-        </div>
-        <div class="col-md-12">
-          <div class="conditin m-2" *ngIf="checkTransactionsTable(forwardedLoans); else noCustomer">
-            <div class="mytable">
-              <div class="text-center">
-                <h3 class="text-center" >{{enableReceive?usersText:"CreatedLoans"}}</h3>
-              </div>
-              <form [formGroup]="receiveGroupLoans" (ngSubmit)="onSubmit()">
-                <div class="form-group">
-                  <input type="checkbox"  id="select"
-                  (click)="receiveAllLoans(checkAll)"
-                  >
-                  <label for="select">ReceiveAllLoans</label>
-                </div>
+          
+                   <!--receiveUsers-->
+                   <div class="myn m-4 p-3">
+                    <!--receivedusers-->
+                    <div class="length" *ngIf="checkTransactionsTable(receivedLoans); else noreceived">
+                      <!--receivedtable-->
+                       <form [formGroup]="receiveGroupLoans" (ngSubmit)="onSubmit()">
+                      <h3 class="text-center" >Received</h3>
                 <!---table->
 
                   --table-->
-                  <table class="table table-bordered" *ngIf="!enableReceive; else received">
+                  <table class="table table-bordered m-4">
                      <thead class="table-dark" >
                     <tr>
                       <th>Actions</th>
@@ -37,13 +27,13 @@
                       <th scope="col">Customer</th>
                       <th scope="col">LoanType</th>
                       <th scope="col">LoanProduct</th>
-                      <th scope="col">Tenure(years)</th>
+                      <th scope="col">Tenure</th>
                       <th scope="col">Amount(shs)</th>
                       <th scope="col">Stage</th>
                       <th scope="col">Status</th>
                       <th scope="col">LoanMovedBy</th>
                       <th scope="col">StageAt</th>
-                      <th scope="col">HowLong(years)</th>
+                      <th scope="col">HowLong</th>
                       <th scope="col">CreatedAt</th>
                       <th scope="col">TotalAge</th>
                     </tr>
@@ -53,203 +43,63 @@
                       <th>
                       <input type="checkbox" required name="check" 
                       [formControl]="control"
-                      id="checkbox{{i}}" (change)="getSelectedLoans()">
+                      id="checkbox{{i}}" (change)="getSelectedLoans(template)">
                       <label for="checkbox{{i}}">Receive</label>
                       <p *ngIf="createError">AtleastReceiveOne</p>
                       </th>
-                      <th>{{forwardedLoans[i].Id}}</th>
-                      <th>{{forwardedLoans[i].Customer}}</th>
-                      <th>{{forwardedLoans[i].LoanType}}</th>
-                      <th>{{forwardedLoans[i].LoanProduct}}</th>
-                      <th>{{forwardedLoans[i].Tenure}}</th>
-                      <th>{{forwardedLoans[i].Amount}}</th>
-                      <th>{{forwardedLoans[i].Stage}}</th>
-                      <th>{{forwardedLoans[i].Status}}</th>
-                      <th>{{forwardedLoans[i].LoanMovedBy}}</th>
-                      <th>{{forwardedLoans[i].StageAt}}</th>
-                      <th>{{forwardedLoans[i].HowLong}}</th>
-                      <th>{{forwardedLoans[i].CreatedAt}}</th>
-                      <th>{{forwardedLoans[i].TotalAge}}</th>
+                      <th>{{receivedLoans[i].Id}}</th>
+                      <th>{{receivedLoans[i].Customer}}</th>
+                      <th>{{receivedLoans[i].LoanType}}</th>
+                      <th>{{receivedLoans[i].LoanProduct}}</th>
+                      <th>{{receivedLoans[i].Tenure}}</th>
+                      <th>{{receivedLoans[i].Amount}}</th>
+                      <th>{{receivedLoans[i].Stage}}</th>
+                      <th>{{receivedLoans[i].Status}}</th>
+                      <th>{{receivedLoans[i].LoanMovedBy}}</th>
+                      <th>{{receivedLoans[i].StageAt}}</th>
+                      <th>{{receivedLoans[i].HowLong}}</th>
+                      <th>{{receivedLoans[i].CreatedAt}}</th>
+                      <th>{{receivedLoans[i].TotalAge}}</th>
                     </tr>
                   </tbody>
                   </table>
+            <ng-template #template>
+              <div class="modal-header">
+                <h4 class="modal-title pull-left">Letsgo Uganda Limited</h4>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="closeModal()">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
                 <div class="form-group">
-                  <button type="submit" class="btn btn-primary"
-                  >Finish</button>
+                  <label for="c">Comment</label>
+                  <input type="text" name="" id="c" class="form-control" placeholder="Enter comment">
                 </div>
-
+                <div class="form-group" >
+                  <button type="submit" class="btn btn-primary"
+                  >Forward</button>
+                </div>
+                <div class="form-group" >
+                  <button type="submit" class="btn btn-primary"
+                  >Cancel</button>
+                </div>
+              </div>
+        </ng-template>
               </form>
-              <ng-template #received>
-                
-                <!--received-->
-                 <table class="table table-bordered" >
-                <thead class="table-dark" >
-                  <tr>
-                    <th scope="col">Actions</th>
-                    <th scope="col">ID</th>
-                    <th scope="col">Customer</th>
-                    <th scope="col">LoanType</th>
-                    <th scope="col">LoanProduct</th>
-                    <th scope="col">Tenure(years)</th>
-                    <th scope="col">Amount(shs)</th>
-                    <th scope="col">Stage</th>
-                    <th scope="col">Status</th>
-                    <th scope="col">LoanMovedBy</th>
-                    <th scope="col">StageAt</th>
-                    <th scope="col">HowLong(years)</th>
-                    <th scope="col">CreatedAt</th>
-                    <th scope="col">TotalAge</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let loans of forwardedLoans">
-                    <th>
-                      --<button class="">
-                        <i class="fas fa-ellipsis-v" style="cursor: pointer;"></i>
-                      </button>--
-                      <div class="dropdown">
-                        <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          <i class="fas fa-ellipsis-v" style="cursor: pointer;"></i>
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                          <a class="dropdown-item" (click)="forward()" style="cursor: pointer;">Forward</a>
-                        </div>
-                      </div>
-                      
-                    </th>
-                    <th>{{loans.Id}}</th>
-                    <th>{{loans.Customer}}</th>
-                    <th>{{loans.LoanType}}</th>
-                    <th>{{loans.LoanProduct}}</th>
-                    <th>{{loans.Tenure}}</th>
-                    <th>{{loans.Amount}}</th>
-                    <th>{{loans.Stage}}</th>
-                    <th>{{loans.Status}}</th>
-                    <th>{{loans.LoanMovedBy}}</th>
-                    <th>{{loans.StageAt}}</th>
-                    <th>{{loans.HowLong}}</th>
-                    <th>{{loans.CreatedAt}}</th>
-                    <th>{{loans.TotalAge}}</th>
-                    
-                  </tr>
-                  <tr>
-                </tbody>
-              </table>
-                <!--received-->
-              </ng-template>
+                    </div>
+                    <ng-template #noreceived>
+                      <h2>No users yet</h2>
+                    </ng-template>
+
+                    <!--reeivedUsers-->
+
+                     
+                   </div>
+                   <!--receiveUsers-->
 
 
-              <!----              --table--
-              <table class="table table-bordered" *ngIf="!enableForwarded; else forwarded">
-                <thead class="table-dark" >
-                  <tr>
-                    <th scope="col">Actions</th>
-                    <th scope="col">ID</th>
-                    <th scope="col">Customer</th>
-                    <th scope="col">LoanType</th>
-                    <th scope="col">LoanProduct</th>
-                    <th scope="col">Tenure(years)</th>
-                    <th scope="col">Amount(shs)</th>
-                    <th scope="col">Stage</th>
-                    <th scope="col">Status</th>
-                    <th scope="col">LoanMovedBy</th>
-                    <th scope="col">StageAt</th>
-                    <th scope="col">HowLong(years)</th>
-                    <th scope="col">CreatedAt</th>
-                    <th scope="col">TotalAge</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let loans of transactionsTable">
-                    <th>
-                      --<button class="">
-                        <i class="fas fa-ellipsis-v" style="cursor: pointer;"></i>
-                      </button>--
-                      <div class="dropdown">
-                        <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          <i class="fas fa-ellipsis-v" style="cursor: pointer;"></i>
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                          <a class="dropdown-item" (click)="forward()" style="cursor: pointer;">Forward</a>
-                        </div>
-                      </div>
-                      
-                    </th>
-                    <th>{{loans.Id}}</th>
-                    <th>{{loans.Customer}}</th>
-                    <th>{{loans.LoanType}}</th>
-                    <th>{{loans.LoanProduct}}</th>
-                    <th>{{loans.Tenure}}</th>
-                    <th>{{loans.Amount}}</th>
-                    <th>{{loans.Stage}}</th>
-                    <th>{{loans.Status}}</th>
-                    <th>{{loans.LoanMovedBy}}</th>
-                    <th>{{loans.StageAt}}</th>
-                    <th>{{loans.HowLong}}</th>
-                    <th>{{loans.CreatedAt}}</th>
-                    <th>{{loans.TotalAge}}</th>
-                    
-                  </tr>
-                  <tr>
-                </tbody>
-              </table>
-  
-              --table--
-              --loanStatus--
-              <ng-template #forwarded>
-                 --forwaded--
-                 <table class="table table-bordered">
-                  <thead class="table-dark" >
-                    <tr>
-                      <th scope="col">ID</th>
-                      <th scope="col">Customer</th>
-                      <th scope="col">LoanType</th>
-                      <th scope="col">LoanProduct</th>
-                      <th scope="col">Tenure(years)</th>
-                      <th scope="col">Amount(shs)</th>
-                      <th scope="col">Stage</th>
-                      <th scope="col">Status</th>
-                      <th scope="col">LoanMovedBy</th>
-                      <th scope="col">StageAt</th>
-                      <th scope="col">HowLong(years)</th>
-                      <th scope="col">CreatedAt</th>
-                      <th scope="col">TotalAge</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr *ngFor="let loans of transactionsTable">
-                      <th>{{loans.Id}}</th>
-                      <th>{{loans.Customer}}</th>
-                      <th>{{loans.LoanType}}</th>
-                      <th>{{loans.LoanProduct}}</th>
-                      <th>{{loans.Tenure}}</th>
-                      <th>{{loans.Amount}}</th>
-                      <th>{{loans.Stage}}</th>
-                      <th>{{loans.Status}}</th>
-                      <th>{{loans.LoanMovedBy}}</th>
-                      <th>{{loans.StageAt}}</th>
-                      <th>{{loans.HowLong}}</th>
-                      <th>{{loans.CreatedAt}}</th>
-                      <th>{{loans.TotalAge}}</th>
-                      
-                    </tr>
-                    <tr>
-                  </tbody>
-                </table>
-              
-                 --forwarded--
-              </ng-template>--->
-              
-            
-              
-            </div>
-            
-          </div>
-          <ng-template #noCustomer>
-            <div class="container shadow-lg">
-              <h2 class="text-center">Loading...</h2>
-            </div>
-          </ng-template>
+                  
+                  
         </div>
         <!--footer-->
         <div class="container mt-3 mb-2 pb-2">

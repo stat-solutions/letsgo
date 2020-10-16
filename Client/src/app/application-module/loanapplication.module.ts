@@ -18,7 +18,9 @@ import { CreateCustomerComponent } from './components/create-customer/create-cus
 import { EditUserProfileComponent } from './components/edit-user-profile/edit-user-profile.component';
 import { UserTransactionsComponent } from './components/user-transactions/user-transactions.component';
 import { CustomersComponent } from './components/customers/customers.component';
-import { ReportsComponent } from './components/reports/reports.component';
+import { ReportsComponent } from './components/reports/reports.component'
+import  {ModalModule} from 'ngx-bootstrap/modal'
+
 
 
 @NgModule({
@@ -35,6 +37,7 @@ import { ReportsComponent } from './components/reports/reports.component';
     UserTransactionsComponent,
     CustomersComponent,
     ReportsComponent,
+
   ],
   imports: [
     CommonModule,
@@ -44,8 +47,9 @@ import { ReportsComponent } from './components/reports/reports.component';
     NgxSpinnerModule,
     DatepickerModule,
     BsDatepickerModule,
+    ModalModule.forRoot(),
     AlertModule.forRoot({maxMessages: 5, timeout: 7000}),
-    TooltipModule.forRoot()
-  ],
+    TooltipModule.forRoot(),
+  ]
 })
 export class LoanApplicationModule { }

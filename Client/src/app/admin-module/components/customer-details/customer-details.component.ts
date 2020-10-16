@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import  {ActivatedRoute} from '@angular/router';
-import {CustomerService} from '../../../../app/shared/services/customer.service'
+import {LandingService} from '../../../../app/shared//services/landing.service'
 
 
 @Component({
@@ -11,20 +11,16 @@ import {CustomerService} from '../../../../app/shared/services/customer.service'
 export class CustomerDetailsComponent implements OnInit {
 	customerDetails = []
 
-  constructor(private ActivatedRoute:ActivatedRoute, private cusomerService:CustomerService) { }
+  constructor(private ActivatedRoute:ActivatedRoute, private customerService:LandingService) { }
 
   ngOnInit() {
-  	this.ActivatedRoute.paramMap.subscribe(paramater=>{
-  		const id = +paramater.get('customerid')
-  		 this.cusomerService.getCustomer(id).subscribe(customerid=>{
-  			const customerInfo  = Object.assign({}, customerid);
-  			console.log(customerInfo)
-  			this.customerDetails.push(customerInfo)
-  		})
+  	this.ActivatedRoute.paramMap.subscribe(param=>{
+  		const id = +param.get('customerid');
+  	    this.customerService.getCustomerDetails(id).subscribe(customer=>{
+  	    	this.customerDetails.push(customer)
+  	    })
   	})
   }
-  checkCustomerTable(array:Array<any>){
-  	return array.length?true:false
-  }
+ 
 
 }

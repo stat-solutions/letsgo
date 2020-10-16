@@ -242,59 +242,32 @@
           The tenure is required!
         </div>
       </div>
-
-      <!--security-->
-      <div class="form-group text-primary">
-        <label
-          for="position"
-          [ngClass]="fval.security.valid ? 'text-info' : ''"
-          ><i *ngIf="fval.security.valid" class="material-icons"
-            >check_circle</i
-          >Security</label
-        >
-        <div class="input-group mb-2">
-          <div class="input-group-prepend">
-            <div class="input-group-text">
-              <i class="fas fa-key text-primary mx-auto" style="size: 50px;">
-              </i>
-            </div>
-          </div>
-          <select
-          formControlName="security"
-          class="form-control"
-          [ngClass]="{
-            'is-invalid':
-              (fval.security.touched || fval.security.dirty) &&
-              fval.security.errors
-          }"
-          autocomplete="off"
-          placeholder="Select a security"
-          (change) ="getSecurity($event)"
-          required
-          multiple
-        >
-        <option value="" selected disabled>selectSecurities</option>
-        <option *ngFor="let security of securities" [ngValue]="security">{{security}}</option>
-
-        </select>
-    </div>
-        <div
-          class="text-danger col"
-          *ngIf="
-            (fval.security.touched || fval.security.dirty) &&
-            fval.security.errors?.required
-          "
-        >
-          The loan_type is required!
-        </div>
+      <!--securities-->
+      <label for="">Choose Securities</label>
+      <div class="form-group form-check">
+        <input type="checkbox" 
+        (click)="getAllSecurities(checkAllSecurities)"
+        id="checks">
+        <label for="checks">CheckAllSecurities</label>
       </div>
-
-    
-      <!---->
-
       
+        <div class="form-group form-check" *ngFor="let security of FormArrayControls.controls; let i = index ">
+          <div class="form-control">
+             <input type="checkbox" 
+             [formControl]="security"
+             required 
+             (change) = "getSecuritiesChecked()"
+             class="m-2" id="checkbox{{i}}">
+            <label  for="checkbox{{i}}">{{securities[i]}}</label>
+          </div>
+          <div class="text-center">
+            <p *ngIf="error" class="text-danger">Atleast one security is required</p>
+          </div>
+   
+  </div>
 
 
+          <!---->
       <div
           class="text-danger col"
           *ngIf="invalid"

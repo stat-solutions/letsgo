@@ -17,7 +17,7 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
 //import { EditUserProfileComponent } from './components/edit-profile/edit-profile.component';
 import { CustomersComponent } from './components/customers/customers.component';
 import { UserTransactionsComponent } from './components/user-transactions/user-transactions.component';
-
+import {ModalModule} from 'ngx-bootstrap/modal';
 
 @NgModule({
   declarations: [
@@ -39,6 +39,7 @@ import { UserTransactionsComponent } from './components/user-transactions/user-t
     NgxSpinnerModule,
     DatepickerModule,
     BsDatepickerModule,
+    ModalModule.forRoot(),
     AlertModule.forRoot({maxMessages: 5, timeout: 7000}),
     TooltipModule.forRoot()
   ],

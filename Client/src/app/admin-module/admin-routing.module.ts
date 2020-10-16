@@ -70,7 +70,7 @@ const routes: Routes = [
         component:UsersComponent
       },
       {
-        path:"entites",
+        path:"entities",
         component:EntitiesComponent
       }
       

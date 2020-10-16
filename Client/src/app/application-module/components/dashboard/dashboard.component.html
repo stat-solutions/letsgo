@@ -53,7 +53,7 @@
                 </tr>
               </thead>
               <tbody >
-                <tr *ngFor="let loans of filteredLoans" class="click" (click)=clickOnCustomer(loans.Id)>
+                <tr *ngFor="let loans of filteredLoans" class="click">
                   <th>{{loans.Id}}</th>
                   <th>{{loans.Customer}}</th>
                   <th>{{loans.LoanType}}</th>

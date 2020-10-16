@@ -21,7 +21,11 @@ import { ConstantsComponent } from './components/constants/constants.component';
 import {ApproveUsersComponent} from './components/approve-users/approve-users.component'
 import { BranchesComponent } from './components/branches/branches.component';
 import { CreateBranchComponent } from './components/create-branch/create-branch.component';
+import {CustomerDetailsComponent} from './components/customer-details/customer-details.component';
+import {UsersComponent} from './components/users/users.component';
+import {EntitiesComponent} from './components/entities/entities.component';
 
+import {NgxPaginationModule} from 'ngx-pagination';
 
 
 @NgModule({
@@ -39,7 +43,10 @@ import { CreateBranchComponent } from './components/create-branch/create-branch.
     ReportsComponent,
     BranchesComponent,
     CreateBranchComponent,
-    EditProfileComponent
+    EditProfileComponent,
+    CustomerDetailsComponent,
+    UsersComponent,
+    EntitiesComponent
   ],
   imports: [
     CommonModule,
@@ -48,6 +55,7 @@ import { CreateBranchComponent } from './components/create-branch/create-branch.
     ReactiveFormsModule,
     NgxSpinnerModule,
     DatepickerModule,
+    NgxPaginationModule,
     BsDatepickerModule,
     AlertModule.forRoot({maxMessages: 5, timeout: 7000}),
     TooltipModule.forRoot()

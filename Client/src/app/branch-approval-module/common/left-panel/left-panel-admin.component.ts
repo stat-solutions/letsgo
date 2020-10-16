@@ -51,7 +51,7 @@ export class LeftPanelAdminComponent implements OnInit {
     this.menuList = [
       {
         name: 'Dashboard',
-        icon: 'fas fa-tachometer-ait',
+        icon: 'fas fa-tachometer-alt',
         url: '/branchapproval/dashboard'
       },
       {

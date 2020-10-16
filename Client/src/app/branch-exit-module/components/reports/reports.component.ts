@@ -31,7 +31,7 @@ export class ReportsComponent implements OnInit {
     { id: 2, reportType: "Comprehensive report" },
   ]
 
-  constructor(private fb: FormBuilder, private spinner: NgxSpinnerService, private router: Router) { }
+  constructor(private fb :FormBuilder, private spinner:NgxSpinnerService, private router:Router) { }
 
   ngOnInit() {
     this.myDateValue = new Date();
@@ -47,25 +47,12 @@ export class ReportsComponent implements OnInit {
   }
   createFormGroup() {
     return new FormGroup({
-      user_contact_number: new FormControl(
-        '',
-        Validators.compose([
-          Validators.required,
-          CustomValidator.patternValidator(
-            /^(([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9]))$/,
-            { hasNumber: true }
-          )
-        ])
-      ),
-      start_date: new FormControl(
+      range_date: new FormControl(
         '',
         Validators.compose([Validators.required])
       ),
 
-      end_date: new FormControl(
-        '',
-        Validators.compose([Validators.required])
-      ),
+      
       report_type: this.fb.control(
         '',
         Validators.compose([Validators.required])
@@ -86,5 +73,9 @@ export class ReportsComponent implements OnInit {
   register() {
     
   }
+  
+  
+
+
 
 }

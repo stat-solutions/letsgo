@@ -32,7 +32,7 @@ export class DashboardComponent implements OnInit {
        
 
       })
-    },3000)
+    },0)
 
        this.formGroup = this.fb.group({
          search_term:['']

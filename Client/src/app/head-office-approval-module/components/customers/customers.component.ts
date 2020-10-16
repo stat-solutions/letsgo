@@ -15,7 +15,7 @@ export class CustomersComponent implements OnInit {
       this.customer.getCustomers().subscribe(data => {
         this.customerTable = data
       })
-    }, 3000)
+    }, 0)
 
   }
   checkTable(array:Array<any>){

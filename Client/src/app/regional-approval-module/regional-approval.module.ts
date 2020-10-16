@@ -18,7 +18,7 @@ import {EditProfileComponent } from './components/edit-profile/edit-profile.comp
 import { CustomersComponent } from './components/customers/customers.component';
 import { UserTransactionsComponent } from './components/user-transactions/user-transactions.component';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-
+import {ModalModule} from 'ngx-bootstrap/modal';
 
 @NgModule({
   declarations: [
@@ -43,6 +43,7 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
     DatepickerModule,
     BsDatepickerModule,
     BsDropdownModule,
+    ModalModule.forRoot(),
     AlertModule.forRoot({maxMessages: 5, timeout: 7000}),
     TooltipModule.forRoot()
   ],

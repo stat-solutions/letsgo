@@ -23,6 +23,7 @@ import { ReportsComponent } from './components/reports/reports.component';
 
 import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
 import { UserTransactionsComponent } from './components/user-transactions/user-transactions.component';
+import {ModalModule} from 'ngx-bootstrap/modal';
 
 
 @NgModule({
@@ -46,6 +47,7 @@ import { UserTransactionsComponent } from './components/user-transactions/user-t
     NgxSpinnerModule,
     DatepickerModule,
     BsDatepickerModule,
+    ModalModule.forRoot(),
     AlertModule.forRoot({maxMessages: 5, timeout: 7000}),
     TooltipModule.forRoot()
   ],

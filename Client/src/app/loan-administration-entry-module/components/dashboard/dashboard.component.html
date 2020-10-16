@@ -5,21 +5,36 @@
       <div class="row shadow-lg m-3">
         <div class="col-md-4 colxs-12 col-sm-12 m-2">
           <h1>
-            <i class="fas fa-user">User</i>
+            <span>
+              <i class="fas fa-user">Loans</i>
+            </span>
           </h1>
         </div>
         <div class="col-md-4 colxs-12 col-sm-12">
-           <div class="form-group m-2 ">
-             <label for="search">search</label>
-             <input type="text" name="" id="search" placeholder="search" class="form-control">
-           </div>
+          <form [formGroup]="formGroup" (ngSubmit)="getFormValue()">
+            <div class="form-group">
+            <label for="customer">SearchByCustomer</label>
+            <input type="text"
+            (input)="getValue($event)"
+            formControlName="search_term"
+            class="form-control" 
+             name="" id="customer" placeholder="searchByCustomerName"
+            >
+          </div>
+          <div class="form-group">
+            <button class="btn btn-primary" 
+            type="submit">Search</button>
+          </div>
+          
+          </form>
+           
         </div>
       </div>
       <div class="col-md-12">
         <div class="conditin m-2" *ngIf="checkTable(loanTable); else noCustomer">
           <div class="mytable">
             <!--table-->
-            <table class="table table-bordered">
+            <table class="table table-bordered" *ngIf="checkTable(filteredLoans); else noloans">
               <thead class="table-dark">
                 <tr>
                   <th scope="col">ID</th>
@@ -32,13 +47,13 @@
                   <th scope="col">Status</th>
                   <th scope="col">LoanMovedBy</th>
                   <th scope="col">StageAt</th>
-                  <th scope="col">HowLong(years)</th>
+                  <th scope="col">HowLong</th>
                   <th scope="col">CreatedAt</th>
                   <th scope="col">TotalAge</th>
                 </tr>
               </thead>
-              <tbody>
-                <tr *ngFor="let loans of loanTable">
+              <tbody >
+                <tr *ngFor="let loans of filteredLoans" class="click">
                   <th>{{loans.Id}}</th>
                   <th>{{loans.Customer}}</th>
                   <th>{{loans.LoanType}}</th>
@@ -56,6 +71,9 @@
                 <tr>
               </tbody>
             </table>
+            <ng-template #noloans><div class="text-center">
+              <h3 class="text-center">No Customer found</h3>
+            </div></ng-template>
 
             <!--table-->
             <!--loanStatus-->

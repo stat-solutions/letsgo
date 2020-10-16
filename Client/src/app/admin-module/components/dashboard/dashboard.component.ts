@@ -13,6 +13,10 @@ export class DashboardComponent implements OnInit {
   filteredLoans = [];
   search_customer:string;
   formGroup:FormGroup;
+  maxSize:number;
+  id:string;
+  currentPage:number = 1;
+  pageSize = 5;
 
 
   age = moment(new Date()).format('MM/DD/YYYY, h:mm:ss')
@@ -29,10 +33,11 @@ export class DashboardComponent implements OnInit {
           return { ...eachUser, TotalAge:timeInMonths }
         })
            this.filteredLoans = this.loanTable;
+           this.maxSize = this.filteredLoans.length;
        
 
       })
-    },3000)
+    },0)
 
        this.formGroup = this.fb.group({
          search_term:['']
@@ -55,10 +60,14 @@ export class DashboardComponent implements OnInit {
     console.log(event.target.value)
     this.search_customer = event.target.value
     if(event.target.value === ''){
-      return this.filteredLoans = this.loanTable
+      this.filteredLoans = this.loanTable
+      this.maxSize = this.filteredLoans.length;
+      
+
     }
     else{
           this.filteredLoans =  this.filterCustomer(this.search_customer)
+          this.maxSize = this.filteredLoans.length;
   
     }
 
@@ -71,13 +80,17 @@ export class DashboardComponent implements OnInit {
 
   }
   getFormValue(){
+    this.maxSize = this.filteredLoans.length;
      this.filteredLoans =  this.filterCustomer(this.fval.search_term.value);
     
   }
 
   clickOnCustomer(id:number){
-        this.router.navigate(['admin/customerdetails', id])
-
+        this.router.navigate(['admin/customerdetails', id], )
   }
+   pageChanged(event){
+     this.pageSize += event
+
+   }
 
 }
