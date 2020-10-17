@@ -25,10 +25,6 @@ import { ConstantsComponent } from './admin-module/components/constants/constant
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import {ModalModule} from 'ngx-bootstrap/modal';
-
-
-
-
 @NgModule({
   declarations: [
     AppComponent],

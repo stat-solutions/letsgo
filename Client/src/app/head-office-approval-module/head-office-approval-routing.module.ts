@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { PagesCoreAdminComponent } from './pages-core/pages-core-admin.component';
 
  import { DashboardComponent } from './components/dashboard/dashboard.component';
+ import {CustomerDetailsComponent} from './components/customer-details/customer-details.component';
 
 
 
@@ -43,6 +44,10 @@ const routes: Routes = [
       {
         path: "reports",
         component:ReportsComponent
+      },
+      {
+        path:"customerdetails/:customerid",
+        component:CustomerDetailsComponent
       }
     ]
   },

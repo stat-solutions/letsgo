@@ -46,6 +46,8 @@ export class BranchesComponent implements OnInit {
     if(searchTerm)
     return this.filteredBranches.filter(
       branch=>branch.branchName.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1
+      ||branch.town.toLowerCase().indexOf(searchTerm.toLowerCase())!==  -1
+      ||branch.district.toLowerCase().indexOf(searchTerm.toLowerCase())!== -1
       )
 
   }

@@ -18,6 +18,7 @@ import  {EditProfileComponent} from './components/edit-profile/edit-profile.comp
 import {ReportsComponent} from './components/reports/reports.component';
 import  {UserTransactionsComponent} from './components/user-transactions/user-transactions.component';
 import {ModalModule} from 'ngx-bootstrap/modal';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 
 @NgModule({
@@ -40,6 +41,7 @@ import {ModalModule} from 'ngx-bootstrap/modal';
     ReactiveFormsModule,
     NgxSpinnerModule,
     DatepickerModule,
+    NgxPaginationModule,
     BsDatepickerModule,
     ModalModule.forRoot(),
     AlertModule.forRoot({maxMessages: 5, timeout: 7000}),

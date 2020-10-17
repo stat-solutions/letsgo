@@ -7,6 +7,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 import { CustomersComponent } from './components/customers/customers.component';
 import { ReportsComponent } from './components/reports/reports.component';
+import {CustomerDetailsComponent} from './components/customer-details/customer-details.component';
 
 import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
 
@@ -32,6 +33,11 @@ const routes: Routes = [
       {
         path: 'customers',
        component: CustomersComponent,
+      },
+      {
+        path:"customerdetails/:customerid",
+        component:CustomerDetailsComponent
+
       },
       {
         path: 'editprofile',

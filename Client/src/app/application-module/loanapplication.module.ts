@@ -19,7 +19,9 @@ import { EditUserProfileComponent } from './components/edit-user-profile/edit-us
 import { UserTransactionsComponent } from './components/user-transactions/user-transactions.component';
 import { CustomersComponent } from './components/customers/customers.component';
 import { ReportsComponent } from './components/reports/reports.component'
-import  {ModalModule} from 'ngx-bootstrap/modal'
+import  {ModalModule} from 'ngx-bootstrap/modal';
+import {NgxPaginationModule} from 'ngx-pagination';
+import { CustomerDetailsComponent } from './components/customer-details/customer-details.component';
 
 
 
@@ -37,6 +39,7 @@ import  {ModalModule} from 'ngx-bootstrap/modal'
     UserTransactionsComponent,
     CustomersComponent,
     ReportsComponent,
+    CustomerDetailsComponent,
 
   ],
   imports: [
@@ -47,6 +50,7 @@ import  {ModalModule} from 'ngx-bootstrap/modal'
     NgxSpinnerModule,
     DatepickerModule,
     BsDatepickerModule,
+    NgxPaginationModule,
     ModalModule.forRoot(),
     AlertModule.forRoot({maxMessages: 5, timeout: 7000}),
     TooltipModule.forRoot(),

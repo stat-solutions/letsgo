@@ -1,0 +1,37 @@
+<div class="container-fluid">
+	<div class="container">
+		<div class="row m-4">
+			
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="table">
+	    <table class="table table-borderless">
+			  <thead class="table-dark">
+			    <tr>
+			      <th scope="col">CustomerID</th>
+			      <th scope="col">CustomerName</th>
+			      <th scope="col">Stage</th>
+			      <th scope="col">ActionedAt</th>
+			      <th scope="col">User</th>
+			      <th scope="col">Branches</th>
+			      <th scope="col">Comment</th>
+			    </tr>
+			  </thead>
+			  <tbody>
+			    <tr *ngFor="let customer of customerDetails">
+			      <th scope="row">{{customer.Id}}</th>
+			      <td>{{customer.Customer}}</td>
+			      <td>{{customer.Stage}}</td>
+			      <td>{{customer.CreatedAt}}</td>
+			      <td>Nicolas</td>
+			      <td>Branch</td>
+			      <td>Created</td>
+			    </tr>
+			  </tbody>
+      </table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
