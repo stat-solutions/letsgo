@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { CustomValidator } from 'src/app/validators/custom-validator';
-import { AuthServiceService } from 'src/app/shared/services/auth-service.service';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Router } from '@angular/router';
-import { AlertService } from 'ngx-alerts';
+import { CustomValidator } from 'src/app/validators/custom-validator';
 
 @Component({
   selector: 'app-reports',
@@ -32,6 +30,7 @@ export class ReportsComponent implements OnInit {
     { id: 2, reportType: "ReceivedLoans" },
     { id: 2, reportType: "Comprehensive report" },
   ]
+
   constructor(private fb :FormBuilder, private spinner:NgxSpinnerService, private router:Router) { }
 
   ngOnInit() {
@@ -46,42 +45,14 @@ export class ReportsComponent implements OnInit {
       this.router.navigate(['authpage/loginpage']);
     }, 2000);
   }
-
-  // createFormGroup() {
-  //   return new FormGroup({
-  //     date_of_birth:this.fb.control('', Validators.required)
-  //   })  
-  // }
-  // get fval() {
-  //   return this.userForm.controls;
-  // }
-  // revert() {
-  //   this.userForm.reset();
-  // }
-  // register() {
-    
-  // }
   createFormGroup() {
     return new FormGroup({
-      user_contact_number: new FormControl(
-        '',
-        Validators.compose([
-          Validators.required,
-          CustomValidator.patternValidator(
-            /^(([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9]))$/,
-            { hasNumber: true }
-          )
-        ])
-      ),
-      start_date: new FormControl(
+      range_date: new FormControl(
         '',
         Validators.compose([Validators.required])
       ),
 
-      end_date: new FormControl(
-        '',
-        Validators.compose([Validators.required])
-      ),
+      
       report_type: this.fb.control(
         '',
         Validators.compose([Validators.required])
@@ -104,6 +75,7 @@ export class ReportsComponent implements OnInit {
   }
   
   
+
 
 
 }

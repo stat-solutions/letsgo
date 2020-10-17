@@ -16,14 +16,14 @@
     </h3>
     <form [formGroup]="userForm" (ngSubmit)="register()">
         <div class="row m-2">
-          <div class="col-md-6">
-            <div class="form-group text-primary">
+          <!--rangedate-->
+           <div class="form-group text-primary">
               <label
-                for="start_date"
-                [ngClass]="fval.start_date.valid ? 'text-info' : ''"
-                ><i *ngIf="fval.start_date.valid" class="material-icons"
+                for="range_date"
+                [ngClass]="fval.range_date.valid ? 'text-info' : ''"
+                ><i *ngIf="fval.range_date.valid" class="material-icons"
                   >check_circle</i
-                >Start Date</label
+                >Select Date</label
               >
       
               <div class="input-group mb-2">
@@ -37,19 +37,19 @@
                   </div>
                 </div>
                 <input
-                  id="start_date"
-                  formControlName="start_date"
+                  id="range_date"
+                  formControlName="range_date"
                   type="text"
                   class="form-control"
                   [ngClass]="{
                     'is-invalid':
-                      (fval.start_date.touched || fval.start_date.dirty) &&
-                      fval.start_date.errors
+                      (fval.range_date.touched || fval.range_date.dirty) &&
+                      fval.range_date.errors
                   }"
-                  placeholder="Click to select Date Of Birth"
+                  placeholder="Click to select range Of reports"
                   autocomplete="off"
                   class="form-control"
-                  bsDatepicker
+                  bsDaterangepicker
                   [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY', isAnimated: true }"
                   placement="bottom"
                 />
@@ -57,69 +57,16 @@
               <div
                 class="text-danger col"
                 *ngIf="
-                  (fval.start_date.touched || fval.start_date.dirty) &&
-                  fval.start_date.errors?.required
+                  (fval.range_date.touched || fval.range_date.dirty) &&
+                  fval.range_date.errors?.required
                 "
               >
-                The start_date is required!
+                The range_date is required!
               </div>
             </div>
-            
-          </div>
-          <div class="col-md-6">
-            <!--end-date-->
-          <div class="form-group text-primary">
-            <label
-              for="end_date"
-              [ngClass]="fval.end_date.valid ? 'text-info' : ''"
-              ><i *ngIf="fval.end_date.valid" class="material-icons"
-                >check_circle</i
-              >End Date</label
-            >
-    
-            <div class="input-group mb-2">
-              <div class="input-group-prepend">
-                <div class="input-group-text">
-                  <i
-                    class="fas fa-calendar-alt text-primary mx-auto"
-                    style="size: 50px;"
-                  >
-                  </i>
-                </div>
-              </div>
-              <input
-                id="end_date"
-                formControlName="end_date"
-                type="text"
-                class="form-control"
-                [ngClass]="{
-                  'is-invalid':
-                    (fval.end_date.touched || fval.end_date.dirty) &&
-                    fval.end_date.errors
-                }"
-                placeholder="Click to select EndDate Of Birth"
-                autocomplete="off"
-                class="form-control"
-                bsDatepicker
-                [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY', isAnimated: true }"
-                placement="bottom"
-              />
-            </div>
-            <div
-              class="text-danger col"
-              *ngIf="
-                (fval.end_date.touched || fval.end_date.dirty) &&
-                fval.end_date.errors?.required
-              "
-            >
-              The end_date of birth is required!
-            </div>
-          </div>
-     
+           
+          <!--rangedate-->
           
-        </div>
-            <!--end-date-->
-
 
           </div>
 
@@ -194,5 +141,4 @@
     <!--/ footer -->
   </div>
 </div>
-
 

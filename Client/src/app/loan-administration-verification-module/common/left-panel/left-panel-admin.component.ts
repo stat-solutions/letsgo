@@ -72,7 +72,7 @@ export class LeftPanelAdminComponent implements OnInit {
       {
         name: 'EditProfile',
         icon: 'fas fa-user',
-        url: '/loanverification/editprofile'
+        url: '/loanverification/edit'
       }
     ];
   }

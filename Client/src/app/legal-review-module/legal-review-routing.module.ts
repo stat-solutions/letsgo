@@ -6,6 +6,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 import { CustomersComponent } from './components/customers/customers.component';
 import { ReportsComponent } from './components/reports/reports.component';
+import {CustomerDetailsComponent} from './components/customer-details/customer-details.component';
 
 import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
 import { UserTransactionsComponent } from './components/user-transactions/user-transactions.component';
@@ -41,6 +42,10 @@ const routes: Routes = [
       {
         path: "reports",
         component:ReportsComponent
+      },
+      {
+        path:"customerdetails/:customerid",
+        component:CustomerDetailsComponent
       }
       
     ]

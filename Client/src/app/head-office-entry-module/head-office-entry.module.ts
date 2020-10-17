@@ -13,13 +13,13 @@ import { HeaderAdminComponent } from './common/header/header-admin.component';
 import { ContentSectionAdminComponent } from './content-section/content-section-admin.component';
 import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
-
 import { CustomersComponent } from './components/customers/customers.component';
 import { ReportsComponent } from './components/reports/reports.component';
-
 import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
 import { UserTransactionsComponent } from './components/user-transactions/user-transactions.component';
-
+import {ModalModule} from 'ngx-bootstrap/modal';
+import {NgxPaginationModule} from 'ngx-pagination';
+import { CustomerDetailsComponent } from './components/customer-details/customer-details.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +32,8 @@ import { UserTransactionsComponent } from './components/user-transactions/user-t
     CustomersComponent,
     ReportsComponent,
     EditProfileComponent,
-    UserTransactionsComponent
+    UserTransactionsComponent,
+    CustomerDetailsComponent
   ],
   imports: [
     CommonModule,
@@ -41,7 +42,9 @@ import { UserTransactionsComponent } from './components/user-transactions/user-t
     ReactiveFormsModule,
     NgxSpinnerModule,
     DatepickerModule,
+    NgxPaginationModule,
     BsDatepickerModule,
+    ModalModule.forRoot(),
     AlertModule.forRoot({maxMessages: 5, timeout: 7000}),
     TooltipModule.forRoot()
   ],

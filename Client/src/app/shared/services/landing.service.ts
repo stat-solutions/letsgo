@@ -32,7 +32,7 @@ export class LandingService {
       LoanProduct: "product 2",
       Tenure: 12 ,
       Amount: 500000,
-      Stage: "Branch",
+      Stage: "BranchApproval",
       Status: "forwaded",
       LoanMovedBy: "Branch office",
       StageAt: this.myCreatedAt,
@@ -47,7 +47,7 @@ export class LandingService {
       LoanProduct: "product 3",
       Tenure: 5,
       Amount: 500000,
-      Stage: "Branch",
+      Stage: "BranchExit",
       Status: "forwaded",
       LoanMovedBy: "Branch office",
       HowLong: 3,
@@ -62,7 +62,7 @@ export class LandingService {
       LoanProduct: "product 1",
       Tenure: 3,
       Amount: 500000,
-      Stage: "Application",
+      Stage: "Regional",
       Status: "Notforwaded",
       LoanMovedBy: "Branch office",
       StageAt: this.myCreatedAt,
@@ -77,7 +77,7 @@ export class LandingService {
       LoanProduct: "product 1",
       Tenure: 3,
       Amount: 500000,
-      Stage: "Branch",
+      Stage: "loanVerification",
       Status: "forwaded",
       LoanMovedBy: "Branch office",
       StageAt: this.myCreatedAt,
@@ -115,6 +115,66 @@ export class LandingService {
       LoanStatus:"approved",
       CreatedAt:this.myCreatedAt
     },
+    {
+      Id: 7,
+      Customer: "Henry",
+      LoanType: "Group",
+      LoanProduct: "product 1",
+      Tenure: 3,
+      Amount: 500000,
+      Stage: "Branch",
+      Status: "forwaded",
+      LoanMovedBy: "Branch office",
+      StageAt: this.myCreatedAt,
+      HowLong: 1,
+      LoanStatus:"approved",
+      CreatedAt:this.myCreatedAt
+    },
+    {
+      Id: 8,
+      Customer: "Henry",
+      LoanType: "Group",
+      LoanProduct: "product 1",
+      Tenure: 3,
+      Amount: 500000,
+      Stage: "Branch",
+      Status: "forwaded",
+      LoanMovedBy: "Branch office",
+      StageAt: this.myCreatedAt,
+      HowLong: 1,
+      LoanStatus:"approved",
+      CreatedAt:this.myCreatedAt
+    },
+    {
+      Id: 9,
+      Customer: "Henry",
+      LoanType: "Group",
+      LoanProduct: "product 1",
+      Tenure: 3,
+      Amount: 500000,
+      Stage: "Branch",
+      Status: "forwaded",
+      LoanMovedBy: "Branch office",
+      StageAt: this.myCreatedAt,
+      HowLong: 1,
+      LoanStatus:"approved",
+      CreatedAt:this.myCreatedAt
+    },
+    {
+      Id: 10,
+      Customer: "Henry",
+      LoanType: "Group",
+      LoanProduct: "product 1",
+      Tenure: 3,
+      Amount: 500000,
+      Stage: "Branch",
+      Status: "forwaded",
+      LoanMovedBy: "Branch office",
+      StageAt: this.myCreatedAt,
+      HowLong: 1,
+      LoanStatus:"approved",
+      CreatedAt:this.myCreatedAt
+    },
   ]
 
   constructor() { }
@@ -122,7 +182,9 @@ export class LandingService {
     return of(this.userData)
   }
   getSpecificCustomers(stage: string) {
-    return of(this.userData.filter(users=>users.Stage === stage))
-    
+    return of(this.userData.filter(users=>users.Stage === stage)) 
+  }
+  getCustomerDetails(id:number){
+    return of(this.userData.find(users=>users.Id === id))
   }
 }

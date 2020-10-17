@@ -15,7 +15,8 @@ export class UsersService {
       contact: "0759983853",
       email: "katznicho@gmail.com",
       photo: "assets/img/man.svg",
-      status:"loggedIn"
+      status:"loggedIn",
+      role:"Application"
     },
     {
       id: 2,
@@ -25,7 +26,8 @@ export class UsersService {
       contact: "0759983853",
       email: "nicho@gmail.com",
       photo: "assets/img/man.svg",
-      status:"loggedIn"
+      status:"loggedIn",
+      role:"BranchApproval"
     },
     {
       id: 3,
@@ -35,11 +37,15 @@ export class UsersService {
       contact: "0759983853",
       email: "ssemakula@gmail.com",
       photo: "assets/img/man.svg",
-      status:"NotLoggedIn"
+      status:"NotLoggedIn",
+      role:"RegionalApproval"
     }
   ]
 
   constructor() { }
+  getAllUsers(){
+    return of(this.users)
+  }
   
   viewLoggedIn() {
     return of(this.users.filter(user=>user.status === 'loggedIn'))
@@ -60,6 +66,9 @@ export class UsersService {
     //console.log(this.users.find(user=>user.email===email))
     return this.users.find(user=>user.email === email)
     
+  }
+  deleteUser(id:number){
+    return of(this.users.filter(users=>users.id !== id))
   }
 
 }

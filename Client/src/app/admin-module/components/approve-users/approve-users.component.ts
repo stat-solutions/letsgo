@@ -26,7 +26,7 @@ export class ApproveUsersComponent implements OnInit {
         this.form = this.createFormGroup();
         this.initialiseForm();
       })
-    }, 3000)
+    }, 0)
     setTimeout(() => {
       this.UserToProveService.approvedUsers().subscribe(approvedUser => {
         this.approvedUsers = approvedUser

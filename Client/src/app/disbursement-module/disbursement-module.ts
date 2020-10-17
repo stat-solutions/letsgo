@@ -20,7 +20,9 @@ import { ReportsComponent } from './components/reports/reports.component';
 
 import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
 import { UserTransactionsComponent } from './components/user-transactions/user-transactions.component';
-
+import {ModalModule} from 'ngx-bootstrap/modal';
+import {NgxPaginationModule} from 'ngx-pagination';
+import { CustomerDetailsComponent } from './components/customer-details/customer-details.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +35,8 @@ import { UserTransactionsComponent } from './components/user-transactions/user-t
     CustomersComponent,
     EditProfileComponent,
     UserTransactionsComponent,
-    ReportsComponent
+    ReportsComponent,
+    CustomerDetailsComponent
   ],
   imports: [
     CommonModule,
@@ -42,7 +45,9 @@ import { UserTransactionsComponent } from './components/user-transactions/user-t
     ReactiveFormsModule,
     NgxSpinnerModule,
     DatepickerModule,
+    ModalModule.forRoot(),
     BsDatepickerModule,
+    NgxPaginationModule,
     AlertModule.forRoot({maxMessages: 5, timeout: 7000}),
     TooltipModule.forRoot()
   ],
