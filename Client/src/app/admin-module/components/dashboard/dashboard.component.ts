@@ -1,15 +1,19 @@
 import { LandingService } from './../../../shared/services/landing.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import * as moment from 'moment';
 import {FormControl, FormGroup, FormBuilder} from '@angular/forms';
-import {Router} from '@angular/router'
+import {Router} from '@angular/router';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { NgxSpinnerService } from 'ngx-spinner';
+
 @Component({
   selector: 'app-admin',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit {
-  loanTable = []
+  public modalRef: BsModalRef;
+  loanTable = [];
   filteredLoans = [];
   search_customer:string;
   formGroup:FormGroup;
@@ -17,11 +21,15 @@ export class DashboardComponent implements OnInit {
   id:string;
   currentPage:number = 1;
   pageSize = 5;
+age: number;
 
-
-  age = moment(new Date()).format('MM/DD/YYYY, h:mm:ss')
-  
-  constructor(private landingPage:LandingService, private fb:FormBuilder, private router:Router) { }
+  constructor(
+    private modalService: BsModalService,
+    private landingPage: LandingService,
+    private spinner: NgxSpinnerService,
+    private fb: FormBuilder,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     setTimeout(() => {
@@ -34,27 +42,26 @@ export class DashboardComponent implements OnInit {
         })
            this.filteredLoans = this.loanTable;
            this.totalItems = this.filteredLoans.length;
-       
+
 
       })
     },0)
 
-       this.formGroup = this.fb.group({
-         search_term:['']
-       })
+    this.formGroup = this.fb.group({
+      search_term: [''],
+    });
   }
-  get fval(){
+  get fval() {
     return this.formGroup.controls;
   }
-  checkTable(array:Array<any>){
-    return array.length?true:false
+  checkTable(array: Array<any>) {
+    return array.length ? true : false;
   }
 
   checkLoanStatus(array: Array<any>, loanStatus: string) {
-    return array.filter(userData=>userData.LoanStatus === loanStatus).length
-    
+    return array.filter((userData) => userData.LoanStatus === loanStatus)
+      .length;
   }
-
 
   getValue(event) {
     console.log(event.target.value)
@@ -62,15 +69,14 @@ export class DashboardComponent implements OnInit {
     if(event.target.value === ''){
       this.filteredLoans = this.loanTable
       this.totalItems = this.filteredLoans.length;
-      
+
 
     }
     else{
           this.filteredLoans =  this.filterCustomer(this.search_customer)
           this.totalItems = this.filteredLoans.length;
-  
-    }
 
+    }
   }
   filterCustomer(searchTerm:string){
     if(searchTerm)
@@ -88,7 +94,7 @@ export class DashboardComponent implements OnInit {
   getFormValue(){
     this.totalItems = this.filteredLoans.length;
      this.filteredLoans =  this.filterCustomer(this.fval.search_term.value);
-    
+
   }
 
   clickOnCustomer(id:number){
@@ -99,4 +105,10 @@ export class DashboardComponent implements OnInit {
 
    }
 
+  public openModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(
+      template,
+      Object.assign({}, { class: 'white modal-lg modal-dialog-center' })
+    );
+  }
 }

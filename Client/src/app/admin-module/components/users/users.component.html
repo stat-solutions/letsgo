@@ -1,41 +1,55 @@
-<div class="container-fluid">
-	<div class="container">
-		<div class="row">
-			<div class="col-md-6">
-				<h2> <i class="fas fa-users">Users</i></h2>
-			</div>
-			<div class="col-md-6">
+<div
+  class="container-fluid justify-content-center mt-0 mb-0 pt-1 pt-xl-0 pb-2 pb-md-0 shadow-lg col-xs-12 col-lg-12"
+>
+  <div class="jumbotron-fluid mx-0 px-0 mt-1 mt-xl-0 pt-3 pt-xl-0 mb-0 pb-0">
+    <div class="head-container container mt-1 mb-1 mx-auto px-auto py-2 shadow-lg">
+    <div class="row">
+      <div class="col-12">
+        <h2 class="rub-head4 text-info text-center font-weight-bold pt-0 py-1">
+          USERS
+        </h2>
+        <hr class="mt-0" />
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-6 col-sm-7 col-md-8 col-lg-9">
+                <div class="mt-1 mt-xl-0 pt-xl-0 mb-2 mx-0 pl-0 pl-xl-2">
 				<form [formGroup]="formGroup" (ngSubmit)="getFormValue()">
-					<div class="form-group">
-						<label for="name">EnterName</label>
 						<input type="text" name=""
 						formControlName="search_text"
+            class="form-control col-12 col-sm-10 col-md-8 col-lg-7 col-xl-5"
 						(input)="getValue($event)"
-						 id="name" placeholder="search by name">
-					</div>
-					<div class="form-group">
-						<button class="btn btn-primary" type="submit">Search</button>
-					</div>
+						 id="name" placeholder="Search by name" autocomplete="on" />
 				</form>
 			</div>
+			</div>
+            <div class="col-6 col-sm-5 col-md-4 col-lg-3 mx-0 pt-1">
+<button class="btn btn-primary mt-0 ml-0 ml-sm-4"><i class="fas fa-file-export"></i>  Export to Excel</button>
+</div>
 		</div>
-		<div class="row">
-			<div class="table">
-				<div class="col-md-12" *ngIf="checkArrayLength(filteredUsers); else nousers">
-					<table class="table table-bordered">
-			  <thead class="table-dark">
-			    <tr>
-			      <th scope="col">UserID</th>
-			      <th scope="col">UserName</th>
-			      <th scope="col">Role</th>
-			      <th scope="col">Contact</th>
-			      <th scope="col">Email</th>
-			      <th scope="col">DeleteUser</th>
+    </div>
+          <div class="row">
+            <div class="col-12 mx-auto px-0 px-sm-3 px-md-0 px-xl-5">
+				<div class="condition" *ngIf="checkArrayLength(filteredUsers); else nousers">
+          <div class="table-col col-12">
+            <div class="state-table table-responsive pt-1 pt-sm-2 pb-0">
+              <!--table-->
+              <table
+                class="table table-hover table-striped table-sm"
+              >
+              <thead class="bg-dark text-info">
+                <tr class="mx-2">
+			      <th width="10%">User ID</th>
+			      <th width="25%">User Name</th>
+			      <th width="15%">Role</th>
+			      <th width="12%">Contact</th>
+			      <th width="26%">Email</th>
+			      <th width="12%">Delete User</th>
 			    </tr>
 			  </thead>
 			  <tbody>
-			    <tr *ngFor="let user of filteredUsers">
-			      <th scope="row">{{user.id}}</th>
+			    <tr class="mx-2" *ngFor="let user of filteredUsers">
+			      <td>{{user.id}}</td>
 			      <td>{{user.name}}</td>
 			      <td>{{user.role}}</td>
 			      <td>{{user.contact}}</td>
@@ -44,23 +58,25 @@
 			    </tr>
 			  </tbody>
       </table>
-          <div class="my-button">
-          	 <div class="text-center">
-          	 	<button class="btn btn-primary">ExportToExcel</button>
           	 </div>
           </div>
 
-			         
+
 				</div>
-				<div class="col-md-12">
 					<ng-template #nousers>
-						<div class="text-center">
-							<h4 class="text-center">No users</h4>
+                              <div class="col-12 my-5 py-5 justify-content-between">
+							<h4 class="text-center text-info">No users!</h4>
 						</div>
-						
+
 					</ng-template>
 				</div>
-			</div>
 		</div>
 	</div>
 </div>
+<!-- footer -->
+<div class="container mt-3 mt-xl-1 mb-2 pb-2">
+  <div class="col-xs-12 col-lg-12">
+    <div class="small text-center text-info">&copy; 2020 - LoanLead</div>
+  </div>
+</div>
+<!-- footer /-->

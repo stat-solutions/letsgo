@@ -36,103 +36,110 @@ export class EditProfileComponent implements OnInit {
 
   //here
   createFormGroup() {
-    return this.fb.group({
-      full_name: new FormControl(
-        '',
-        Validators.compose([Validators.required])
-      ),
-      branches: new FormControl('',Validators.required),
-      
-      email2: new FormControl(
-        '',
-        Validators.compose([Validators.required])
-      ),
-      
-      user_contact_number1: new FormControl(
-        '',
-        Validators.compose([
-          Validators.required,
-          CustomValidator.patternValidator(
-            /^(([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9]))$/,
-            { hasNumber: true }
-          )
-        ])
-      ),
-      currentPassword: new FormControl(
-        '',
-        Validators.compose([
-          // 1. Password Field is Required
+    return this.fb.group(
+      {
+        full_name: new FormControl(
+          '',
+          Validators.compose([Validators.required])
+        ),
+        branches: new FormControl('', Validators.required),
 
-          Validators.required,
+        email2: new FormControl('', Validators.compose([Validators.required])),
 
-          // 2. check whether the entered password has a number
-          CustomValidator.patternValidator(
-            /^(([0-9])([0-9])([0-9])([0-9]))$/,
-            {
-              hasNumber: true,
-            }
-          ),
-          // 3. check whether the entered password has upper case letter
-          // CustomValidatorInitialCompanySetup.patternValidator(/[A-Z]/, { hasCapitalCase: true }),
-          // 4. check whether the entered password has a lower-case letter
-          // CustomValidatorInitialCompanySetup.patternValidator(/[a-z]/, { hasSmallCase: true }),
-          // 5. check whether the entered password has a special character
-          // CustomValidatorInitialCompanySetup.
-          //   patternValidator(/[!@#$%^&*_+-=;':"|,.<>/?/<mailto:!@#$%^&*_+-=;':"|,.<>/?]/, { hasSpecialCharacters: true }),
+        user_contact_number1: new FormControl(
+          '',
+          Validators.compose([
+            Validators.required,
+            CustomValidator.patternValidator(
+              /^(([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9]))$/,
+              { hasNumber: true }
+            ),
+          ])
+        ),
+        user_contact_number2: new FormControl(
+          '',
+          Validators.compose([
+            CustomValidator.patternValidator(
+              /^(([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9]))$/,
+              { hasNumber: true }
+            ),
+          ])
+        ),
+        currentPassword: new FormControl(
+          '',
+          Validators.compose([
+            // 1. Password Field is Required
 
-          // 6. Has a length of exactly 4 digits
-          Validators.minLength(4),
-          Validators.maxLength(4),
-        ])
-      ),
-      password: new FormControl(
-        '',
-        Validators.compose([
-          // 1. Password Field is Required
+            Validators.required,
 
-          Validators.required,
+            // 2. check whether the entered password has a number
+            CustomValidator.patternValidator(
+              /^(([0-9])([0-9])([0-9])([0-9]))$/,
+              {
+                hasNumber: true,
+              }
+            ),
+            // 3. check whether the entered password has upper case letter
+            // CustomValidatorInitialCompanySetup.patternValidator(/[A-Z]/, { hasCapitalCase: true }),
+            // 4. check whether the entered password has a lower-case letter
+            // CustomValidatorInitialCompanySetup.patternValidator(/[a-z]/, { hasSmallCase: true }),
+            // 5. check whether the entered password has a special character
+            // CustomValidatorInitialCompanySetup.
+            //   patternValidator(/[!@#$%^&*_+-=;':"|,.<>/?/<mailto:!@#$%^&*_+-=;':"|,.<>/?]/, { hasSpecialCharacters: true }),
 
-          // 2. check whether the entered password has a number
-          CustomValidator.patternValidator(
-            /^(([0-9])([0-9])([0-9])([0-9]))$/,
-            {
-              hasNumber: true,
-            }
-          ),
-          // 3. check whether the entered password has upper case letter
-          // CustomValidatorInitialCompanySetup.patternValidator(/[A-Z]/, { hasCapitalCase: true }),
-          // 4. check whether the entered password has a lower-case letter
-          // CustomValidatorInitialCompanySetup.patternValidator(/[a-z]/, { hasSmallCase: true }),
-          // 5. check whether the entered password has a special character
-          // CustomValidatorInitialCompanySetup.
-          //   patternValidator(/[!@#$%^&*_+-=;':"|,.<>/?/<mailto:!@#$%^&*_+-=;':"|,.<>/?]/, { hasSpecialCharacters: true }),
+            // 6. Has a length of exactly 4 digits
+            Validators.minLength(4),
+            Validators.maxLength(4),
+          ])
+        ),
+        password: new FormControl(
+          '',
+          Validators.compose([
+            // 1. Password Field is Required
 
-          // 6. Has a length of exactly 4 digits
-          Validators.minLength(4),
-          Validators.maxLength(4),
-        ])
-      ),
-      confirmPassword: new FormControl(
-        '',
-        Validators.compose([
-          // 1. Password Field is Required
+            Validators.required,
 
-          Validators.required,
+            // 2. check whether the entered password has a number
+            CustomValidator.patternValidator(
+              /^(([0-9])([0-9])([0-9])([0-9]))$/,
+              {
+                hasNumber: true,
+              }
+            ),
+            // 3. check whether the entered password has upper case letter
+            // CustomValidatorInitialCompanySetup.patternValidator(/[A-Z]/, { hasCapitalCase: true }),
+            // 4. check whether the entered password has a lower-case letter
+            // CustomValidatorInitialCompanySetup.patternValidator(/[a-z]/, { hasSmallCase: true }),
+            // 5. check whether the entered password has a special character
+            // CustomValidatorInitialCompanySetup.
+            //   patternValidator(/[!@#$%^&*_+-=;':"|,.<>/?/<mailto:!@#$%^&*_+-=;':"|,.<>/?]/, { hasSpecialCharacters: true }),
 
-          // 2. check whether the entered password has a number
-          CustomValidator.patternValidator(
-            /^(([0-9])([0-9])([0-9])([0-9]))$/,
-            {
-              hasNumber: true,
-            }
-          ),
-          // 6. Has a length of exactly 4 digits
-          Validators.minLength(4),
-          Validators.maxLength(4),
-        ])
-      ),
-    },
-    { validator: CustomValidator.passwordMatchValidator }
+            // 6. Has a length of exactly 4 digits
+            Validators.minLength(4),
+            Validators.maxLength(4),
+          ])
+        ),
+        confirmPassword: new FormControl(
+          '',
+          Validators.compose([
+            // 1. Password Field is Required
+
+            Validators.required,
+
+            // 2. check whether the entered password has a number
+            CustomValidator.patternValidator(
+              /^(([0-9])([0-9])([0-9])([0-9]))$/,
+              {
+                hasNumber: true,
+              }
+            ),
+            // 6. Has a length of exactly 4 digits
+            Validators.minLength(4),
+            Validators.maxLength(4),
+          ])
+        ),
+      },
+      { validator: CustomValidator.passwordMatchValidator }
     );
   }
 
@@ -147,7 +154,7 @@ export class EditProfileComponent implements OnInit {
     return this.userForm.disable()
   }
   getBranch(event) {
-    
+
   }
 
   enableEdit() {
@@ -172,12 +179,12 @@ export class EditProfileComponent implements OnInit {
   }
 
   setProfileValues () {
-    
+
   }
   save () {
 
   }
-  
+
 
 
 

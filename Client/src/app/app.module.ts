@@ -1,4 +1,4 @@
-import { HttpInterceptor, HttpClient } from '@angular/common/http';
+import { HttpInterceptor } from '@angular/common/http';
 import { LoanAdministrationVerificationModule } from './loan-administration-verification-module/loan-administration-verification.module';
 import { BranchExitModule } from './branch-exit-module/branch-exit-module';
 import { BrowserModule } from '@angular/platform-browser';
@@ -21,17 +21,20 @@ import { LoanAdministrationEntryModule } from './loan-administration-entry-modul
 import { LoanAdministrationExitModule } from './loan-administration-exit-module/loan-administration-exit.module';
 import { RegionalApprovalModule } from './regional-approval-module/regional-approval.module';
 import { LoanApplicationModule } from './application-module/loanapplication.module';
-import { ConstantsComponent } from './admin-module/components/constants/constants.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import {ModalModule} from 'ngx-bootstrap/modal';
+
+
+
 @NgModule({
   declarations: [
-    AppComponent],
+    AppComponent  ],
   imports: [
     HttpClientModule,
     AdminModule,
     CommonModule,
+BrowserModule,
     BranchApprovalModule,
     BranchExitModule,
     LoanApplicationModule,

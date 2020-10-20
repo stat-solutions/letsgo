@@ -1,92 +1,154 @@
-<div class="container-fluid m-2">
-    <div class="container m-4">
-        <div class="row shadow-lg">
-            <div class="col-md-12">
-                <div *ngIf="checkIfUserExists(users); else noUsers">
-                    <div class="col-md-12">
-                        <h3 class="text-center m-2 ">ApproveUsers</h3>
-                        
-                        <table class="table table-bordered"  [formGroup]="form">
-                            <thead class="table-dark">
-                              <tr>
-                                <th scope="col">ID</th>
-                                <th scope="col">User</th>
-                                <th scope="col">Approve</th>
-                                <th>Roles</th>
-                              </tr>
-                            </thead>
-                            <tbody formArrayName="approveUsers"> 
-                                    <div *ngFor = "let items of fval.approveUsers['controls']; let i = index">
-                                            <tr [formGroupName]='i'>
-                                                <td >{{fval.approveUsers['controls'][i]['controls'].id.value}}</td>
-                                                <td>{{fval.approveUsers['controls'][i]['controls'].name.value}}</td>
-                                                <td>
-                                                    <button 
-                                                        class="btn btn-primary" 
-                                                        type="button" 
-                                                        [disabled]="fval.approveUsers['controls'][i].pristine || fval.approveUsers['controls'][i].invalid "
-                                                        (click)="approve(i)"
-                                                    >
-                                                    Approve</button></td>
-                                                <td>
-                                                <div  class="form-group">
-                                                    <select formControlName="role" (change)="enableToApprove(i)" placeholder="assign role"
-                                                    >
-                                                        <option selected disabled>AssignRole</option>
-                                                        <option [ngValue]="role" *ngFor="let role of roles">{{role}}</option>
-                                                    </select>
-                                                </div>
-                                            </td>
-                                            </tr>
-                                </div>
-                            </tbody>
-                        </table>         
-                    </div>
-                </div>
-                <div class="col-md-12 m-2">
-                    <ng-template #noUsers >
-                        <h1 class="text-center">No users</h1>
-                    </ng-template>
-                </div>
+<div
+  class="container-fluid justify-content-center mt-xl-0 mb-0 pt-1 pt-xl-0 pb-2 pb-md-0 shadow-lg col-xs-12 col-lg-12"
+>
+  <div class="jumbotron-fluid mx-0 px-0 mt-1 mt-xl-0 pt-0 mb-0 pb-0">
+    <div class="row">
+      <div class="col-md-12">
+        <div *ngIf="checkIfUserExists(users); else noUsers">
+          <div class="row">
+            <div class="col-12">
+              <h2
+                class="rub-head4 text-info text-center font-weight-bold py-0"
+              >
+                APPROVE USERS
+              </h2>
+              <hr class="mt-0" />
             </div>
-        </div>
-        <div class="row m-4">
-            <div class="col-md-12">
-                <h3 class="text-center">ApprovedUsers</h3>
-                <div class="approved" *ngIf="checkIfUserExists(approvedUsers); else noApproved">
-                    <table class="table table-bordered">
-                        <thead class="table-dark">
-                          <tr>
-                            <th scope="col">ID</th>
-                            <th scope="col">User</th>
-                            <th scope="col">Status</th>
-                            <th scope="col">Role</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                                <tr *ngFor="let user of approvedUsers">
-                                    <td>{{user.id}}</td>
-                                    <td>{{user.name}}</td>
-                                    <td>{{user.status}}</td>
-                                    <td>{{user.role}}</td>
+          </div>
+          <div class="row">
+            <div class="col-12 mx-auto px-0 px-lg-5">
+              <div class="table-col col-12">
+                <div class="state-table table-responsive mb-0 pt-0 pb-0 mx-auto px-auto px-lg-5">
+                  <!--table-->
+                  <div formArrayName="approveUsers">
+                  <table
+                    class="table table-hover table-striped table-sm"
+                    [formGroup]="form"
+                  >
+                    <thead class="bg-dark text-info">
+                      <tr class="mx-2">
+                        <th width="10%">ID</th>
+                        <th width="40%">User</th>
+                        <th width="35%">Roles</th>
+                        <th width="15%">Approve</th>
+                      </tr>
+                    </thead>
+                    <tbody>
 
-                                    
-                                  </tr>
-                    
-                            
-                        </tbody>
-                    </table>   
-
-
-
+                      <tr
+                        *ngFor="
+                          let items of fval.approveUsers['controls'];
+                          let i = index
+                        "
+                      >
+                            <td width="10%">
+                            {{
+                              fval.approveUsers["controls"][i]["controls"].id
+                                .value
+                            }}
+                          </td>
+                          <td width="40%">
+                            {{
+                              fval.approveUsers["controls"][i]["controls"].name
+                                .value
+                            }}
+                          </td>
+                          <td width="35%">
+                            <div class="form-group mb-2">
+                              <select
+                                formControlName="role"
+                                (change)="enableToApprove(i)"
+                                placeholder="assign role"
+                              >
+                                <option selected disabled>AssignRole</option>
+                                <option
+                                  [ngValue]="role"
+                                  *ngFor="let role of roles"
+                                >
+                                  {{ role }}
+                                </option>
+                              </select>
+                            </div>
+                          </td>
+                          <td width="15%">
+                            <button
+                              class="btn btn-info mb-0"
+                              type="button"
+                              [disabled]="
+                                fval.approveUsers['controls'][i].pristine ||
+                                fval.approveUsers['controls'][i].invalid
+                              "
+                              (click)="approve(i)"
+                            >
+                              Approve
+                            </button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
-                <div class="col-md-12">
-                    <ng-template #noApproved>
-                        <h2 class="text-center">Not ApprovedUsers Yet</h2>
-                    </ng-template>
-                </div>
-                
+              </div>
             </div>
+          </div>
         </div>
-    </div>
+        <ng-template #noUsers>
+                              <div class="col-12 my-5 py-5 justify-content-between">
+                                <h4 class="text-center text-info">No users!</h4>
+                              </div>
+                              </ng-template>
+                 <div class="row">
+            <div class="col-12">
+              <h2
+                class="rub-head4 text-info text-center font-weight-bold py-0"
+              >
+                APPROVED USERS
+              </h2>
+              <hr class="mt-0" />
+            </div>
+          </div>
+              <div
+                class="approved"
+                *ngIf="checkIfUserExists(approvedUsers); else noApproved"
+              >
+          <div class="table-col col-12">
+            <div class="state-table-2 table-responsive pt-0 pb-0">
+              <table
+                class="table table-hover table-striped table-sm"
+              >
+                <thead class="bg-light text-info">
+                  <tr class="mx-2">
+                      <th scope="col">ID</th>
+                      <th scope="col">User</th>
+                      <th scope="col">Status</th>
+                      <th scope="col">Role</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let user of approvedUsers">
+                      <td>{{ user.id }}</td>
+                      <td>{{ user.name }}</td>
+                      <td>{{ user.status }}</td>
+                      <td>{{ user.role }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              </div>
+              </div>
+              <ng-template #noApproved>
+                                <div class="col-12 my-5 py-5 justify-content-between">
+                  <h4 class="text-center text-info">No Approved Users Yet!</h4>
+                </div>
+                </ng-template>
+            </div>
+          </div>
+        </div>
+      </div>
+<!-- footer -->
+<div class="container mt-3 mt-xl-1 mb-2 pb-2">
+  <div class="col-xs-12 col-lg-12">
+    <div class="small text-center text-info">&copy; 2020 - LoanLead</div>
+  </div>
 </div>
+<!-- footer /-->

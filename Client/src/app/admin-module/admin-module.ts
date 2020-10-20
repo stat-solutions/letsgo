@@ -24,6 +24,7 @@ import { CreateBranchComponent } from './components/create-branch/create-branch.
 import {CustomerDetailsComponent} from './components/customer-details/customer-details.component';
 import {UsersComponent} from './components/users/users.component';
 import {EntitiesComponent} from './components/entities/entities.component';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 import {NgxPaginationModule} from 'ngx-pagination';
 
@@ -57,8 +58,9 @@ import {NgxPaginationModule} from 'ngx-pagination';
     DatepickerModule,
     NgxPaginationModule,
     BsDatepickerModule,
-    AlertModule.forRoot({maxMessages: 5, timeout: 7000}),
-    TooltipModule.forRoot()
+    AlertModule.forRoot({ maxMessages: 5, timeout: 7000 }),
+    TooltipModule.forRoot(),
+    ModalModule.forRoot()
   ],
 })
-export class AdminModule { }
+export class AdminModule {}
