@@ -1,0 +1,142 @@
+.jumbotron-fluid {
+  height: inherit !important;
+}
+
+.rub-head4 {
+  margin-top: 2px !important;
+  margin-bottom: 2px !important;
+}
+hr{
+  width: 1%;
+  min-width: 1.8rem !important;
+  border: 2px solid #bbb212b2;
+}
+
+.head-container{
+  border-radius: 7px;
+}
+
+.state-table {
+  height: 100%;
+  min-height: 15rem;
+  max-height: 20rem;
+  overflow-y: auto;
+}
+
+.text-info {
+  color: #114b88 !important;
+}
+
+a.text-info:focus,
+a.text-info:hover {
+  color: #48bae4f5 !important;
+}
+.btn{
+  border-radius: 12px;
+}
+
+.pointerCursor {
+  cursor: pointer;
+}
+
+
+
+//media queries
+@media (min-width: 320px) {
+  .jumbotron-fluid {
+    padding-top: 0px !important;
+    padding-bottom: 1.4rem !important;
+  }
+}
+
+@media (min-width: 360px) {
+}
+
+@media (min-width: 375px) {
+.state-table {
+  max-height: 22rem;
+}
+}
+
+@media (min-width: 410px) {
+.state-table {
+  max-height: 25rem;
+}
+}
+
+@media (min-width: 445px) {
+  .jumbotron-fluid {
+    padding-top: 8px !important;
+  }
+}
+
+@media (min-width: 568px) {
+  .jumbotron-fluid {
+    padding-top: 0px !important;
+  }
+}
+
+@media (min-width: 640px) {
+  // .container {
+  //   margin-left: auto;
+  //   margin-right: auto;
+  // }
+}
+
+@media (min-width: 768px) {
+  .container {
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+  }
+  .jumbotron-fluid {
+    padding-bottom: 1.8rem !important;
+  }
+.state-table {
+  max-height: 38rem;
+}
+}
+
+@media (min-width: 812px) {
+  .container {
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+  .jumbotron-fluid {
+    padding-top: 0px !important;
+    padding-bottom: .3rem !important;
+  }
+.state-table {
+  max-height: 25rem;
+}
+}
+
+@media (min-width: 1024px) {
+  .jumbotron-fluid {
+    padding-top: .6rem !important;
+    padding-bottom: 1.8rem !important;
+  }
+.state-table {
+  max-height: 42rem;
+}
+}
+
+@media (min-width: 1100px) {
+.state-table {
+  max-height: 27rem;
+}
+}
+
+@media (min-width: 1280px) {
+  .container {
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+  .jumbotron-fluid {
+    margin-top: 0px !important;
+    padding-top: 0px !important;
+    padding-bottom: 1.2rem !important;
+  }
+}
+
+@media (min-width: 1320px) {
+}

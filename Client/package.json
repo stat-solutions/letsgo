@@ -22,7 +22,7 @@
     "@angular/router": "~10.1.0",
     "@fortawesome/angular-fontawesome": "^0.7.0",
     "@fortawesome/fontawesome-free": "^5.14.0",
-    "@popperjs/core": "^2.4.4",
+    "@popperjs/core": "^2.5.3",
     "bootstrap": "^4.5.2",
     "dotenv": "^8.2.0",
     "jquery": "^3.5.1",

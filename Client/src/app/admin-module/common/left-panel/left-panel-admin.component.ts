@@ -54,20 +54,20 @@ export class LeftPanelAdminComponent implements OnInit {
         icon: 'fas fa-tachometer-alt',
         url: '/admin/dashboard'
       },
-      
+
       {
-        name: 'viewLoggedInUsers',
-        icon: 'fas fa-users',
+        name: 'Logged-In Users',
+        icon: 'fas fa-user-check',
         url: '/admin/loggedin'
       },
       {
-        name: 'ApproveUsers',
-        icon: 'fa fa-users',
+        name: 'Approve Users',
+        icon: 'fa fa-users-cog',
         url: '/admin/approveusers'
       },
       {
-        name: 'Constants',
-        icon: 'fa fa-user',
+        name: 'Loan Constants',
+        icon: 'fa fa-anchor',
         url: '/admin/constants'
       },
       {
@@ -82,22 +82,22 @@ export class LeftPanelAdminComponent implements OnInit {
       },
       {
         name: 'Users',
-        icon: 'fas fa-user',
+        icon: 'fas fa-users',
         url: '/admin/users'
       },
       {
         name: 'Entities',
-        icon: 'fas fa-file',
+        icon: 'fas fa-cogs',
         url: '/admin/entities'
       },
       {
-        name: 'LogOutUsers',
-        icon: 'fas fa-users',
+        name: 'Logout Users',
+        icon: 'fas fa-user-slash',
         url: '/admin/logout'
       },
       {
-        name: 'EditProfile',
-        icon: 'fas fa-user',
+        name: 'Profile',
+        icon: 'fas fa-user-cog',
         url: '/admin/editprofile'
       }
     ];

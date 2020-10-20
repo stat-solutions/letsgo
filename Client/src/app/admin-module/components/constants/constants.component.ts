@@ -77,7 +77,7 @@ export class ConstantsComponent implements OnInit {
     if (password !== confirmed) return true
     else return false
   }
-  
+
 
   returnHome() {
     this.spinner.hide();
@@ -88,16 +88,16 @@ export class ConstantsComponent implements OnInit {
     }, 2000);
   }
 
-  register() {
+  save() {
     console.log(this.userForm)
-    
+
     this.submitted = true;
     this.spinner.show();
     if (this.userForm.invalid === true) {
       return this.invalid = true
       //return;
     } else {
-      
+
       // this.authService.registerUser(this.userForm).subscribe(
       //   () => {
       //     this.posted = true;
@@ -157,7 +157,7 @@ export class RegistrationComponent implements OnInit {
   ];
   passwordPattern = "/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$/";
   emailPattern: string;
-  
+
   constructor(
     private authService: AuthServiceService,
     private spinner: NgxSpinnerService,
@@ -239,14 +239,14 @@ export class RegistrationComponent implements OnInit {
 
   register() {
     console.log(this.userForm)
-    
+
     this.submitted = true;
     this.spinner.show();
     if (this.userForm.invalid === true) {
       return this.invalid = true
       //return;
     } else {
-      
+
       this.authService.registerUser(this.userForm).subscribe(
         () => {
           this.posted = true;
