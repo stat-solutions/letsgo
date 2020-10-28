@@ -6,9 +6,9 @@ class="container-fluid d-flex flex-row justify-content-center mb-0 mt-md-1 mt-1 
   <div class="head-icon d-flex justify-content-center mt-3 mb-3 pb-0">
       <img
         class="mx-auto mb-0 pb-0"
-        src="assets/img/mafuta-logo-2b.svg"
-        width="35"
-        height="35"
+        src="assets/img/letshego-logob.svg"
+        width="50"
+        height="50"
       />
   </div>
   <div class="card-body mt-1 pt-2 mb-0 pb-1 shadow-lg">
@@ -18,25 +18,25 @@ class="container-fluid d-flex flex-row justify-content-center mb-0 mt-md-1 mt-1 
     <form [formGroup]="userForm" (ngSubmit)="login()">
 
       <div class="form-group text-primary">
-        <label for="user_contact_number" [ngClass]="fval.user_contact_number.valid ? 'text-info' : ''">Mobile Number<i  *ngIf="fval.user_contact_number.valid" class="material-icons">check_circle</i></label>
-         <div class="input-group mb-2">
+        <label for="user_contact_number" [ngClass]="fval.user_contact_number.valid ? 'text-info' : ''">Phone Number<i  *ngIf="fval.user_contact_number.valid" class="material-icons">check_circle</i></label>
+         <div class="input-group mb-0">
          <div class="input-group-prepend">
           <div class="input-group-text">
             <i class="fas fa-phone text-primary mx-auto" style="size: 50px">
            </i></div> </div>
                          <input id="user_contact_number" formControlName="user_contact_number" type="text" class="form-control"  [ngClass]=" { 'is-invalid': (fval.user_contact_number.touched||fval.user_contact_number.dirty) && fval.user_contact_number.errors }" placeholder="e.g. 07XXXXXXXX" autocomplete="off"/>
                        </div>
-                     <div class="text-danger col" *ngIf="(fval.user_contact_number.touched||fval.user_contact_number.dirty)  && fval.user_contact_number.errors?.required">The main mobile number is required</div>
-                     <div class="text-danger col" *ngIf="(fval.user_contact_number.touched||fval.user_contact_number.dirty)  && fval.user_contact_number.errors?.hasNumber">The main mobile number should be in digits/numbers</div>
-                             <div class="text-danger col" *ngIf="(fval.user_contact_number.touched||fval.user_contact_number.dirty)  && fval.user_contact_number.errors?.maxlength">The main mobile number should not exceed 10 digits</div>
-                             <div class="text-danger col" *ngIf="(fval.user_contact_number.touched||fval.user_contact_number.dirty)  && fval.user_contact_number.errors?.minlength">The main mobile number  should have atleast 10 digits</div>
+                     <div class="text-danger col" *ngIf="(fval.user_contact_number.touched||fval.user_contact_number.dirty)  && fval.user_contact_number.errors?.required">The phone number is required!</div>
+                     <div class="text-danger col" *ngIf="(fval.user_contact_number.touched||fval.user_contact_number.dirty)  && fval.user_contact_number.errors?.hasNumber">The phone number should be in digits/numbers!</div>
+                             <div class="text-danger col" *ngIf="(fval.user_contact_number.touched||fval.user_contact_number.dirty)  && fval.user_contact_number.errors?.maxlength">The phone number should not exceed 10 digits!</div>
+                             <div class="text-danger col" *ngIf="(fval.user_contact_number.touched||fval.user_contact_number.dirty)  && fval.user_contact_number.errors?.minlength">The phone number  should have atleast 10 digits!</div>
                      </div>
 
       <div class="form-group text-primary">
         <label
           for="password"
           [ngClass]="fval.password.valid ? 'text-info' : ''"
-          >PIN<i *ngIf="fval.password.valid" class="material-icons"
+          >Password<i *ngIf="fval.password.valid" class="material-icons"
             >check_circle</i
           ></label
         >
@@ -60,7 +60,7 @@ class="container-fluid d-flex flex-row justify-content-center mb-0 mt-md-1 mt-1 
                 (fval.password.touched || fval.password.dirty) &&
                 fval.password.errors
             }"
-            placeholder="Enter your PIN"
+            placeholder="Enter Password"
             autocomplete="off"
           />
           <div class="input-group-append">
@@ -83,7 +83,7 @@ class="container-fluid d-flex flex-row justify-content-center mb-0 mt-md-1 mt-1 
             fval.password.errors?.required
           "
         >
-          PIN is required!
+          Password is required!
         </div>
       </div>
 
@@ -125,7 +125,7 @@ class="container-fluid d-flex flex-row justify-content-center mb-0 mt-md-1 mt-1 
         <div class="col-12 d-flex flex-row justify-content-start mt-2 pt-0">
           <div class="form-group">
             Dont't have an account?<a class="text-info mr-0" routerLink="../register">
-              Register &nbsp;<i class="fas fa-arrow-right"></i>
+              Register
             </a>
           </div>
         </div>
@@ -140,13 +140,13 @@ class="container-fluid d-flex flex-row justify-content-center mb-0 mt-md-1 mt-1 
 
     </form>
   </div>
-  <!--footer -->
-  <div class="d-flex justify-content-center col-xs-12 col-lg-12 mt-3 mx-auto">
-    <div class="small text-center text-info">
-     &copy; 2020 - ThunderBolt
-    </div>
+</div>
+</div>
+<!--footer -->
+<div class="d-flex justify-content-center col-xs-12 col-lg-12 mt-3 mx-auto">
+  <div class="small text-center text-info">
+   &copy; 2020 - LoanLead
   </div>
-  <!--/ footer -->
 </div>
-</div>
+<!--/ footer -->
 

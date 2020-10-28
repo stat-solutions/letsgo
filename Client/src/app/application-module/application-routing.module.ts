@@ -18,43 +18,42 @@ const routes: Routes = [
       {
         path: '',
         pathMatch: 'full',
-        redirectTo: 'dashboard'
+        redirectTo: 'applndashboard',
       },
 
       {
-        path: 'dashboard',
-       component: DashboardComponent,
+        path: 'applndashboard',
+        component: DashboardComponent,
       },
       {
-        path:"customerdetails/:customerid",
-        component:CustomerDetailsComponent
+        path: 'customerdetails/:customerid',
+        component: CustomerDetailsComponent,
       },
       {
         path: 'createloans',
-       component: CreateLoansComponent,
+        component: CreateLoansComponent,
       },
       {
         path: 'createcustomer',
-       component:CreateCustomerComponent,
+        component: CreateCustomerComponent,
       },
       {
         path: 'editprofile',
-       component:EditUserProfileComponent,
+        component: EditUserProfileComponent,
       },
       {
         path: 'usertransactions',
-       component:UserTransactionsComponent,
+        component: UserTransactionsComponent,
       },
       {
         path: 'reports',
-       component:ReportsComponent,
+        component: ReportsComponent,
       },
       {
         path: 'customers',
-       component:CustomersComponent,
-      }
-
-    ]
+        component: CustomersComponent,
+      },
+    ],
   },
 ];
 

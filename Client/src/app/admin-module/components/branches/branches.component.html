@@ -5,9 +5,9 @@
     <div class="head-container container mt-1 mb-1 mx-auto px-auto py-2 shadow-lg">
     <div class="row">
       <div class="col-12">
-        <h2 class="rub-head4 text-info text-center font-weight-bold pt-0 py-1">
+        <h3 class="rub-head4 text-info text-center font-weight-bold pt-0 py-1">
           BRANCHES
-        </h2>
+        </h3>
         <hr class="mt-0" />
       </div>
     </div>
@@ -27,27 +27,27 @@
           <button class="btn btn-primary" (click)="getFormValue()">Search</button>
         </div> -->
       <div class="col-6 col-sm-5 col-md-4 col-lg-3 col-xl-2 pt-2">
-      		<button type="button" class="btn btn-info ml-sm-4 ml-md-5 ml-xl-1 px-2" (click)="createBranch()"><i class="fas fa-plus"></i>  Create Branch</button>
+      		<button type="button" class="btn btn-info ml-sm-4 ml-md-5 ml-xl-1 px-2 float-right" (click)="createBranch()"><i class="fas fa-plus"></i>  Create Branch</button>
       </div>
     </div>
     </div>
           <div class="row">
-            <div class="col-12 mx-auto px-0 px-sm-3 px-md-0 px-xl-5">
+            <div class="col-12 mx-auto px-0 px-sm-4 px-md-0">
       <div class="condition" *ngIf="checkTable(filteredBranches); else nobranch">
-          <div class="table-col col-12">
-            <div class="state-table table-responsive pt-1 pt-sm-2 pb-0">
+          <div class="table-col col-12 pt-2 pb-2">
+            <div class="state-table table-responsive">
               <!--table-->
               <table
                 class="table table-hover table-striped table-sm"
               >
-              <thead class="bg-dark text-info">
+              <thead class="bg-dark text-white">
                 <tr class="mx-2">
-                <th scope="col">BranchNo</th>
-                <th scope="col">BranchName</th>
-                <th scope="col">EntityName</th>
+                <th scope="col">Branch No</th>
+                <th scope="col">Branch Name</th>
+                <th scope="col">Entity Name</th>
                 <th scope="col">District</th>
                 <th scope="col">Town</th>
-                <th scope="col">CreatedAt</th>
+                <th scope="col">Created At</th>
               </tr>
             </thead>
             <tbody>
@@ -75,7 +75,7 @@
   </div>
   </div>
 <!-- footer -->
-<div class="container mt-3 mt-xl-1 mb-2 pb-2">
+<div class="container mt-3 mt-xl-2 mb-2 pb-2">
   <div class="col-xs-12 col-lg-12">
     <div class="small text-center text-info">&copy; 2020 - LoanLead</div>
   </div>

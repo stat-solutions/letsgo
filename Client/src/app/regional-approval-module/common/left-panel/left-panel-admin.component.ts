@@ -52,11 +52,11 @@ export class LeftPanelAdminComponent implements OnInit {
       {
         name: 'Dashboard',
         icon: 'fas fa-tachometer-alt',
-        url: '/regional/dashboard'
+        url: '/regional/regionaldashboard'
       },
       {
-        name: 'UserTransactions',
-        icon: 'fas fa-credit-card',
+        name: 'Transactions',
+        icon: 'fas fa-briefcase',
         url: '/regional/usertransactions'
       },
       {
@@ -65,13 +65,13 @@ export class LeftPanelAdminComponent implements OnInit {
         url: '/regional/customers'
       },
       {
-        name: 'Reportd',
+        name: 'Reports',
         icon: 'fas fa-file',
         url: '/regional/reports'
       },
       {
-        name: 'EditProfile',
-        icon: 'fas fa-user',
+        name: 'Profile',
+        icon: 'fas fa-user-cog',
         url: '/regional/editprofile'
       }
     ];

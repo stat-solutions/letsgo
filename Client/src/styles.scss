@@ -34,15 +34,15 @@ Created by: @LogicalStack
 
 ::-webkit-scrollbar-track {
     box-shadow: inset 0 0 5px rgb(255, 255, 255);
-    border-radius: 9px;
+    border-radius: 0px;
 }
 
 
 /* Handle */
 
 ::-webkit-scrollbar-thumb {
-    background: rgb(10, 51, 88);
-    border-radius: 0px;
+    background: #173444;
+    border-radius: 9px;
 }
 
 
@@ -2449,7 +2449,7 @@ textarea.form-control.is-invalid {
     padding: .375rem .65rem;
     font-size: 1rem;
     line-height: 1.0;
-    border-radius: .25rem;
+    border-radius: .75rem;
     transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out
 }
 
@@ -2670,16 +2670,16 @@ background-image: linear-gradient(110deg, rgba(9, 62, 119, 0.97), rgba(35, 85, 1
 }
 
 .btn-danger {
-  color: #114b88;
+  color: #f5f5f5;
   background-color: #ca0f22;
   border-color: #ca0f22;
 }
 .btn-danger:hover,
 .btn-danger:focus {
-  color: #114b88;
-  background-color: #ca0f22;
+  color: #f5f5f5;
+  background-color: #eb0c22;
 background-image: linear-gradient(110deg, rgba(168, 7, 28, 0.97), rgba(158, 70, 75, 0.719));
-  border-color: #ca0f22;
+  border-color: #eb0c22;
 }
 
 .btn-danger.focus,
@@ -3108,7 +3108,7 @@ background-image: linear-gradient(110deg, rgba(168, 7, 28, 0.97), rgba(158, 70, 
     padding: .25rem .5rem;
     font-size: .875rem;
     line-height: 1.0;
-    border-radius: .2rem
+    border-radius: .75rem
 }
 
 .btn-block {
@@ -5927,22 +5927,24 @@ a.close.disabled {
 
 .modal-header {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: .6rem .6rem;
-    border-bottom: 1px solid #114b88;
+    align-items: flex-start;
+    justify-content: space-evenly;
+    padding: .7rem .7rem;
+    border-bottom: 1px solid #173444;
     border-top-left-radius: .3rem;
     border-top-right-radius: .3rem
 }
 
 .modal-header .close {
-    padding: .6rem .6rem;
-    margin: 0rem 0rem 0rem auto
+    padding: 0.5rem .5rem;
+    border: 0px;
+    margin: -0.5rem -0.5rem -0.5rem auto
 }
 
 .modal-title {
+  align-self: center;
     margin-bottom: 0;
-    line-height: 1.5
+    line-height: 1.0
 }
 
 .modal-body {
@@ -5955,7 +5957,7 @@ a.close.disabled {
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    padding: 1rem;
+    padding: .5rem;
     border-top: 1px solid #dee2e6;
     border-bottom-right-radius: .3rem;
     border-bottom-left-radius: .3rem
@@ -6671,7 +6673,7 @@ button.bg-light:hover {
 }
 
 .bg-dark {
-    background-color: #666b70 !important
+    background-color: #173444 !important
 }
 
 a.bg-dark:focus,
@@ -9810,7 +9812,7 @@ a.text-primo:hover {
 }
 
 .text-info {
-    color: #17aae0ee !important
+    color: #114b88 !important
 }
 
 a.text-info:focus,

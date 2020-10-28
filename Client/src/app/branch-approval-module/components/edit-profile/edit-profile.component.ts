@@ -1,4 +1,4 @@
-import { UsersService } from './../../../shared/services/users.service';
+import { UsersService } from 'src/app/shared/services/users.service';
 import { Component, OnInit } from '@angular/core';
 import { CustomValidator } from 'src/app/validators/custom-validator';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
@@ -23,8 +23,8 @@ export class EditProfileComponent implements OnInit {
   positionValue: string;
   branch = ["branch 1", "branch 2", "branch 3"]
 
-  constructor(private EditUser:UsersService, private fb:FormBuilder, 
-    
+  constructor(private EditUser:UsersService, private fb:FormBuilder,
+
     private router: Router, private spinner: NgxSpinnerService) { }
   ngOnInit() {
     this.userData = this.EditUser.getSpecificUser('katznicho@gmail.com')
@@ -42,12 +42,12 @@ export class EditProfileComponent implements OnInit {
         Validators.compose([Validators.required])
       ),
       branches: new FormControl('',Validators.required),
-      
+
       email2: new FormControl(
         '',
         Validators.compose([Validators.required])
       ),
-      
+
       user_contact_number1: new FormControl(
         '',
         Validators.compose([
@@ -147,7 +147,7 @@ export class EditProfileComponent implements OnInit {
     return this.userForm.disable()
   }
   getBranch(event) {
-    
+
   }
 
   enableEdit() {
@@ -172,12 +172,12 @@ export class EditProfileComponent implements OnInit {
   }
 
   setProfileValues () {
-    
+
   }
   save () {
 
   }
-  
+
 
 
 

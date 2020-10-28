@@ -21,11 +21,11 @@ const routes: Routes = [
       {
         path: '',
         pathMatch: 'full',
-        redirectTo: 'dashboard'
+        redirectTo: 'admindashboard'
       },
 
       {
-        path: 'dashboard',
+        path: 'admindashboard',
        component: DashboardComponent,
       },
       {
@@ -73,7 +73,7 @@ const routes: Routes = [
         path:"entities",
         component:EntitiesComponent
       }
-      
+
 
     ]
   },

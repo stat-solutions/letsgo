@@ -1,12 +1,13 @@
 <div
-  class="container-fluid justify-content-center mt-xl-0 mb-0 pt-2 pt-xl-0 pb-2 pb-md-0 shadow-lg col-xs-12 col-lg-12"
+  class="container-fluid justify-content-center mt-xl-0 mb-0 pt-1 pt-xl-0 pb-2 pb-md-0 shadow-lg col-xs-12 col-lg-12"
 >
   <div class="jumbotron-fluid mx-0 px-0 mt-1 mt-xl-0 pt-3 pt-xl-0 mb-0 pb-0">
-    <div class="row">
+    <div class="head-container container mt-1 mb-1 mx-auto px-auto py-2 shadow-lg">
+    <div class="row ">
       <div class="col-12">
-        <h2 class="rub-head4 text-info text-center font-weight-bold pt-0 py-1">
+        <h3 class="rub-head4 text-info text-center font-weight-bold pt-0 py-1">
           LOANS
-        </h2>
+        </h3>
         <hr class="mt-0" />
       </div>
     </div>
@@ -24,33 +25,34 @@
           />
                     </form>
                 </div>
+    </div>
 <div class="row">
     <div class="col-12 mx-0 px-0">
     <div class="conditin" *ngIf="checkTable(loanTable); else noCustomer">
-        <div class="table-col col-12">
-          <div class="state-table table-responsive pt-0 pb-0">
+        <div class="table-col col-12 pt-2 pb-2">
+          <div class="state-table table-responsive pb-0">
             <!--table-->
             <table class="table table-hover table-striped table-sm" *ngIf="checkTable(filteredLoans); else noloans"
 >
-              <thead class="bg-dark text-info">
+              <thead class="bg-dark text-white">
                 <tr class="mx-2">
               <th scope="col">ID</th>
               <th scope="col">Customer</th>
-              <th scope="col">LoanType</th>
-              <th scope="col">LoanProduct</th>
-              <th scope="col">Tenure(years)</th>
-              <th scope="col">Amount(shs)</th>
+              <th scope="col">Loan Type</th>
+              <th scope="col">Loan Product</th>
+              <th scope="col">Tenure</th>
+              <th scope="col">Amount</th>
               <th scope="col">Stage</th>
               <th scope="col">Status</th>
-              <th scope="col">LoanMovedBy</th>
-              <th scope="col">StageAt</th>
-              <th scope="col">HowLong</th>
-              <th scope="col">CreatedAt</th>
-              <th scope="col">TotalAge</th>
+              <th scope="col">Loan MovedBy</th>
+              <th scope="col">Stage At</th>
+              <th scope="col">How Long</th>
+              <th scope="col">Created At</th>
+              <th scope="col">Total Age</th>
             </tr>
           </thead>
           <tbody>
-                <tr class="mx-2" *ngFor="let loans of filteredLoans|paginate:{
+                <tr class="mx-2 pointerCursor" *ngFor="let loans of filteredLoans|paginate:{
  id:'my_pages', itemsPerPage:pageSize, currentPage:currentPage,totalItems:totalItems
 } let i = index" (click)="openModal(template)"
             >
@@ -83,7 +85,7 @@
         >
 </div>
         </div>
-        <h3 class="text-info mt-3 mt-xl-0 mx-3 px-auto">Statistics</h3>
+        <h3 class="text-info mt-3 mt-xl-0 mx-3 px-auto pt-xl-0">Statistics</h3>
     <div class="stat-container container mt-2 mt-xl-1 mb-2 mb-xl-0 mx-auto px-auto px-xl-5 py-2 shadow-lg">
 <div class="row">
     <div class="col-12 mx-auto mx-xl-5 px-xl-5">
@@ -119,7 +121,7 @@
             <!--table-->
             <table class="state-table table table-hover table-striped table-sm"
 >
-              <thead class="bg-light text-info">
+              <thead class="bg-dark text-white">
                 <th>Client ID.</th>
                 <th>Client Name</th>
                 <th>Address</th>

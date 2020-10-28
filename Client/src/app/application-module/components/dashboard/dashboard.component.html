@@ -1,108 +1,154 @@
-
-<div class="container-fluid mb-0 mt-md-1 pt-md-0 pt-3 pb-1 
- col-xs-12 col-lg-12" 
- >
-  <div>
-    <div class="container" >
-      <div class="row shadow-lg m-3" >
-        <div class="col-md-4 colxs-12 col-sm-12 m-2">
-          <h1>
-            <span>
-              <i class="fas fa-user">Loans</i>
-            </span>
-          </h1>
-        </div>
-        <div class="col-md-4 colxs-12 col-sm-12">
-          <form [formGroup]="formGroup" (ngSubmit)="getFormValue()">
-            <div class="form-group">
-            <label for="customer">SearchByCustomer</label>
-            <input type="text"
+<div
+  class="container-fluid justify-content-center mt-0 mb-0 pt-1 pt-xl-0 pb-2 pb-md-0 shadow-lg col-xs-12 col-lg-12"
+>
+  <div class="jumbotron-fluid mx-0 px-0 mt-1 mt-xl-0 pt-3 pt-xl-0 mb-0 pb-0">
+    <div class="head-container container mt-1 mb-1 mx-auto px-auto py-2 shadow-lg">
+    <div class="row ">
+      <div class="col-12">
+        <h3 class="rub-head4 text-info text-center font-weight-bold pt-0 py-1">
+          LOANS
+        </h3>
+        <hr class="mt-0" />
+      </div>
+    </div>
+                <div class="mt-1 mt-xl-0 pt-xl-0 mb-2 pl-2">
+                    <!-- the search section -->
+      <form [formGroup]="formGroup" (ngSubmit)="getFormValue()">
+          <input
+            type="text"
             (input)="getValue($event)"
             formControlName="search_term"
-            class="form-control" 
-             name="" id="customer" placeholder="search"
-            >
-          </div>
-          <div class="form-group">
-            <button class="btn btn-primary" 
-            type="submit">Search</button>
-          </div>
-          
-          </form>
-           
-        </div>
-      </div>
-      <div class="col-md-12">
-        <div class="conditin m-2" *ngIf="checkTable(loanTable); else noCustomer">
-          <div class="mytable">
+            class="form-control col-9 col-sm-6 col-md-5 col-lg-4"
+            name=""
+            id="customer"
+            placeholder="Search" autocomplete="on"
+          />
+                    </form>
+                </div>
+    </div>
+<div class="row">
+    <div class="col-12 mx-0 px-0">
+    <div class="conditin" *ngIf="checkTable(loanTable); else noCustomer">
+        <div class="table-col col-12 pt-2 pb-2">
+          <div class="state-table table-responsive">
             <!--table-->
-            <table class="table table-bordered" *ngIf="checkTable(filteredLoans); else noloans">
-              <thead class="table-dark">
-                <tr>
-                  <th scope="col">ID</th>
-                  <th scope="col">Customer</th>
-                  <th scope="col">LoanType</th>
-                  <th scope="col">LoanProduct</th>
-                  <th scope="col">Tenure(years)</th>
-                  <th scope="col">Amount(shs)</th>
-                  <th scope="col">Stage</th>
-                  <th scope="col">Status</th>
-                  <th scope="col">LoanMovedBy</th>
-                  <th scope="col">StageAt</th>
-                  <th scope="col">HowLong</th>
-                  <th scope="col">CreatedAt</th>
-                  <th scope="col">TotalAge</th>
-                </tr>
-              </thead>
-              <tbody >
-                <tr *ngFor="let loans of filteredLoans|paginate:{
+            <table class="table table-hover table-striped table-sm" *ngIf="checkTable(filteredLoans); else noloans"
+>
+              <thead class="bg-dark text-white">
+                <tr class="mx-2">
+              <th scope="col">ID</th>
+              <th scope="col">Customer</th>
+              <th scope="col">Loan Type</th>
+              <th scope="col">Loan Product</th>
+              <th scope="col">Tenure</th>
+              <th scope="col">Amount</th>
+              <th scope="col">Stage</th>
+              <th scope="col">Status</th>
+              <th scope="col">Loan MovedBy</th>
+              <th scope="col">Stage At</th>
+              <th scope="col">How Long</th>
+              <th scope="col">Created At</th>
+              <th scope="col">Total Age</th>
+            </tr>
+          </thead>
+          <tbody>
+                <tr class="mx-2 pointerCursor" *ngFor="let loans of filteredLoans|paginate:{
  id:'my_pages', itemsPerPage:pageSize, currentPage:currentPage,totalItems:totalItems
-} let i = index" class="click" (click)=clickOnCustomer(loans.Id)>
-                  <th>{{loans.Id}}</th>
-                  <th>{{loans.Customer}}</th>
-                  <th>{{loans.LoanType}}</th>
-                  <th>{{loans.LoanProduct}}</th>
-                  <th>{{loans.Tenure}}</th>
-                  <th>{{loans.Amount}}</th>
-                  <th>{{loans.Stage}}</th>
-                  <th>{{loans.Status}}</th>
-                  <th>{{loans.LoanMovedBy}}</th>
-                  <th>{{loans.StageAt}}</th>
-                  <th>{{loans.HowLong}}</th>
-                  <th>{{loans.CreatedAt}}</th>
-                  <th>{{loans.TotalAge}}</th>
-                </tr>
-                <tr>
-              </tbody>
-            </table>
+} let i = index" (click)="openModal(template)"
+            >
+              <td>{{ loans.Id }}</td>
+              <td>{{ loans.Customer }}</td>
+              <td>{{ loans.LoanType }}</td>
+              <td>{{ loans.LoanProduct }}</td>
+              <td>{{ loans.Tenure }}</td>
+              <td>{{ loans.Amount }}</td>
+              <td>{{ loans.Stage }}</td>
+              <td>{{ loans.Status }}</td>
+              <td>{{ loans.LoanMovedBy }}</td>
+              <td>{{ loans.StageAt }}</td>
+              <td>{{ loans.HowLong }}</td>
+              <td>{{ loans.CreatedAt }}</td>
+              <td>{{ loans.TotalAge }}</td>
+            </tr>
+          </tbody>
+        </table>
             <pagination-controls  id="my_pages"
             (pageChange)="pageChanged($event)"
             (pageBoundsCorrection)="pageChanged($event)"
             directionLinks="true">
            </pagination-controls>
-            <ng-template #noloans><div class="text-center">
-              <h3 class="text-center">No Customer found</h3>
-            </div></ng-template>
-
-            <!--table-->
-            <!--loanStatus-->
-          </div>
-          
-        </div>
-        <ng-template #noCustomer>
-          <div class="container shadow-lg">
-            <h2 class="text-center">Loading...</h2>
-          </div>
-        </ng-template>
-      </div>
-      <!--footer-->
-      <div class="container mt-3 mb-2 pb-2">
-        <div class="col-xs-12 col-lg-12">
-          <div class="small text-center text-info">&copy; 2020 - LoanLead</div>
-        </div>
-
-    </div>
-  </div>
-
+        <ng-template #noloans
+          >
+                              <div class="col-12 my-5 py-5 justify-content-between">
+            <h4 class="text-center text-info">No Customer found!</h4>
+          </div></ng-template
+        >
 </div>
+        </div>
+        <!-- <h3 class="text-info mt-3 mt-xl-0 mx-3 px-auto pt-xl-0">Statistics</h3>
+    <div class="stat-container container mt-2 mt-xl-1 mb-2 mb-xl-0 mx-auto px-auto px-xl-5 py-2 shadow-lg">
+<div class="row">
+    <div class="col-12 mx-auto mx-xl-5 px-xl-5">
+              <span class="mx-2"><i class="fas fa-money-bill-wave"></i>    Running: <span class="text-info">{{ checkLoanStatus(loanTable, "running") }}</span></span>
+              <span class="mx-2"><i class="fas fa-check-double"></i>    Approved: <span class="text-info">{{ checkLoanStatus(loanTable, "approved") }}</span></span>
+              <span class="mx-2"><i class="fas fa-exchange-alt"></i>    Deferred: <span class="text-info">{{ checkLoanStatus(loanTable, "deferred") }}</span></span>
+              <span class="mx-2"><i class="fas fa-hand-holding-usd"></i>    Disbursed: <span class="text-info">{{ checkLoanStatus(loanTable, "disbursed") }}</span></span>
+              <span class="mx-2"><i class="fas fa-times"></i>    Rejected: <span class="text-info">{{ checkLoanStatus(loanTable, "rejected") }}</span></span>
+          </div>
+        </div>
+        </div> -->
+      </div>
+    </div>
+    </div>
+    <ng-template #noCustomer>
+      <div class="container py-2 shadow-lg">
+        <h4 class="text-center text-info">Loading...</h4>
+      </div>
+    </ng-template>
+  </div>
+</div>
+      <ng-template #template>
+        <div class="modal-header bg-info close modal-lg">
+          <h4 class="modal-title pull-right text-white-50">{{cientName}}'s Details</h4>
 
+          <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+      </button>
+        </div>
+        <div class="modal-body">
+        <div class="table-col col-12">
+          <div class="table-responsive pt-2">
+            <!--table-->
+            <table class="state-table table table-hover table-striped table-sm"
+>
+              <thead class="bg-dark text-white">
+                <th>Client ID.</th>
+                <th>Client Name</th>
+                <th>Address</th>
+                <th>Phone Number</th>
+                <th>Email</th>
+              </thead>
+              <tbody>
+                <tr
+                >
+                  <td>
+lts204240                  </td>
+
+                  <td>James Kinene</td>
+                  <td>Ntinda, Kampala</td>
+                  <td>0773283346</td>
+                  <td>jknen@gmail.com</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        </div>
+      </ng-template>
+<!-- footer -->
+<div class="container mt-3 mt-xl-2 mb-2 pb-2">
+  <div class="col-xs-12 col-lg-12">
+    <div class="small text-center text-info">&copy; 2020 - LoanLead</div>
+  </div>
+</div>
+<!-- footer /-->

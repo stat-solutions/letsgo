@@ -52,29 +52,28 @@ export class LeftPanelAdminComponent implements OnInit {
       {
         name: 'Dashboard',
         icon: 'fas fa-tachometer-alt',
-        url: '/headofficeentry/dashboard'
+        url: '/headofficeentry/headentrydashboard',
       },
       {
-        name: 'UserTransactions',
-        icon: 'fas fa-credit-card',
-        url: '/headofficeentry/usertransactions'
+        name: 'Transactions',
+        icon: 'fas fa-briefcase',
+        url: '/headofficeentry/usertransactions',
       },
       {
         name: 'Customers',
         icon: 'fas fa-users',
-        url: '/headofficeentry/customers'
+        url: '/headofficeentry/customers',
       },
       {
         name: 'Reports',
         icon: 'fas fa-file',
-        url: '/headofficeentry/reports'
+        url: '/headofficeentry/reports',
       },
       {
-        name: 'EditProfile',
-        icon: 'fas fa-user',
-        url: '/headofficeentry/editprofile'
-      }
-      
+        name: 'Profile',
+        icon: 'fas fa-user-cog',
+        url: '/headofficeentry/editprofile',
+      },
     ];
   }
 }
