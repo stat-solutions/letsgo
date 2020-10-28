@@ -1,7 +1,7 @@
 import { LandingService } from './../../../shared/services/landing.service';
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import * as moment from 'moment';
-import {FormControl, FormGroup, FormBuilder} from '@angular/forms';
+import { FormGroup, FormBuilder} from '@angular/forms';
 import {Router} from '@angular/router';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
