@@ -22,12 +22,12 @@ export class ReportsComponent implements OnInit {
   myDateValue: Date;
   positionValue: string;
   reportTypes = [
-    { id: 1, reportType: "RunningLoans" },
-    { id: 2, reportType: "DisbursedLoans" },
-    { id: 3, reportType: "RejectedLoans" },
-    { id: 4, reportType: "ApprovedLoans" },
-    { id: 2, reportType: "ForwardedLoans" },
-    { id: 2, reportType: "ReceivedLoans" },
+    { id: 1, reportType: "Running reports" },
+    { id: 2, reportType: "Disbursed reports" },
+    { id: 3, reportType: "Rejected reports" },
+    { id: 4, reportType: "Approved reports" },
+    { id: 2, reportType: "Forwarded reports" },
+    { id: 2, reportType: "Received reports" },
     { id: 2, reportType: "Comprehensive report" },
   ]
 
@@ -68,7 +68,7 @@ export class ReportsComponent implements OnInit {
     return this.userForm.controls;
   }
   getReport(branch) {
-    this.fval.branches.setValue(branch.target.value)
+    this.fval.report_type.setValue(branch.target.value)
   }
   register() {
     

@@ -24,19 +24,6 @@ hr{
   border: 2px solid #bbb212b2;
 }
 
-button.btn {
-  border-radius: 12px;
-}
-
-.text-info {
-  color: #114b88 !important
-}
-
-a.text-info:focus,
-a.text-info:hover {
-  color: #48bae4f5 !important
-}
-
 .pointerCursor {
   cursor: pointer;
 }
@@ -92,7 +79,7 @@ a.text-info:hover {
       margin-bottom: .8rem !important;
     }
   .jumbotron-fluid {
-    padding-bottom: 2.2rem !important;
+    padding-bottom: 1.2rem !important;
   }
 
     }
@@ -108,13 +95,13 @@ a.text-info:hover {
 
 @media (min-width: 445px) {
     .jumbotron-fluid {
-      padding-bottom: 2.6rem !important;
+      padding-bottom: 1.6rem !important;
     }
 }
 
 @media (min-width: 568px) {
     .jumbotron-fluid {
-      padding-bottom: 1.6rem !important;
+      padding-bottom: 1.8rem !important;
     }
 }
 

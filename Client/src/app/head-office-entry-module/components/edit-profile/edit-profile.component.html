@@ -1,49 +1,31 @@
-<div class="container-fluid m-4">
-    <div class="container">
-        <div class="row m-2">
-            <div class="col-md-12">
-                <h3 class="text-center">Settings</h3>
-            </div>
-        </div>
-        <hr>
-        <div class="row m-4">
-            <div class="col-md-5 text-center">
-                <div class="profile">Profile</div>
-                <div class="img">
-                    <h6>profile Picture</h6>
+<div
+  class="container-fluid justify-content-center mt-xl-0 mb-0 pt-1 pt-xl-0 pb-2 pb-md-0 shadow-lg col-xs-12 col-lg-12"
+>
+  <div class="jumbotron-fluid mx-0 px-0 mt-1 mt-xl-0 pt-3 pt-xl-0 mb-0 pb-0">
+    <div class="row">
+      <div class="col-12">
+        <h3 class="rub-head4 text-info text-center font-weight-bold py-1">
+          PROFILE
+        </h3>
+        <hr class="mt-0" />
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 col-xl-5">
+                <div class="update-img d-flex mt-3 mt-lg-4 mx-5 px-5 justify-content-between">
+<<<<<<< Updated upstream
                    <img [src] ="userData.photo" alt="Not found" class="img-fluid img-rounded">
+=======
+                    <img src='/../../../assets/img/man.svg' alt="Not found" class="img-fluid img-rounded">
+>>>>>>> Stashed changes
                 </div>
-                <div class="name"><h5>{{userData.name}}</h5></div>
-                <div class="buttons m-2">
-                    <button class="btn btn-primary btn-block">UpdateAvatar</button>
+        <div class="d-flex mt-3 mx-4 px-4 px-md-5 align-items-center">
+                    <button class="update-button btn btn-info mx-4 mx-md-3">Update Photo</button>
                 </div>
-                <div class="text-centre">
-                    <h2>4</h2>
-                    <p class="text-center">CustomersCreated</p>
-                </div>
-                <div class="text-center">
-                    <h4>BioGraphy</h4>
-                </div>
-                <div class="text">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui 
-                    blanditiis nesciunt assumenda quod voluptatibus! Quas deserunt
-                     vitae dolorem architecto assumenda.
-                </div>
-    
             </div>
-            <div class="col-md-7">
-                <div class="text-center">
-                    <h6>Basic Information</h6>
-
-             </div>
-             <h6>Some of these details are displayed next to your publicly shared reviews, ratings, photos,
-                  etc. Any updates you make here will also appear in past contributions.</h6>
-             <div class="m-2">
-                 <h4 class="m-2">FullName: {{'   '}} {{userData.name | uppercase}}</h4>
-
-             </div>
-             <div class="m-2">
-                 <!--form-->
+            <div class="col-12 col-xl-7">
+               <div class="mx-2 my-2 mx-md-3 my-md-4">
+                 <!--display the profile info in the form, that should be disabled-->
                  <form [formGroup]="userForm" (ngSubmit)="save()">
                     <div class="row">
                         <div class="col-12 col-md-6">
@@ -52,7 +34,7 @@
                 >check_circle</i
               >Full Name</label
             >
-            <div class="input-group mb-2">
+            <div class="input-group mb-0">
               <div class="input-group-prepend">
                 <div class="input-group-text">
                   <i class="fas fa-user text-primary mx-auto" style="size: 50px;">
@@ -69,7 +51,7 @@
                     (fval.full_name.touched || fval.full_name.dirty) &&
                     fval.full_name.errors
                 }"
-                placeholder="Enter Name"
+                placeholder="Enter full name"
                 autocomplete="off"
               />
             </div>
@@ -84,49 +66,6 @@
             </div>
           </div>
         </div>
-      
-                     <div class="col-12 col-md-6">
-            <div class="form-group text-primary">
-            <label for="email2" [ngClass]="fval.email2.valid ? 'text-info' : ''"
-              >Email <i *ngIf="fval.email2.valid" class="material-icons"
-                >check_circle</i
-              ></label
-            >
-            <div class="input-group mb-1">
-              <div class="input-group-prepend">
-                <div class="input-group-text">
-                  <i
-                    class="fas fa-envelope text-primary mx-auto"
-                    style="size: 50px;"
-                  ></i>
-                </div>
-              </div>
-              <input
-                id="email2"
-                formControlName="email2"
-                type="text"
-                class="form-control"
-                [ngClass]="{
-                  'is-invalid':
-                    (fval.email2.touched || fval.email2.dirty) && fval.email2.errors
-                }"
-                placeholder="Second email address (optional)"
-                autocomplete="off"
-              />
-            </div>
-            <div
-              class="text-danger col"
-              *ngIf="
-                (fval.email2.touched || fval.email2.dirty) &&
-                fval.email2.errors?.email2
-              "
-            >
-              Please enter valid email address!
-            </div>
-          </div>
-    </div>
-      </div>
-      <div class="row">
         <div class="col-12 col-md-6">
         <div class="form-group text-primary">
             <label
@@ -138,7 +77,7 @@
                 >check_circle</i
               ></label
             >
-            <div class="input-group mb-2">
+            <div class="input-group mb-0">
               <div class="input-group-prepend">
                 <div class="input-group-text">
                   <i
@@ -183,8 +122,100 @@
               The phone number should be equal to 10 "digits"!
             </div>
           </div>
-        </div>
+
+      </div>
+      </div>
+      <div class="row">
         <div class="col-12 col-md-6">
+        <div class="form-group text-primary">
+            <label
+              for="user_contact_number2"
+              [ngClass]="fval.user_contact_number2.valid ? 'text-info' : ''"
+              >Phone contact 2<i
+                *ngIf="fval.user_contact_number2.valid"
+                class="material-icons"
+                >check_circle</i
+              ></label
+            >
+            <div class="input-group mb-0">
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <i
+                    class="fas fa-phone text-primary mx-auto"
+                    style="size: 50px;"
+                  ></i>
+                </div>
+              </div>
+              <input
+                id="user_contact_number2"
+                formControlName="user_contact_number2"
+                type="text"
+                class="form-control"
+                [ngClass]="{
+                  'is-invalid':
+                    (fval.user_contact_number2.touched ||
+                      fval.user_contact_number2.dirty) &&
+                    fval.user_contact_number2.errors
+                }"
+                placeholder="e.g. 07XXXXXXXX (Optional)"
+                autocomplete="off"
+              />
+            </div>
+            <div
+              class="text-danger col"
+              *ngIf="
+                (fval.user_contact_number2.touched ||
+                  fval.user_contact_number2.dirty) &&
+                fval.user_contact_number2.errors?.hasNumber
+              "
+            >
+              The phone number should be equal to 10 "digits"!
+            </div>
+          </div>
+        </div>
+                     <div class="col-12 col-md-6">
+            <div class="form-group text-primary">
+            <label for="email2" [ngClass]="fval.email2.valid ? 'text-info' : ''"
+              >Email <i *ngIf="fval.email2.valid" class="material-icons"
+                >check_circle</i
+              ></label
+            >
+            <div class="input-group mb-0">
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <i
+                    class="fas fa-envelope text-primary mx-auto"
+                    style="size: 50px;"
+                  ></i>
+                </div>
+              </div>
+              <input
+                id="email2"
+                formControlName="email2"
+                type="text"
+                class="form-control"
+                [ngClass]="{
+                  'is-invalid':
+                    (fval.email2.touched || fval.email2.dirty) && fval.email2.errors
+                }"
+                placeholder="Enter email address"
+                autocomplete="off"
+              />
+            </div>
+            <div
+              class="text-danger col"
+              *ngIf="
+                (fval.email2.touched || fval.email2.dirty) &&
+                fval.email2.errors?.email2
+              "
+            >
+              Please enter valid email address!
+            </div>
+          </div>
+    </div>
+      </div>
+<div class="row">
+                            <div class="col-12 col-md-6">
           <!--branch-->
           <div class="form-group text-primary">
             <label
@@ -194,7 +225,7 @@
                 >check_circle</i
               >Branch</label
             >
-            <div class="input-group mb-2">
+            <div class="input-group mb-0">
               <div class="input-group-prepend">
                 <div class="input-group-text">
                   <i class="fas fa-code-branch text-primary mx-auto" style="size: 50px;">
@@ -214,9 +245,9 @@
               (change) ="getBranch($event)"
               required
             >
-            <option value="" selected disabled>selectBranch</option>
+            <option value="" selected disabled>Select Branch</option>
             <option *ngFor="let branches of branch" [ngValue]="branches">{{branches}}</option>
-    
+
             </select>
         </div>
             <div
@@ -229,12 +260,10 @@
               The branch is required!
             </div>
           </div>
-    
+
           <!--branch-->
                   </div>
-        </div>
-        <div class="row">
-          <div class="col-12 col-md-12">
+          <div class="col-12 col-md-6">
               <!--current-->
               <div class="form-group text-primary">
                 <label
@@ -244,7 +273,7 @@
                     >check_circle</i
                   ></label
                 >
-  
+
                 <div class="input-group mb-0">
                   <div class="input-group-prepend">
                     <div class="input-group-text">
@@ -287,9 +316,9 @@
                     fval.currentPassword.errors?.required
                   "
                 >
-                  currentPassword is required!
+                  The current password is required!
                 </div>
-  
+
                 <div
                   class="col"
                   *ngIf="
@@ -311,7 +340,7 @@
                       ? "cancel"
                       : "check_circle"
                   }}</i>
-                  currentPassword should have exactly four digits!
+                  Current password should have exactly four digits!
                 </div>
                 <div
                   class="col"
@@ -335,10 +364,10 @@
                   Only digits are allowed!
                 </div>
               </div>
-            
+
               <!--current-->
 
-                  
+
         </div>
         </div>
         <div class="row">
@@ -347,11 +376,11 @@
               <label
                 for="password"
                 [ngClass]="fval.password.valid ? 'text-info' : ''"
-                >Password<i *ngIf="fval.password.valid" class="material-icons"
+                >New Password<i *ngIf="fval.password.valid" class="material-icons"
                   >check_circle</i
                 ></label
               >
-    
+
               <div class="input-group mb-0">
                 <div class="input-group-prepend">
                   <div class="input-group-text">
@@ -371,7 +400,7 @@
                       (fval.password.touched || fval.password.dirty) &&
                       fval.password.errors
                   }"
-                  placeholder="Enter your password"
+                  placeholder="Enter New password"
                   autocomplete="off"
                 />
                 <div class="input-group-append">
@@ -394,9 +423,9 @@
                   fval.password.errors?.required
                 "
               >
-                Password is required!
+                New password is required!
               </div>
-    
+
               <div
                 class="col"
                 *ngIf="
@@ -454,7 +483,7 @@
                   >check_circle</i
                 ></label
               >
-    
+
               <div class="input-group mb-0">
                 <div class="input-group-prepend">
                   <div class="input-group-text">
@@ -475,7 +504,7 @@
                         fval.confirmPassword.dirty) &&
                       fval.confirmPassword.errors
                   }"
-                  placeholder="Confirm your password"
+                  placeholder="Confirm password"
                   autocomplete="off"
                 />
                 <div class="input-group-append">
@@ -491,7 +520,7 @@
                   </span>
                 </div>
               </div>
-    
+
               <div
                 class="text-danger col"
                 *ngIf="fval.confirmPassword.errors?.NoPasswordMatch"
@@ -510,40 +539,49 @@
             </div>
     </div>
         </div>
-            <div class="d-flex my-2 py-2 mx-auto">
+            <div class="d-flex my-1 my-md-2 py-2 mx-auto">
               <button
                 type="submit"
-                class="btn btn-info col-4 mx-auto"
+<<<<<<< Updated upstream
+                class="btn btn-info col-4 col-md-3 mx-auto"
                 [disabled]="!userForm.valid"
+=======
+                class="btn btn-info col-4 mx-auto"
+>>>>>>> Stashed changes
               >
                 Save
               </button>
-    
+
               <ngx-spinner bdColor="#175b6f86" size="medium" color="#27ceaa" type="ball-clip-rotate-multiple">
                 <!--p class="text-light justify-content-between align-items-center mt-4 pt-4 mt-md-4 pt-md-2">Please wait...</p-->
               </ngx-spinner>
-    
+
               <!--label class="col" class="text-danger">
                 <i class="material-icons">Cancel</i>
-    
+
                 <ngx-alerts></ngx-alerts>
               </label-->
-    
+
               <!--label class="col" class="text-info">
                 <i class="material-icons">check_circle</i>
                 <ngx-alerts></ngx-alerts>
               </label-->
-    
+
               <button
                 type="button"
-                class="btn btn-info col-4 mx-auto"
+<<<<<<< Updated upstream
+                class="btn btn-info col-4 col-md-3 mx-auto"
                 (click)="returnHome()"
+=======
+                class="btn btn-info col-4 mx-auto"
+                (click)="cancel()"
+>>>>>>> Stashed changes
               >
                 Cancel
               </button>
               <button
                 type="button"
-                class="btn btn-info col-4 mx-auto"
+                class="btn btn-info col-4 col-md-3 mx-auto"
                 (click)="enableEdit()"
               >
                 Edit
@@ -551,7 +589,7 @@
             </div>
         </form>
                  <!--form-->
-            
+
             </div>
 
 
@@ -560,6 +598,13 @@
     </div>
 
 </div>
+<!-- footer -->
+<div class="container mt-3 mt-xl-2 mb-2 pb-2">
+  <div class="col-xs-12 col-lg-12">
+    <div class="small text-center text-info">&copy; 2020 - LoanLead</div>
+  </div>
+</div>
+<!-- footer /-->
 
 
 

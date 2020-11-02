@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LogoutUsersComponent } from './logout-users.component';
+import { ConstantsTableComponent } from './constants-table.component';
 
-describe('LogoutUsersComponent', () => {
-  let component: LogoutUsersComponent;
-  let fixture: ComponentFixture<LogoutUsersComponent>;
+describe('ConstantsTableComponent', () => {
+  let component: ConstantsTableComponent;
+  let fixture: ComponentFixture<ConstantsTableComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LogoutUsersComponent ]
+      declarations: [ ConstantsTableComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(LogoutUsersComponent);
+    fixture = TestBed.createComponent(ConstantsTableComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

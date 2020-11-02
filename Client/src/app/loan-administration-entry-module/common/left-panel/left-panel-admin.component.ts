@@ -52,11 +52,11 @@ export class LeftPanelAdminComponent implements OnInit {
       {
         name: 'Dashboard',
         icon: 'fas fa-tachometer-alt',
-        url: '/loanentry/dashboard'
+        url: '/loanentry/loanentrydashboard'
       },
       {
-        name: 'UserTransactions',
-        icon: 'fas fa-credit-card',
+        name: 'Transactions',
+        icon: 'fas fa-briefcase',
         url: '/loanentry/usertransactions'
       },
       {
@@ -70,8 +70,8 @@ export class LeftPanelAdminComponent implements OnInit {
         url: '/loanentry/reports'
       },
       {
-        name: 'EditProfile',
-        icon: 'fas fa-uer',
+        name: 'Profile',
+        icon: 'fas fa-user-cog',
         url: '/loanentry/editprofile'
       }
     ];

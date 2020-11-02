@@ -9,6 +9,7 @@ import {CustomerDetailsComponent} from './components/customer-details/customer-d
 import { CustomersComponent } from './components/customers/customers.component';
 import { ReportsComponent } from './components/reports/reports.component';
 
+
 import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
 import { UserTransactionsComponent } from './components/user-transactions/user-transactions.component';
 
@@ -21,35 +22,34 @@ const routes: Routes = [
       {
         path: '',
         pathMatch: 'full',
-        redirectTo: 'dashboard'
+        redirectTo: 'headentrydashboard',
       },
 
       {
-        path: 'dashboard',
-       component: DashboardComponent,
+        path: 'headentrydashboard',
+        component: DashboardComponent,
       },
       {
-      path:'customers',
-      component:CustomersComponent
+        path: 'customers',
+        component: CustomersComponent,
       },
       {
-      path:"editprofile",
-      component:EditProfileComponent
+        path: 'editprofile',
+        component: EditProfileComponent,
       },
       {
-      path:"usertransactions",
-      component:UserTransactionsComponent
-      }, 
-      {
-        path: "reports",
-        component:ReportsComponent
+        path: 'usertransactions',
+        component: UserTransactionsComponent,
       },
       {
-        path:"customerdetails/:customerid",
-        component:CustomerDetailsComponent
-      }
-
-    ]
+        path: 'reports',
+        component: ReportsComponent,
+      },
+      {
+        path: 'customerdetails/:customerid',
+        component: CustomerDetailsComponent,
+      },
+    ],
   },
 ];
 

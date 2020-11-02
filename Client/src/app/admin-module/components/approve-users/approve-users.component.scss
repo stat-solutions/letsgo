@@ -21,22 +21,10 @@ hr{
 .state-table-2 {
   height: 100%;
   min-height: 8rem;
-  max-height: 11.6rem;
+  max-height: 10rem;
   overflow-y: auto;
 }
 
-.text-info {
-  color: #114b88 !important;
-}
-
-a.text-info:focus,
-a.text-info:hover {
-  color: #48bae4f5 !important;
-}
-
-.btn{
-border-radius: .7rem;
-}
 .pointerCursor {
   cursor: pointer;
 }
@@ -64,8 +52,11 @@ border-radius: .7rem;
 }
 
 @media (min-width: 410px) {
+.state-table {
+  max-height: 15.0rem;
+}
 .state-table-2 {
-  max-height: 15rem;
+  max-height: 12.6rem;
 }
 }
 
@@ -94,14 +85,14 @@ border-radius: .7rem;
     margin-right: 0px !important;
   }
   .jumbotron-fluid {
-    padding-top: .65rem !important;
-    padding-bottom: 1.8rem !important;
+    padding-top: .4rem !important;
+    padding-bottom: .8rem !important;
   }
 .state-table {
-  max-height: 16rem;
+  max-height: 26rem;
 }
 .state-table-2 {
-  max-height: 19rem;
+  max-height: 20rem;
 }
 }
 
@@ -112,7 +103,7 @@ border-radius: .7rem;
   }
   .jumbotron-fluid {
     padding-top: 0px !important;
-    padding-bottom: .5rem !important;
+    padding-bottom: 0rem !important;
   }
 .state-table {
   max-height: 13rem;
@@ -125,22 +116,22 @@ border-radius: .7rem;
 @media (min-width: 1024px) {
   .jumbotron-fluid {
     padding-top: .6rem !important;
-    padding-bottom: 1.8rem !important;
+    padding-bottom: .8rem !important;
   }
 .state-table {
-  max-height: 19rem;
+  max-height: 36rem;
 }
 .state-table-2 {
-  max-height: 21.5rem;
+  max-height: 25rem;
 }
 }
 
 @media (min-width: 1100px) {
 .state-table {
-  max-height: 11.6rem;
+  max-height: 14rem;
 }
 .state-table-2 {
-  max-height: 13rem;
+  max-height: 11.6rem;
 }
 }
 
@@ -152,7 +143,7 @@ border-radius: .7rem;
   .jumbotron-fluid {
     margin-top: 0px !important;
     padding-top: 0px !important;
-    padding-bottom: .7rem !important;
+    padding-bottom: .4rem !important;
   }
 }
 

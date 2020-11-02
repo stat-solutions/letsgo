@@ -8,7 +8,7 @@
 }
 hr{
   width: 1%;
-  min-width: 1.8rem !important;
+  min-width: 2.6rem !important;
   border: 2px solid #bbb212b2;
 }
 
@@ -21,18 +21,6 @@ hr{
   min-height: 15rem;
   max-height: 21rem;
   overflow-y: auto;
-}
-
-.text-info {
-  color: #114b88 !important;
-}
-
-a.text-info:focus,
-a.text-info:hover {
-  color: #48bae4f5 !important;
-}
-.btn{
-  border-radius: 12px;
 }
 
 .pointerCursor {
@@ -51,19 +39,19 @@ a.text-info:hover {
 
 @media (min-width: 360px) {
 .state-table {
-  max-height: 24rem;
+  max-height: 23rem;
 }
 }
 
 @media (min-width: 375px) {
 .state-table {
-  max-height: 25rem;
+  max-height: 24rem;
 }
 }
 
 @media (min-width: 410px) {
 .state-table {
-  max-height: 29rem;
+  max-height: 28rem;
 }
 }
 
@@ -81,8 +69,11 @@ a.text-info:hover {
     margin-left: 0px !important;
     margin-right: 0px !important;
   }
+  .jumbotron-fluid {
+    padding-bottom: 1rem !important;
+  }
 .state-table {
-  max-height: 47.8rem;
+  max-height: 46.4rem;
 }
 }
 
@@ -107,7 +98,7 @@ a.text-info:hover {
 
 @media (min-width: 1100px) {
 .state-table {
-  max-height: 26rem;
+  max-height: 25rem;
 }
 }
 

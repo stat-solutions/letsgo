@@ -20,37 +20,36 @@ const routes: Routes = [
       {
         path: '',
         pathMatch: 'full',
-        redirectTo: 'dashboard'
+        redirectTo: 'loanexitdashboard',
       },
 
       {
-        path: 'dashboard',
-       component: DashboardComponent,
+        path: 'loanexitdashboard',
+        component: DashboardComponent,
       },
 
       {
         path: 'customers',
-       component: CustomersComponent,
+        component: CustomersComponent,
       },
       {
         path: 'editprofile',
-        component:EditProfileComponent,
+        component: EditProfileComponent,
       },
       {
         path: 'usertransactions',
-       component:UserTransactionsComponent,
+        component: UserTransactionsComponent,
       },
       {
-        path:"customerdetails/:customerid",
-        component:CustomerDetailsComponent
+        path: 'customerdetails/:customerid',
+        component: CustomerDetailsComponent,
       },
-
 
       {
         path: 'reports',
-       component:ReportsComponent,
-      }
-    ]
+        component: ReportsComponent,
+      },
+    ],
   },
 ];
 

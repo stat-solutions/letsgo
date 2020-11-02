@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 <div
   class="container-fluid justify-content-center mt-0 mb-0 pt-1 pt-xl-0 pb-2 pb-md-0 shadow-lg col-xs-12 col-lg-12"
 >
@@ -18,16 +19,16 @@
     </div>
     </div>
           <div class="row">
-            <div class="col-12 mx-auto px-0 px-sm-3 px-md-0 px-xl-5">
-          <div class="conditin m-2" *ngIf="checkTable(customerTable); else noCustomer">
-          <div class="table-col col-12 pt-1">
+            <div class="col-12 mx-auto px-0 px-sm-2 px-md-0">
+          <div class="conditin" *ngIf="checkTable(customerTable); else noCustomer">
+          <div class="table-col col-12 pt-2 pb-2">
             <div class="state-table table-responsive pb-0">
               <!--table-->
               <table
                 class="table table-hover table-striped table-sm"
               >
               <thead class="bg-dark text-white">
-                  <tr>
+                  <tr class="mx-2">
                     <th scope="col">ID</th>
                     <th scope="col">Name</th>
                     <th scope="col">Document Type</th>
@@ -38,7 +39,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let customer of customerTable">
+                  <tr class="mx-2" *ngFor="let customer of customerTable">
                     <td>{{customer.id}}</td>
                     <td>{{customer.name}}</td>
                     <td>{{customer.document_type}}</td>
@@ -49,6 +50,79 @@
                   </tr>
                 </tbody>
               </table>
+=======
+
+<div class="container-fluid mb-0 mt-md-1 pt-md-0 pt-3 pb-1  col-xs-12 col-lg-12 ">
+    <div>
+      <div class="container">
+        <div class="row shadow-lg m-3">
+          <div class="col-md-4 colxs-12 col-sm-12 m-2">
+             <input
+            type="text"
+            (input)="getValue($event)"
+            class="form-control"
+            name=""
+            id="customer"
+            placeholder="Search" autocomplete="on"
+          />
+          <button class="btn btn-primary mt-4 ml-4 ml-sm-5 mx-md-0"
+          (click)="exportToExcel()"
+          ><i class="fas fa-file-export"></i>  Export to Excel</button>
+            <button class="btn btn-primary m-2" (click)="createCustomer()">+CreateCustomers</button>
+
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="conditin m-2" *ngIf="checkTable(filterCustomers); else noCustomer">
+            <div class="mytable">
+              <!--table-->
+              <table class="table table-bordered" #exportTable>
+                <thead class="table-dark">
+                  <tr>
+                    <th scope="col">
+                      <i class="fas fa-sort pointerCursor"
+                      (click)="sort('customerId')">Id</i>
+                    </th>
+                    <th scope="col">
+                      <i class="fas fa-sort pointerCursor"
+                      (click)="sort('customerName')">customerName</i>
+                    </th>
+                    <th scope="col">
+                      <i class="fas fa-sort pointerCursor"
+                      (click)="sort('documentType')">DocumentType</i>
+                    </th>
+                    <th scope="col">
+                      <i class="fas fa-sort pointerCursor"
+                      (click)="sort('userName')">userName</i>
+                    </th>
+                    <th scope="col">Phone1</th>
+                    <th scope="col">Phone2</th>
+                    <th scope="col">
+                      <i class="fas fa-sort pointerCursor"
+                      (click)="sort('createdAt')">CreatedAt</i>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let customer of filterCustomers|orderBy:key:reverse|paginate:{
+ id:'my_pages', itemsPerPage:pageSize, currentPage:currentPage,totalItems:totalItems
+} let i = index">
+                    <th>{{customer.customerId}}</th>
+                    <th>{{customer.customerName}}</th>
+                    <th>{{customer.documentType}}</th>
+                    <th>{{customer.userName}}</th>
+                    <th>{{customer.phoneNumber1}}</th>
+                    <th>{{customer.phoneNumber2}}</th>
+                    <th>{{customer.createdAt}}</th>
+                  </tr>
+                </tbody>
+              </table>
+            <pagination-controls  id="my_pages"
+            (pageChange)="pageChanged($event)"
+            (pageBoundsCorrection)="pageChanged($event)"
+            directionLinks="true">
+           </pagination-controls>
+>>>>>>> Stashed changes
 
               <!--table-->
               <!--loanStatus-->
@@ -57,6 +131,14 @@
             </div>
 
           </div>
+<<<<<<< Updated upstream
+=======
+          <ng-template #noCustomer>
+            <div class="container shadow-lg">
+              <h2 class="text-center">No customer found</h2>
+            </div>
+          </ng-template>
+>>>>>>> Stashed changes
         </div>
       </div>
     </div>

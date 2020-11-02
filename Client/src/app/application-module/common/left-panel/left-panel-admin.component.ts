@@ -54,7 +54,10 @@ export class LeftPanelAdminComponent implements OnInit {
         icon: 'fas fa-tachometer-alt',
         url: '/application/applndashboard'
       },
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
       {
         name: 'Create Loans',
         icon: 'fas fa-cart-plus',

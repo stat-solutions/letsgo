@@ -19,11 +19,11 @@ const routes: Routes = [
       {
         path: '',
         pathMatch: 'full',
-        redirectTo: 'dashboard'
+        redirectTo: 'legaldashboard'
       },
 
       {
-        path: 'dashboard',
+        path: 'legaldashboard',
        component: DashboardComponent,
       },
 
@@ -47,7 +47,7 @@ const routes: Routes = [
         path:"customerdetails/:customerid",
         component:CustomerDetailsComponent
       }
-      
+
     ]
   },
 ];

@@ -13,27 +13,27 @@
     </div>
     </div>
           <div class="row">
-            <div class="col-12 mx-auto px-0 px-sm-3 px-md-0 px-xl-5">
-          <div class="table-col col-12 pt-1">
+            <div class="col-12 mx-auto px-0 px-sm-4 px-md-0">
+          <div class="table-col col-12 pt-2 pb-2">
             <div class="state-table table-responsive pb-0">
               <!--table-->
               <table
                 class="table table-hover table-striped table-sm"
               >
               <thead class="bg-dark text-white">
-                  <tr>
+                  <tr class="mx-2">
 			      <th scope="col">Customer ID</th>
 			      <th scope="col">Customer Name</th>
 			      <th scope="col">Stage</th>
 			      <th scope="col">Actioned At</th>
 			      <th scope="col">User</th>
-			      <th scope="col">Branches</th>
+			      <th scope="col">Branch</th>
 			      <th scope="col">Comment</th>
 			    </tr>
 			  </thead>
 			  <tbody>
-			    <tr *ngFor="let customer of customerDetails">
-			      <th scope="row">{{customer.Id}}</th>
+			    <tr class="mx-2" *ngFor="let customer of customerDetails">
+			      <td>{{customer.Id}}</td>
 			      <td>{{customer.Customer}}</td>
 			      <td>{{customer.Stage}}</td>
 			      <td>{{customer.CreatedAt}}</td>

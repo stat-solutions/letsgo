@@ -2,6 +2,7 @@
   height: inherit !important;
 }
 
+
 .rub-head4 {
   margin-top: 2px !important;
   margin-bottom: 2px !important;
@@ -12,6 +13,9 @@ hr{
   border: 2px solid #bbb212b2;
 }
 
+.head-container{
+  border-radius: 7px;
+}
 .state-table {
   height: 100%;
   min-height: 12rem;
@@ -19,18 +23,11 @@ hr{
   overflow-y: auto;
 }
 
-.text-info {
-  color: #114b88 !important;
-}
-
-a.text-info:focus,
-a.text-info:hover {
-  color: #48bae4f5 !important;
-}
-
 .pointerCursor {
   cursor: pointer;
 }
+
+
 
 
 
@@ -47,13 +44,13 @@ a.text-info:hover {
 
 @media (min-width: 360px) {
 .state-table {
-  max-height: 24.7rem;
+  max-height: 23.2rem;
 }
 }
 
 @media (min-width: 375px) {
 .state-table {
-  max-height: 26rem;
+  max-height: 24.4rem;
 }
 }
 
@@ -85,7 +82,7 @@ a.text-info:hover {
     margin-right: 0px !important;
   }
   .jumbotron-fluid {
-    padding-top: .65rem !important;
+    padding-top: 0rem !important;
     padding-bottom: 1.8rem !important;
   }
 .state-table {

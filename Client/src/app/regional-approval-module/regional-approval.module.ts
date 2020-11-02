@@ -20,6 +20,7 @@ import { UserTransactionsComponent } from './components/user-transactions/user-t
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import {ModalModule} from 'ngx-bootstrap/modal';
 import {NgxPaginationModule} from 'ngx-pagination';
+import { OrderModule } from 'ngx-order-pipe';
 import { CustomerDetailsComponent } from './components/customer-details/customer-details.component';
 
 @NgModule({
@@ -49,7 +50,8 @@ import { CustomerDetailsComponent } from './components/customer-details/customer
     BsDropdownModule,
     ModalModule.forRoot(),
     AlertModule.forRoot({maxMessages: 5, timeout: 7000}),
-    TooltipModule.forRoot()
+    TooltipModule.forRoot(),
+    OrderModule
   ],
 })
 export class RegionalApprovalModule { }

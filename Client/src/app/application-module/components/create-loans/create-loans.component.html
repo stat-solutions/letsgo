@@ -13,14 +13,93 @@ class="container-fluid d-flex flex-row justify-content-center mb-0 mt-1 pt-0 pt-
   <div class="card-body mt-2 pt-3 mt-xl-1 mb-0 mx-auto pb-4 shadow-lg">
     <form [formGroup]="userForm" (ngSubmit)="register()">
       <div class="form-group text-primary">
-        <label
-          for="full_name"
-          [ngClass]="fval.full_name.valid ? 'text-info' : ''"
-          ><i *ngIf="fval.full_name.valid" class="material-icons"
-            >check_circle</i
-          >Customer Name</label
+         <button
+             class="btn btn-success m-4"
+             type="button"
+             (click)="getCustomer(template)"
+             >ChooseCustomer</button>
+             <!--create a customer modal-->
+              <ng-template #template>
+              <div class="modal-header">
+                <h4 class="modal-title pull-left">Letshego Uganda Limited</h4>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="closeModal()">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+               <!--customer table-->
+               <div class="state-table table-responsive pt-0 pb-0">
+                <div class="form-group">
+                  <input type="text"
+                  (input)="getValue($event)"
+                  placeholder="seach customer" class="form-control">
+                </div>
+            <!--table-->
+            <table class="table table-hove table-striped table-sm" *ngIf="checkTable(filteredCustomers); else noloans">
+              <thead class="bg-dark text-info">
+                <tr class="mx-2">
+              <th scope="col">
+                <i class="fas fa-sort pointerCursor"
+                (click)="sort('customerId')">ID</i>
+              </th>
+              <th scope="col">
+               <i class="fas fa-sort pointerCursor"
+                (click)="sort('customerName')">Name</i>
+              </th>
+              <th scope="col">
+                  <i class="fas fa-sort pointerCursor"
+                (click)="sort('documentType')">DocumentType</i>
+              </th>
+              <th scope="col">
+                <i class="fas fa-sort pointerCursor"
+                (click)="sort('documentId')">DoumentId</i>
+              </th>
+              <th scope="col">
+                PhoneOne
+              </th>
+              <th scope="col">
+                PhoneTwo
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+                <tr class="mx-2 pointerCursor"
+                *ngFor="let customer of filteredCustomers|orderBy:key:reverse|paginate:{
+ id:'my_pages', itemsPerPage:pageSize, currentPage:currentPage,totalItems:totalItems
+}"
+                (click)="getCustomerName(customer.customerId)">
+              <td>{{customer.customerId}}</td>
+              <td>{{ customer.customerName }}</td>
+              <td>{{ customer.documentType}}</td>
+              <td>{{ customer.documentId }}</td>
+              <td>{{ customer.phoneNumber1 }}</td>
+              <td>{{ customer.phoneNumber2 }}</td>
+            </tr>
+          </tbody>
+        </table>
+              <pagination-controls  id="my_pages"
+            (pageChange)="pageChanged($event)"
+            (pageBoundsCorrection)="pageChanged($event)"
+            directionLinks="true">
+           </pagination-controls>
+        <ng-template #noloans>
+          <div class="col-12 my-5 py-5 justify-content-between">
+            <h4 class="text-center text-info">No Customer found!</h4>
+          </div>
+        </ng-template
         >
+<<<<<<< Updated upstream
         <div class="input-group mb-0">
+=======
+</div>
+               <!--customer table-->
+              </div>
+        </ng-template>
+        <br>
+             <!------------->
+        <label for="full_name">Customer Name</label>
+        <div class="input-group mb-2">
+>>>>>>> Stashed changes
           <div class="input-group-prepend">
             <div class="input-group-text">
               <i class="fas fa-user text-primary mx-auto" style="size: 50px;">
@@ -33,15 +112,11 @@ class="container-fluid d-flex flex-row justify-content-center mb-0 mt-1 pt-0 pt-
             type="text"
             required
             class="form-control"
-            [ngClass]="{
-              'is-invalid':
-                (fval.full_name.touched || fval.full_name.dirty) &&
-                fval.full_name.errors
-            }"
-            placeholder="Enter Name"
+            placeholder="choose name"
             autocomplete="off"
           />
         </div>
+<<<<<<< Updated upstream
         <div
           class="text-danger col"
           *ngIf="
@@ -69,6 +144,8 @@ class="container-fluid d-flex flex-row justify-content-center mb-0 mt-1 pt-0 pt-
       >
         Customer doesnot exist!
       </div>
+=======
+>>>>>>> Stashed changes
       </div>
       <!--loan type-->
       <div class="form-group text-primary">
@@ -277,7 +354,7 @@ class="container-fluid d-flex flex-row justify-content-center mb-0 mt-1 pt-0 pt-
           type="button"
           class="btn btn-info col-5 mx-auto"
           (click)="returnHome()"
-          routerLink = "/authpage/login"
+          routerLink = "/application/createloans"
         >
           Cancel
         </button>

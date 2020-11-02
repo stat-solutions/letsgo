@@ -18,35 +18,35 @@ const routes: Routes = [
       {
         path: '',
         pathMatch: 'full',
-        redirectTo: 'dashboard'
+        redirectTo: 'loanentrydashboard',
       },
 
       {
-        path: 'dashboard',
-       component: DashboardComponent,
+        path: 'loanentrydashboard',
+        component: DashboardComponent,
       },
 
       {
         path: 'customers',
-       component: CustomersComponent,
+        component: CustomersComponent,
       },
       {
         path: 'usertransactions',
-        component:UserTransactionsComponent,
+        component: UserTransactionsComponent,
       },
       {
         path: 'editprofile',
-       component:EditProfileComponent,
+        component: EditProfileComponent,
       },
       {
-        path:"customerdetails/:customerid",
-        component:CustomerDetailsComponent
+        path: 'customerdetails/:customerid',
+        component: CustomerDetailsComponent,
       },
       {
         path: 'reports',
-       component: ReportsComponent,
-      }
-    ]
+        component: ReportsComponent,
+      },
+    ],
   },
 ];
 

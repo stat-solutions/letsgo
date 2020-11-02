@@ -18,6 +18,7 @@ import  {EditProfileComponent} from './components/edit-profile/edit-profile.comp
 import {ReportsComponent} from './components/reports/reports.component';
 import  {UserTransactionsComponent} from './components/user-transactions/user-transactions.component';
 import {ModalModule} from 'ngx-bootstrap/modal';
+import { OrderModule } from 'ngx-order-pipe';
 import {NgxPaginationModule} from 'ngx-pagination';
 
 
@@ -45,7 +46,8 @@ import {NgxPaginationModule} from 'ngx-pagination';
     BsDatepickerModule,
     ModalModule.forRoot(),
     AlertModule.forRoot({maxMessages: 5, timeout: 7000}),
-    TooltipModule.forRoot()
+    TooltipModule.forRoot(),
+    OrderModule
   ],
 })
 export class BranchExitModule { }

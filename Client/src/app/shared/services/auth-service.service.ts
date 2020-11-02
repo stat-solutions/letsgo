@@ -11,9 +11,6 @@ import { map, tap, catchError, mapTo } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class AuthServiceService {
-
-
-
     private API_URL = environment.apiUrl;
     private loggedInUser: string;
     private readonly JWT_TOKEN = 'JWT_TOKEN';
@@ -33,7 +30,7 @@ export class AuthServiceService {
 
         .pipe(
           // tap(tokens => console.log(`${tokens}`)),
-          tap(tokens => this.doLoginUser(postData.value.main_contact_number, tokens)),
+          tap(tokens => this.doLoginUser(postData.value.userEmail, tokens)),
           mapTo(true),
           catchError(this.handleLoginError)
 
@@ -71,8 +68,8 @@ export class AuthServiceService {
 
         );
     }
-    doLoginUser(phoneNubmer: string, tokens: Tokens) {
-      this.loggedInUser = phoneNubmer;
+    doLoginUser(email: string, tokens: Tokens) {
+      this.loggedInUser = email;
       this.storeTokens(tokens);
     }
 
@@ -128,6 +125,8 @@ export class AuthServiceService {
         console.error(
           `Backend returned code ${errorResponse.status},` +
           `body was: ${errorResponse.error}`);
+        
+
       }
       // return an observable with a user-facing error message
       return throwError(`Authorisation Failed!!
