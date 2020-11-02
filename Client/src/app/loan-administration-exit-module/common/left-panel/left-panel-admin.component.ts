@@ -52,27 +52,27 @@ export class LeftPanelAdminComponent implements OnInit {
       {
         name: 'Dashboard',
         icon: 'fas fa-tachometer-alt',
-        url: '/loanentry/dashboard'
+        url: '/loanexit/loanexitdashboard'
       },
       {
-        name: 'UserTransactions',
-        icon: 'fas fa-credit-card',
-        url: '/laonentry/usertransactions'
+        name: 'Transactions',
+        icon: 'fas fa-briefcase',
+        url: '/loanexit/usertransactions'
       },
       {
         name: 'Customers',
         icon: 'fas fa-users',
-        url: '/loanentry/customers'
+        url: '/loanexit/customers'
       },
       {
         name: 'Reports',
         icon: 'fas fa-file',
-        url: '/loanentry/reports'
+        url: '/loanexit/reports'
       },
       {
-        name: 'EditProfile',
-        icon: 'fas fa-user',
-        url: '/loanentry/editprofile'
+        name: 'Profile',
+        icon: 'fas fa-user-cog',
+        url: '/loanexit/editprofile'
       }
     ];
   }

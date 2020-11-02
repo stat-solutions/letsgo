@@ -19,11 +19,11 @@ const routes: Routes = [
       {
         path: '',
         pathMatch: 'full',
-        redirectTo: 'dashboard'
+        redirectTo: 'regionaldashboard'
       },
 
       {
-        path: 'dashboard',
+        path: 'regionaldashboard',
        component: DashboardComponent,
       },
       {

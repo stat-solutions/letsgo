@@ -8,7 +8,7 @@
 }
 hr{
   width: 1%;
-  min-width: 1.8rem !important;
+  min-width: 2.0rem !important;
   border: 2px solid #bbb212b2;
 }
 
@@ -19,20 +19,8 @@ hr{
 .state-table {
   height: 100%;
   min-height: 15rem;
-  max-height: 20rem;
+  max-height: 23rem;
   overflow-y: auto;
-}
-
-.text-info {
-  color: #114b88 !important;
-}
-
-a.text-info:focus,
-a.text-info:hover {
-  color: #48bae4f5 !important;
-}
-.btn{
-  border-radius: 12px;
 }
 
 .pointerCursor {
@@ -45,7 +33,7 @@ a.text-info:hover {
 @media (min-width: 320px) {
   .jumbotron-fluid {
     padding-top: 0px !important;
-    padding-bottom: 1.4rem !important;
+    padding-bottom: .4rem !important;
   }
 }
 
@@ -54,20 +42,17 @@ a.text-info:hover {
 
 @media (min-width: 375px) {
 .state-table {
-  max-height: 22rem;
+  max-height: 24rem;
 }
 }
 
 @media (min-width: 410px) {
 .state-table {
-  max-height: 25rem;
+  max-height: 28rem;
 }
 }
 
 @media (min-width: 445px) {
-  .jumbotron-fluid {
-    padding-top: 8px !important;
-  }
 }
 
 @media (min-width: 568px) {
@@ -89,10 +74,10 @@ a.text-info:hover {
     margin-right: 0px !important;
   }
   .jumbotron-fluid {
-    padding-bottom: 1.8rem !important;
+    padding-bottom: .8rem !important;
   }
 .state-table {
-  max-height: 38rem;
+  max-height: 46rem;
 }
 }
 
@@ -113,16 +98,16 @@ a.text-info:hover {
 @media (min-width: 1024px) {
   .jumbotron-fluid {
     padding-top: .6rem !important;
-    padding-bottom: 1.8rem !important;
+    padding-bottom: .8rem !important;
   }
 .state-table {
-  max-height: 42rem;
+  max-height: 62rem;
 }
 }
 
 @media (min-width: 1100px) {
 .state-table {
-  max-height: 27rem;
+  max-height: 25rem;
 }
 }
 
@@ -134,7 +119,7 @@ a.text-info:hover {
   .jumbotron-fluid {
     margin-top: 0px !important;
     padding-top: 0px !important;
-    padding-bottom: 1.2rem !important;
+    padding-bottom: .4rem !important;
   }
 }
 

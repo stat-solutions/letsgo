@@ -3,72 +3,400 @@ import { of } from 'rxjs';
 import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UsersService {
   private users = [
     {
       id: 1,
       name: 'nicholas',
-      password: "1234",
-      branch: "branch 1",
-      contact: "0759983853",
-      email: "katznicho@gmail.com",
-      photo: "assets/img/man.svg",
-      status:"loggedIn",
-      role:"Application"
+      password: '1234',
+      branch: 'branch 1',
+      contact: '0759983853',
+      email: 'katznicho@gmail.com',
+      photo: 'assets/img/man.svg',
+      status: 'loggedIn',
+      role: 'Application',
     },
     {
       id: 2,
       name: 'katende',
-      password: "12345",
-      branch: "branch 1",
-      contact: "0759983853",
-      email: "nicho@gmail.com",
-      photo: "assets/img/man.svg",
-      status:"loggedIn",
-      role:"BranchApproval"
+      password: '12345',
+      branch: 'branch 1',
+      contact: '0759983853',
+      email: 'nicho@gmail.com',
+      photo: 'assets/img/man.svg',
+      status: 'loggedIn',
+      role: 'BranchApproval',
+    },
+    {
+      id: 1,
+      name: 'nicholas',
+      password: '1234',
+      branch: 'branch 1',
+      contact: '0759983853',
+      email: 'katznicho@gmail.com',
+      photo: 'assets/img/man.svg',
+      status: 'loggedIn',
+      role: 'Application',
+    },
+    {
+      id: 2,
+      name: 'katende',
+      password: '12345',
+      branch: 'branch 1',
+      contact: '0759983853',
+      email: 'nicho@gmail.com',
+      photo: 'assets/img/man.svg',
+      status: 'loggedIn',
+      role: 'BranchApproval',
+    },
+    {
+      id: 1,
+      name: 'nicholas',
+      password: '1234',
+      branch: 'branch 1',
+      contact: '0759983853',
+      email: 'katznicho@gmail.com',
+      photo: 'assets/img/man.svg',
+      status: 'loggedIn',
+      role: 'Application',
+    },
+    {
+      id: 2,
+      name: 'katende',
+      password: '12345',
+      branch: 'branch 1',
+      contact: '0759983853',
+      email: 'nicho@gmail.com',
+      photo: 'assets/img/man.svg',
+      status: 'loggedIn',
+      role: 'BranchApproval',
+    },
+    {
+      id: 1,
+      name: 'nicholas',
+      password: '1234',
+      branch: 'branch 1',
+      contact: '0759983853',
+      email: 'katznicho@gmail.com',
+      photo: 'assets/img/man.svg',
+      status: 'loggedIn',
+      role: 'Application',
+    },
+    {
+      id: 2,
+      name: 'katende',
+      password: '12345',
+      branch: 'branch 1',
+      contact: '0759983853',
+      email: 'nicho@gmail.com',
+      photo: 'assets/img/man.svg',
+      status: 'loggedIn',
+      role: 'BranchApproval',
+    },
+    {
+      id: 1,
+      name: 'nicholas',
+      password: '1234',
+      branch: 'branch 1',
+      contact: '0759983853',
+      email: 'katznicho@gmail.com',
+      photo: 'assets/img/man.svg',
+      status: 'loggedIn',
+      role: 'Application',
+    },
+    {
+      id: 2,
+      name: 'katende',
+      password: '12345',
+      branch: 'branch 1',
+      contact: '0759983853',
+      email: 'nicho@gmail.com',
+      photo: 'assets/img/man.svg',
+      status: 'loggedIn',
+      role: 'BranchApproval',
+    },
+    {
+      id: 1,
+      name: 'nicholas',
+      password: '1234',
+      branch: 'branch 1',
+      contact: '0759983853',
+      email: 'katznicho@gmail.com',
+      photo: 'assets/img/man.svg',
+      status: 'loggedIn',
+      role: 'Application',
+    },
+    {
+      id: 2,
+      name: 'katende',
+      password: '12345',
+      branch: 'branch 1',
+      contact: '0759983853',
+      email: 'nicho@gmail.com',
+      photo: 'assets/img/man.svg',
+      status: 'loggedIn',
+      role: 'BranchApproval',
+    },
+    {
+      id: 1,
+      name: 'nicholas',
+      password: '1234',
+      branch: 'branch 1',
+      contact: '0759983853',
+      email: 'katznicho@gmail.com',
+      photo: 'assets/img/man.svg',
+      status: 'loggedIn',
+      role: 'Application',
+    },
+    {
+      id: 2,
+      name: 'katende',
+      password: '12345',
+      branch: 'branch 1',
+      contact: '0759983853',
+      email: 'nicho@gmail.com',
+      photo: 'assets/img/man.svg',
+      status: 'loggedIn',
+      role: 'BranchApproval',
+    },
+    {
+      id: 1,
+      name: 'nicholas',
+      password: '1234',
+      branch: 'branch 1',
+      contact: '0759983853',
+      email: 'katznicho@gmail.com',
+      photo: 'assets/img/man.svg',
+      status: 'loggedIn',
+      role: 'Application',
+    },
+    {
+      id: 2,
+      name: 'katende',
+      password: '12345',
+      branch: 'branch 1',
+      contact: '0759983853',
+      email: 'nicho@gmail.com',
+      photo: 'assets/img/man.svg',
+      status: 'loggedIn',
+      role: 'BranchApproval',
+    },
+    {
+      id: 1,
+      name: 'nicholas',
+      password: '1234',
+      branch: 'branch 1',
+      contact: '0759983853',
+      email: 'katznicho@gmail.com',
+      photo: 'assets/img/man.svg',
+      status: 'loggedIn',
+      role: 'Application',
+    },
+    {
+      id: 2,
+      name: 'katende',
+      password: '12345',
+      branch: 'branch 1',
+      contact: '0759983853',
+      email: 'nicho@gmail.com',
+      photo: 'assets/img/man.svg',
+      status: 'loggedIn',
+      role: 'BranchApproval',
+    },
+    {
+      id: 1,
+      name: 'nicholas',
+      password: '1234',
+      branch: 'branch 1',
+      contact: '0759983853',
+      email: 'katznicho@gmail.com',
+      photo: 'assets/img/man.svg',
+      status: 'loggedIn',
+      role: 'Application',
+    },
+    {
+      id: 2,
+      name: 'katende',
+      password: '12345',
+      branch: 'branch 1',
+      contact: '0759983853',
+      email: 'nicho@gmail.com',
+      photo: 'assets/img/man.svg',
+      status: 'loggedIn',
+      role: 'BranchApproval',
+    },
+    {
+      id: 1,
+      name: 'nicholas',
+      password: '1234',
+      branch: 'branch 1',
+      contact: '0759983853',
+      email: 'katznicho@gmail.com',
+      photo: 'assets/img/man.svg',
+      status: 'loggedIn',
+      role: 'Application',
+    },
+    {
+      id: 2,
+      name: 'katende',
+      password: '12345',
+      branch: 'branch 1',
+      contact: '0759983853',
+      email: 'nicho@gmail.com',
+      photo: 'assets/img/man.svg',
+      status: 'loggedIn',
+      role: 'BranchApproval',
+    },
+    {
+      id: 1,
+      name: 'nicholas',
+      password: '1234',
+      branch: 'branch 1',
+      contact: '0759983853',
+      email: 'katznicho@gmail.com',
+      photo: 'assets/img/man.svg',
+      status: 'loggedIn',
+      role: 'Application',
+    },
+    {
+      id: 2,
+      name: 'katende',
+      password: '12345',
+      branch: 'branch 1',
+      contact: '0759983853',
+      email: 'nicho@gmail.com',
+      photo: 'assets/img/man.svg',
+      status: 'loggedIn',
+      role: 'BranchApproval',
+    },
+    {
+      id: 1,
+      name: 'nicholas',
+      password: '1234',
+      branch: 'branch 1',
+      contact: '0759983853',
+      email: 'katznicho@gmail.com',
+      photo: 'assets/img/man.svg',
+      status: 'loggedIn',
+      role: 'Application',
+    },
+    {
+      id: 2,
+      name: 'katende',
+      password: '12345',
+      branch: 'branch 1',
+      contact: '0759983853',
+      email: 'nicho@gmail.com',
+      photo: 'assets/img/man.svg',
+      status: 'loggedIn',
+      role: 'BranchApproval',
+    },
+    {
+      id: 2,
+      name: 'katende',
+      password: '12345',
+      branch: 'branch 1',
+      contact: '0759983853',
+      email: 'nicho@gmail.com',
+      photo: 'assets/img/man.svg',
+      status: 'loggedIn',
+      role: 'BranchApproval',
+    },
+    {
+      id: 1,
+      name: 'nicholas',
+      password: '1234',
+      branch: 'branch 1',
+      contact: '0759983853',
+      email: 'katznicho@gmail.com',
+      photo: 'assets/img/man.svg',
+      status: 'loggedIn',
+      role: 'Application',
+    },
+    {
+      id: 2,
+      name: 'katende',
+      password: '12345',
+      branch: 'branch 1',
+      contact: '0759983853',
+      email: 'nicho@gmail.com',
+      photo: 'assets/img/man.svg',
+      status: 'loggedIn',
+      role: 'BranchApproval',
+    },
+    {
+      id: 2,
+      name: 'katende',
+      password: '12345',
+      branch: 'branch 1',
+      contact: '0759983853',
+      email: 'nicho@gmail.com',
+      photo: 'assets/img/man.svg',
+      status: 'loggedIn',
+      role: 'BranchApproval',
+    },
+    {
+      id: 1,
+      name: 'nicholas',
+      password: '1234',
+      branch: 'branch 1',
+      contact: '0759983853',
+      email: 'katznicho@gmail.com',
+      photo: 'assets/img/man.svg',
+      status: 'loggedIn',
+      role: 'Application',
+    },
+    {
+      id: 2,
+      name: 'katende',
+      password: '12345',
+      branch: 'branch 1',
+      contact: '0759983853',
+      email: 'nicho@gmail.com',
+      photo: 'assets/img/man.svg',
+      status: 'loggedIn',
+      role: 'BranchApproval',
     },
     {
       id: 3,
       name: 'nicholas',
-      password: "12346",
-      branch: "branch 1",
-      contact: "0759983853",
-      email: "ssemakula@gmail.com",
-      photo: "assets/img/man.svg",
-      status:"NotLoggedIn",
-      role:"RegionalApproval"
-    }
-  ]
+      password: '12346',
+      branch: 'branch 1',
+      contact: '0759983853',
+      email: 'ssemakula@gmail.com',
+      photo: 'assets/img/man.svg',
+      status: 'NotLoggedIn',
+      role: 'RegionalApproval',
+    },
+  ];
 
-  constructor() { }
-  getAllUsers(){
-    return of(this.users)
+  constructor() {}
+  getAllUsers() {
+    return of(this.users);
   }
-  
+
   viewLoggedIn() {
-    return of(this.users.filter(user=>user.status === 'loggedIn'))
+    return of(this.users.filter((user) => user.status === 'loggedIn'));
   }
-  logOutUser(id:number) {
-    let userId = this.users.find(user => user.id === id)
+  logOutUser(id: number) {
+    let userId = this.users.find((user) => user.id === id);
     if (userId) {
-      const updateStatus = { ...userId, status: "NotLoggedIn" }
-      return this.users = [...this.users.filter(user=>user.id !== id), updateStatus]
-      
+      const updateStatus = { ...userId, status: 'NotLoggedIn' };
+      return (this.users = [
+        ...this.users.filter((user) => user.id !== id),
+        updateStatus,
+      ]);
+    } else {
+      return this.users;
     }
-    else {
-      return this.users
-    }
-    
   }
   getSpecificUser(email: string) {
     //console.log(this.users.find(user=>user.email===email))
-    return this.users.find(user=>user.email === email)
-    
+    return this.users.find((user) => user.email === email);
   }
-  deleteUser(id:number){
-    return of(this.users.filter(users=>users.id !== id))
+  deleteUser(id: number) {
+    return of(this.users.filter((users) => users.id !== id));
   }
-
 }

@@ -12,39 +12,39 @@ import {CustomerDetailsComponent} from './components/customer-details/customer-d
 const routes: Routes = [
   {
     path: '',
-    component: PagesCoreAdminComponent, children: [
+    component: PagesCoreAdminComponent,
+    children: [
       {
         path: '',
         pathMatch: 'full',
-        redirectTo: 'dashboard'
+        redirectTo: 'loanverifndashboard',
       },
 
       {
-        path: 'dashboard',
-       component: DashboardComponent,
+        path: 'loanverifndashboard',
+        component: DashboardComponent,
       },
       {
         path: 'usertransactions',
-       component:UserTransactionsComponent,
+        component: UserTransactionsComponent,
       },
       {
-        path:"customerdetails/:customerid",
-        component:CustomerDetailsComponent
+        path: 'customerdetails/:customerid',
+        component: CustomerDetailsComponent,
       },
       {
         path: 'customers',
-       component:CustomersComponent,
+        component: CustomersComponent,
       },
       {
-        path: "reports",
-        component:ReportsComponent
+        path: 'reports',
+        component: ReportsComponent,
       },
       {
-        path:"edit",
-        component:EditProfileComponent
-      }
-
-    ]
+        path: 'edit',
+        component: EditProfileComponent,
+      },
+    ],
   },
 ];
 

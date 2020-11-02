@@ -8,24 +8,15 @@
 }
 hr{
   width: 1%;
-  min-width: 1.9rem !important;
+  min-width: 1.7rem !important;
   border: 2px solid #bbb212b2;
 }
 
 .state-table {
   height: 100%;
   min-height: 12rem;
-  max-height: 20rem;
+  max-height: 23rem;
   overflow-y: auto;
-}
-
-.text-info {
-  color: #114b88 !important;
-}
-
-a.text-info:focus,
-a.text-info:hover {
-  color: #48bae4f5 !important;
 }
 
 .pointerCursor {
@@ -38,31 +29,32 @@ a.text-info:hover {
 @media (min-width: 320px) {
   .jumbotron-fluid {
     padding-top: 0px !important;
-    padding-bottom: 1rem !important;
+    padding-bottom: 0rem !important;
   }
 }
 
 @media (min-width: 360px) {
+.state-table {
+  max-height: 27rem;
+}
 }
 
 @media (min-width: 375px) {
 .state-table {
-  min-height: 12rem;
-  max-height: 22rem;
+  max-height: 29rem;
 }
 }
 
 @media (min-width: 410px) {
 .state-table {
-  min-height: 12rem;
-  max-height: 25rem;
+  max-height: 33.4rem;
 }
 }
 
 @media (min-width: 445px) {
-  .jumbotron-fluid {
-    padding-top: 8px !important;
-  }
+.state-table {
+  max-height: 32.5rem;
+}
 }
 
 @media (min-width: 568px) {
@@ -85,11 +77,10 @@ a.text-info:hover {
   }
   .jumbotron-fluid {
     padding-top: .65rem !important;
-    padding-bottom: 1.8rem !important;
+    padding-bottom: 1rem !important;
   }
 .state-table {
-  min-height: 12rem;
-  max-height: 37rem;
+  max-height: 50rem;
 }
 }
 
@@ -100,10 +91,9 @@ a.text-info:hover {
   }
   .jumbotron-fluid {
     padding-top: 0px !important;
-    padding-bottom: .5rem !important;
+    padding-bottom: .0rem !important;
   }
 .state-table {
-  min-height: 12rem;
   max-height: 22rem;
 }
 }
@@ -114,15 +104,13 @@ a.text-info:hover {
     padding-bottom: 1.8rem !important;
   }
 .state-table {
-  min-height: 12rem;
-  max-height: 42rem;
+  max-height: 64rem;
 }
 }
 
 @media (min-width: 1100px) {
 .state-table {
-  min-height: 12rem;
-  max-height: 26rem;
+  max-height: 29.2rem;
 }
 }
 

@@ -2449,7 +2449,7 @@ textarea.form-control.is-invalid {
     padding: .375rem .65rem;
     font-size: 1rem;
     line-height: 1.0;
-    border-radius: .25rem;
+    border-radius: .75rem;
     transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out
 }
 
@@ -2670,16 +2670,16 @@ background-image: linear-gradient(110deg, rgba(9, 62, 119, 0.97), rgba(35, 85, 1
 }
 
 .btn-danger {
-  color: #114b88;
+  color: #f5f5f5;
   background-color: #ca0f22;
   border-color: #ca0f22;
 }
 .btn-danger:hover,
 .btn-danger:focus {
-  color: #114b88;
-  background-color: #ca0f22;
+  color: #f5f5f5;
+  background-color: #eb0c22;
 background-image: linear-gradient(110deg, rgba(168, 7, 28, 0.97), rgba(158, 70, 75, 0.719));
-  border-color: #ca0f22;
+  border-color: #eb0c22;
 }
 
 .btn-danger.focus,
@@ -3108,7 +3108,7 @@ background-image: linear-gradient(110deg, rgba(168, 7, 28, 0.97), rgba(158, 70, 
     padding: .25rem .5rem;
     font-size: .875rem;
     line-height: 1.0;
-    border-radius: .2rem
+    border-radius: .75rem
 }
 
 .btn-block {
@@ -9812,7 +9812,7 @@ a.text-primo:hover {
 }
 
 .text-info {
-    color: #17aae0ee !important
+    color: #114b88 !important
 }
 
 a.text-info:focus,

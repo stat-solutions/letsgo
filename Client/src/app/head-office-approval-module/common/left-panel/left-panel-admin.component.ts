@@ -52,11 +52,11 @@ export class LeftPanelAdminComponent implements OnInit {
       {
         name: 'Dashboard',
         icon: 'fas fa-tachometer-alt',
-        url: '/headofficeapproval/dashboard'
+        url: '/headofficeapproval/headOfficedashboard'
       },
       {
-        name: 'UserTransactions',
-        icon: 'fas fa-credit-card',
+        name: 'Transactions',
+        icon: 'fas fa-briefcase',
         url: '/headofficeapproval/usertransactions'
       },
       {
@@ -69,10 +69,10 @@ export class LeftPanelAdminComponent implements OnInit {
         icon: 'fas fa-file',
         url: '/headofficeapproval/reports'
       },
-      
+
          {
-        name: 'EditProfile',
-        icon: 'fas fa-user',
+        name: 'Profile',
+        icon: 'fas fa-user-cog',
         url: '/headofficeapproval/editprofile'
       }
     ];

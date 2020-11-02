@@ -23,10 +23,149 @@
           <form [formGroup]="receiveGroupLoans" (ngSubmit)="onSubmit()">
             <h4 class="text-center text-info mb-2">Received</h4>
             <!---table-->
-            <div class="table-col col-12">
-              <div class="state-table table-responsive pt-0 pb-0">
+            <div class="table-col col-12 pt-2 pb-2">
+              <div class="state-table table-responsive">
                 <!--table-->
                 <table class="table table-hover table-striped table-sm">
+                  <thead class="bg-dark text-white">
+                    <tr class="mx-2">
+                      <th>Actions</th>
+                      <th scope="col">ID</th>
+                      <th scope="col">Customer</th>
+                      <th scope="col">Loan Type</th>
+                      <th scope="col">Loan Product</th>
+                      <th scope="col">Tenure</th>
+                      <th scope="col">Amount(shs)</th>
+                      <th scope="col">Stage</th>
+                      <th scope="col">Status</th>
+                      <th scope="col">Loan MovedBy</th>
+                      <th scope="col">Stage At</th>
+                      <th scope="col">How Long</th>
+                      <th scope="col">Created At</th>
+                      <th scope="col">Total Age</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr
+                      class="mx-2"
+                      *ngFor="
+                        let control of FormArrayControls.controls;
+                        let i = index
+                      "
+                    >
+                      <td>
+          <button class="btn btn-info" (click)="getSelectedLoans(template)"
+>Receive</button>
+                        <!-- <input
+                          type="checkbox"
+                          required
+                          name="check"
+                          [formControl]="control"
+                          id="checkbox{{ i }}"
+                          (change)="getSelectedLoans(template)"
+                        />
+                        <label for="checkbox{{ i }}">Receive</label>
+                        <p *ngIf="createError">At least Receive One!</p> -->
+                      </td>
+                      <td>{{ receivedLoans[i].Id }}</td>
+                      <td>{{ receivedLoans[i].Customer }}</td>
+                      <td>{{ receivedLoans[i].LoanType }}</td>
+                      <td>{{ receivedLoans[i].LoanProduct }}</td>
+                      <td>{{ receivedLoans[i].Tenure }}</td>
+                      <td>{{ receivedLoans[i].Amount }}</td>
+                      <td>{{ receivedLoans[i].Stage }}</td>
+                      <td>{{ receivedLoans[i].Status }}</td>
+                      <td>{{ receivedLoans[i].LoanMovedBy }}</td>
+                      <td>{{ receivedLoans[i].StageAt }}</td>
+                      <td>{{ receivedLoans[i].HowLong }}</td>
+                      <td>{{ receivedLoans[i].CreatedAt }}</td>
+                      <td>{{ receivedLoans[i].TotalAge }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </form>
+          <!--reeivedUsers-->
+        </div>
+        <!--receiveUsers-->
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #noreceived>
+  <div class="col-12 my-5 py-5 justify-content-between">
+    <h4 class="text-center text-info">No Transactions Yet!</h4>
+  </div>
+</ng-template>
+<ng-template #template>
+  <div class="modal-header bg-info close modal-lg">
+    <h4 class="modal-title pull-right text-white-50">
+      Comment
+    </h4>
+    <button
+      type="button"
+      class="close pull-right"
+      aria-label="Close"
+      (click)="closeModal()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="form-group">
+      <textarea class="form-control" id="c" height="80"
+        placeholder="Comment"
+>
+      </textarea>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <div class="d-flex mt-1 mb-1 pt-1 pb-0 mx-auto">
+      <button type="submit" class="btn btn-info mx-2">Forward</button>
+      <button type="submit" class="btn btn-info mx-2">Cancel</button>
+    </div>
+  </div>
+</ng-template>
+<!-- footer -->
+<div class="container mt-3 mt-xl-2 mb-2 pb-2">
+  <div class="col-xs-12 col-lg-12">
+    <div class="small text-center text-info">&copy; 2020 - LoanLead</div>
+  </div>
+</div>
+<!-- footer /-->
+
+
+
+<!-- <div
+  class="container-fluid justify-content-center mt-xl-0 mb-0 pt-1 pt-xl-0 pb-2 pb-md-0 shadow-lg col-xs-12 col-lg-12"
+>
+  <div class="jumbotron-fluid mx-0 px-0 mt-1 mt-xl-0 pt-3 pt-xl-0 mb-0 pb-0">
+    <div class="row">
+      <div class="col-12">
+        <h3 class="rub-head4 text-info text-center font-weight-bold py-1">
+          TRANSACTIONS
+        </h3>
+        <hr class="mt-0" />
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 mx-0 px-0"> -->
+        <!--receiveUsers-->
+        <!-- <div class="myn m-4 p-3"> -->
+        <!--receivedusers-->
+        <!-- <div
+          class="length"
+          *ngIf="checkTransactionsTable(receivedLoans); else noreceived"
+        > -->
+          <!--receivedtable-->
+          <!-- <form [formGroup]="receiveGroupLoans" (ngSubmit)="onSubmit()">
+            <h4 class="text-center text-info mb-2">Received</h4> -->
+            <!---table-->
+            <!-- <div class="table-col col-12">
+              <div class="state-table table-responsive pt-0 pb-0"> -->
+                <!--table-->
+                <!-- <table class="table table-hover table-striped table-sm">
                   <thead class="bg-dark text-white">
                     <tr class="mx-2">
                       <th>Actions</th>
@@ -84,11 +223,11 @@
               </div>
             </div>
           </form>
-
+ -->
           <!--reeivedUsers-->
-        </div>
+        <!-- </div> -->
         <!--receiveUsers-->
-      </div>
+      <!-- </div>
     </div>
   </div>
 </div>
@@ -125,11 +264,11 @@
       <button type="submit" class="btn btn-info mx-2">Cancel</button>
     </div>
   </div>
-</ng-template>
+</ng-template> -->
 <!-- footer -->
-<div class="container mt-3 mt-xl-2 mb-2 pb-2">
+<!-- <div class="container mt-3 mt-xl-2 mb-2 pb-2">
   <div class="col-xs-12 col-lg-12">
     <div class="small text-center text-info">&copy; 2020 - LoanLead</div>
   </div>
-</div>
+</div> -->
 <!-- footer /-->

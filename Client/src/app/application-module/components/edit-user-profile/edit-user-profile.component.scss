@@ -18,23 +18,11 @@ hr{
   border: 2px solid #bbb212b2;
 }
 
-.btn {
-  border-radius: 12px;
-}
-  .update-button {
+.update-button {
     position: relative;
     margin-left: 2.05rem !important;
     margin-right: 2.05rem !important;
   }
-
-.text-info {
-  color: #114b88 !important;
-}
-
-a.text-info:focus,
-a.text-info:hover {
-  color: #48bae4f5 !important;
-}
 
 .pointerCursor {
   cursor: pointer;
@@ -204,7 +192,7 @@ height: 100%;
       padding-bottom: 0rem !important;
     }
     .jumbotron-fluid {
-      padding-bottom: .5rem !important;
+      padding-bottom: 3.5rem !important;
     }
   .update-img {
     margin-left: 5rem !important;

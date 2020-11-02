@@ -52,15 +52,15 @@ export class LeftPanelAdminComponent implements OnInit {
       {
         name: 'Dashboard',
         icon: 'fas fa-tachometer-alt',
-        url: '/branchexit/dashboard'
+        url: '/branchexit/branchExitdashboard'
       },
       {
-        name: 'UserTransactions',
-        icon: 'fas fa-credit-card',
+        name: 'Transactions',
+        icon: 'fas fa-briefcase',
         url: '/branchexit/usertransactions'
       },
       {
-        name: 'Customer',
+        name: 'Customers',
         icon: 'fas fa-users',
         url: '/branchexit/customers'
       },
@@ -70,7 +70,7 @@ export class LeftPanelAdminComponent implements OnInit {
         url: '/branchexit/reports'
       },
       {
-        name: 'EditProfile',
+        name: 'Profile',
         icon: 'fas fa-user',
         url: '/branchexit/editprofile'
       }

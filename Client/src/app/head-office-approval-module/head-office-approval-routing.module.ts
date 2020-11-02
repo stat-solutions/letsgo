@@ -22,34 +22,34 @@ const routes: Routes = [
       {
         path: '',
         pathMatch: 'full',
-        redirectTo: 'dashboard'
+        redirectTo: 'headOfficedashboard',
       },
 
       {
-        path: 'dashboard',
-       component:DashboardComponent,
+        path: 'headOfficedashboard',
+        component: DashboardComponent,
       },
       {
         path: 'customers',
-       component:CustomersComponent,
+        component: CustomersComponent,
       },
       {
         path: 'editprofile',
-       component:EditProfileComponent,
+        component: EditProfileComponent,
       },
       {
         path: 'usertransactions',
-       component:UserTransactionsComponent,
+        component: UserTransactionsComponent,
       },
       {
-        path: "reports",
-        component:ReportsComponent
+        path: 'reports',
+        component: ReportsComponent,
       },
       {
-        path:"customerdetails/:customerid",
-        component:CustomerDetailsComponent
-      }
-    ]
+        path: 'customerdetails/:customerid',
+        component: CustomerDetailsComponent,
+      },
+    ],
   },
 ];
 

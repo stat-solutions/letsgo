@@ -52,11 +52,11 @@ export class LeftPanelAdminComponent implements OnInit {
       {
         name: 'Dashboard',
         icon: 'fas fa-tachometer-alt',
-        url: '/branchapproval/dashboard'
+        url: '/branchapproval/branchApprdashboard'
       },
       {
-        name: 'UserTransactions',
-        icon: 'fas fa-credit-card',
+        name: 'Transactions',
+        icon: 'fas fa-briefcase',
         url: '/branchapproval/usertransactions'
       },
       {
@@ -70,8 +70,8 @@ export class LeftPanelAdminComponent implements OnInit {
         url: '/branchapproval/reports'
       },
       {
-        name: 'EditProfile',
-        icon: 'fas fa-user',
+        name: 'Profile',
+        icon: 'fas fa-user-cog',
         url: '/branchapproval/editprofile'
       },
     ];
