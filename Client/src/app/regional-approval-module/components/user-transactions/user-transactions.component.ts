@@ -1,10 +1,4 @@
-import {
-  FormBuilder,
-  FormGroup,
-  FormArray,
-  Validators,
-  FormControl,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray, Validators, FormControl } from '@angular/forms';
 import { LandingService } from './../../../shared/services/landing.service';
 import { Component, OnInit, OnChanges, TemplateRef } from '@angular/core';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
@@ -43,7 +37,7 @@ export class UserTransactionsComponent implements OnInit {
   bsModalRef: BsModalRef;
   //disable button
   disableButton: boolean = false;
-  levels = ['Application'];
+  levels = ['Application', 'BranchApproval'];
 
   constructor(
     private userTransactions: LandingService,
@@ -170,13 +164,7 @@ export class UserTransactionsComponent implements OnInit {
       this.arrayIndex = index;
     }
   }
-  // onApprove(array:Array<any>, id:number, index:number){
-  //   this.receivedLoans = this.receivedLoans.filter(loans=>loans.Id !== id)
-  //   this.receivedLoans = this.receivedLoans.filter(loans=>loans.Id !== id)
-  //   this.closeModal()
-  //   this.alertService.success('Your loan has been approved sucessfully')
 
-  // }
   onReject(array: Array<any>, id: number, index: number) {
     this.receivedLoans = this.receivedLoans.filter((loans) => loans.Id !== id);
     this.commentControls.user_comments.reset();
@@ -189,12 +177,18 @@ export class UserTransactionsComponent implements OnInit {
     this.deffer_controls.deffer_to.reset();
     this.deffer_controls.deffer_reason.reset();
     this.closeModal();
-    this.alertService.success('Your loan has been deferred to ' + level);
+    this.alertService.success(
+      'Your loan has been deferred  successfully to ' + level
+    );
   }
   onForward(array: Array<any>, id, index) {
     this.receivedLoans = this.receivedLoans.filter((loans) => loans.Id !== id);
     this.commentControls.user_comments.reset();
     this.closeModal();
+    let typeOfLoan = this.forwardedLoansTo[0];
+    const { LoanType, Amount } = typeOfLoan;
+    //forward to head offfice entry
+    this.alertService.success('Forwarded successfully to Head Office Entry');
 
     this.alertService.success('Your loan has been forwarded successfully');
   }

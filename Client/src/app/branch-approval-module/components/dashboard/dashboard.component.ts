@@ -74,7 +74,6 @@ fileName = "loanInfo.xlsx";
       this.filteredLoans = this.filterCustomer(this.search_customer);
       this.totalItems = this.filteredLoans.length;
 
-
     }
   }
   filterCustomer(searchTerm: string) {
@@ -93,7 +92,7 @@ fileName = "loanInfo.xlsx";
 
 
   clickOnCustomer(id:number){
-        this.router.navigate(['branchapproval/customerdetails', id], )
+        this.router.navigate(['admin/customerdetails', id], )
   }
    pageChanged(event){
      this.currentPage = event
@@ -116,7 +115,6 @@ fileName = "loanInfo.xlsx";
       Object.assign({}, { class: 'white modal-lg modal-dialog-center' })
     );
   }
-
   }
   //exportto excel
   exportToExcel(){

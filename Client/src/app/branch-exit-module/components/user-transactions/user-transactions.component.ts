@@ -43,25 +43,23 @@ export class UserTransactionsComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    setTimeout(() => {
-      this.userTransactions
-        .getSpecificCustomers('Application')
-        .subscribe((userData) => {
-          this.forwardedLoansFrom = userData.map((eachUser) => {
-            const oldDate = eachUser.CreatedAt;
-            const diffInDates = moment(this.age).diff(moment(oldDate));
-            const timeInMonths = moment(diffInDates).format(
-              'MM [months] DD [days]'
-            );
-            return { ...eachUser, TotalAge: timeInMonths };
-          });
-
-          // this.receivedLoans.push(this.forwardedLoansFrom[0])
-          this.comment = this.fb.group({
-            user_comments: ['', Validators.required],
-          });
+    this.userTransactions
+      .getSpecificCustomers('Application')
+      .subscribe((userData) => {
+        this.forwardedLoansFrom = userData.map((eachUser) => {
+          const oldDate = eachUser.CreatedAt;
+          const diffInDates = moment(this.age).diff(moment(oldDate));
+          const timeInMonths = moment(diffInDates).format(
+            'MM [months] DD [days]'
+          );
+          return { ...eachUser, TotalAge: timeInMonths };
         });
-    }, 0);
+
+        // this.receivedLoans.push(this.forwardedLoansFrom[0])
+        this.comment = this.fb.group({
+          user_comments: ['', Validators.required],
+        });
+      });
   }
   //receivedLoansre
   receiveLoans(id: number, index) {
@@ -94,6 +92,7 @@ export class UserTransactionsComponent implements OnInit {
   getValue(event) {}
 
   closeModal() {
+    this.forwardedLoansTo = [];
     this.bsModalRef.hide();
   }
 
@@ -136,7 +135,40 @@ export class UserTransactionsComponent implements OnInit {
     this.receivedLoans = this.receivedLoans.filter((loans) => loans.Id !== id);
     this.commentControls.user_comments.reset();
     this.closeModal();
-
-    this.alertService.success('Your loan has been forwarded successfully');
+    //forward loan
+    if (!this.checkTransactionsTable(this.forwardedLoansTo)) return;
+    else {
+      //getloan type
+      //get loan type
+      let typeOfLoan = this.forwardedLoansTo[0];
+      console.log(typeOfLoan);
+      const { LoanType, Amount } = typeOfLoan;
+      if (LoanType.toLowerCase() === 'group') {
+        console.log('group');
+        //forward to headoffice
+        this.alertService.success('Forwarded successfully Head Office Entry');
+      } else {
+        console.log('sme');
+        //push them
+        if (Amount > 1000000000) {
+          //console.log('greater')
+          //forward to regional
+          this.alertService.success(
+            'Your loan has been forwarded successfully to Regional Approval'
+          );
+        } else if (Amount < 3000000 && Amount <= 10000000) {
+          //do regional branchApprovalForwardedLoans
+          this.alertService.success(
+            'Your loan has been forwarded successfully to Regional Approval'
+          );
+        } else {
+          //forward to headoffice entry
+          this.alertService.success(
+            'Your loan has been forwarded successfully to Head Office Entry'
+          );
+        }
+      }
+      this.forwardedLoansTo = [];
+    }
   }
 }

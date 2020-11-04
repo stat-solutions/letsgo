@@ -205,18 +205,21 @@ export class EditUserProfileComponent implements OnInit {
       let exts  = name.split(".")[1]
       console.log(exts)
       let findExt = extsAllowed.find(ext=>ext.toLowerCase()===exts.toLowerCase())
-      if (findExt) {
-        if (size < 10000000) {
-          this.alertService.success('Photo successfully updated');
-        } else {
-          this.alertService.danger({
-            html: '<h4>File size is too big!</h4>',
-          });
-        }
-      } else {
+      if(findExt){
+         if(size <10000000){
+           this.alertService.success('Photo updated successfully')
+         }
+         else{
+           this.alertService.danger({
+            html:"<h4>Invalid File size too big!</h4>"
+           })
+         }
+      }
+      else{
         this.alertService.danger({
-          html: '<h4>Invalid file extension!</h4>',
-        });
+            html:"<h4>Invalid File extension!</h4>"
+         })
+
       }
     this.closeModal()
     }

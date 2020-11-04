@@ -50,7 +50,6 @@ export class UsersComponent implements OnInit {
     else{
           this.filteredUsers =  this.filterCustomer(this.search_term)
           this.totalItems = this.filteredUsers.length
-
     }
 
   }
@@ -63,7 +62,6 @@ export class UsersComponent implements OnInit {
       )
 
   }
-
   checkArrayLength(array:Array<any>){
   	return array.length?true:false
   }

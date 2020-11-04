@@ -24,7 +24,7 @@ export class EditProfileComponent implements OnInit{
   mySubscription: any;
   myDateValue: Date;
   positionValue: string;
-  branch = ["Branch 1", "Branch 2", "Branch 3"];
+  branch = ["branch 1", "branch 2", "branch 3"];
   bsModalRef:BsModalRef;
   fileInfo = {name:"", size:0}
   disableButton = true;
@@ -222,6 +222,7 @@ export class EditProfileComponent implements OnInit{
       }
     this.closeModal()
   }
+
   save () {
 
   }

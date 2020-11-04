@@ -39,7 +39,6 @@ export class CustomersComponent implements OnInit {
 
    getValue(event) {
     console.log(event.target.value)
-
     if(event.target.value === ''){
       this.filterCustomers = this.customerTable
       this.totalItems = this.filterCustomers.length;
@@ -64,7 +63,6 @@ export class CustomersComponent implements OnInit {
       )
 
   }
-
    pageChanged(event){
      this.currentPage = event
    }

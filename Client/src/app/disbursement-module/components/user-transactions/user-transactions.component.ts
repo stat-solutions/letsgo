@@ -37,7 +37,7 @@ export class UserTransactionsComponent implements OnInit {
   bsModalRef: BsModalRef;
   //disable button
   disableButton: boolean = false;
-  levels = ['Application'];
+  levels = ['CreditAnalysisStage'];
 
   constructor(
     private userTransactions: LandingService,
@@ -47,29 +47,27 @@ export class UserTransactionsComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    setTimeout(() => {
-      this.userTransactions
-        .getSpecificCustomers('Application')
-        .subscribe((userData) => {
-          this.forwardedLoansFrom = userData.map((eachUser) => {
-            const oldDate = eachUser.CreatedAt;
-            const diffInDates = moment(this.age).diff(moment(oldDate));
-            const timeInMonths = moment(diffInDates).format(
-              'MM [months] DD [days]'
-            );
-            return { ...eachUser, TotalAge: timeInMonths };
-          });
-
-          // this.receivedLoans.push(this.forwardedLoansFrom[0])
-          this.comment = this.fb.group({
-            user_comments: ['', Validators.required],
-          });
-          this.defferTo = this.fb.group({
-            deffer_reason: ['', Validators.required],
-            deffer_to: ['', Validators.required],
-          });
+    this.userTransactions
+      .getSpecificCustomers('Application')
+      .subscribe((userData) => {
+        this.forwardedLoansFrom = userData.map((eachUser) => {
+          const oldDate = eachUser.CreatedAt;
+          const diffInDates = moment(this.age).diff(moment(oldDate));
+          const timeInMonths = moment(diffInDates).format(
+            'MM [months] DD [days]'
+          );
+          return { ...eachUser, TotalAge: timeInMonths };
         });
-    }, 0);
+
+        // this.receivedLoans.push(this.forwardedLoansFrom[0])
+        this.comment = this.fb.group({
+          user_comments: ['', Validators.required],
+        });
+        this.defferTo = this.fb.group({
+          deffer_reason: ['', Validators.required],
+          deffer_to: ['', Validators.required],
+        });
+      });
   }
   //receivedLoansre
   receiveLoans(id: number, index) {
@@ -104,7 +102,6 @@ export class UserTransactionsComponent implements OnInit {
   //search loan
   getValue(event) {}
 
-
   closeModal() {
     this.bsModalRef.hide();
   }
@@ -126,6 +123,7 @@ export class UserTransactionsComponent implements OnInit {
     this.enableForwardedFrom = false;
     this.enableForwardedTo = true;
   }
+
   branchApprovalReceivedLoans() {
     this.enableForwardedFrom = false;
     this.enableForwardedTo = true;
@@ -162,13 +160,39 @@ export class UserTransactionsComponent implements OnInit {
     this.deffer_controls.deffer_to.reset();
     this.deffer_controls.deffer_reason.reset();
     this.closeModal();
-    this.alertService.success('Your loan has been deferred to ' + level);
+    this.alertService.success(
+      'Your loan has been deferred  successfully to ' + level
+    );
   }
+
   onForward(array: Array<any>, id, index) {
     this.receivedLoans = this.receivedLoans.filter((loans) => loans.Id !== id);
     this.commentControls.user_comments.reset();
     this.closeModal();
-
-    this.alertService.success('Your loan has been forwarded successfully');
+    //forward loan
+    if (!this.checkTransactionsTable(this.forwardedLoansTo)) return;
+    else {
+      //getloan type
+      //get loan type
+      let typeOfLoan = this.forwardedLoansTo[0];
+      console.log(typeOfLoan);
+      const { LoanType, Amount } = typeOfLoan;
+      if (LoanType.toLowerCase() === 'group') {
+        console.log('group');
+        //forward to headoffice
+        this.alertService.success('Forwarded successfully');
+      } else {
+        console.log('sme');
+        //push them
+        if (Amount > 1000000000) {
+          console.log('greater');
+        } else if (Amount < 3000000 && Amount <= 10000000) {
+          //do something
+        } else {
+          //do something
+        }
+        this.alertService.success('Your loan has been forwarded successfully');
+      }
+    }
   }
 }

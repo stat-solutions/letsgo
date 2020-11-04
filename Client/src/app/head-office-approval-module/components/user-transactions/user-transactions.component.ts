@@ -1,10 +1,4 @@
-import {
-  FormBuilder,
-  FormGroup,
-  FormArray,
-  Validators,
-  FormControl,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray, Validators, FormControl } from '@angular/forms';
 import { LandingService } from './../../../shared/services/landing.service';
 import { Component, OnInit, OnChanges, TemplateRef } from '@angular/core';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
@@ -43,7 +37,12 @@ export class UserTransactionsComponent implements OnInit {
   bsModalRef: BsModalRef;
   //disable button
   disableButton: boolean = false;
-  levels = ['Application'];
+  levels = [
+    'Application',
+    'CreditAnalysis',
+    'RegionalApproval',
+    'BranchApproval',
+  ];
 
   constructor(
     private userTransactions: LandingService,
@@ -54,29 +53,27 @@ export class UserTransactionsComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    setTimeout(() => {
-      this.userTransactions
-        .getSpecificCustomers('Application')
-        .subscribe((userData) => {
-          this.forwardedLoansFrom = userData.map((eachUser) => {
-            const oldDate = eachUser.CreatedAt;
-            const diffInDates = moment(this.age).diff(moment(oldDate));
-            const timeInMonths = moment(diffInDates).format(
-              'MM [months] DD [days]'
-            );
-            return { ...eachUser, TotalAge: timeInMonths };
-          });
-
-          // this.receivedLoans.push(this.forwardedLoansFrom[0])
-          this.comment = this.fb.group({
-            user_comments: ['', Validators.required],
-          });
-          this.defferTo = this.fb.group({
-            deffer_reason: ['', Validators.required],
-            deffer_to: ['', Validators.required],
-          });
+    this.userTransactions
+      .getSpecificCustomers('Application')
+      .subscribe((userData) => {
+        this.forwardedLoansFrom = userData.map((eachUser) => {
+          const oldDate = eachUser.CreatedAt;
+          const diffInDates = moment(this.age).diff(moment(oldDate));
+          const timeInMonths = moment(diffInDates).format(
+            'MM [months] DD [days]'
+          );
+          return { ...eachUser, TotalAge: timeInMonths };
         });
-    }, 0);
+
+        // this.receivedLoans.push(this.forwardedLoansFrom[0])
+        this.comment = this.fb.group({
+          user_comments: ['', Validators.required],
+        });
+        this.defferTo = this.fb.group({
+          deffer_reason: ['', Validators.required],
+          deffer_to: ['', Validators.required],
+        });
+      });
   }
   //receivedLoansre
   receiveLoans(id: number, index) {
@@ -170,18 +167,11 @@ export class UserTransactionsComponent implements OnInit {
       this.arrayIndex = index;
     }
   }
-  // onApprove(array:Array<any>, id:number, index:number){
-  //   this.receivedLoans = this.receivedLoans.filter(loans=>loans.Id !== id)
-  //   this.receivedLoans = this.receivedLoans.filter(loans=>loans.Id !== id)
-  //   this.closeModal()
-  //   this.alertService.success('Your loan has been approved sucessfully')
-
-  // }
   onReject(array: Array<any>, id: number, index: number) {
     this.receivedLoans = this.receivedLoans.filter((loans) => loans.Id !== id);
     this.commentControls.user_comments.reset();
     this.closeModal();
-    this.alertService.danger('Your loan has been rejected!');
+    this.alertService.danger('Your loan has been rejected sucessfully');
   }
   onDeffer(array: Array<any>, id, index) {
     this.receivedLoans = this.receivedLoans.filter((loans) => loans.Id !== id);
@@ -189,13 +179,26 @@ export class UserTransactionsComponent implements OnInit {
     this.deffer_controls.deffer_to.reset();
     this.deffer_controls.deffer_reason.reset();
     this.closeModal();
-    this.alertService.success('Your loan has been deferred to ' + level);
+    this.alertService.success(
+      'Your loan has been deffered  successfully to ' + level
+    );
   }
   onForward(array: Array<any>, id, index) {
     this.receivedLoans = this.receivedLoans.filter((loans) => loans.Id !== id);
     this.commentControls.user_comments.reset();
-    this.closeModal();
+    //forward to laon entry
 
-    this.alertService.success('Your loan has been forwarded successfully');
+    this.closeModal();
+    this.alertService.success(
+      'Your loan has been forwarded successfully loan administrative entry'
+    );
   }
+  // onApprove(array:Array<any>, id:number, index:number){
+  //   this.receivedLoans = this.receivedLoans.filter(loans=>loans.Id !== id)
+  //   this.receivedLoans = this.receivedLoans.filter(loans=>loans.Id !== id)
+  //   this.closeModal()
+  //   this.alertService.success('Your loan has been approved sucessfully')
+
+  // }
 }
+

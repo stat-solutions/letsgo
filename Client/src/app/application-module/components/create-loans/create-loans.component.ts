@@ -88,7 +88,6 @@ export class CreateLoansComponent implements OnInit {
     if (customer !== '' || customer !== null) return false
     else {
       this.customer.getCustomers().subscribe(allcustomer => {
-
         const found = allcustomer.find(customers => customers.customerName.toLowerCase === customer.toLowerCase)
         if (found) return false
         else return true

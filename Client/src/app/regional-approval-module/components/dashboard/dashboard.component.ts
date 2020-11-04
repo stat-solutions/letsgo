@@ -91,7 +91,7 @@ fileName = "loanInfo.xlsx";
 
 
   clickOnCustomer(id:number){
-        this.router.navigate(['regional/customerdetails', id], )
+        this.router.navigate(['admin/customerdetails', id], )
   }
    pageChanged(event){
      this.currentPage = event
@@ -114,7 +114,6 @@ fileName = "loanInfo.xlsx";
       Object.assign({}, { class: 'white modal-lg modal-dialog-center' })
     );
   }
-
   }
   //exportto excel
   exportToExcel(){

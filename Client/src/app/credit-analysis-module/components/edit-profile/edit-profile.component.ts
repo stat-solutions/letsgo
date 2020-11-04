@@ -13,8 +13,8 @@ import { AlertService } from 'ngx-alerts';
   templateUrl: './edit-profile.component.html',
   styleUrls: ['./edit-profile.component.scss'],
 })
-export class EditProfileComponent implements OnInit {
-  userData: Registration;
+export class EditProfileComponent implements OnInit{
+  userData:Registration
   registered = false;
   submitted = false;
   userForm: FormGroup;
@@ -24,18 +24,14 @@ export class EditProfileComponent implements OnInit {
   mySubscription: any;
   myDateValue: Date;
   positionValue: string;
-  branch = ['Branch 1', 'Branch 2', 'Branch 3'];
-  bsModalRef: BsModalRef;
-  fileInfo = { name: '', size: 0 };
+  branch = ["branch 1", "branch 2", "branch 3"];
+  bsModalRef:BsModalRef;
+  fileInfo = {name:"", size:0}
   disableButton = true;
-  constructor(
-    private EditUser: UsersService,
-    private fb: FormBuilder,
-    private alertService: AlertService,
-    private router: Router,
-    private spinner: NgxSpinnerService,
-    private bsModalService: BsModalService
-  ) {}
+  constructor(private EditUser:UsersService, private fb:FormBuilder,
+    private alertService:AlertService,
+    private router: Router, private spinner: NgxSpinnerService,
+    private bsModalService:BsModalService) { }
   ngOnInit() {
     this.userData = this.EditUser.getSpecificUser('katznicho@gmail.com');
     this.myDateValue = new Date();
@@ -158,11 +154,11 @@ export class EditProfileComponent implements OnInit {
   getBranch(event) {}
 
   enableEdit() {
-    this.fval.full_name.setValue(this.userData.userName);
-    this.fval.email2.setValue(this.userData.userEmail);
-    this.fval.user_contact_number1.setValue(this.userData.userNumber);
-    this.fval.branches.setValue(this.userData.userBranch);
-    return this.userForm.enable();
+    this.fval.full_name.setValue(this.userData.userName)
+    this.fval.email2.setValue(this.userData.userEmail)
+    this.fval.user_contact_number1.setValue(this.userData.userNumber)
+    this.fval.branches.setValue(this.userData.userBranch)
+    return this.userForm.enable()
   }
 
   //toggle visibility of password field
@@ -177,39 +173,40 @@ export class EditProfileComponent implements OnInit {
     //   this.router.navigate(['authpage/loginpage']);
     // }, 2000);
   }
-  cancel() {
-    this.userForm.reset();
-    return this.userForm.disable();
+  cancel(){
+    this.userForm.reset()
+    return this.userForm.disable()
   }
 
-  setProfileValues() {}
-  update(template: TemplateRef<any>) {
-    this.bsModalRef = this.bsModalService.show(template);
+  setProfileValues () {
+
   }
-  closeModal() {
-    this.bsModalRef.hide();
+  update(template:TemplateRef<any>){
+     this.bsModalRef =  this.bsModalService.show(template)
+  }
+  closeModal(){
+    this.bsModalRef.hide()
   }
   //update photo
   onFileChange(event) {
-    const file = event.target.files[0];
-    console.log(typeof file);
-    const { name, size } = file;
-    this.fileInfo = { name: name, size: size };
-    this.disableButton = false;
+    const file = event.target.files[0]
+    console.log(typeof(file))
+    const {name, size} = file
+    this.fileInfo = {name:name, size:size}
+    this.disableButton = false
     //console.log(this.fileInfo)
+
   }
 
-  updateProfile() {
-    console.log(this.fileInfo);
-    let extsAllowed = ['jpg', 'jpeg', 'png'];
-    const { name, size } = this.fileInfo;
-    let exts = name.split('.')[1];
-    console.log(exts);
-    let findExt = extsAllowed.find(
-      (ext) => ext.toLowerCase() === exts.toLowerCase()
-    );
-    if (findExt) {
-      if (size < 10000000) {
+  updateProfile(){
+     console.log(this.fileInfo)
+      let extsAllowed = ['jpg', 'jpeg', 'png'];
+      const {name, size} = this.fileInfo
+      let exts  = name.split(".")[1]
+      console.log(exts)
+      let findExt = extsAllowed.find(ext=>ext.toLowerCase()===exts.toLowerCase())
+      if(findExt){
+         if(size <10000000){
         this.alertService.success('Photo successfully updated');
       } else {
         this.alertService.danger({
@@ -219,11 +216,14 @@ export class EditProfileComponent implements OnInit {
     } else {
       this.alertService.danger({
         html: '<h4>Invalid file extension!</h4>',
-      });
-    }
-    this.closeModal();
+         })
+
+      }
+    this.closeModal()
   }
   save() {}
 
   //here
+
+
 }

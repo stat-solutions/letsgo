@@ -1,10 +1,4 @@
-import {
-  FormBuilder,
-  FormGroup,
-  FormArray,
-  Validators,
-  FormControl,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray, Validators, FormControl } from '@angular/forms';
 import { LandingService } from './../../../shared/services/landing.service';
 import { Component, OnInit, OnChanges, TemplateRef } from '@angular/core';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
@@ -49,25 +43,23 @@ export class UserTransactionsComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    setTimeout(() => {
-      this.userTransactions
-        .getSpecificCustomers('Application')
-        .subscribe((userData) => {
-          this.forwardedLoansFrom = userData.map((eachUser) => {
-            const oldDate = eachUser.CreatedAt;
-            const diffInDates = moment(this.age).diff(moment(oldDate));
-            const timeInMonths = moment(diffInDates).format(
-              'MM [months] DD [days]'
-            );
-            return { ...eachUser, TotalAge: timeInMonths };
-          });
-
-          // this.receivedLoans.push(this.forwardedLoansFrom[0])
-          this.comment = this.fb.group({
-            user_comments: ['', Validators.required],
-          });
+    this.userTransactions
+      .getSpecificCustomers('Application')
+      .subscribe((userData) => {
+        this.forwardedLoansFrom = userData.map((eachUser) => {
+          const oldDate = eachUser.CreatedAt;
+          const diffInDates = moment(this.age).diff(moment(oldDate));
+          const timeInMonths = moment(diffInDates).format(
+            'MM [months] DD [days]'
+          );
+          return { ...eachUser, TotalAge: timeInMonths };
         });
-    }, 0);
+
+        // this.receivedLoans.push(this.forwardedLoansFrom[0])
+        this.comment = this.fb.group({
+          user_comments: ['', Validators.required],
+        });
+      });
   }
   //receivedLoansre
   receiveLoans(id: number, index) {
@@ -96,12 +88,12 @@ export class UserTransactionsComponent implements OnInit {
     };
   }
 
-  //search loan
-  getValue(event) {}
-
   closeModal() {
     this.bsModalRef.hide();
   }
+
+  //search loan
+  getValue(event) {}
 
   checkTransactionsTable(array: Array<any>) {
     return array.length ? true : false;
@@ -142,7 +134,11 @@ export class UserTransactionsComponent implements OnInit {
     this.receivedLoans = this.receivedLoans.filter((loans) => loans.Id !== id);
     this.commentControls.user_comments.reset();
     this.closeModal();
-
-    this.alertService.success('Your loan has been forwarded successfully');
+    //forward loan
+    if (!this.checkTransactionsTable(this.forwardedLoansTo)) return;
+    else {
+      //forward the loan to legal review
+      this.alertService.success('Your loan has been forwarded successfully');
+    }
   }
 }

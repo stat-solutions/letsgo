@@ -23,15 +23,12 @@ export class CustomersComponent implements OnInit {
   @ViewChild('exportTable')element:ElementRef
   constructor(private customer:CustomerService, private router:Router) { }
   ngOnInit() {
-    setTimeout(()=>{
       this.customer.getCustomers().subscribe(data => {
         console.log(data)
         this.customerTable = data
         this.filterCustomers = this.customerTable
         this.totalItems = this.customerTable.length
       })
-    }, 0)
-
   }
   checkTable(array:Array<any>){
     return array.length?true:false
@@ -39,7 +36,6 @@ export class CustomersComponent implements OnInit {
 
    getValue(event) {
     console.log(event.target.value)
-
     if(event.target.value === ''){
       this.filterCustomers = this.customerTable
       this.totalItems = this.filterCustomers.length;

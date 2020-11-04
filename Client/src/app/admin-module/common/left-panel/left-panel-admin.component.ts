@@ -79,7 +79,6 @@ export class LeftPanelAdminComponent implements OnInit {
         icon: 'fas fa-file',
         url: '/admin/reports'
       },
-
       {
         name: 'Entities',
         icon: 'fas fa-cogs',

@@ -114,7 +114,6 @@ fileName = "loanInfo.xlsx";
       Object.assign({}, { class: 'white modal-lg modal-dialog-center' })
     );
   }
-
   }
   //exportto excel
   exportToExcel(){
