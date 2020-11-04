@@ -1,9 +1,9 @@
 import { CustomerService } from './../../../shared/services/customer.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit , TemplateRef} from '@angular/core';
 import {FormBuilder, FormGroup, Validators, FormArray, FormControl} from '@angular/forms'
 import { CustomValidator } from 'src/app/validators/custom-validator';
 import { NgxSpinnerService } from 'ngx-spinner';
-
+import {BsModalService, BsModalRef} from 'ngx-bootstrap/modal';
 @Component({
   selector: 'app-create-loans',
   templateUrl: './create-loans.component.html',
@@ -22,21 +22,38 @@ export class CreateLoansComponent implements OnInit {
   invalid: boolean = false;
   authService: any;
   error:boolean = false
-  loan_types = ['Group', 'SME']
+  loan_types = ['SourceLoans', 'SME']
   securities = ['security one', 'security two', 'security 3', 'security 4', 'security 5'];
   getSecurities = [];
   checkAllSecurities:boolean = true;
+   bsModal:BsModalRef;
+  search_term:string;
+  currentPage:number = 1;
+  totalItems:number
+  pageSize = 5;
+  key:any = "documentId";
+  customerData = [];
+  filteredCustomers = [];
+  search_customer:string;
 
 
-  constructor(private customer:CustomerService, private fb:FormBuilder,private spinner:NgxSpinnerService) { }
+  constructor(private customer:CustomerService, 
+    private fb:FormBuilder,
+    private bsModalService:BsModalService,
+    private spinner:NgxSpinnerService) { }
 
   ngOnInit() {
     this.userForm = this.createFormGroup();
+       this.customer.getCustomers().subscribe(customerNames=>{
+      this.customerData = customerNames;
+      this.filteredCustomers = this.customerData;
+    })
+    this.totalItems = this.customerData.length
   }
   createFormGroup() {
     return new FormGroup({
       full_name:this.fb.control(
-        '',
+        {value:'', disabled:true},
         Validators.compose([Validators.required, Validators.minLength(2)])
       ),
       loan_type:this.fb.control(
@@ -72,11 +89,14 @@ export class CreateLoansComponent implements OnInit {
     else {
       this.customer.getCustomers().subscribe(allcustomer => {
       
-        const found = allcustomer.find(customers => customers.name.toLowerCase === customer.toLowerCase)
+        const found = allcustomer.find(customers => customers.customerName.toLowerCase === customer.toLowerCase)
         if (found) return false
         else return true
       })
     }
+  }
+  closeModal(){
+    this.bsModal.hide()
   }
 
   createSecuritiesControl(){
@@ -155,6 +175,66 @@ export class CreateLoansComponent implements OnInit {
      
     }
   }
+
+
+  //sort in ascending order
+  reverse:boolean = false;
+  sort(item:string){
+    this.key = item;
+    this.reverse = !this.reverse
+  }
+
+
+   getCustomer(template:TemplateRef<any>){
+     this.bsModal =  this.bsModalService.show(template)
+
+   }
+
+   checkTable(array:Array<any>){
+     return array.length?true:false
+   }
+
+   //searching
+    getValue(event) {
+    console.log(event.target.value)
+    this.search_customer = event.target.value
+    if(event.target.value === ''){
+      this.filteredCustomers = this.customerData
+      this.totalItems = this.filteredCustomers.length;
+
+
+    }
+    else{
+          this.filteredCustomers =  this.filterCustomer(this.search_customer)
+          this.totalItems = this.filteredCustomers.length;
+
+    }
+  }
+  filterCustomer(searchTerm:string){
+    if(searchTerm)
+
+    return this.filteredCustomers.filter(
+      customer=>customer.customerName.toLowerCase().indexOf(searchTerm.toLowerCase())!==   -1
+      ||customer.documentType.toLowerCase().indexOf(searchTerm.toLowerCase())!==-1
+      )
+
+  }
+   //searching
+
+   getCustomerName(id:number){
+     const customerNames = this.customerData.find(customer=>customer.customerId === id)
+     const {customerName} = customerNames;
+     this.fval.full_name.setValue(customerName)
+     this.search_term = '';
+     this.filteredCustomers = this.customerData;
+     this.totalItems = this.filteredCustomers.length
+     this.closeModal()
+   }
+
+   pageChanged(event){
+     this.currentPage = event
+
+   }
 
 
 }

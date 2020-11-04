@@ -11,7 +11,7 @@
         <hr class="mt-0" />
       </div>
     </div>
-    <form [formGroup]="userForm" (ngSubmit)="register()">
+    <form [formGroup]="userForm" (ngSubmit)="report()">
       <div class="row">
 
                     <div class="col-12 col-sm-6 col-md-4 mx-md-0">
@@ -96,7 +96,7 @@
                 (change) ="getReport($event)"
                 required
               >
-              <option value="" selected disabled>Select Report</option>
+              <option selected disabled>Select Report</option>
               <option *ngFor="let reports of reportTypes" [ngValue]="reports.reportType">{{reports.reportType}}</option>
 
               </select>

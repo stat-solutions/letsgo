@@ -9,7 +9,7 @@ import * as momemt from 'moment'
 export class LandingService {
   private createdAt = momemt(1577826000000).format('MM/DD/YYYY, h:mm:ss ')
   private myCreatedAt = momemt(1588280400000).format('MM/DD/YYYY, h:mm:ss ')
-  private userData  = [
+  private loanData  = [
     {
       Id: 1,
       Customer: "Nicolas",
@@ -23,7 +23,10 @@ export class LandingService {
       StageAt: this.createdAt,
       HowLong:4,
       CreatedAt: this.createdAt,
-      LoanStatus:"running"
+      LoanStatus:"running",
+      comment:"loan created",
+      Branch:"Application",
+      userName:"Katende Nicholas"
     },
     {
       Id: 2,
@@ -32,13 +35,16 @@ export class LandingService {
       LoanProduct: "product 2",
       Tenure: 12 ,
       Amount: 500000,
-      Stage: "BranchApproval",
+      Stage: "Application",
       Status: "forwaded",
       LoanMovedBy: "Branch office",
       StageAt: this.myCreatedAt,
       HowLong: 2,
       LoanStatus:"rejected",
-      CreatedAt:this.myCreatedAt
+      CreatedAt:this.myCreatedAt,
+      comment:"loan forwarded",
+      Branch:"BranchApproval",
+      userName:"Katende Nicholas"
     },
     {
       Id: 3,
@@ -53,7 +59,11 @@ export class LandingService {
       HowLong: 3,
       LoanStatus:"disbursed",
       StageAt:this.createdAt,
-      CreatedAt:this.createdAt
+       CreatedAt:this.myCreatedAt,
+      comment:"loan forwarded",
+      Branch:"BranchApproval",
+      userName:"Katende Nicholas"
+
     },
     {
       Id: 4,
@@ -68,7 +78,11 @@ export class LandingService {
       StageAt: this.myCreatedAt,
       HowLong: 1,
       LoanStatus:"approved",
-      CreatedAt:this.myCreatedAt
+       CreatedAt:this.myCreatedAt,
+      comment:"loan forwarded",
+      Branch:"BranchApproval",
+      userName:"Katende Nicholas"
+
     },
     {
       Id: 5,
@@ -83,7 +97,11 @@ export class LandingService {
       StageAt: this.myCreatedAt,
       HowLong: 1,
       LoanStatus:"deferred",
-      CreatedAt:this.myCreatedAt
+            CreatedAt:this.myCreatedAt,
+      comment:"loan forwarded",
+      Branch:"BranchApproval",
+      userName:"Katende Nicholas"
+      
     },
     {
       Id: 5,
@@ -98,7 +116,11 @@ export class LandingService {
       StageAt: this.myCreatedAt,
       HowLong: 1,
       LoanStatus:"rejected",
-      CreatedAt:this.myCreatedAt
+            CreatedAt:this.myCreatedAt,
+      comment:"loan forwarded",
+      Branch:"BranchApproval",
+      userName:"Katende Nicholas"
+      
     },
     {
       Id: 6,
@@ -113,7 +135,11 @@ export class LandingService {
       StageAt: this.myCreatedAt,
       HowLong: 1,
       LoanStatus:"approved",
-      CreatedAt:this.myCreatedAt
+            CreatedAt:this.myCreatedAt,
+      comment:"loan forwarded",
+      Branch:"BranchApproval",
+      userName:"Katende Nicholas"
+      
     },
     {
       Id: 7,
@@ -128,7 +154,10 @@ export class LandingService {
       StageAt: this.myCreatedAt,
       HowLong: 1,
       LoanStatus:"approved",
-      CreatedAt:this.myCreatedAt
+      CreatedAt:this.myCreatedAt,
+      comment:"loan created",
+      Branch:"Application",
+      userName:"Katende Nicholas"
     },
     {
       Id: 8,
@@ -143,7 +172,10 @@ export class LandingService {
       StageAt: this.myCreatedAt,
       HowLong: 1,
       LoanStatus:"approved",
-      CreatedAt:this.myCreatedAt
+       CreatedAt:this.myCreatedAt,
+      comment:"loan forwarded",
+      Branch:"BranchApproval",
+      userName:"Katende Nicholas"
     },
     {
       Id: 9,
@@ -158,7 +190,10 @@ export class LandingService {
       StageAt: this.myCreatedAt,
       HowLong: 1,
       LoanStatus:"approved",
-      CreatedAt:this.myCreatedAt
+            CreatedAt:this.myCreatedAt,
+      comment:"loan forwarded",
+      Branch:"BranchApproval",
+      userName:"Katende Nicholas"
     },
     {
       Id: 10,
@@ -173,18 +208,22 @@ export class LandingService {
       StageAt: this.myCreatedAt,
       HowLong: 1,
       LoanStatus:"approved",
-      CreatedAt:this.myCreatedAt
+      CreatedAt:this.myCreatedAt,
+      comment:"loan forwarded",
+      Branch:"BranchApproval",
+      userName:"Katende Nicholas"
+      
     },
   ]
 
   constructor() { }
-  getUserData() {
-    return of(this.userData)
+  getloanData() {
+    return of(this.loanData)
   }
   getSpecificCustomers(stage: string) {
-    return of(this.userData.filter(users=>users.Stage === stage)) 
+    return of(this.loanData.filter(loans=>loans.Stage === stage)) 
   }
-  getCustomerDetails(id:number){
-    return of(this.userData.find(users=>users.Id === id))
+  getLoanDetails(id:number){
+    return of(this.loanData.find(loans=>loans.Id === id))
   }
 }

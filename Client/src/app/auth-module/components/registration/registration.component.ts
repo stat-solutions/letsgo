@@ -5,9 +5,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { Router } from '@angular/router';
 import { CustomValidator } from 'src/app/validators/custom-validator';
 import { AlertService } from 'ngx-alerts';
-// import { UserRole } from 'src/app/models/user-role';
-// import { CompanyPetroStations } from 'src/app/models/company-petro-stations';
-// import { TheStations } from 'src/app/models/the-stations';
+import {UserToProveService} from 'src/app/shared/services/user-to-prove.service'
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
@@ -37,7 +35,8 @@ export class RegistrationComponent implements OnInit {
     private spinner: NgxSpinnerService,
     private router: Router,
     private alertService: AlertService,
-    private fb:FormBuilder
+    private fb:FormBuilder,
+    private registerUser:UserToProveService
   ) {}
 
   ngOnInit() {
@@ -45,15 +44,15 @@ export class RegistrationComponent implements OnInit {
   }
   createFormGroup() {
     return new FormGroup({
-      full_name:this.fb.control(
+      userName:this.fb.control(
         '',
         Validators.compose([Validators.required, Validators.minLength(2)])
       ),
-      email: this.fb.control(
+      userEmail:this.fb.control(
         '',
         Validators.compose([Validators.required, Validators.email],)
       ),
-      password: this.fb.control(
+      userPassword: this.fb.control(
         '',
         Validators.compose([Validators.required, CustomValidator.patternValidator(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$/, { hasNumber: true })])
       ),
@@ -68,7 +67,7 @@ export class RegistrationComponent implements OnInit {
       ),
 
 
-      user_contact_number: this.fb.control(
+      userNumber: this.fb.control(
         '',
         Validators.compose([
           Validators.required,
@@ -88,14 +87,14 @@ export class RegistrationComponent implements OnInit {
   get fval() {
     return this.userForm.controls;
   }
-    //toggle visibility of password field
+    //toggle visibility of userPassword field
     toggleFieldType() {
       this.fieldType = !this.fieldType;
     }
   matchPasswords():boolean {
-    const password = this.fval.password.value;
+    const userPassword = this.fval.userPassword.value;
     const confirmed = this.fval.confirm.value
-    if (password !== confirmed) return true
+    if (userPassword !== confirmed) return true
     else return false
   }
   getBranch(branch) {
@@ -103,28 +102,21 @@ export class RegistrationComponent implements OnInit {
   }
 
   returnHome() {
-    this.spinner.hide();
-    this.revert();
 
-    setTimeout(() => {
-      this.router.navigate(['authpage/loginpage']);
-    }, 2000);
+    this.revert();
+      this.router.navigate(['authpage/login']);
+ 
   }
 
   register() {
-    console.log(this.userForm)
-    
     this.submitted = true;
-    this.spinner.show();
+   // this.spinner.show();
     if (this.userForm.invalid === true) {
-      return this.invalid = true
-      //return;
+      return;
     } else {
-      
-      this.authService.registerUser(this.userForm).subscribe(
-        () => {
-          this.posted = true;
-          this.spinner.hide();
+      this.spinner.show()
+      this.authService.registerUser(this.userForm).subscribe(()=>{
+        this.spinner.hide();
           this.alertService.success({
             html:
               '<b>User Registration Was Successful</b>' +
@@ -133,24 +125,25 @@ export class RegistrationComponent implements OnInit {
           });
           setTimeout(() => {
             this.router.navigate(['authpage/login']);
-          }, 3000);
-        },
-        (error: string) => {
+          }, 2000)
+      }),
+      (error: string) => {
           this.spinner.hide();
-          this.errored = true;
-          this.serviceErrors = error;
           this.alertService.danger({
-            html: '<b>' + this.serviceErrors + '</b>' + '<br/>'
+            html: '<b>' + error +'</b>'
           });
           setTimeout(() => {
             location.reload();
           }, 3000);
           console.log(error);
         }
-      );
+     
 
-        this.registered = true;
+         }
+      
+      
+
+      //   this.registered = true;
     }
-  }
 }
 

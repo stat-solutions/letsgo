@@ -1,7 +1,6 @@
 import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
 import { ReportsComponent } from './components/reports/reports.component';
 import { ViewLoggedinUsersComponent } from './components/view-loggedin-users/view-loggedin-users.component';
-import { LogoutUsersComponent } from './components/logout-users/logout-users.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AlertModule } from 'ngx-alerts';
@@ -25,10 +24,11 @@ import {CustomerDetailsComponent} from './components/customer-details/customer-d
 import {UsersComponent} from './components/users/users.component';
 import {EntitiesComponent} from './components/entities/entities.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
-
 import {NgxPaginationModule} from 'ngx-pagination';
-
-
+import {CreatesecurityComponent} from './components/createsecurity/createsecurity.component';
+import { OrderModule } from 'ngx-order-pipe';
+import { ConstantsTableComponent } from './components/constants-table/constants-table.component';
+import {CustomersComponent} from './components/customers/customers.component';
 @NgModule({
   declarations: [
     PagesCoreAdminComponent,
@@ -39,7 +39,6 @@ import {NgxPaginationModule} from 'ngx-pagination';
     DashboardComponent,
     ConstantsComponent,
     ApproveUsersComponent,
-    LogoutUsersComponent,
     ViewLoggedinUsersComponent,
     ReportsComponent,
     BranchesComponent,
@@ -47,7 +46,10 @@ import {NgxPaginationModule} from 'ngx-pagination';
     EditProfileComponent,
     CustomerDetailsComponent,
     UsersComponent,
-    EntitiesComponent
+    EntitiesComponent,
+    CreatesecurityComponent,
+    ConstantsTableComponent,
+    CustomersComponent
   ],
   imports: [
     CommonModule,
@@ -60,7 +62,8 @@ import {NgxPaginationModule} from 'ngx-pagination';
     BsDatepickerModule,
     AlertModule.forRoot({ maxMessages: 5, timeout: 7000 }),
     TooltipModule.forRoot(),
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    OrderModule
   ],
 })
 export class AdminModule {}

@@ -9,7 +9,6 @@ import { AuthServiceService } from './auth-service.service';
   providedIn: 'root'
 })
 export class InterceptorService  implements HttpInterceptor {
-
   constructor(
     private authService: AuthServiceService,
     private router: Router) { }

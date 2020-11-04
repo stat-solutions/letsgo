@@ -14,17 +14,25 @@
     <div class="row">
       <div class="col-6 col-sm-7 col-md-8 col-lg-9">
                 <div class="mt-1 mt-xl-0 pt-xl-0 mb-2 mx-0 pl-0 pl-xl-2">
-				<form [formGroup]="formGroup" (ngSubmit)="getFormValue()">
 						<input type="text" name=""
 						formControlName="search_text"
             class="form-control col-12 col-sm-10 col-md-8 col-lg-7 col-xl-5"
 						(input)="getValue($event)"
 						 id="name" placeholder="Search by name" autocomplete="on" />
-				</form>
+          <button class="btn btn-primary mt-4 ml-4 ml-sm-5 mx-md-0"
+          (click)="exportToExcel()"
+          ><i class="fas fa-file-export"></i>  Export to Excel</button>
+
+
+          <button class="btn btn-primary mt-4 ml-4 ml-sm-5 mx-md-0"
+          (click)="loggedInUsers()"
+          ><i class="fas fa-user">LoggedInUser</i></button>
+
 			</div>
 			</div>
             <div class="col-6 col-sm-5 col-md-4 col-lg-3 mx-0 pt-1">
-<button class="btn btn-primary mt-0 ml-0 ml-sm-4"><i class="fas fa-file-export"></i>  Export to Excel</button>
+<br>
+<button class="btn btn-primary mt-0 ml-0 ml-sm-4" (click)="approveUsers()">+ApproveUsers</button>
 </div>
 		</div>
     </div>
@@ -36,28 +44,42 @@
               <!--table-->
               <table
                 class="table table-hover table-striped table-sm"
+                #exportTable
               >
               <thead class="bg-dark text-info">
                 <tr class="mx-2">
-			      <th width="10%">User ID</th>
-			      <th width="25%">User Name</th>
-			      <th width="15%">Role</th>
+			      <th width="10%"><i class="fas fa-sort pointerCursor"
+              (click)="sort('userId')">UserID</i></th>
+			      <th width="25%"><i class="fas fa-sort pointerCursor"
+              (click)="sort('userName')">UserName</i></th>
+			      <th width="15%"><i class="fas fa-sort pointerCursor"
+              (click)="sort('userRole')">UserRole</i></th>
 			      <th width="12%">Contact</th>
-			      <th width="26%">Email</th>
+			      <th width="26%"><i class="fas fa-sort pointerCursor"
+              (click)="sort('userEmail')">Email</i></th>
 			      <th width="12%">Delete User</th>
 			    </tr>
 			  </thead>
 			  <tbody>
-			    <tr class="mx-2" *ngFor="let user of filteredUsers">
-			      <td>{{user.id}}</td>
-			      <td>{{user.name}}</td>
-			      <td>{{user.role}}</td>
-			      <td>{{user.contact}}</td>
-			      <td>{{user.email}}</td>
+			    <tr class="mx-2"
+			    id="export-table" 
+			     *ngFor="let user of filteredUsers|orderBy:key:reverse|paginate:{
+ id:'my_pages', itemsPerPage:pageSize, currentPage:currentPage,totalItems:totalItems
+} let i = index">
+			      <td>{{user.userId}}</td>
+			      <td>{{user.userName}}</td>
+			      <td>{{user.userRole}}</td>
+			      <td>{{user.userNumber}}</td>
+			      <td>{{user.userEmail}}</td>
 			      <td><button class="btn btn-danger" (click)="deleteUser(user.id, user.name)">Delete</button></td>
 			    </tr>
 			  </tbody>
       </table>
+            <pagination-controls  id="my_pages"
+            (pageChange)="pageChanged($event)"
+            (pageBoundsCorrection)="pageChanged($event)"
+            directionLinks="true">
+           </pagination-controls>
           	 </div>
           </div>
 

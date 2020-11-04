@@ -71,7 +71,7 @@ export class LeftPanelAdminComponent implements OnInit {
       },
       {
         name: 'EditProfile',
-        icon: 'fas fa-uer',
+        icon: 'fas fa-user',
         url: '/loanentry/editprofile'
       }
     ];

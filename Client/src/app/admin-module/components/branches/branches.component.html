@@ -15,12 +15,14 @@
       <div class="col-6 col-sm-7 col-md-8 col-lg-9 col-xl-10">
                 <div class="mt-1 mt-xl-0 pt-xl-0 mb-2 mx-0 pl-0 pl-xl-2">
           <input type="text" name=""
-          formConrolName = "searchText"
           id="search"
             class="form-control col-12 col-sm-10 col-md-8 col-lg-7 col-xl-5"
           (input)="getValue($event)"
            placeholder="Search" autocomplete="on"
           >
+          <button class="btn btn-primary mt-4 ml-4 ml-sm-5 mx-md-0"
+          (click)="exportToExcel()"
+          ><i class="fas fa-file-export"></i>  Export to Excel</button>
         </div>
         </div>
         <!-- <div class="form-group">
@@ -38,21 +40,54 @@
             <div class="state-table table-responsive pt-1 pt-sm-2 pb-0">
               <!--table-->
               <table
+                #exportTable
                 class="table table-hover table-striped table-sm"
               >
               <thead class="bg-dark text-info">
                 <tr class="mx-2">
-                <th scope="col">BranchNo</th>
-                <th scope="col">BranchName</th>
-                <th scope="col">EntityName</th>
-                <th scope="col">District</th>
-                <th scope="col">Town</th>
-                <th scope="col">CreatedAt</th>
+                <th scope="col">
+                  <i class="fas fa-sort pointerCursor"
+                  (click)="sort('branchNumber')">
+                    BranchNo
+                  </i>
+                </th>
+                <th scope="col">
+                  <i class="fas fa-sort pointerCursor"
+                  (click)="sort('branchName')">
+                    BranchName
+                  </i>
+                </th>
+                <th scope="col">
+                  <i class="fas fa-sort pointerCursor"
+                  (click)="sort(entityName)">
+                    EntityName
+                  </i>
+                </th>
+                <th scope="col">
+                  <i class="fas fa-sort pointerCursor"
+                  (click)="sort('district')">
+                    District
+                  </i>
+                </th>
+                <th scope="col">
+                  <i class="fas fa-sort pointerCursor"
+                  (click)="sort('town')">
+                    Town
+                  </i>
+                </th>
+                <th scope="col">
+                  <i class="fas fa-sort pointerCursor"
+                  (click)="sort('createdAt')">
+                    CreatedAt
+                  </i>
+                </th>
               </tr>
             </thead>
             <tbody>
-              <tr class="mx-2" *ngFor="let branch of filteredBranches">
-                <td>{{branch.branchNo}}</td>
+              <tr class="mx-2" *ngFor="let branch of filteredBranches|orderBy:key:reverse|paginate:{
+ id:'my_pages', itemsPerPage:pageSize, currentPage:currentPage,totalItems:totalItems
+} let i = index">
+                <td>{{branch.branchNumber}}</td>
                 <td>{{branch.branchName}}</td>
                 <td>{{branch.entityName}}</td>
                 <td>{{branch.district}}</td>
@@ -61,6 +96,11 @@
               </tr>
             </tbody>
           </table>
+            <pagination-controls  id="my_pages"
+            (pageChange)="pageChanged($event)"
+            (pageBoundsCorrection)="pageChanged($event)"
+            directionLinks="true">
+           </pagination-controls>
            <!--table-->
          </div>
       </div>

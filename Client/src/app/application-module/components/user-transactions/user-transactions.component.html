@@ -2,20 +2,15 @@
 <div class="container-fluid mb-0 mt-md-1 pt-md-0 pt-3 pb-1  col-xs-12 col-lg-12 ">
     <div>
       <div class="container">
-        <div class="row shadow-lg m-3">
+        <div class="row  m-3">
           <div class="col-md-4 colxs-12 col-sm-12 m-2">
-            <h1>
-              <i class="fas fa-user">User</i>
-            </h1>
           </div>
-          
                    <!--receiveUsers-->
                    <div class="myn m-4 p-3">
                     <!--receivedusers-->
                     <div class="length" *ngIf="checkTransactionsTable(receivedLoans); else noreceived">
                       <!--receivedtable-->
-                       <form [formGroup]="receiveGroupLoans" (ngSubmit)="onSubmit()">
-                      <h3 class="text-center" >Received</h3>
+                      <h3 class="text-center" >UserTransactions</h3>
                 <!---table->
 
                   --table-->
@@ -39,53 +34,368 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr *ngFor="let control of FormArrayControls.controls; let i = index">
-                      <th>
-                      <input type="checkbox" required name="check" 
-                      [formControl]="control"
-                      id="checkbox{{i}}" (change)="getSelectedLoans(template)">
-                      <label for="checkbox{{i}}">Receive</label>
-                      <p *ngIf="createError">AtleastReceiveOne</p>
-                      </th>
-                      <th>{{receivedLoans[i].Id}}</th>
-                      <th>{{receivedLoans[i].Customer}}</th>
-                      <th>{{receivedLoans[i].LoanType}}</th>
-                      <th>{{receivedLoans[i].LoanProduct}}</th>
-                      <th>{{receivedLoans[i].Tenure}}</th>
-                      <th>{{receivedLoans[i].Amount}}</th>
-                      <th>{{receivedLoans[i].Stage}}</th>
-                      <th>{{receivedLoans[i].Status}}</th>
-                      <th>{{receivedLoans[i].LoanMovedBy}}</th>
-                      <th>{{receivedLoans[i].StageAt}}</th>
-                      <th>{{receivedLoans[i].HowLong}}</th>
-                      <th>{{receivedLoans[i].CreatedAt}}</th>
-                      <th>{{receivedLoans[i].TotalAge}}</th>
+                    <tr *ngFor="let received of filteredReceivedLoans; let i = index">
+                      <td>
+                        <div class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <h4 class="dropdown-item click" (click)="forwardSelected(template, received.Id)">Forward</h4>
+    <h4 class="dropdown-item click" (click)="editLoan(edit,received.Id,i)">Edit</h4>
+  </div>
+</div>
+                      </td>
+                      <td>{{ received.Id }}</td>
+                      <td>{{ received.Customer }}</td>
+                      <td>{{ received.LoanType }}</td>
+                      <td>{{ received.LoanProduct }}</td>
+                      <td>{{ received.Tenure }}</td>
+                      <td>{{ received.Amount|number }}</td>
+                      <td>{{ received.Stage }}</td>
+                      <td>{{ received.Status }}</td>
+                      <td>{{ received.LoanMovedBy }}</td>
+                      <td>{{ received.StageAt }}</td>
+                      <td>{{ received.HowLong }}</td>
+                      <td>{{ received.CreatedAt }}</td>
+                      <td>{{ received.TotalAge }}</td>          
                     </tr>
                   </tbody>
                   </table>
+                  <ngx-alerts></ngx-alerts>
+                  <!--forward loan--->
             <ng-template #template>
+              <div class="modal-header">
+                <h4 class="modal-title pull-left">Letshego Uganda Limited</h4>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="closeModal()">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div class="form-group" [formGroup]="comment">
+
+                  <label for="c">Comment</label>
+                    <textarea name="arae" 
+                    formControlName="comments"
+                    placeholder="loan created" 
+                    id="" cols="30" rows="10"></textarea>
+                </div>
+                <div class="form-group" >
+                  <button type="submit"
+                   class="btn btn-primary"
+                   (click)="onSubmit()"
+                   [disabled]="comment.invalid"
+                  >OK</button>
+                </div>
+                <div class="form-group" >
+                  <button type="submit" class="btn btn-primary"
+                  (click)="closeModal()"
+                  >Cancel</button>
+                </div>
+              </div>
+        </ng-template>
+        <!---edit loan-->
+        <ng-template #edit>
               <div class="modal-header">
                 <h4 class="modal-title pull-left">Letsgo Uganda Limited</h4>
                 <button type="button" class="close pull-right" aria-label="Close" (click)="closeModal()">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
-              <div class="modal-body">
-                <div class="form-group">
-                  <label for="c">Comment</label>
-                  <input type="text" name="" id="c" class="form-control" placeholder="Enter comment">
-                </div>
-                <div class="form-group" >
-                  <button type="submit" class="btn btn-primary"
-                  >Forward</button>
-                </div>
-                <div class="form-group" >
-                  <button type="submit" class="btn btn-primary"
-                  >Cancel</button>
-                </div>
-              </div>
+              <!--edit form-->
+              <form [formGroup]="editLoanForm" (ngSubmit)="saveEdit()">
+             <!--create a customer modal-->
+               
+             <!--create a customer modal-->
+      <div class="form-group text-primary">
+
+        <label
+          for="customerName"
+          [ngClass]="editControls.customerName.valid ? 'text-info' : ''"
+          ><i *ngIf="editControls.customerName.valid" class="material-icons"
+            >check_circle</i
+          >CustomerName</label
+        >
+        <div class="input-group mb-2">
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              <i class="fas fa-user text-primary mx-auto" style="size: 50px;">
+              </i>
+            </div>
+          </div>
+          <input
+            id="customerName"
+            formControlName="customerName"
+            type="text"
+            required
+            class="form-control"
+            [ngClass]="{
+              'is-invalid':
+                (editControls.customerName.touched || editControls.customerName.dirty) &&
+                editControls.customerName.errors
+            }"
+            placeholder="Choose Customer"
+            autocomplete="off"
+          />
+        </div>
+        <div
+          class="text-danger col click"
+          *ngIf="
+            (editControls.customerName.touched || editControls.customerName.dirty) &&
+            editControls.customerName.errors?.required
+          "
+        >
+          The customerName is required!
+        </div>
+        <div
+        class="text-danger col"
+        *ngIf="
+          (editControls.customerName.touched || editControls.customerName.dirty) &&
+          editControls.customerName.errors?.minlength
+        "
+      >
+        Atleast four character required
+      </div>
+
+      </div>
+
+      <div class="form-group text-primary">
+        <label
+          for="loanType"
+          [ngClass]="editControls.loanType.valid ? 'text-info' : ''"
+          >LoanType<i
+            *ngIf="editControls.loanType.valid"
+            class="material-icons"
+            >check_circle</i
+          ></label
+        >
+        <div class="input-group mb-1">
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              <i
+                class="fas fa-tag text-secondary mx-auto"
+                style="size: 50px"
+              ></i>
+            </div>
+          </div>
+          <input
+            id="loanType"
+            formControlName="loanType"
+            type="text"
+            class="form-control"
+            [ngClass]="{
+              'is-invalid':
+                (editControls.loanType.touched || editControls.loanType.dirty) &&
+                editControls.loanType.errors?.required
+            }"
+            placeholder="enter loanType"
+            autocomplete="off"
+          />
+        </div>
+        <div
+          class="text-danger col"
+          *ngIf="
+            (editControls.loanType.touched || editControls.loanType.dirty) &&
+            editControls.loanType.errors?.required
+          "
+        >
+          The loanType is required!
+        </div>
+        <div
+          class="text-danger col"
+          *ngIf="
+            (editControls.loanType.touched || editControls.loanType.dirty) &&
+            editControls.loanType.errors?.required
+          "
+        >
+          Please enter valid loanType
+        </div>
+      </div>
+      <!--document_id_number-->
+      
+      <!---->
+
+
+    <div class="form-group text-primary">
+        <label
+          for="loanProduct"
+          [ngClass]="editControls.loanProduct.valid ? 'text-info' : ''"
+          >LoanProduct<i
+            *ngIf="editControls.loanProduct.valid"
+            class="material-icons"
+            >check_circle</i
+          ></label
+        >
+        <div class="input-group mb-2">
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              <i
+                class="fas fa-user text-primary mx-auto"
+                style="size: 50px;"
+              ></i>
+            </div>
+          </div>
+          <input
+            id="loanProduct"
+            formControlName="loanProduct"
+            type="text"
+            required
+            class="form-control"
+            [ngClass]="{
+              'is-invalid':
+                (editControls.loanProduct.touched ||
+                  editControls.loanProduct.dirty) &&
+                editControls.loanProduct.errors
+            }"
+            [ngClass]="setClassInvalid(editControls.loanProduct)"
+            placeholder="enter loan product"
+            autocomplete="off"
+          />
+        </div>
+        <div
+          class="text-danger col"
+          *ngIf="
+            (editControls.loanProduct.touched ||
+              editControls.loanProduct.dirty) &&
+            editControls.loanProduct.errors?.required
+          "
+        >
+          The loan product is required!
+        </div>
+       
+        
+      </div>
+      <!--two-->
+      
+    <div class="form-group text-primary">
+      <label
+        for="tenure"
+        [ngClass]="editControls.tenure.valid ? 'text-info' : ''"
+        >Tenure<i
+          *ngIf="editControls.tenure.valid"
+          class="material-icons"
+          >check_circle</i
+        ></label
+      >
+      <div class="input-group mb-2">
+        <div class="input-group-prepend">
+          <div class="input-group-text">
+            <i
+              class="fas fa-user text-primary mx-auto"
+              style="size: 50px;"
+            ></i>
+          </div>
+        </div>
+        <input
+          id="tenure"
+          formControlName="tenure"
+          type="number"
+          required
+          class="form-control"
+          [ngClass]="setClassInvalid(editControls.tenure)"
+          placeholder="tenture"
+          autocomplete="off"
+        />
+      </div>
+      <div
+        class="text-danger col"
+        *ngIf="
+          (editControls.tenure.touched ||
+            editControls.tenure.dirty) &&
+          editControls.tenure.errors?.required
+        "
+      >
+        The tenure is required!
+      </div>      
+    </div>
+    <!--amount--->
+
+     <div class="form-group text-primary">
+        <label
+          for="amount"
+          [ngClass]="editControls.amount.valid ? 'text-info' : ''"
+          >Amount<i
+            *ngIf="editControls.amount.valid"
+            class="material-icons"
+            >check_circle</i
+          ></label
+        >
+        <div class="input-group mb-2">
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              <i
+                class="fas fa-user text-primary mx-auto"
+                style="size: 50px;"
+              ></i>
+            </div>
+          </div>
+          <input
+            id="amount"
+            formControlName="amount"
+            type="text"
+            required
+            class="form-control"
+            [ngClass]="{
+              'is-invalid':
+                (editControls.amount.touched ||
+                  editControls.amount.dirty) &&
+                editControls.amount.errors
+            }"
+            [ngClass]="setClassInvalid(editControls.amount)"
+            placeholder="enter loan amount"
+            autocomplete="off"
+          />
+        </div>
+        <div
+          class="text-danger col"
+          *ngIf="
+            (editControls.amount.touched ||
+              editControls.amount.dirty) &&
+            editControls.amount.errors?.required
+          "
+        >
+          The AMount is required!
+        </div>
+       
+        
+      </div>
+
+    <!---amount-->
+
+      <!--status--> 
+      <div class="d-flex my-2 py-2 mx-auto">
+        <button
+          type="submit"
+          class="btn btn-info col-5 mx-auto"  
+          disable="editLoanForm.invalid"
+        >
+          save
+        </button>
+
+        <button
+          type="button"
+          class="btn btn-info col-5 mx-auto"
+          (click)="closeModal()"
+        >
+          Cancel
+        </button>
+        <ngx-spinner class="bg-info" size="medium" type="ball-scale-multiple">
+          <p class="text-light">Please wait...</p>
+        </ngx-spinner>
+
+        <label class="col" *ngIf="errored" class="text-danger">
+          <i class="material-icons">Cancel</i>
+
+          <ngx-alerts></ngx-alerts>
+        </label>
+
+        <label class="col" *ngIf="posted" class="text-info">
+          <i class="material-icons">check_circle</i>
+          <ngx-alerts></ngx-alerts>
+        </label>
+      </div>
+    </form>
         </ng-template>
-              </form>
+        <!---edit--loan-->
                     </div>
                     <ng-template #noreceived>
                       <h2>No users yet</h2>

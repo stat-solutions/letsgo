@@ -13,14 +13,8 @@ export class CustomerDetailsComponent implements OnInit {
 
   constructor(private ActivatedRoute:ActivatedRoute, private customerService:LandingService) { }
 
-  ngOnInit() {
-  	this.ActivatedRoute.paramMap.subscribe(param=>{
-  		const id = +param.get('customerid');
-  	    this.customerService.getCustomerDetails(id).subscribe(customer=>{
-  	    	this.customerDetails.push(customer)
-  	    })
-  	})
-  }
+  ngOnInit() {}
+  	
  
 
 }

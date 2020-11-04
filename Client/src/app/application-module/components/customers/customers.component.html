@@ -4,45 +4,72 @@
       <div class="container">
         <div class="row shadow-lg m-3">
           <div class="col-md-4 colxs-12 col-sm-12 m-2">
-            <h1>
-              <i class="fas fa-user">User</i>
-            </h1>
-          </div>
-          <div class="col-md-4 colxs-12 col-sm-12">
-             <div class="form-group m-2 ">
-               <button class="btn btn-primary m-2" (click)="createCustomer()">+CreateCustomers</button>
-             </div>
+             <input
+            type="text"
+            (input)="getValue($event)"
+            class="form-control"
+            name=""
+            id="customer"
+            placeholder="Search" autocomplete="on"
+          />
+          <button class="btn btn-primary mt-4 ml-4 ml-sm-5 mx-md-0"
+          (click)="exportToExcel()"
+          ><i class="fas fa-file-export"></i>  Export to Excel</button>
+            <button class="btn btn-primary m-2" (click)="createCustomer()">+CreateCustomers</button>
+          
           </div>
         </div>
         <div class="col-md-12">
-          <div class="conditin m-2" *ngIf="checkTable(customerTable); else noCustomer">
+          <div class="conditin m-2" *ngIf="checkTable(filterCustomers); else noCustomer">
             <div class="mytable">
               <!--table-->
-              <table class="table table-bordered">
+              <table class="table table-bordered" #exportTable>
                 <thead class="table-dark">
                   <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Document_Type</th>
-                    <th scope="col">Status</th>
+                    <th scope="col">
+                      <i class="fas fa-sort pointerCursor"
+                      (click)="sort('customerId')">Id</i>
+                    </th>
+                    <th scope="col">
+                      <i class="fas fa-sort pointerCursor"
+                      (click)="sort('customerName')">customerName</i>
+                    </th>
+                    <th scope="col">
+                      <i class="fas fa-sort pointerCursor"
+                      (click)="sort('documentType')">DocumentType</i>
+                    </th>
+                    <th scope="col">
+                      <i class="fas fa-sort pointerCursor"
+                      (click)="sort('userName')">userName</i>
+                    </th>
                     <th scope="col">Phone1</th>
                     <th scope="col">Phone2</th>
-                    <th scope="col">CreatedAt</th>
+                    <th scope="col">
+                      <i class="fas fa-sort pointerCursor"
+                      (click)="sort('createdAt')">CreatedAt</i>
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let customer of customerTable">
-                    <th>{{customer.id}}</th>
-                    <th>{{customer.name}}</th>
-                    <th>{{customer.document_type}}</th>
-                    <th>{{customer.status}}</th>
-                    <th>{{customer.phone1}}</th>
-                    <th>{{customer.phone2}}</th>
+                  <tr *ngFor="let customer of filterCustomers|orderBy:key:reverse|paginate:{
+ id:'my_pages', itemsPerPage:pageSize, currentPage:currentPage,totalItems:totalItems
+} let i = index">
+                    <th>{{customer.customerId}}</th>
+                    <th>{{customer.customerName}}</th>
+                    <th>{{customer.documentType}}</th>
+                    <th>{{customer.userName}}</th>
+                    <th>{{customer.phoneNumber1}}</th>
+                    <th>{{customer.phoneNumber2}}</th>
                     <th>{{customer.createdAt}}</th>
                   </tr>
                   <tr>
                 </tbody>
               </table>
+            <pagination-controls  id="my_pages"
+            (pageChange)="pageChanged($event)"
+            (pageBoundsCorrection)="pageChanged($event)"
+            directionLinks="true">
+           </pagination-controls>
   
               <!--table-->
               <!--loanStatus-->
@@ -53,7 +80,7 @@
           </div>
           <ng-template #noCustomer>
             <div class="container shadow-lg">
-              <h2 class="text-center">Loading...</h2>
+              <h2 class="text-center">No customer found</h2>
             </div>
           </ng-template>
         </div>

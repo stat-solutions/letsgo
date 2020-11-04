@@ -54,6 +54,11 @@ export class LeftPanelAdminComponent implements OnInit {
         icon: 'fas fa-tachometer-alt',
         url: '/application/dashboard'
       },
+      {
+        name: 'Customers',
+        icon: 'fas fa-users',
+        url: '/application/customers'
+      },
    
       {
         name: 'CreateLoans',
@@ -62,14 +67,10 @@ export class LeftPanelAdminComponent implements OnInit {
       },
       {
         name: 'UserTransactions',
-        icon: 'fas fa-briefcase',
+        icon: 'fas fa-credit-card',
         url: '/application/usertransactions'
       },
-      {
-        name: 'Customers',
-        icon: 'fas fa-user',
-        url: '/application/customers'
-      },
+      
       {
         name: 'Reports',
         icon: 'fas fa-file',

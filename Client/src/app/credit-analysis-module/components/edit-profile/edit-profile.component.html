@@ -10,38 +10,46 @@
             <div class="col-md-5 text-center">
                 <div class="profile">Profile</div>
                 <div class="img">
-                    <h6>profile Picture</h6>
-                   <img [src] ="userData.photo" alt="Not found" class="img-fluid img-rounded">
+                    <h6 #take>profile Picture</h6>
+                   <img src='/../../../assets/img/man.svg' alt="Not found" class="img-fluid img-rounded">
                 </div>
-                <div class="name"><h5>{{userData.name}}</h5></div>
+                <div class="name"><h5>{{userData.userName}}</h5></div>
                 <div class="buttons m-2">
-                    <button class="btn btn-primary btn-block">UpdateAvatar</button>
-                </div>
-                <div class="text-centre">
-                    <h2>4</h2>
-                    <p class="text-center">CustomersCreated</p>
-                </div>
-                <div class="text-center">
-                    <h4>BioGraphy</h4>
-                </div>
-                <div class="text">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui 
-                    blanditiis nesciunt assumenda quod voluptatibus! Quas deserunt
-                     vitae dolorem architecto assumenda.
-                </div>
-    
+                    <button class="btn btn-primary btn-block"
+                    (click)="update(upload)"
+                    >UpdateAvatar</button>
+                    <!--update avatar popup-->
+         <ng-template #upload let-modal>
+        <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
+            <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="input-group mb-3">
+  <div class="form-group">
+    <input type="file" 
+    (change)="onFileChange($event)" 
+    id="resetFile" 
+    accept="image/*" >
+  </div>
+</div>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-dark"
+             (click)="updateProfile()" [disable]="disableButton">Update</button>
+             <button type="button" class="btn btn-outline-dark" (click)="closeModal()">Cancel</button>
+      </div>
+</ng-template>
+<ngx-alerts></ngx-alerts>
+
+
+                    <!--update info avatar popup-->
+                </div>    
             </div>
             <div class="col-md-7">
-                <div class="text-center">
-                    <h6>Basic Information</h6>
-
-             </div>
-             <h6>Some of these details are displayed next to your publicly shared reviews, ratings, photos,
-                  etc. Any updates you make here will also appear in past contributions.</h6>
-             <div class="m-2">
-                 <h4 class="m-2">FullName: {{'   '}} {{userData.name | uppercase}}</h4>
-
-             </div>
              <div class="m-2">
                  <!--form-->
                  <form [formGroup]="userForm" (ngSubmit)="save()">
@@ -514,7 +522,6 @@
               <button
                 type="submit"
                 class="btn btn-info col-4 mx-auto"
-                [disabled]="!userForm.valid"
               >
                 Save
               </button>
@@ -537,7 +544,7 @@
               <button
                 type="button"
                 class="btn btn-info col-4 mx-auto"
-                (click)="returnHome()"
+                (click)="cancel()"
               >
                 Cancel
               </button>
