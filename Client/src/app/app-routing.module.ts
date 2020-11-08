@@ -9,7 +9,7 @@ const routes: Routes = [
     path: '', 
     redirectTo: '/authpage/register', 
     pathMatch: 'full',
-    canActivate: [AuthGuard] 
+    canActivate: [AuthGuard]
   },
   { path: 'admin', loadChildren: () => import('./admin-module/admin-module').then(m => m.AdminModule) },
 

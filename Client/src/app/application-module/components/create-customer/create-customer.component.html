@@ -12,7 +12,11 @@ class="container-fluid d-flex flex-row justify-content-center mb-0 mt-md-1 mt-1 
     </div>
   <div class="card-body mt-2 pt-3 mt-xl-1 mb-0 mx-auto pb-4 shadow-lg">
     <form [formGroup]="userForm" (ngSubmit)="register()">
+             <!--create a customer modal-->
+               
+             <!--create a customer modal-->
       <div class="form-group text-primary">
+
         <label
           for="full_name"
           [ngClass]="fval.full_name.valid ? 'text-info' : ''"
@@ -38,12 +42,12 @@ class="container-fluid d-flex flex-row justify-content-center mb-0 mt-md-1 mt-1 
                 (fval.full_name.touched || fval.full_name.dirty) &&
                 fval.full_name.errors
             }"
-            placeholder="Enter Name"
+            placeholder="Choose Customer"
             autocomplete="off"
           />
         </div>
         <div
-          class="text-danger col"
+          class="text-danger col click"
           *ngIf="
             (fval.full_name.touched || fval.full_name.dirty) &&
             fval.full_name.errors?.required
@@ -309,7 +313,7 @@ class="container-fluid d-flex flex-row justify-content-center mb-0 mt-md-1 mt-1 
           type="button"
           class="btn btn-info col-5 mx-auto"
           (click)="returnHome()"
-          routerLink = "/authpage/login"
+          routerLink = "/application/customers"
         >
           Cancel
         </button>

@@ -8,6 +8,12 @@ class="container-fluid d-flex flex-row justify-content-center mb-0 mt-1 pt-0 pt-
           LOAN CONSTANTS
         </h3>
         <hr class="mt-0" />
+            <button class="btn btn-primary mt-0 ml-0 ml-sm-4"
+            (click)="createSecurity()"
+            >+createSecurity</button>
+            <button class="btn btn-primary mt-0 ml-0 ml-sm-4"
+            (click)="viewConstants()"
+            >ViewConstant</button>
       </div>
     </div>
   <div class="card-body mt-2 pt-3 mt-xl-1 mb-0 mx-auto pb-4 shadow-lg">
@@ -99,34 +105,34 @@ class="container-fluid d-flex flex-row justify-content-center mb-0 mt-1 pt-0 pt-
 
 
 <div class="form-group text-primary">
-        <label for="security" [ngClass]="fval.security.valid ? 'text-info' : ''"
-          >Security<i *ngIf="fval.security.valid" class="material-icons"
+        <label for="threshold" [ngClass]="fval.threshold.valid ? 'text-info' : ''"
+          >TimeThreshold<i *ngIf="fval.threshold.valid" class="material-icons"
             >check_circle</i
           ></label
         >
         <div class="input-group mb-0">
           <input
-            id="security"
-            formControlName="security"
-            type="text"
+            id="threshold"
+            formControlName="threshold"
+            type="number"
             required
             class="form-control"
             [ngClass]="{
               'is-invalid':
-                (fval.security.touched || fval.security.dirty) && fval.security.errors
+                (fval.threshold.touched || fval.threshold.dirty) && fval.threshold.errors
             }"
-            placeholder="Enter loan security"
+            placeholder="Enter loan threshold"
             autocomplete="off"
           />
         </div>
         <div
           class="text-danger col"
           *ngIf="
-            (fval.security.touched || fval.security.dirty) &&
-            fval.security.errors?.required
+            (fval.threshold.touched || fval.threshold.dirty) &&
+            fval.threshold.errors?.required
           "
         >
-          The security  is required!
+          The threshold  is required!
         </div>
       </div>
 
@@ -144,7 +150,7 @@ class="container-fluid d-flex flex-row justify-content-center mb-0 mt-1 pt-0 pt-
           <input
             id="maximum_amount"
             formControlName="maximum_amount"
-            type="number"
+            type="text"
             required
             class="form-control"
             [ngClass]="{
@@ -220,8 +226,7 @@ class="container-fluid d-flex flex-row justify-content-center mb-0 mt-1 pt-0 pt-
         <button
           type="button"
           class="btn btn-info col-5 mx-auto"
-          (click)="returnHome()"
-          routerLink = "/authpage/login"
+          routerLink = '/admin/dashboard'
         >
           Cancel
         </button>

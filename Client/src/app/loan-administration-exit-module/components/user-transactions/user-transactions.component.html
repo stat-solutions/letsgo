@@ -12,26 +12,30 @@
              <button 
              class="btn btn-success m-4" 
              type="button" 
-             (click)="branchApprovalReceivedLoans()">ReceivedLoans</button>
+             (click)="branchApprovalReceivedLoans()"
+             >ReceivedLoans</button>
           </div>
           <button 
              class="btn btn-success m-4" 
              type="button" 
-             (click)="branchApprovalForwardedLoans()">Back</button>            
+             (click)="branchApprovalForwardedLoans()"
+             >ForwardedLoans</button>
+                     
+
                         </div>
         </div>
         <div class="col-md-12">
           <div class="conditin m-2" 
-          *ngIf="enableForwardedFrom&&!enableReceive">
+          *ngIf="
+          enableForwardedFrom
+          &&!enableForwardedTo">
                 <!--here-->
-                   <div class="check-length" *ngIf="checkTransactionsTable(forwardedLoansFrom)">
-                     <form [formGroup]="receiveGroupLoans" (ngSubmit)="onSubmit()">
-                      <h3 class="text-center" >ReceivedFromApplication</h3>
+                   <div class="check-length" *ngIf="checkTransactionsTable(forwardedLoansFrom); else noforwarded">
+                      <h3 class="text-center" >UserTransactions</h3>
                 <div class="form-group">
-                  <input type="checkbox"  id="select"
-                  (click)="receiveAllLoans(checkAll)"
-                  >
-                  <label for="select">ReceivedAll</label>
+                  <button class="btn btn-primary"
+                  (click)="receiveAllLoans()"
+                  >ReceiveAll</button>
                 </div>
                 <!---table->
 
@@ -56,53 +60,49 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr *ngFor="let control of FormArrayControls.controls; let i = index">
+                    <tr *ngFor="let forwarded of forwardedLoansFrom; let i = index">
                       <th>
-                      <input type="checkbox" required name="check" 
-                      [formControl]="control"
-                      id="checkbox{{i}}" (change)="getSelectedLoansWithNoComments()">
-                      <label for="checkbox{{i}}">Receive</label>
-                      <p *ngIf="createError">AtleastReceiveOne</p>
+    <button class="dropdown-item click" (click)="receiveLoans(forwarded.Id, i)"
+    class="btn btn-primary" 
+    >Receive</button>
+  
                       </th>
-                      <th>{{forwardedLoansFrom[i].Id}}</th>
-                      <th>{{forwardedLoansFrom[i].Customer}}</th>
-                      <th>{{forwardedLoansFrom[i].LoanType}}</th>
-                      <th>{{forwardedLoansFrom[i].LoanProduct}}</th>
-                      <th>{{forwardedLoansFrom[i].Tenure}}</th>
-                      <th>{{forwardedLoansFrom[i].Amount}}</th>
-                      <th>{{forwardedLoansFrom[i].Stage}}</th>
-                      <th>{{forwardedLoansFrom[i].Status}}</th>
-                      <th>{{forwardedLoansFrom[i].LoanMovedBy}}</th>
-                      <th>{{forwardedLoansFrom[i].StageAt}}</th>
-                      <th>{{forwardedLoansFrom[i].HowLong}}</th>
-                      <th>{{forwardedLoansFrom[i].CreatedAt}}</th>
-                      <th>{{forwardedLoansFrom[i].TotalAge}}</th>
+                      <th>{{forwarded.Id}}</th>
+                      <th>{{forwarded.Customer}}</th>
+                      <th>{{forwarded.LoanType}}</th>
+                      <th>{{forwarded.LoanProduct}}</th>
+                      <th>{{forwarded.Tenure}}</th>
+                      <th>{{forwarded.Amount}}</th>
+                      <th>{{forwarded.Stage}}</th>
+                      <th>{{forwarded.Status}}</th>
+                      <th>{{forwarded.LoanMovedBy}}</th>
+                      <th>{{forwarded.StageAt}}</th>
+                      <th>{{forwarded.HowLong}}</th>
+                      <th>{{forwarded.CreatedAt}}</th>
+                      <th>{{forwarded.TotalAge}}</th>
                     </tr>
                   </tbody>
-                  </table>
-                <div class="form-group" >
-                  <button type="submit" class="btn btn-primary"
-                  >Receive</button>
-                </div>
-
-              </form>
-
+                  </table>       
+                   </div>
+                   <!--no forwardedLoans-->
+                     <div class="container">
+                       <h2 class="text-center text-uppercase">
+                         <ng-template #noforwarded>
+                           <h2>No forwarded Loans</h2>
+                         </ng-template>
+                       </h2>
+                     </div>
+                   <!---->
                      
                    </div>
-                     
-                   </div>
-                   <!--receiveUsers-->
-                   <div class="myn" *ngIf="!enableForwardedFrom&&enableReceive">
-                    <!--receivedusers-->
-                    <div class="length" *ngIf="checkTransactionsTable(receivedLoans); else noreceived">
-                      <!--receivedtable-->
-                       <form [formGroup]="receiveGroupLoans" (ngSubmit)="onSubmit()">
-                      <h3 class="text-center" >Received</h3>
-                <!---table->
 
-                  --table-->
+                   <!---forward users-->
+                    <div class="myn" 
+                   *ngIf=
+                   "!enableForwardedFrom&&enableForwardedTo">
+                      <h3 class="text-center" >Forward loans</h3>
                   <table class="table table-bordered">
-                     <thead class="table-dark" >
+                     <thead class="table-dark" *ngIf="checkTransactionsTable(receivedLoans); else noloans">
                     <tr>
                       <th>Actions</th>
                       <th scope="col">ID</th>
@@ -121,68 +121,78 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr *ngFor="let control of FormArrayControls.controls; let i = index">
+                    <tr *ngFor="let received of receivedLoans; let i = index">
                       <th>
-                      <input type="checkbox" required name="check" 
-                      [formControl]="control"
-                      id="checkbox{{i}}" (change)="getSelectedLoans(template)">
-                      <label for="checkbox{{i}}">Receive</label>
-                      <p *ngIf="createError">AtleastReceiveOne</p>
+                        <button class="btn btn-primary click" (click)="forwardLoan(forward, received.Id,i)">Forward</button>
+                      
                       </th>
-                      <th>{{receivedLoans[i].Id}}</th>
-                      <th>{{receivedLoans[i].Customer}}</th>
-                      <th>{{receivedLoans[i].LoanType}}</th>
-                      <th>{{receivedLoans[i].LoanProduct}}</th>
-                      <th>{{receivedLoans[i].Tenure}}</th>
-                      <th>{{receivedLoans[i].Amount}}</th>
-                      <th>{{receivedLoans[i].Stage}}</th>
-                      <th>{{receivedLoans[i].Status}}</th>
-                      <th>{{receivedLoans[i].LoanMovedBy}}</th>
-                      <th>{{receivedLoans[i].StageAt}}</th>
-                      <th>{{receivedLoans[i].HowLong}}</th>
-                      <th>{{receivedLoans[i].CreatedAt}}</th>
-                      <th>{{receivedLoans[i].TotalAge}}</th>
+                      <th>{{received.Id}}</th>
+                      <th>{{received.Customer}}</th>
+                      <th>{{received.LoanType}}</th>
+                      <th>{{received.LoanProduct}}</th>
+                      <th>{{received.Tenure}}</th>
+                      <th>{{received.Amount}}</th>
+                      <th>{{received.Stage}}</th>
+                      <th>{{received.Status}}</th>
+                      <th>{{received.LoanMovedBy}}</th>
+                      <th>{{received.StageAt}}</th>
+                      <th>{{received.HowLong}}</th>
+                      <th>{{received.CreatedAt}}</th>
+                      <th>{{received.TotalAge}}</th>
                     </tr>
                   </tbody>
                   </table>
-            <ng-template #template>
-              <div class="modal-header">
-                <h4 class="modal-title pull-left">Letsgo Uganda Limited</h4>
+                  <ngx-alerts>  </ngx-alerts>
+                  <!--create an alert-->
+
+                  <!----->
+                   <!---create forward template-->
+
+                    <ng-template #forward>
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Letshego Uganda Limited</h4>
                 <button type="button" class="close pull-right" aria-label="Close" (click)="closeModal()">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
               <div class="modal-body">
-                <div class="form-group">
-                  <label for="c">Comment</label>
-                  <input type="text" name="" id="c" class="form-control" placeholder="Enter comment">
+                <div class="form-group text-center" [formGroup]="comment">
+                    <label for="c">Forward</label>
+                  <br>
+                  <textarea name="reject" id="c" cols="30" rows="10"
+                  formControlName="user_comments"
+                  placeholder="Reason forwarding" 
+                  [ngClass]="validateComments()"
+                  ></textarea>
+                </div>
+                </div>
+               
+                <div class="form-group" >
+                  <button type="submit" class="btn btn-danger"
+                  [disabled]="comment.invalid"
+                  (click)="onForward(forwardedLoansTo, arrayId, arrayIndex)"
+                  >ok</button>
                 </div>
                 <div class="form-group" >
-                  <button type="submit" class="btn btn-primary"
-                  >Forward</button>
-                </div>
-                <div class="form-group" >
-                  <button type="submit" class="btn btn-primary"
+                  <button  class="btn btn-danger"
+                  type="button"
+                  (click)="cancel()" 
                   >Cancel</button>
+                
+              </div>
+              
+        </ng-template>
+                  <!----->
+                  <div class="container">
+                  <h2 class="text-center">
+                    <ng-template #noloans>
+                     <h1>No received loans</h1>
+                    </ng-template>
+                  </h2>
                 </div>
               </div>
-        </ng-template>
-              </form>
-                    </div>
-                    <ng-template #noreceived>
-                      <h2>No users yet</h2>
-                    </ng-template>
 
-                    <!--reeivedUsers-->
-
-                     
-                   </div>
-                   <!--receiveUsers-->
-
-
-                  
-                  
-        </div>
+                   <!--forward loans--->
         <!--footer-->
         <div class="container mt-3 mb-2 pb-2">
           <div class="col-xs-12 col-lg-12">

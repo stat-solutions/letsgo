@@ -74,8 +74,9 @@ getEntityName(event){
     this.spinner.hide();
     this.revert()
   }
+  
 
-  register() {
+  createBranch() {
     console.log(this.userForm)
     
     this.submitted = true;

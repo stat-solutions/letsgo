@@ -3,6 +3,7 @@ import { LandingService } from './../../../shared/services/landing.service';
 import { Component, OnInit , OnChanges, TemplateRef} from '@angular/core';
 import {BsModalService, BsModalRef} from 'ngx-bootstrap/modal';
 import * as moment from 'moment';
+import {AlertService} from 'ngx-alerts';
 
 @Component({
   selector: 'app-user-transactions',
@@ -11,17 +12,17 @@ import * as moment from 'moment';
 })
 export class UserTransactionsComponent implements OnInit{
   receivedLoans = [];
-  forwardedLoansTo = [];
+  forwardLoansTo = [];
+  filteredReceivedLoans = [];
   age = moment(new Date()).format('MM/DD/YYYY, h:mm:ss')
-  usersText: string = "RecievedUsers";
-  checkAll: boolean = true;
-  receiveGroupLoans: FormGroup;
-  createError:boolean = false;
   bsModalRef:BsModalRef;
-
+  comment:FormGroup;
+  editLoanForm:FormGroup
 
   constructor(private userTransactions:LandingService, 
-    private fb:FormBuilder, private bsModalService:BsModalService) { }
+    private fb:FormBuilder, 
+    private alertService:AlertService,
+    private bsModalService:BsModalService) { }
 
   ngOnInit() {
     setTimeout(() => {
@@ -32,56 +33,111 @@ export class UserTransactionsComponent implements OnInit{
           const timeInMonths = moment(diffInDates).format('MM [months] DD [days]')
           return { ...eachUser, TotalAge:timeInMonths }
         })
-        this.receiveGroupLoans = this.createGroupLoans();
+        this.comment = this.fb.group({
+          comments:['', Validators.required]
+        })
        // this.receivedLoans.push(this.forwardedLoansFrom[0])
+       this.filteredReceivedLoans = this.receivedLoans
 
       })
     }, 0)
+    this.editLoanForm = this.createLoanForm()
     
   }
-    createGroupLoans() {
+  //getcoment controls
+  get commentControls(){
+    return this.comment.controls
+  }
+  createLoanForm(){
     return this.fb.group({
-      selected: this.createFormControls(this.receivedLoans),
-      selectedAll:[false]
+      customerName:['', Validators.required],
+      loanType:['', Validators.required],
+      loanProduct:['',Validators.required],
+      tenure:[null, Validators.required],
+      amount:['', Validators.required]
     })
   }
-  createFormControls(arrayLoans:Array<any>) {
-    console.log(arrayLoans.length)
-    let arrOfControls = arrayLoans.map(element => {
-      return this.fb.control(false)
-    })
-    return this.fb.array(arrOfControls)
-  }
-  get FormArrayControls(){
-    return <FormArray>this.receiveGroupLoans.get('selected')
-  }
-  closeModal(){
-    this.bsModalRef.hide()
+  editFormDetails(){
+
   }
 
-   getSelectedLoans(template:TemplateRef<any>){
-     this.FormArrayControls.controls.forEach((control, i)=>{
-       if (control.value) {
-         console.log(control.value)
-         this.bsModalRef =  this.bsModalService.show(template)
-         this.closeModal()
-       }
-         
-       
-     })
-   
-   }
-   
-   
+  get editControls(){
+    return this.editLoanForm.controls
+  }
+    setClassInvalid(contact) {
+    return {
+      'is-invalid': (contact.touched || contact.dirty) && contact.errors,
+    }
+  }
+    
   
+  //forwared selected loan
+  forwardSelected(template:TemplateRef<any>, id){
+    this.bsModalRef =  this.bsModalService.show(template)
+    console.log(id)
+
+  }
+  //edit loan
+  editLoan(edit:TemplateRef<any>,id:number, index:number){
+    const getLoan = this.receivedLoans[index];
+    const {Customer,LoanType, LoanProduct,Tenure, Amount} = getLoan
+    this.editControls.customerName.setValue(Customer)
+    this.editControls.customerName.disable()
+    this.editControls.loanType.setValue(LoanType)
+    this.editControls.loanProduct.setValue(LoanProduct)
+    this.editControls.tenure.setValue(Tenure)
+    this.editControls.amount.setValue(Amount)
+    this.bsModalRef =  this.bsModalService.show(edit)
+
+  }
+  saveEdit(){
+    if(this.editLoanForm.invalid){
+      this.alertService.danger('Something went wromge')
+    }
+    else{
+      this.alertService.success({
+        html:"<h3>Editted sucessfully</h3>"
+      })
+    }
+    this.closeModal()
+  }
+  
+  closeModal(){
+    this.bsModalRef.hide()
+  }  
   checkTransactionsTable(array: Array<any>) {
     return array.length?true:false
   }
   
-  
-
   onSubmit(){
+    if(! this.checkTransactionsTable(this.forwardLoansTo)) return ;
+    else{
+      //get loan type
+      let typeOfLoan = this.forwardLoansTo[0]
+      console.log(typeOfLoan)
+      const {LoanType, Amount} = typeOfLoan
+      if(LoanType.toLowerCase() === 'group'){
+        console.log('group')
+        //push them 
+        this.alertService.success('forwarded sucessfully')
 
+      }
+      else{
+           console.log('sme')
+           //push them
+           if(Amount >1000000000){
+             console.log('greater')
+           }
+           else if(Amount <3000000 && Amount<=10000000){
+             //do something
+           }
+           else{
+             //do something
+           }
+      }
+
+    }
+    this.closeModal()
 
   }
    

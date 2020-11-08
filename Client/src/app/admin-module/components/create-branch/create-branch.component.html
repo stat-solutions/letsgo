@@ -11,7 +11,7 @@ class="container-fluid d-flex flex-row justify-content-center mb-0 mt-md-1 mt-1 
       </div>
     </div>
   <div class="card-body mt-2 pt-3 mt-xl-1 mb-0 mx-auto pb-4 shadow-lg">
-    <form [formGroup]="userForm" (ngSubmit)="register()">
+    <form [formGroup]="userForm" (ngSubmit)="createBranch()">
       <div class="form-group text-primary">
         <label
           for="branch_name"
@@ -214,8 +214,7 @@ class="container-fluid d-flex flex-row justify-content-center mb-0 mt-md-1 mt-1 
         <button
           type="button"
           class="btn btn-info col-5 mx-auto"
-          (click)="returnHome()"
-          routerLink = "/authpage/login"
+          routerLink='/admin/branch'
         >
           Cancel
         </button>

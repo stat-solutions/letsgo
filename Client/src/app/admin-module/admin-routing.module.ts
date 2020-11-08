@@ -1,7 +1,6 @@
 import { BranchesComponent } from './components/branches/branches.component';
 import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
 import { ReportsComponent } from './components/reports/reports.component';
-import { LogoutUsersComponent } from './components/logout-users/logout-users.component';
 import { ApproveUsersComponent } from './components/approve-users/approve-users.component';
 import { ViewLoggedinUsersComponent } from './components/view-loggedin-users/view-loggedin-users.component';
 import { NgModule } from '@angular/core';
@@ -12,7 +11,10 @@ import {ConstantsComponent } from './components/constants/constants.component';
 import {CreateBranchComponent} from './components//create-branch/create-branch.component';
 import {CustomerDetailsComponent} from './components/customer-details/customer-details.component';
 import {UsersComponent} from './components/users/users.component';
-import {EntitiesComponent} from './components/entities/entities.component'
+import {EntitiesComponent} from './components/entities/entities.component';
+import {CreatesecurityComponent} from './components/createsecurity/createsecurity.component';
+import { ConstantsTableComponent } from './components/constants-table/constants-table.component';
+import {CustomersComponent} from './components/customers/customers.component';
 const routes: Routes = [
   {
     path: '',
@@ -33,9 +35,10 @@ const routes: Routes = [
        component:ApproveUsersComponent,
       },
       {
-        path: 'logout',
-        component: LogoutUsersComponent
+       path:'createsecurity',
+       component:CreatesecurityComponent
       },
+      
       {
         path: 'loggedin',
        component:ViewLoggedinUsersComponent,
@@ -57,9 +60,17 @@ const routes: Routes = [
         component:BranchesComponent
       },
       {
+        path:"constantstable",
+        component:ConstantsTableComponent
+      },
+      {
 
         path:"createbranch",
         component:CreateBranchComponent
+      },
+      {
+       path:"customers",
+       component:CustomersComponent
       },
       {
         path:"customerdetails/:customerid",

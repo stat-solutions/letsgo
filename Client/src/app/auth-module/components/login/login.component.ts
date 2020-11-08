@@ -8,6 +8,7 @@ import { AuthServiceService } from 'src/app/shared/services/auth-service.service
 import { AlertService } from 'ngx-alerts';
 import { LayoutService } from 'src/app/shared/services/layout.service';
 import { Observable } from 'rxjs';
+import {UsersService} from 'src/app/shared/services/users.service';
 // import { BootstrapAlertService, BootstrapAlert } from 'ngx-bootstrap-alert';
 @Component({
   selector: 'app-login',
@@ -16,10 +17,8 @@ import { Observable } from 'rxjs';
 })
 export class LoginComponent implements OnInit {
   registered: boolean;
-  submitted: boolean;
+  submitted:boolean
   errored: boolean;
-  posted: boolean;
-  whiteListedContact: boolean;
   userForm: FormGroup;
   loginStatus: string;
   fieldType: boolean;
@@ -28,6 +27,9 @@ export class LoginComponent implements OnInit {
   mySubscription: any;
 
   serviceErrors: any = {};
+  rolesArray = ['admin', 'application','branchapproval',
+   'branchexit','disbusement',
+  'loanverification', 'loanentry','loanexit', 'regional', 'legalreview','creditanalysisi', 'headofficeapproval', 'headofficeentry']
 
 
   constructor(
@@ -36,7 +38,8 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private alertService: AlertService,
     private spinner: NgxSpinnerService,
-    private layoutService: LayoutService
+    private layoutService: LayoutService,
+    private userService:UsersService
   ) {}
 
   ngOnInit() {
@@ -49,16 +52,14 @@ export class LoginComponent implements OnInit {
   createFormGroup() {
     return new FormGroup({
 
-      user_contact_number: new FormControl(
+      userEmail: new FormControl(
         '',
         Validators.compose([
           Validators.required,
-          CustomValidator.patternValidator(/\d/, { hasNumber: true }),
-          Validators.maxLength(10),
-          Validators.minLength(10)
+          Validators.email
         ])
       ),
-      password: new FormControl(
+      userPassword: new FormControl(
         '',
         Validators.compose([
           // 1. Password Field is Required
@@ -82,109 +83,51 @@ export class LoginComponent implements OnInit {
 
     login() {
     this.submitted = true;
-
-    this.spinner.show();
-
+    this.spinner.show()
     if (this.userForm.invalid === true) {
       return;
     } else {
-      this.authService
-        .loginNormalUser(this.userForm)
-
-        .subscribe(
-          (success: boolean) => {
-            if (success) {
-              this.posted = true;
-            if (
-                jwt_decode(this.authService.getJwtToken()).user_status ===
-                'Approved'
-              ) {
-                if (
-                  jwt_decode(this.authService.getJwtToken()).user_role === "admin"
-                ) {
-                  this.alertService.success({
-                    html: '<strong>Signed In Successfully</strong>'
-                  });
-                  this.spinner.hide();
-                  setTimeout(() => {
-                    this.spinner.hide();
-                    // this.layoutService.emitChangePumpUser(true);
-                    // this.layoutService.emitLoginLogout(true);
-                    this.router.navigate(['admin']);
-                  }, 1000);
-                } else if (
-                  jwt_decode(this.authService.getJwtToken()).user_role === "Central User"
-                ) {
-                  this.spinner.hide();
-                  setTimeout(() => {
-                    this.router.navigate(['centralmanagement']);
-                  }, 1000);
-                } else if (
-                  jwt_decode(this.authService.getJwtToken()).user_role === "Area Manager"
-                ) {
-                  this.spinner.hide();
-                  setTimeout(() => {
-                    this.router.navigate(['areamanagement']);
-                  }, 1000);
-                } else if (
-                  jwt_decode(this.authService.getJwtToken()).user_role === "Station Manager"
-                ) {
-                  this.spinner.hide();
-                  setTimeout(() => {
-                    this.router.navigate(['stationmanagement']);
-                  }, 1000);
-                } else if (
-                  jwt_decode(this.authService.getJwtToken()).user_role === "Station Officer"
-                ) {
-                  this.spinner.hide();
-                  setTimeout(() => {
-                    this.router.navigate(['stationofficer']);
-                  }, 1000);
-                }
-                 else {
-                  this.alertService.danger({
-                    html: '<strong>No User found with these details, Please register</strong>'
-                  });
-                  this.spinner.hide();
-                }
-              } else if (
-                jwt_decode(this.authService.getJwtToken()).user_status ===
-                'Deactivated'
-              ) {
-                this.alertService.danger({
-                  html:
-                    '<strong>This account has been deactivated!, please contact system admin!</strong>'
-                });
-                this.spinner.hide();
-                return;
-              }
-            } else {
-              this.spinner.hide();
-              this.errored = true;
-            }
-          },
-
-          (error: string) => {
-            this.spinner.hide();
-            this.errored = true;
-            this.loginStatus = error;
-            // this.alertService.danger(this.loginStatus);
-            this.alertService.danger({
-              html: '<b>' + this.loginStatus + '</b>' + '<br/>'
-            });
-            // this.alertService.warning({html: '<b>Signed In Successfully</b>'});
-            if (
-              this.loginStatus === 'Authorisation Failed! User Not Registered'
-            ) {
-              setTimeout(() => {
-                this.router.navigate(['authpage/register']);
-              }, 1000);
-            }
-            this.spinner.hide();
-
+      
+      this.authService.loginNormalUser(this.userForm).subscribe((sucess:boolean)=>{
+        if(sucess){
+          let loginUserRole = jwt_decode(this.authService.getJwtToken()).role
+          let findRole = this.rolesArray.find(role=>role.toLowerCase() === loginUserRole.toLowerCase())
+          if(findRole){
+            this.spinner.hide()
+            this.alertService.success({
+                html: '<strong>Logged In Successfully</strong>'
+            })
+            this.router.navigate([findRole+'/dashboard'])
           }
-        );
-    }
+          else{
+            this.spinner.hide()
+            this.alertService.danger({
+              html:'<strong>You dont have any roles</strong>'
+            })
+          }
+
+        }
+        else{
+          this.spinner.hide()
+          this.alertService.danger({
+            html:"<b>Cannot find any information about u</b>"
+          })
+          
+        }
+      }),
+      (error:string)=>{
+        this.spinner.hide()
+        console.log(error)
+      }
+
+      
+      
+
+         }
+      
+      
+
+   
   }
 
 
