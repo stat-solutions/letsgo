@@ -23,21 +23,21 @@ export class CreateLoansComponent implements OnInit {
   authService: any;
   error:boolean = false
   loan_types = ['SourceLoans', 'SME']
-  securities = ['security one', 'security two', 'security 3', 'security 4', 'security 5'];
+  securities = ['Security 1', 'Security 2', 'Security 3', 'Security 4', 'Security 5'];
   getSecurities = [];
   checkAllSecurities:boolean = true;
    bsModal:BsModalRef;
   search_term:string;
   currentPage:number = 1;
-  totalItems:number
-  pageSize = 5;
+  totalItems:number;
+  pageSize = 12;
   key:any = "documentId";
   customerData = [];
   filteredCustomers = [];
   search_customer:string;
 
 
-  constructor(private customer:CustomerService, 
+  constructor(private customer:CustomerService,
     private fb:FormBuilder,
     private bsModalService:BsModalService,
     private spinner:NgxSpinnerService) { }
@@ -67,13 +67,13 @@ export class CreateLoansComponent implements OnInit {
       amount:this.fb.control(
         '',
         Validators.compose([Validators.required])
-      ),  
+      ),
       tenure:this.fb.control(
         '',
         Validators.compose([Validators.required])
-      ),      
-      
-      security:this.createSecuritiesControl() 
+      ),
+
+      security:this.createSecuritiesControl()
     });
   }
 
@@ -88,7 +88,7 @@ export class CreateLoansComponent implements OnInit {
     if (customer !== '' || customer !== null) return false
     else {
       this.customer.getCustomers().subscribe(allcustomer => {
-      
+
         const found = allcustomer.find(customers => customers.customerName.toLowerCase === customer.toLowerCase)
         if (found) return false
         else return true
@@ -113,7 +113,7 @@ export class CreateLoansComponent implements OnInit {
          this.getSecurities.push(this.securities[i])
          return control.disable()
       })
-     
+
      console.log(this.getSecurities)
     }
     else{
@@ -148,31 +148,31 @@ export class CreateLoansComponent implements OnInit {
 
    get FormArrayControls(){
     return <FormArray>this.userForm.get('security')
-  } 
-   
+  }
+
   getLoanType(loan) {
     this.fval.loan_type.setValue(loan.target.value)
   }
-  
+
 
   returnHome() {
     this.spinner.hide();
     this.revert();
   }
 
-   
+
 
   register() {
     console.log(this.userForm)
-    
+
     this.submitted = true;
     this.spinner.show();
     if (this.userForm.invalid === true) {
       return this.invalid = true
       //return;
     } else {
-      
-     
+
+
     }
   }
 
@@ -186,7 +186,10 @@ export class CreateLoansComponent implements OnInit {
 
 
    getCustomer(template:TemplateRef<any>){
-     this.bsModal =  this.bsModalService.show(template)
+     this.bsModal = this.bsModalService.show(
+       template,
+       Object.assign({}, { class: 'white modal-lg modal-dialog-center' })
+     );
 
    }
 

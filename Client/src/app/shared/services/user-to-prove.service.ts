@@ -5,37 +5,54 @@ import {Registration} from '../models/registration-interface'
   providedIn: 'root',
 })
 export class UserToProveService {
-  private userToProve:Registration[] = [
+  private userToProve: Registration[] = [
     {
-    userId: 1,
-    userName: "katende",
-    userEmail:"katznicho@gmail.com",
-    userPassword:"kat2",
-    userBranch:"Application",
-    userNumber:"0759983853",
-    status:"notApproved"
+      userId: 1,
+      userName: 'katende',
+      userEmail: 'katznicho@gmail.com',
+      userPassword: 'kat2',
+      userBranch: 'Application',
+      userNumber: '0759983853',
+      status: 'notApproved',
     },
     {
-    userId: 2,
-    userName: "nichoas",
-    userEmail:"nico@gmail.com",
-    userPassword:"kat2",
-    userBranch:"Application",
-    userNumber:"0759983853",
-    status:"notApproved"
+      userId: 2,
+      userName: 'nichoas',
+      userEmail: 'nico@gmail.com',
+      userPassword: 'kat2',
+      userBranch: 'Application',
+      userNumber: '0759983853',
+      status: 'notApproved',
     },
     {
-    userId: 3,
-    userName: "james",
-    userEmail:"katznicho@gmail.com",
-    userPassword:"kat2",
-    userBranch:"Application",
-    userNumber:"0759983853",
-    status:"notApproved"
+      userId: 2,
+      userName: 'nichoas',
+      userEmail: 'nico@gmail.com',
+      userPassword: 'kat2',
+      userBranch: 'Application',
+      userNumber: '0759983853',
+      status: 'notApproved',
     },
-
-  ]
-  myApprovedUsers = []
+    {
+      userId: 3,
+      userName: 'james',
+      userEmail: 'katznicho@gmail.com',
+      userPassword: 'kat2',
+      userBranch: 'Application',
+      userNumber: '0759983853',
+      status: 'notApproved',
+    },
+    {
+      userId: 3,
+      userName: 'james',
+      userEmail: 'katznicho@gmail.com',
+      userPassword: 'kat2',
+      userBranch: 'Application',
+      userNumber: '0759983853',
+      status: 'notApproved',
+    },
+  ];
+  myApprovedUsers = [];
 
   constructor() {}
 
@@ -50,23 +67,23 @@ export class UserToProveService {
     );
   }
   approveUser(object) {
-    console.log(object)
-    const {id, role} = object
-    const userID = this.userToProve.find(userId => userId.userId === id)
+    console.log(object);
+    const { id, role } = object;
+    const userID = this.userToProve.find((userId) => userId.userId === id);
     if (userID) {
-      const newUser = { ...userID, status: "approved", role:role }
-      this.userToProve = [...this.userToProve.filter(user=>user.userId!==id ), newUser]
+      const newUser = { ...userID, status: 'approved', role: role };
+      this.userToProve = [
+        ...this.userToProve.filter((user) => user.userId !== id),
+        newUser,
+      ];
+    } else {
+      return this.userToProve;
     }
-    else {
-      return this.userToProve
-    }
-
   }
   addUsers(object) {
-    let index = this.userToProve.slice(-1)[0].userId
-    const userId = index+1;
-    const newObject = {...object, status:"notApproved"}
-    return this.userToProve.push(newObject)
-
+    let index = this.userToProve.slice(-1)[0].userId;
+    const userId = index + 1;
+    const newObject = { ...object, status: 'notApproved' };
+    return this.userToProve.push(newObject);
   }
 }

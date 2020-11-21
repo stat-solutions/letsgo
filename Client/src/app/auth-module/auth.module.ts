@@ -12,6 +12,7 @@ import { ChangepasswordComponent } from './components/changepassword/changepassw
 import { AuthpageComponent } from './authpage.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { ForgotLoginComponent } from './components/forgot-login/forgot-login.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
     RegistrationComponent,
     ChangepasswordComponent,
     AuthpageComponent,
+    ForgotLoginComponent,
   ],
   imports: [
     CommonModule,

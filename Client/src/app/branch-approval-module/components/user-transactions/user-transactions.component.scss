@@ -8,31 +8,16 @@
 }
 hr{
   width: 1%;
-  min-width: 4rem !important;
+  min-width: 3.0rem !important;
   border: 2px solid #bbb212b2;
 }
 
+.head-container{
+  border-radius: 7px !important;
+}
 .state-table {
   height: 100%;
-  min-height: 12rem;
-  max-height: 20rem;
   overflow-y: auto;
-}
-
-.btn-sm{
-  border-radius: 12px;
-}
-.text-info {
-  color: #114b88 !important;
-}
-
-a.text-info:focus,
-a.text-info:hover {
-  color: #48bae4f5 !important;
-}
-
-.pointerCursor {
-  cursor: pointer;
 }
 
 
@@ -41,41 +26,7 @@ a.text-info:hover {
 @media (min-width: 320px) {
   .jumbotron-fluid {
     padding-top: 0px !important;
-    padding-bottom: 1rem !important;
-  }
-}
-
-@media (min-width: 360px) {
-.state-table {
-  max-height: 25rem;
-}
-}
-
-@media (min-width: 375px) {
-.state-table {
-  max-height: 26.6rem;
-}
-}
-
-@media (min-width: 410px) {
-.state-table {
-  max-height: 30.6rem;
-}
-}
-
-@media (min-width: 445px) {
-.state-table {
-  max-height: 29.8rem;
-}
-}
-
-@media (min-width: 568px) {
-}
-
-@media (min-width: 640px) {
-  .container {
-    margin-left: auto;
-    margin-right: auto;
+    padding-bottom: 0px !important;
   }
 }
 
@@ -88,9 +39,6 @@ a.text-info:hover {
     padding-top: .65rem !important;
     padding-bottom: 1.8rem !important;
   }
-.state-table {
-  max-height: 47.6rem;
-}
 }
 
 @media (min-width: 812px) {
@@ -98,9 +46,10 @@ a.text-info:hover {
     margin-left: auto !important;
     margin-right: auto !important;
   }
-.state-table {
-  max-height: 22rem;
-}
+  .jumbotron-fluid {
+    padding-top: 0px !important;
+    padding-bottom: .3rem !important;
+  }
 }
 
 @media (min-width: 1024px) {
@@ -108,15 +57,9 @@ a.text-info:hover {
     padding-top: .6rem !important;
     padding-bottom: 1.8rem !important;
   }
-.state-table {
-  max-height: 68.6rem;
-}
 }
 
 @media (min-width: 1100px) {
-.state-table {
-  max-height: 27.8rem;
-}
 }
 
 @media (min-width: 1280px) {
@@ -127,7 +70,7 @@ a.text-info:hover {
   .jumbotron-fluid {
     margin-top: 0px !important;
     padding-top: 0px !important;
-    padding-bottom: 1rem !important;
+    padding-bottom: 0rem !important;
   }
 }
 

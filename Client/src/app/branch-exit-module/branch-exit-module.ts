@@ -20,6 +20,7 @@ import  {UserTransactionsComponent} from './components/user-transactions/user-tr
 import {ModalModule} from 'ngx-bootstrap/modal';
 import { OrderModule } from 'ngx-order-pipe';
 import {NgxPaginationModule} from 'ngx-pagination';
+import { TabsModule } from 'ngx-bootstrap/tabs';
 
 
 @NgModule({
@@ -33,7 +34,7 @@ import {NgxPaginationModule} from 'ngx-pagination';
     CustomersComponent,
     ReportsComponent,
     EditProfileComponent,
-    UserTransactionsComponent
+    UserTransactionsComponent,
   ],
   imports: [
     CommonModule,
@@ -45,9 +46,10 @@ import {NgxPaginationModule} from 'ngx-pagination';
     NgxPaginationModule,
     BsDatepickerModule,
     ModalModule.forRoot(),
-    AlertModule.forRoot({maxMessages: 5, timeout: 7000}),
+    AlertModule.forRoot({ maxMessages: 5, timeout: 7000 }),
     TooltipModule.forRoot(),
+    TabsModule.forRoot(),
     OrderModule
   ],
 })
-export class BranchExitModule { }
+export class BranchExitModule {}

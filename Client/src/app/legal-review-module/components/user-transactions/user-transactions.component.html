@@ -1,301 +1,376 @@
-
-<div class="container-fluid mb-0 mt-md-1 pt-md-0 pt-3 pb-1  col-xs-12 col-lg-12 ">
-    <div>
-      <div class="container">
-        <div class="row shadow-lg m-3">
-          <div class="col-md-4 colxs-12 col-sm-12 m-2">
-            <h1>
-              <i class="fas fa-user">User</i>
-            </h1>
-          </div>
-          <div class="col-md-4 colxs-12 col-sm-12">
-             <button 
-             class="btn btn-success m-4" 
-             type="button" 
-             (click)="branchApprovalReceivedLoans()"
-             >ReceivedLoans</button>
-          </div>
-          <button 
-             class="btn btn-success m-4" 
-             type="button" 
-             (click)="branchApprovalForwardedLoans()"
-             >ForwardedLoans</button>
-                     
-
-                        </div>
+<div
+  class="container-fluid justify-content-center mt-xl-0 mb-0 pt-1 pt-xl-0 pb-2 shadow-lg col-xs-12"
+>
+  <div class="jumbotron-fluid mx-0 px-0 mt-1 mt-xl-0 pt-3 pt-xl-0 mb-0 pb-0">
+    <div
+      class="head-container container my-1 mx-auto px-auto pt-0 pb-2 shadow-lg"
+    >
+      <div class="row">
+        <div class="col-12">
+          <h3 class="rub-head4 text-info text-center font-weight-bold py-1">
+            TRANSACTIONS
+          </h3>
+          <hr class="mt-0" />
         </div>
-        <div class="col-md-12">
-          <h3>UserTransactions</h3>
+      </div>
+      <div class="row">
+        <div class="col-8 col-sm-7 col-md-8 col-lg-9 col-xl-8">
+          <div class="mt-1 mt-xl-0 pt-xl-0 mb-2 mx-0 pl-0 pl-xl-2">
+            <!-- the search section -->
+            <input
+              type="text"
+              (input)="getValue($event)"
+              class="form-control col-12 col-sm-10 col-md-8 col-lg-7 col-xl-5"
+              name=""
+              id="loan"
+              placeholder="Search"
+              autocomplete="on"
+            />
+          </div>
         </div>
-        <div class="col-md-12">
-          <div class="conditin m-2" 
-          *ngIf="
-          enableForwardedFrom
-          &&!enableForwardedTo">
-                <!--here-->
-                   <div class="check-length" *ngIf="checkTransactionsTable(forwardedLoansFrom); else noforwarded">
-                  <button (click)="receiveAllLoans()"
-                  class="btn btn-primary" 
-                  >ReceiveAll</button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 mx-0 px-2 py-2">
+        <tabset>
+          <!-- (click)="branchApprovalForwardedLoans()" -->
+          <tab
+          heading="Receive Loans"
+          >
+          <div *ngIf="enableForwardedFrom && !enableForwardedTo">
+          <!--here-->
+              <div class="table-col col-12 pt-2 pb-1 mb-0">
+                <div class="state-table table-responsive pb-0">
+                  <div
+                    class="check-length"
+                    *ngIf="
+                      checkTransactionsTable(forwardedLoansFrom);
+                      else noforwarded
+                    "
+                  >
+                    <button (click)="receiveAllLoans()" class="btn btn-primary my-2">
+                      Receive All
+                    </button>
+                  <!---table-->
+                  <table class="table table-hover table-striped table-sm">
+                    <thead class="bg-dark text-white">
+                      <tr class="mx-2">
+                        <th>Action</th>
+                        <th scope="col">ID</th>
+                        <th scope="col">Customer</th>
+                        <th scope="col">Loan Type</th>
+                        <th scope="col">LoanProduct</th>
+                        <th scope="col">Tenure</th>
+                        <th scope="col">Amount</th>
+                        <th scope="col">Stage</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Loan MovedBy</th>
+                        <th scope="col">Stage At</th>
+                        <th scope="col">How Long</th>
+                        <th scope="col">Created At</th>
+                        <th scope="col">Total Age</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr
+                        *ngFor="
+                          let forwarded of forwardedLoansFrom;
+                          let i = index
+                        "
+                      >
+                        <td>
+                          <button
+                            class="btn btn-info"
+                            [disable]="disableButton"
+                            (click)="receiveLoans(forwarded.Id, i)"
+                          >
+                            Receive
+                          </button>
+                        </td>
+                        <td>{{ forwarded.Id }}</td>
+                        <td>{{ forwarded.Customer }}</td>
+                        <td>{{ forwarded.LoanType }}</td>
+                        <td>{{ forwarded.LoanProduct }}</td>
+                        <td>{{ forwarded.Tenure }}</td>
+                        <td>{{ forwarded.Amount }}</td>
+                        <td>{{ forwarded.Stage }}</td>
+                        <td>{{ forwarded.Status }}</td>
+                        <td>{{ forwarded.LoanMovedBy }}</td>
+                        <td>{{ forwarded.StageAt }}</td>
+                        <td>{{ forwarded.HowLong }}</td>
+                        <td>{{ forwarded.CreatedAt }}</td>
+                        <td>{{ forwarded.TotalAge }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  </div>
                 </div>
-                <!---table->
-
-                  --table-->
-                  <table class="table table-bordered">
-                     <thead class="table-dark" >
+                </div>
+              </div>
+            </tab>
+            <!-- (click)="branchApprovalReceivedLoans()" -->
+            <tab
+              heading="Forward Loans"
+            >
+              <!---forward users-->
+              <div
+                *ngIf="!enableForwardedFrom && enableForwardedTo"
+              >
+              <div class="table-col col-12 pt-3 pb-1 mb-0">
+                <div class="state-table table-responsive pb-0">
+                  <div
+                    class="check-length"
+    *ngIf="checkTransactionsTable(receivedLoans); else noloans"
+                  >
+                  <table class="table table-hover table-striped table-sm">
+                    <thead class="bg-dark text-white" *ngIf="checkTransactionsTable(receivedLoans); else noloans"
+                  >
                     <tr>
-                      <th>Actions</th>
+                      <th>Action</th>
                       <th scope="col">ID</th>
                       <th scope="col">Customer</th>
-                      <th scope="col">LoanType</th>
+                      <th scope="col">Loan Type</th>
                       <th scope="col">LoanProduct</th>
-                      <th scope="col">Tenure(years)</th>
-                      <th scope="col">Amount(shs)</th>
+                      <th scope="col">Tenure</th>
+                      <th scope="col">Amount</th>
                       <th scope="col">Stage</th>
                       <th scope="col">Status</th>
-                      <th scope="col">LoanMovedBy</th>
-                      <th scope="col">StageAt</th>
-                      <th scope="col">HowLong(years)</th>
-                      <th scope="col">CreatedAt</th>
-                      <th scope="col">TotalAge</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr *ngFor="let forwarded of forwardedLoansFrom; let i = index">
-                      <th>
-                        <button class="btn btn-primary" [disable]="disableButton"
-                        (click)="receiveLoans(forwarded.Id, i)"
-                        >Receive</button>
-                      </th>
-                      <th>{{forwarded.Id}}</th>
-                      <th>{{forwarded.Customer}}</th>
-                      <th>{{forwarded.LoanType}}</th>
-                      <th>{{forwarded.LoanProduct}}</th>
-                      <th>{{forwarded.Tenure}}</th>
-                      <th>{{forwarded.Amount}}</th>
-                      <th>{{forwarded.Stage}}</th>
-                      <th>{{forwarded.Status}}</th>
-                      <th>{{forwarded.LoanMovedBy}}</th>
-                      <th>{{forwarded.StageAt}}</th>
-                      <th>{{forwarded.HowLong}}</th>
-                      <th>{{forwarded.CreatedAt}}</th>
-                      <th>{{forwarded.TotalAge}}</th>
-                    </tr>
-                  </tbody>
-                  </table>       
-                   </div>
-                   <!--no forwardedLoans-->
-                     <div class="container">
-                       <h2 class="text-center text-uppercase">
-                         <ng-template #noforwarded>
-                           <h2>No forwarded Loans</h2>
-                         </ng-template>
-                       </h2>
-                     </div>
-                   <!---->
-                     
-                   </div>
-
-                   <!---forward users-->
-                    <div class="myn" 
-                   *ngIf=
-                   "!enableForwardedFrom&&enableForwardedTo">
-                      <h3 class="text-center" >ReceivedLoans</h3>
-                  <table class="table table-bordered">
-                     <thead class="table-dark" *ngIf="checkTransactionsTable(receivedLoans); else noloans">
-                    <tr>
-                      <th>Actions</th>
-                      <th scope="col">ID</th>
-                      <th scope="col">Customer</th>
-                      <th scope="col">LoanType</th>
-                      <th scope="col">LoanProduct</th>
-                      <th scope="col">Tenure(years)</th>
-                      <th scope="col">Amount(shs)</th>
-                      <th scope="col">Stage</th>
-                      <th scope="col">Status</th>
-                      <th scope="col">LoanMovedBy</th>
-                      <th scope="col">StageAt</th>
-                      <th scope="col">HowLong(years)</th>
-                      <th scope="col">CreatedAt</th>
-                      <th scope="col">TotalAge</th>
+                      <th scope="col">Loan MovedBy</th>
+                      <th scope="col">Stage At</th>
+                      <th scope="col">How Long</th>
+                      <th scope="col">Created At</th>
+                      <th scope="col">Total Age</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr *ngFor="let received of receivedLoans; let i = index">
-                      <th>
-                     <div class="dropdown">
-                      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      </button>
-                      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                       <h4 class="dropdown-item click" (click)="forwardLoan(forward, received.Id,i)">Approve</h4>
-                        <h4 class="dropdown-item click" (click)="defferLoan(deffer, received.Id,i)">Deffer</h4>
-                        <h4 class="dropdown-item click" (click)="rejectLoan(reject, received.Id,i)">Reject</h4>
-
-                      </div>
-                    </div>
-                      </th>
-                      <th>{{received.Id}}</th>
-                      <th>{{received.Customer}}</th>
-                      <th>{{received.LoanType}}</th>
-                      <th>{{received.LoanProduct}}</th>
-                      <th>{{received.Tenure}}</th>
-                      <th>{{received.Amount}}</th>
-                      <th>{{received.Stage}}</th>
-                      <th>{{received.Status}}</th>
-                      <th>{{received.LoanMovedBy}}</th>
-                      <th>{{received.StageAt}}</th>
-                      <th>{{received.HowLong}}</th>
-                      <th>{{received.CreatedAt}}</th>
-                      <th>{{received.TotalAge}}</th>
+                      <td>
+                        <div class="dropdown">
+                          <button
+                            class="btn btn-primary dropdown-toggle"
+                            type="button"
+                            id="dropdownMenuButton"
+                            data-toggle="dropdown"
+                            aria-haspopup="true"
+                            aria-expanded="false"
+                          ></button>
+                          <div
+                            class="dropdown-menu"
+                            aria-labelledby="dropdownMenuButton"
+                          >
+                            <a
+                              class="dropdown-item text-primo-1 pointerCursor"
+                              (click)="forwardLoan(forward, received.Id, i)"
+                            ><i class="fas fa-check"></i>
+                              Approve
+                            </a>
+                            <a
+                              class="dropdown-item text-primo pointerCursor"
+                              (click)="defferLoan(deffer, received.Id, i)"
+                            ><i class="fas fa-chevron-left"></i>
+                              Defer
+                            </a>
+                            <a
+                              class="dropdown-item text-primo-2 pointerCursor"
+                              (click)="rejectLoan(reject, received.Id, i)"
+                            ><i class="fas fa-times"></i>
+                              Reject
+                            </a>
+                          </div>
+                        </div>
+                      </td>
+                      <td>{{ received.Id }}</td>
+                      <td>{{ received.Customer }}</td>
+                      <td>{{ received.LoanType }}</td>
+                      <td>{{ received.LoanProduct }}</td>
+                      <td>{{ received.Tenure }}</td>
+                      <td>{{ received.Amount }}</td>
+                      <td>{{ received.Stage }}</td>
+                      <td>{{ received.Status }}</td>
+                      <td>{{ received.LoanMovedBy }}</td>
+                      <td>{{ received.StageAt }}</td>
+                      <td>{{ received.HowLong }}</td>
+                      <td>{{ received.CreatedAt }}</td>
+                      <td>{{ received.TotalAge }}</td>
                     </tr>
                   </tbody>
-                  </table>
-                  <ngx-alerts>  </ngx-alerts>
-                  <!--create an alert-->
-
-                  <!---create reject template-->
-                    <ng-template #reject>
-            <div class="modal-header">
-                <h4 class="modal-title pull-left">Letshego Uganda Limited</h4>
-                <button type="button" class="close pull-right" aria-label="Close" (click)="closeModal()">
-                  <span aria-hidden="true">&times;</span>
-                </button>
+                </table>
+                <ngx-alerts> </ngx-alerts>
+                <!--create an alert-->
+</div>
+                </div>
               </div>
-              <div class="modal-body">
-                <div class="form-group text-center" [formGroup]="comment">
-                    <label for="c">Forward</label>
-                  <br>
-                  <textarea name="reject" id="c" cols="30" rows="10"
-                  formControlName="user_comments"
-                  placeholder="Reason forwarding" 
-                  [ngClass]="validateComments()"
-                  ></textarea>
-                </div>
-                </div>
-               
-                <div class="form-group" >
-                  <button type="submit" class="btn btn-danger"
-                  [disabled]="comment.invalid"
-                  (click)="onReject(makeLoansRejected, arrayId, arrayIndex)"
-                  >ok</button>
-                </div>
-                <div class="form-group" >
-                  <button  class="btn btn-danger"
-                  type="button"
-                  (click)="cancel()" 
-                  >Cancel</button>
-                
-              </div>
-              
-        </ng-template>
-
-                  <!----->
-                  <!---create deffer template-->
-                    <ng-template #deffer>
-           <div class="modal-header">
-                <h4 class="modal-title pull-left">Letshego Uganda Limited</h4>
-                <button type="button" class="close pull-right" aria-label="Close" (click)="closeModal()">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <div  [formGroup]="defferTo"> 
-                  <div class="form-group">
-                      <div>
-                         <label for="select">DefferTo</label>
-                      </div>
-                     
-                      <select name="" id="select"
-                      (change)="getWhereToDeffer($event)"
-                      >
-                        <option selected disabled select>select</option>
-                        <option  *ngFor="let level of levels" [ngValue]="level">{{level}}</option>
-                      </select>
-                    </div>
-                    <div class="form-group">
-
-                       <label for="c">Comment</label>
-                    <br>
-                    <textarea name="reject" id="c" cols="30" rows="10"
-                    formControlName="deffer_reason"
-                    placeholder="Reason for rejecting" 
-                    ></textarea>
-                      
-                    </div>
-                  </div>
-                </div>
-               
-                <div class="form-group" >
-                  <button type="submit" class="btn btn-danger"
-                  [disabled]="defferTo.invalid"
-                  (click)="onDeffer(makeLoansDeffered, arrayId, arrayIndex)"
-                  >Deffer</button>
-                </div>
-                <div class="form-group" >
-                  <button  class="btn btn-danger"
-                  type="button"
-                  (click)="cancel()" 
-                  >Cancel</button>
-                
-              </div>
-        </ng-template>
-
-                  <!----->
-                   <!---create forward template-->
-
-                    <ng-template #forward>
-            <div class="modal-header">
-                <h4 class="modal-title pull-left">Letshego Uganda Limited</h4>
-                <button type="button" class="close pull-right" aria-label="Close" (click)="closeModal()">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <div class="form-group text-center" [formGroup]="comment">
-                    <label for="c">Forward</label>
-                  <br>
-                  <textarea name="reject" id="c" cols="30" rows="10"
-                  formControlName="user_comments"
-                  placeholder="Reason forwarding" 
-                  [ngClass]="validateComments()"
-                  ></textarea>
-                </div>
-                </div>
-               
-                <div class="form-group" >
-                  <button type="submit" class="btn btn-danger"
-                  [disabled]="comment.invalid"
-                  (click)="onForward(forwardedLoansTo, arrayId, arrayIndex)"
-                  >Forward</button>
-                </div>
-                <div class="form-group" >
-                  <button  class="btn btn-danger"
-                  type="button"
-                  (click)="cancel()" 
-                  >Cancel</button>
-                
-              </div>
-              
-        </ng-template>
-                  <!----->
-                  <div class="container">
-                  <h2 class="text-center">
-                    <ng-template #noloans>
-                     <h1>No received loans</h1>
-                    </ng-template>
-                  </h2>
-                </div>
               </div>
 
-                   <!--forward loans--->
-        <!--footer-->
-        <div class="container mt-3 mb-2 pb-2">
-          <div class="col-xs-12 col-lg-12">
-            <div class="small text-center text-info">&copy; 2020 - LoanLead</div>
+            </tab>
+          </tabset>
           </div>
-  
+        </div>
       </div>
     </div>
-  </div>
-  
-  
+              <!--no forwarded Loans-->
+              <ng-template #noforwarded>
+                <div class="col-12 my-5 py-5 justify-content-between">
+                  <h4 class="text-center text-info">No Forwarded Loans!</h4>
+                </div>
+              </ng-template>
+                <!---create reject template-->
+                <ng-template #reject>
+  <div class="modal-header bg-info">
+    <h4 class="modal-title text-white-75">Reject Loan</h4>
+                    <button
+                      type="button"
+                      class="close pull-right"
+                      aria-label="Close"
+                      (click)="closeModal()"
+                    >
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <div class="form-group text-primary" [formGroup]="comment">
+                      <textarea
+                        name="reject"
+                        id="c"
+                        formControlName="user_comments"
+                        class="form-control"
+                        rows="5"
+                        placeholder="Comment"
+                        [ngClass]="validateComments()"
+                      ></textarea>
+                    </div>
+                  </div>
+
+    <div class="modal-footer">
+                    <button
+                      type="submit"
+                      class="btn btn-danger"
+                      [disabled]="comment.invalid"
+                      (click)="onReject(makeLoansRejected, arrayId, arrayIndex)"
+                    >
+                      OK
+                    </button>
+                    <button
+                      class="btn btn-info"
+                      type="button"
+                      (click)="cancel()"
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </ng-template>
+
+                <!--create deffer template-->
+                <ng-template #deffer>
+  <div class="modal-header bg-info">
+    <h4 class="modal-title text-white-75">Defer Loan</h4>
+                    <button
+                      type="button"
+                      class="close pull-right"
+                      aria-label="Close"
+                      (click)="closeModal()"
+                    >
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <div [formGroup]="defferTo">
+                      <div class="form-group text-primary">
+                          <label for="select">Defer to</label>
+                        <select
+                          name=""
+                          id="select"
+                        class="form-control"
+                          (change)="getWhereToDeffer($event)"
+                        >
+                          <option selected disabled select>Select</option>
+                          <option
+                            *ngFor="let level of levels"
+                            [ngValue]="level"
+                          >
+                            {{ level }}
+                          </option>
+                        </select>
+                      </div>
+                      <div class="form-group text-primary">
+                        <textarea
+                          name="reject"
+                          id="c"
+                          formControlName="deffer_reason"
+                        class="form-control"
+                        rows="5"
+                        placeholder="Comment"
+                        ></textarea>
+                      </div>
+                    </div>
+                  </div>
+
+    <div class="modal-footer">
+                    <button
+                      type="submit"
+                      class="btn btn-info"
+                      [disabled]="defferTo.invalid"
+                      (click)="onDeffer(makeLoansDeffered, arrayId, arrayIndex)"
+                    >
+                      OK
+                    </button>
+                    <button
+                      class="btn btn-info"
+                      type="button"
+                      (click)="cancel()"
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </ng-template>
+
+                <!--create forward template-->
+
+                <ng-template #forward>
+  <div class="modal-header bg-info">
+    <h4 class="modal-title text-white-75">Forward Loan</h4>
+                    <button
+                      type="button"
+                      class="close pull-right"
+                      aria-label="Close"
+                      (click)="closeModal()"
+                    >
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <div class="form-group text-primary" [formGroup]="comment">
+                      <textarea
+                        name="reject"
+                        id="c"
+                        formControlName="user_comments"
+                        class="form-control"
+                        rows="5"
+                        placeholder="Comment"
+                        [ngClass]="validateComments()"
+                      ></textarea>
+                    </div>
+                  </div>
+    <div class="modal-footer">
+                    <button
+                      type="submit"
+                      class="btn btn-info"
+                      [disabled]="comment.invalid"
+                      (click)="onForward(forwardedLoansTo, arrayId, arrayIndex)"
+                    >
+                      OK
+                    </button>
+                    <button
+                      class="btn btn-info"
+                      type="button"
+                      (click)="cancel()"
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </ng-template>
+                    <ng-template #noloans>
+                <div class="col-12 my-5 py-5 justify-content-between">
+                  <h4 class="text-center text-info">No Received Loans!</h4>
+                </div>
+                    </ng-template>

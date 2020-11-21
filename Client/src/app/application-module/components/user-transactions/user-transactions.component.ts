@@ -19,8 +19,8 @@ export class UserTransactionsComponent implements OnInit{
   comment:FormGroup;
   editLoanForm:FormGroup
 
-  constructor(private userTransactions:LandingService, 
-    private fb:FormBuilder, 
+  constructor(private userTransactions:LandingService,
+    private fb:FormBuilder,
     private alertService:AlertService,
     private bsModalService:BsModalService) { }
 
@@ -42,7 +42,7 @@ export class UserTransactionsComponent implements OnInit{
       })
     }, 0)
     this.editLoanForm = this.createLoanForm()
-    
+
   }
   //getcoment controls
   get commentControls(){
@@ -69,8 +69,8 @@ export class UserTransactionsComponent implements OnInit{
       'is-invalid': (contact.touched || contact.dirty) && contact.errors,
     }
   }
-    
-  
+
+
   //forwared selected loan
   forwardSelected(template:TemplateRef<any>, id){
     this.bsModalRef =  this.bsModalService.show(template)
@@ -92,23 +92,27 @@ export class UserTransactionsComponent implements OnInit{
   }
   saveEdit(){
     if(this.editLoanForm.invalid){
-      this.alertService.danger('Something went wromge')
+      this.alertService.danger('Something went wrong!')
     }
     else{
       this.alertService.success({
-        html:"<h3>Editted sucessfully</h3>"
+        html:"<h4>Loan edited successfully</h4>"
       })
     }
     this.closeModal()
   }
-  
+
   closeModal(){
     this.bsModalRef.hide()
-  }  
+  }
   checkTransactionsTable(array: Array<any>) {
     return array.length?true:false
   }
-  
+
+  getValue(event){
+
+  }
+
   onSubmit(){
     if(! this.checkTransactionsTable(this.forwardLoansTo)) return ;
     else{
@@ -118,9 +122,8 @@ export class UserTransactionsComponent implements OnInit{
       const {LoanType, Amount} = typeOfLoan
       if(LoanType.toLowerCase() === 'group'){
         console.log('group')
-        //push them 
-        this.alertService.success('forwarded sucessfully')
-
+        //push them
+        this.alertService.success('<h4>Loan forwarded successfully</h4>');
       }
       else{
            console.log('sme')
@@ -128,7 +131,7 @@ export class UserTransactionsComponent implements OnInit{
            if(Amount >1000000000){
              console.log('greater')
            }
-           else if(Amount <3000000 && Amount<=10000000){
+           else if(Amount <3000000 && Amount>=10000000){
              //do something
            }
            else{
@@ -140,6 +143,6 @@ export class UserTransactionsComponent implements OnInit{
     this.closeModal()
 
   }
-   
-   
+
+
 }
