@@ -19,7 +19,7 @@ export class UsersComponent implements OnInit {
   totalItems:number;
   id:string;
   currentPage:number = 1;
-  pageSize = 8;
+  pageSize = 9;
   age: number;
   key:any = 'userId'
   @ViewChild('exportTable')element:ElementRef
@@ -35,10 +35,10 @@ export class UsersComponent implements OnInit {
   		this.filteredUsers = this.user;
       this.totalItems = this.user.length
   	})
-  	
+
   }
 
- 
+
     getValue(event) {
     console.log(event.target.value)
     this.search_term = event.target.value
@@ -50,7 +50,7 @@ export class UsersComponent implements OnInit {
     else{
           this.filteredUsers =  this.filterCustomer(this.search_term)
           this.totalItems = this.filteredUsers.length
- 
+
     }
 
   }
@@ -63,12 +63,12 @@ export class UsersComponent implements OnInit {
       )
 
   }
-  
+
   checkArrayLength(array:Array<any>){
   	return array.length?true:false
   }
   deleteUser(id, name){
-  	const bool = confirm(`Are u sure u want to delete to delete ${name}`);
+  	const bool = confirm(`Are you sure you want to delete ${name}?`);
   	if(bool){
   		this.userService.deleteUser(id)
   		alert(`${name} deleted successfully`)
@@ -97,11 +97,11 @@ export class UsersComponent implements OnInit {
     const wb:XLSX.WorkBook = XLSX.utils.book_new()
     XLSX.utils.book_append_sheet(wb, ws, 'Sheet 1');
 
-    //save fileName 
+    //save fileName
     XLSX.writeFile(wb, this.fileName)
   }
   // exportAsCSV(){
-  //    var options = { 
+  //    var options = {
   //   fieldSeparator: ',',
   //   headers: ['BranchId', 'BranchName', 'EntityName', 'District','Town', 'CreatedAt']
   // };

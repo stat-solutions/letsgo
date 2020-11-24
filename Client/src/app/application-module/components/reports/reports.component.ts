@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Router } from '@angular/router';
 import { CustomValidator } from 'src/app/validators/custom-validator';
@@ -7,7 +12,7 @@ import { CustomValidator } from 'src/app/validators/custom-validator';
 @Component({
   selector: 'app-reports',
   templateUrl: './reports.component.html',
-  styleUrls: ['./reports.component.scss']
+  styleUrls: ['./reports.component.scss'],
 })
 export class ReportsComponent implements OnInit {
   registered = false;
@@ -22,16 +27,21 @@ export class ReportsComponent implements OnInit {
   myDateValue: Date;
   positionValue: string;
   reportTypes = [
-    { id: 1, reportType: "Running reports" },
-    { id: 2, reportType: "Disbursed reports" },
-    { id: 3, reportType: "Rejected reports" },
-    { id: 4, reportType: "Approved reports" },
-    { id: 2, reportType: "Forwarded reports" },
-    { id: 2, reportType: "Received reports" },
-    { id: 2, reportType: "Comprehensive report" },
-  ]
+    { id: 1, reportType: 'Running Loans' },
+    { id: 2, reportType: 'Disbursed Loans' },
+    { id: 3, reportType: 'Rejected Loans' },
+    { id: 4, reportType: 'Approved Loans' },
+    { id: 5, reportType: 'Forwarded Loans' },
+    { id: 6, reportType: 'Deferred Loans' },
+    { id: 7, reportType: 'Received Loans' },
+    { id: 8, reportType: 'Comprehensive report' },
+  ];
 
-  constructor(private fb :FormBuilder, private spinner:NgxSpinnerService, private router:Router) { }
+  constructor(
+    private fb: FormBuilder,
+    private spinner: NgxSpinnerService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.myDateValue = new Date();
@@ -52,7 +62,6 @@ export class ReportsComponent implements OnInit {
         Validators.compose([Validators.required])
       ),
 
-      
       report_type: this.fb.control(
         '',
         Validators.compose([Validators.required])
@@ -68,14 +77,7 @@ export class ReportsComponent implements OnInit {
     return this.userForm.controls;
   }
   getReport(branch) {
-    this.fval.report_type.setValue(branch.target.value)
+    this.fval.branches.setValue(branch.target.value);
   }
-  register() {
-    
-  }
-  
-  
-
-
-
+  register() {}
 }

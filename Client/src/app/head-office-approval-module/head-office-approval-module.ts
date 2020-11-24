@@ -13,7 +13,7 @@ import { HeaderAdminComponent } from './common/header/header-admin.component';
 import { ContentSectionAdminComponent } from './content-section/content-section-admin.component';
 import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
-
+import { TabsModule } from 'ngx-bootstrap/tabs';
 import { CustomersComponent } from './components/customers/customers.component';
 import { ReportsComponent } from './components/reports/reports.component';
 
@@ -35,7 +35,7 @@ import {CustomerDetailsComponent} from './components/customer-details/customer-d
     ReportsComponent,
     EditProfileComponent,
     UserTransactionsComponent,
-    CustomerDetailsComponent
+    CustomerDetailsComponent,
   ],
   imports: [
     CommonModule,
@@ -47,9 +47,10 @@ import {CustomerDetailsComponent} from './components/customer-details/customer-d
     BsDatepickerModule,
     NgxPaginationModule,
     ModalModule.forRoot(),
-    AlertModule.forRoot({maxMessages: 5, timeout: 7000}),
+    AlertModule.forRoot({ maxMessages: 5, timeout: 7000 }),
     TooltipModule.forRoot(),
+    TabsModule.forRoot(),
     OrderModule
   ],
 })
-export class HeadOfficeApprovalModule { }
+export class HeadOfficeApprovalModule {}

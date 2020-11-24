@@ -5,8 +5,6 @@
 .rub-head4 {
   margin-top: 2px !important;
   margin-bottom: 2px !important;
-  margin-right: 0px !important;
-  contain: auto;
 }
 
 .card-body {
@@ -20,25 +18,8 @@ contain: auto;
 
 hr{
   width: 1%;
-  min-width: 5rem !important;
+  min-width: 4.5rem !important;
   border: 2px solid #bbb212b2;
-}
-
-button.btn {
-  border-radius: 12px;
-}
-
-.text-info {
-  color: #114b88 !important
-}
-
-a.text-info:focus,
-a.text-info:hover {
-  color: #48bae4f5 !important
-}
-
-.pointerCursor {
-  cursor: pointer;
 }
 
 //styling of color of placeholder
@@ -118,13 +99,6 @@ a.text-info:hover {
     }
 }
 
-@media (min-width: 640px) {
-  .container {
-    margin-left: auto !important;
-    margin-right: auto !important;
-  }
-}
-
 @media (min-width: 768px) {
   .container {
     margin-left: 0px !important;
@@ -142,10 +116,6 @@ a.text-info:hover {
     .card-body {
       margin-bottom: 1rem !important;
     }
-    .container-fluid {
-      padding-top: 0rem !important;
-      padding-bottom: 0rem !important;
-    }
     .jumbotron-fluid {
       padding-top: 0rem !important;
       padding-bottom: 0rem !important;
@@ -154,7 +124,7 @@ a.text-info:hover {
 
 @media (min-width: 1024px) {
     .container-fluid {
-      padding-top: 6.5rem !important;
+      padding-top: 1.5rem !important;
       padding-bottom: 4rem !important;
     }
   .container {
@@ -178,10 +148,10 @@ a.text-info:hover {
       padding-bottom: 0rem !important;
     }
     .card-body {
-      margin-bottom: .7rem !important;
+      margin-bottom: 3.5rem !important;
     }
     .jumbotron-fluid {
-      padding-bottom: 2.2rem !important;
+      padding-bottom: 2.4rem !important;
     }
 }
 

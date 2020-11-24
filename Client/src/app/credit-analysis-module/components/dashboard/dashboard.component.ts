@@ -20,7 +20,7 @@ export class DashboardComponent implements OnInit {
   totalItems:number;
   id:string;
   currentPage:number = 1;
-  pageSize = 8;
+  pageSize = 10;
   age: number;
   key:any = "Id"
   csvTable = [];
@@ -93,7 +93,7 @@ fileName = "loanInfo.xlsx";
 
 
   clickOnCustomer(id:number){
-        this.router.navigate(['admin/customerdetails', id], )
+        this.router.navigate(['creditanalysis/customerdetails', id]);
   }
    pageChanged(event){
      this.currentPage = event

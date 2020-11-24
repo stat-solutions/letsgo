@@ -5,8 +5,6 @@
 .rub-head4 {
   margin-top: 2px !important;
   margin-bottom: 2px !important;
-  margin-right: 0px !important;
-  contain: auto;
 }
 
 .card-body {
@@ -20,21 +18,8 @@ contain: auto;
 
 hr{
   width: 1%;
-  min-width: 6rem !important;
+  min-width: 4.5rem !important;
   border: 2px solid #bbb212b2;
-}
-
-.btn {
-  border-radius: 12px;
-}
-
-.text-info {
-  color: #114b88 !important
-}
-
-a.text-info:focus,
-a.text-info:hover {
-  color: #48bae4f5 !important
 }
 
 .pointerCursor {

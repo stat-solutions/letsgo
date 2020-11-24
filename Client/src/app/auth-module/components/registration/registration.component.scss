@@ -8,10 +8,6 @@
 contain: auto;
 }
 
-.pointerCursor {
-  cursor: pointer;
-}
-
 //styling of color of placeholder
 ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
   color:    rgb(187, 190, 192);
@@ -51,37 +47,25 @@ contain: auto;
   }
     }
 
+
 @media (min-width: 375px) {
   .card-body {
     max-width: 360px;
     min-width: 350px;
   }
-
 }
-
-
-@media (min-width: 410px) {
-}
-
-
-@media (min-width: 568px) {
-}
-
-
-@media (min-width: 640px) {}
 
 
 @media (min-width: 768px) {
   .card-body {
     margin-bottom: 9rem !important;
   }
-
 }
 
 
 @media (min-width: 812px) {
   .card-body {
-    margin-bottom: 0px !important;
+    margin-bottom: 1.5rem !important;
   }
 }
 
@@ -109,6 +93,7 @@ contain: auto;
     margin-bottom: .65rem !important;
   }
 }
+
 
 @media (min-width: 1280px) {
   .head-icon {

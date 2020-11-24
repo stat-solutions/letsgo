@@ -17,13 +17,13 @@ export class BranchesComponent implements OnInit {
   totalItems:number;
   id:string;
   currentPage:number = 1;
-  pageSize = 6;
+  pageSize = 13;
   age: number;
   key:any = 'branchNumber'
   @ViewChild('exportTable')element:ElementRef
   constructor(private branchService:BranchesService, private router:Router) {
   }
-  
+
   ngOnInit() {
     this.branchService.getAllBranches().subscribe((branches) => {
       this.AllBranches = branches;
@@ -46,7 +46,7 @@ export class BranchesComponent implements OnInit {
           this.searchText = event.target.value
           this.filteredBranches =  this.filterBranches(this.searchText)
           this.totalItems = this.filteredBranches.length;
-  
+
     }
 
   }
@@ -80,11 +80,11 @@ export class BranchesComponent implements OnInit {
     const wb:XLSX.WorkBook = XLSX.utils.book_new()
     XLSX.utils.book_append_sheet(wb, ws, 'Sheet 1');
 
-    //save fileName 
+    //save fileName
     XLSX.writeFile(wb, this.fileName)
   }
   // exportAsCSV(){
-  //    var options = { 
+  //    var options = {
   //   fieldSeparator: ',',
   //   headers: ['BranchId', 'BranchName', 'EntityName', 'District','Town', 'CreatedAt']
   // };

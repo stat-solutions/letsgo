@@ -1,5 +1,5 @@
 <div
-  class="container-fluid d-flex flex-row justify-content-center mb-0 mt-md-1 mt-1 pt-0 pt-md-4 pt-xl-0 pb-3 pb-xl-1 shadow-lg col-xs-12 col-lg-8"
+  class="container-fluid d-flex flex-row justify-content-center mb-0 mt-1 pt-0 pt-md-2 pt-xl-0 pb-xl-1 shadow-lg col-xs-12 col-lg-8"
 >
   <div class="jumbotron-fluid mb-0 pb-0">
     <div class="head-icon d-flex justify-content-center mt-0 mt-md-4 mb-3 pb-0">
@@ -10,7 +10,7 @@
         height="50"
       />
   </div>
-  <div class="card-body mt-1 pt-2 mb-0 mb-md-5 pb-0 pb-lg-4 shadow-lg">
+  <div class="card-body mt-1 pt-2 mb-0 mb-md-4 pb-4 shadow-lg">
     <h3 class="text-info d-flex justify-content-center mt-2 pt-1 mb-3">
       Register
     </h3>
@@ -69,7 +69,7 @@
 
 <div class="form-group text-primary">
         <label for="userEmail" [ngClass]="fval.userEmail.valid ? 'text-info' : ''"
-          >userEmail<i *ngIf="fval.userEmail.valid" class="material-icons"
+          >Email<i *ngIf="fval.userEmail.valid" class="material-icons"
             >check_circle</i
           ></label
         >
@@ -92,7 +92,7 @@
               'is-invalid':
                 (fval.userEmail.touched || fval.userEmail.dirty) && fval.userEmail.errors
             }"
-            placeholder="Enter userEmail address"
+            placeholder="Enter Email address"
             autocomplete="off"
           />
         </div>
@@ -103,7 +103,7 @@
             fval.userEmail.errors?.required
           "
         >
-          The userEmail address is required!
+          The Email address is required!
         </div>
         <div
           class="text-danger col"
@@ -112,14 +112,14 @@
             fval.userEmail.errors?.userEmail
           "
         >
-          Please enter valid userEmail address!
+          Please enter valid Email address!
         </div>
       </div>
     <div class="form-group text-primary">
         <label
           for="userNumber"
           [ngClass]="fval.userNumber.valid ? 'text-info' : ''"
-          >Mobile Number<i
+          >Phone Number<i
             *ngIf="fval.userNumber.valid"
             class="material-icons"
             >check_circle</i
@@ -219,7 +219,7 @@
 
       <div class="form-group text-primary">
         <label for="userPassword" [ngClass]="fval.userPassword.valid ? 'text-info' : ''"
-          >userPassword<i *ngIf="fval.userPassword.valid" class="material-icons"
+          >Password<i *ngIf="fval.userPassword.valid" class="material-icons"
             >check_circle</i
           ></label
         >
@@ -227,7 +227,7 @@
           <div class="input-group-prepend">
             <div class="input-group-text">
               <i
-                class="fas fa-key text-primary mx-auto"
+                class="fas fa-lock text-primary mx-auto"
                 style="size: 50px;"
               ></i>
             </div>
@@ -266,7 +266,7 @@
       </div>
       <div class="form-group text-primary">
         <label for="email" [ngClass]="fval.confirm.valid ? 'text-info' : ''"
-          >ConfirmPassword<i *ngIf="fval.confirm.valid" class="material-icons"
+          >Confirm Password<i *ngIf="fval.confirm.valid" class="material-icons"
             >check_circle</i
           ></label
         >
@@ -274,7 +274,7 @@
           <div class="input-group-prepend">
             <div class="input-group-text">
               <i
-                class="fas fa-key text-primary mx-auto"
+                class="fas fa-lock text-primary mx-auto"
                 style="size: 50px;"
               ></i>
             </div>
@@ -339,7 +339,6 @@
           <p class="text-light">Please wait...</p>
         </ngx-spinner>
         <ngx-alerts></ngx-alerts>
-
         <label class="col" *ngIf="posted" class="text-info">
           <i class="material-icons">check_circle</i>
           <ngx-alerts></ngx-alerts>

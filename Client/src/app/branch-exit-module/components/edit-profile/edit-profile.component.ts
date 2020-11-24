@@ -24,11 +24,11 @@ export class EditProfileComponent implements OnInit{
   mySubscription: any;
   myDateValue: Date;
   positionValue: string;
-  branch = ["branch 1", "branch 2", "branch 3"];
+  branch = ["Branch 1", "Branch 2", "Branch 3"];
   bsModalRef:BsModalRef;
   fileInfo = {name:"", size:0}
   disableButton = true;
-  constructor(private EditUser:UsersService, private fb:FormBuilder, 
+  constructor(private EditUser:UsersService, private fb:FormBuilder,
     private alertService:AlertService,
     private router: Router, private spinner: NgxSpinnerService,
     private bsModalService:BsModalService) { }
@@ -41,97 +41,103 @@ export class EditProfileComponent implements OnInit{
 
   //here
   createFormGroup() {
-    return this.fb.group({
-      full_name: new FormControl(
-        ''
-      ),
-      branches: new FormControl(''),
-      
-      email2: new FormControl(
-        ''
-      ),
-      
-      user_contact_number1: new FormControl(
-        '',
-        Validators.compose([
-          CustomValidator.patternValidator(
-            /^(([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9]))$/,
-            { hasNumber: true }
-          )
-        ])
-      ),
-      currentPassword: new FormControl(
-        '',
-        Validators.compose([
-          // 1. Password Field is Required
-          // 2. check whether the entered password has a number
-          CustomValidator.patternValidator(
-            /^(([0-9])([0-9])([0-9])([0-9]))$/,
-            {
-              hasNumber: true,
-            }
-          ),
-          // 3. check whether the entered password has upper case letter
-          // CustomValidatorInitialCompanySetup.patternValidator(/[A-Z]/, { hasCapitalCase: true }),
-          // 4. check whether the entered password has a lower-case letter
-          // CustomValidatorInitialCompanySetup.patternValidator(/[a-z]/, { hasSmallCase: true }),
-          // 5. check whether the entered password has a special character
-          // CustomValidatorInitialCompanySetup.
-          //   patternValidator(/[!@#$%^&*_+-=;':"|,.<>/?/<mailto:!@#$%^&*_+-=;':"|,.<>/?]/, { hasSpecialCharacters: true }),
+    return this.fb.group(
+      {
+        full_name: new FormControl(''),
+        branches: new FormControl(''),
 
-          // 6. Has a length of exactly 4 digits
-          Validators.minLength(4),
-          Validators.maxLength(4),
-        ])
-      ),
-      password: new FormControl(
-        '',
-        Validators.compose([
-          // 1. Password Field is Required
+        email2: new FormControl(''),
 
-          Validators.required,
+        user_contact_number1: new FormControl(
+          '',
+          Validators.compose([
+            CustomValidator.patternValidator(
+              /^(([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9]))$/,
+              { hasNumber: true }
+            ),
+          ])
+        ),
+        user_contact_number2: new FormControl(
+          '',
+          Validators.compose([
+            CustomValidator.patternValidator(
+              /^(([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9]))$/,
+              { hasNumber: true }
+            ),
+          ])
+        ),
+        currentPassword: new FormControl(
+          '',
+          Validators.compose([
+            // 1. Password Field is Required
+            // 2. check whether the entered password has a number
+            CustomValidator.patternValidator(
+              /^(([0-9])([0-9])([0-9])([0-9]))$/,
+              {
+                hasNumber: true,
+              }
+            ),
+            // 3. check whether the entered password has upper case letter
+            // CustomValidatorInitialCompanySetup.patternValidator(/[A-Z]/, { hasCapitalCase: true }),
+            // 4. check whether the entered password has a lower-case letter
+            // CustomValidatorInitialCompanySetup.patternValidator(/[a-z]/, { hasSmallCase: true }),
+            // 5. check whether the entered password has a special character
+            // CustomValidatorInitialCompanySetup.
+            //   patternValidator(/[!@#$%^&*_+-=;':"|,.<>/?/<mailto:!@#$%^&*_+-=;':"|,.<>/?]/, { hasSpecialCharacters: true }),
 
-          // 2. check whether the entered password has a number
-          CustomValidator.patternValidator(
-            /^(([0-9])([0-9])([0-9])([0-9]))$/,
-            {
-              hasNumber: true,
-            }
-          ),
-          // 3. check whether the entered password has upper case letter
-          // CustomValidatorInitialCompanySetup.patternValidator(/[A-Z]/, { hasCapitalCase: true }),
-          // 4. check whether the entered password has a lower-case letter
-          // CustomValidatorInitialCompanySetup.patternValidator(/[a-z]/, { hasSmallCase: true }),
-          // 5. check whether the entered password has a special character
-          // CustomValidatorInitialCompanySetup.
-          //   patternValidator(/[!@#$%^&*_+-=;':"|,.<>/?/<mailto:!@#$%^&*_+-=;':"|,.<>/?]/, { hasSpecialCharacters: true }),
+            // 6. Has a length of exactly 4 digits
+            Validators.minLength(4),
+            Validators.maxLength(4),
+          ])
+        ),
+        password: new FormControl(
+          '',
+          Validators.compose([
+            // 1. Password Field is Required
 
-          // 6. Has a length of exactly 4 digits
-          Validators.minLength(4),
-          Validators.maxLength(4),
-        ])
-      ),
-      confirmPassword: new FormControl(
-        '',
-        Validators.compose([
-          // 1. Password Field is Required
+            Validators.required,
 
-          Validators.required,
+            // 2. check whether the entered password has a number
+            CustomValidator.patternValidator(
+              /^(([0-9])([0-9])([0-9])([0-9]))$/,
+              {
+                hasNumber: true,
+              }
+            ),
+            // 3. check whether the entered password has upper case letter
+            // CustomValidatorInitialCompanySetup.patternValidator(/[A-Z]/, { hasCapitalCase: true }),
+            // 4. check whether the entered password has a lower-case letter
+            // CustomValidatorInitialCompanySetup.patternValidator(/[a-z]/, { hasSmallCase: true }),
+            // 5. check whether the entered password has a special character
+            // CustomValidatorInitialCompanySetup.
+            //   patternValidator(/[!@#$%^&*_+-=;':"|,.<>/?/<mailto:!@#$%^&*_+-=;':"|,.<>/?]/, { hasSpecialCharacters: true }),
 
-          // 2. check whether the entered password has a number
-          CustomValidator.patternValidator(
-            /^(([0-9])([0-9])([0-9])([0-9]))$/,
-            {
-              hasNumber: true,
-            }
-          ),
-          // 6. Has a length of exactly 4 digits
-          Validators.minLength(4),
-          Validators.maxLength(4),
-        ])
-      ),
-    },
-    { validator: CustomValidator.passwordMatchValidator }
+            // 6. Has a length of exactly 4 digits
+            Validators.minLength(4),
+            Validators.maxLength(4),
+          ])
+        ),
+        confirmPassword: new FormControl(
+          '',
+          Validators.compose([
+            // 1. Password Field is Required
+
+            Validators.required,
+
+            // 2. check whether the entered password has a number
+            CustomValidator.patternValidator(
+              /^(([0-9])([0-9])([0-9])([0-9]))$/,
+              {
+                hasNumber: true,
+              }
+            ),
+            // 6. Has a length of exactly 4 digits
+            Validators.minLength(4),
+            Validators.maxLength(4),
+          ])
+        ),
+      },
+      { validator: CustomValidator.passwordMatchValidator }
     );
   }
 
@@ -146,7 +152,7 @@ export class EditProfileComponent implements OnInit{
     return this.userForm.disable()
   }
   getBranch(event) {
-    
+
   }
 
   enableEdit() {
@@ -175,7 +181,7 @@ export class EditProfileComponent implements OnInit{
   }
 
   setProfileValues () {
-    
+
   }
   update(template:TemplateRef<any>){
      this.bsModalRef =  this.bsModalService.show(template)
@@ -193,7 +199,7 @@ export class EditProfileComponent implements OnInit{
     //console.log(this.fileInfo)
 
   }
-  
+
   updateProfile(){
      console.log(this.fileInfo)
       let extsAllowed = ['jpg', 'jpeg', 'png'];
@@ -201,28 +207,25 @@ export class EditProfileComponent implements OnInit{
       let exts  = name.split(".")[1]
       console.log(exts)
       let findExt = extsAllowed.find(ext=>ext.toLowerCase()===exts.toLowerCase())
-      if(findExt){
-         if(size <10000000){
-           this.alertService.success('updated')
-         }
-         else{
-           this.alertService.danger({
-            html:"<h3>Invalid File size too big</h3>"
-           }) 
-         }
-      }
-      else{
+      if (findExt) {
+        if (size < 10000000) {
+          this.alertService.success('Photo successfully updated');
+        } else {
+          this.alertService.danger({
+            html: '<h4>File size is too big!</h4>',
+          });
+        }
+      } else {
         this.alertService.danger({
-            html:"<h3>Invalid File extension</h3>"
-         })
-
+          html: '<h4>Invalid file extension!</h4>',
+        });
       }
     this.closeModal()
   }
   save () {
 
   }
-  
+
 
 
 

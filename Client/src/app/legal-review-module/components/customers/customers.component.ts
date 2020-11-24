@@ -18,7 +18,7 @@ export class CustomersComponent implements OnInit {
   totalItems:number;
   id:string;
   currentPage:number = 1;
-  pageSize = 3;
+  pageSize = 13;
   key:any = "customerId";
   @ViewChild('exportTable')element:ElementRef
   constructor(private customer:CustomerService, private router:Router) { }
@@ -37,10 +37,10 @@ export class CustomersComponent implements OnInit {
     return array.length?true:false
   }
 
-  
+
    getValue(event) {
     console.log(event.target.value)
-    
+
     if(event.target.value === ''){
       this.filterCustomers = this.customerTable
       this.totalItems = this.filterCustomers.length;
@@ -65,7 +65,7 @@ export class CustomersComponent implements OnInit {
       )
 
   }
-  
+
    pageChanged(event){
      this.currentPage = event
    }
@@ -80,11 +80,11 @@ export class CustomersComponent implements OnInit {
     const wb:XLSX.WorkBook = XLSX.utils.book_new()
     XLSX.utils.book_append_sheet(wb, ws, 'Sheet 1');
 
-    //save fileName 
+    //save fileName
     XLSX.writeFile(wb, this.fileName)
   }
   // exportAsCSV(){
-  //    var options = { 
+  //    var options = {
   //   fieldSeparator: ',',
   //   headers: ['UserId', 'UserName', 'Branch', 'Email', 'Status', 'Logout']
   // };

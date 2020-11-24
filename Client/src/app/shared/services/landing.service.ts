@@ -7,9 +7,9 @@ import * as momemt from 'moment'
   providedIn: 'root',
 })
 export class LandingService {
-  private createdAt = momemt(1577826000000).format('MM/DD/YYYY, h:mm:ss ')
-  private myCreatedAt = momemt(1588280400000).format('MM/DD/YYYY, h:mm:ss ')
-  private loanData  = [
+  private createdAt = momemt(1577826000000).format('MM/DD/YYYY, h:mm:ss ');
+  private myCreatedAt = momemt(1588280400000).format('MM/DD/YYYY, h:mm:ss ');
+  private loanData = [
     {
       Id: 1,
       Customer: 'Nicolas',
@@ -23,10 +23,10 @@ export class LandingService {
       StageAt: this.createdAt,
       HowLong: 4,
       CreatedAt: this.createdAt,
-      LoanStatus:"running",
-      comment:"loan created",
-      Branch:"Application",
-      userName:"Katende Nicholas"
+      LoanStatus: 'running',
+      comment: 'loan created',
+      Branch: 'Application',
+      userName: 'Katende Nicholas',
     },
     {
       Id: 2,
@@ -35,7 +35,7 @@ export class LandingService {
       LoanProduct: 'product 2',
       Tenure: 12,
       Amount: 500000,
-      userName:"Katende Nicholas"
+      userName: 'Katende Nicholas',
     },
     {
       Id: 3,
@@ -47,13 +47,84 @@ export class LandingService {
       Stage: 'BranchExit',
       LoanMovedBy: 'Branch office',
       HowLong: 3,
-      LoanStatus:"disbursed",
-      StageAt:this.createdAt,
-       CreatedAt:this.myCreatedAt,
-      comment:"loan forwarded",
-      Branch:"BranchApproval",
-      userName:"Katende Nicholas"
-
+      LoanStatus: 'disbursed',
+      StageAt: this.createdAt,
+      CreatedAt: this.myCreatedAt,
+      comment: 'loan forwarded',
+      Branch: 'BranchApproval',
+      userName: 'Katende Nicholas',
+    },
+    {
+      Id: 1,
+      Customer: 'Nicolas',
+      LoanType: 'Group',
+      LoanProduct: 'product 1',
+      Tenure: 9,
+      Amount: 500000,
+      Stage: 'Application',
+      Status: 'Notforwaded',
+      LoanMovedBy: 'Branch office',
+      StageAt: this.createdAt,
+      HowLong: 4,
+      CreatedAt: this.createdAt,
+      LoanStatus: 'running',
+      comment: 'loan created',
+      Branch: 'Application',
+      userName: 'Katende Nicholas',
+    },
+    {
+      Id: 1,
+      Customer: 'Nicolas',
+      LoanType: 'Group',
+      LoanProduct: 'product 1',
+      Tenure: 9,
+      Amount: 500000,
+      Stage: 'Application',
+      Status: 'Notforwaded',
+      LoanMovedBy: 'Branch office',
+      StageAt: this.createdAt,
+      HowLong: 4,
+      CreatedAt: this.createdAt,
+      LoanStatus: 'running',
+      comment: 'loan created',
+      Branch: 'Application',
+      userName: 'Katende Nicholas',
+    },
+    {
+      Id: 1,
+      Customer: 'Nicolas',
+      LoanType: 'Group',
+      LoanProduct: 'product 1',
+      Tenure: 9,
+      Amount: 500000,
+      Stage: 'Application',
+      Status: 'Notforwaded',
+      LoanMovedBy: 'Branch office',
+      StageAt: this.createdAt,
+      HowLong: 4,
+      CreatedAt: this.createdAt,
+      LoanStatus: 'running',
+      comment: 'loan created',
+      Branch: 'Application',
+      userName: 'Katende Nicholas',
+    },
+    {
+      Id: 1,
+      Customer: 'Nicolas',
+      LoanType: 'Group',
+      LoanProduct: 'product 1',
+      Tenure: 9,
+      Amount: 500000,
+      Stage: 'Application',
+      Status: 'Notforwaded',
+      LoanMovedBy: 'Branch office',
+      StageAt: this.createdAt,
+      HowLong: 4,
+      CreatedAt: this.createdAt,
+      LoanStatus: 'running',
+      comment: 'loan created',
+      Branch: 'Application',
+      userName: 'Katende Nicholas',
     },
     {
       Id: 4,
@@ -67,12 +138,11 @@ export class LandingService {
       LoanMovedBy: 'Branch office',
       StageAt: this.myCreatedAt,
       HowLong: 1,
-      LoanStatus:"approved",
-       CreatedAt:this.myCreatedAt,
-      comment:"loan forwarded",
-      Branch:"BranchApproval",
-      userName:"Katende Nicholas"
-
+      LoanStatus: 'approved',
+      CreatedAt: this.myCreatedAt,
+      comment: 'loan forwarded',
+      Branch: 'BranchApproval',
+      userName: 'Katende Nicholas',
     },
     {
       Id: 5,
@@ -86,12 +156,47 @@ export class LandingService {
       LoanMovedBy: 'Branch office',
       StageAt: this.myCreatedAt,
       HowLong: 1,
-      LoanStatus:"deferred",
-            CreatedAt:this.myCreatedAt,
-      comment:"loan forwarded",
-      Branch:"BranchApproval",
-      userName:"Katende Nicholas"
-
+      LoanStatus: 'deferred',
+      CreatedAt: this.myCreatedAt,
+      comment: 'loan forwarded',
+      Branch: 'BranchApproval',
+      userName: 'Katende Nicholas',
+    },
+    {
+      Id: 1,
+      Customer: 'Nicolas',
+      LoanType: 'Group',
+      LoanProduct: 'product 1',
+      Tenure: 9,
+      Amount: 500000,
+      Stage: 'Application',
+      Status: 'Notforwaded',
+      LoanMovedBy: 'Branch office',
+      StageAt: this.createdAt,
+      HowLong: 4,
+      CreatedAt: this.createdAt,
+      LoanStatus: 'running',
+      comment: 'loan created',
+      Branch: 'Application',
+      userName: 'Katende Nicholas',
+    },
+    {
+      Id: 1,
+      Customer: 'Nicolas',
+      LoanType: 'Group',
+      LoanProduct: 'product 1',
+      Tenure: 9,
+      Amount: 500000,
+      Stage: 'Application',
+      Status: 'Notforwaded',
+      LoanMovedBy: 'Branch office',
+      StageAt: this.createdAt,
+      HowLong: 4,
+      CreatedAt: this.createdAt,
+      LoanStatus: 'running',
+      comment: 'loan created',
+      Branch: 'Application',
+      userName: 'Katende Nicholas',
     },
     {
       Id: 5,
@@ -105,12 +210,11 @@ export class LandingService {
       LoanMovedBy: 'Branch office',
       StageAt: this.myCreatedAt,
       HowLong: 1,
-      LoanStatus:"rejected",
-            CreatedAt:this.myCreatedAt,
-      comment:"loan forwarded",
-      Branch:"BranchApproval",
-      userName:"Katende Nicholas"
-
+      LoanStatus: 'rejected',
+      CreatedAt: this.myCreatedAt,
+      comment: 'loan forwarded',
+      Branch: 'BranchApproval',
+      userName: 'Katende Nicholas',
     },
     {
       Id: 6,
@@ -124,12 +228,11 @@ export class LandingService {
       LoanMovedBy: 'Branch office',
       StageAt: this.myCreatedAt,
       HowLong: 1,
-      LoanStatus:"approved",
-            CreatedAt:this.myCreatedAt,
-      comment:"loan forwarded",
-      Branch:"BranchApproval",
-      userName:"Katende Nicholas"
-
+      LoanStatus: 'approved',
+      CreatedAt: this.myCreatedAt,
+      comment: 'loan forwarded',
+      Branch: 'BranchApproval',
+      userName: 'Katende Nicholas',
     },
     {
       Id: 7,
@@ -143,11 +246,11 @@ export class LandingService {
       LoanMovedBy: 'Branch office',
       StageAt: this.myCreatedAt,
       HowLong: 1,
-      LoanStatus:"approved",
-      CreatedAt:this.myCreatedAt,
-      comment:"loan created",
-      Branch:"Application",
-      userName:"Katende Nicholas"
+      LoanStatus: 'approved',
+      CreatedAt: this.myCreatedAt,
+      comment: 'loan created',
+      Branch: 'Application',
+      userName: 'Katende Nicholas',
     },
     {
       Id: 8,
@@ -161,11 +264,11 @@ export class LandingService {
       LoanMovedBy: 'Branch office',
       StageAt: this.myCreatedAt,
       HowLong: 1,
-      LoanStatus:"approved",
-       CreatedAt:this.myCreatedAt,
-      comment:"loan forwarded",
-      Branch:"BranchApproval",
-      userName:"Katende Nicholas"
+      LoanStatus: 'approved',
+      CreatedAt: this.myCreatedAt,
+      comment: 'loan forwarded',
+      Branch: 'BranchApproval',
+      userName: 'Katende Nicholas',
     },
     {
       Id: 9,
@@ -179,11 +282,11 @@ export class LandingService {
       LoanMovedBy: 'Branch office',
       StageAt: this.myCreatedAt,
       HowLong: 1,
-      LoanStatus:"approved",
-            CreatedAt:this.myCreatedAt,
-      comment:"loan forwarded",
-      Branch:"BranchApproval",
-      userName:"Katende Nicholas"
+      LoanStatus: 'approved',
+      CreatedAt: this.myCreatedAt,
+      comment: 'loan forwarded',
+      Branch: 'BranchApproval',
+      userName: 'Katende Nicholas',
     },
     {
       Id: 10,
@@ -197,23 +300,22 @@ export class LandingService {
       LoanMovedBy: 'Branch office',
       StageAt: this.myCreatedAt,
       HowLong: 1,
-      LoanStatus:"approved",
-      CreatedAt:this.myCreatedAt,
-      comment:"loan forwarded",
-      Branch:"BranchApproval",
-      userName:"Katende Nicholas"
-
+      LoanStatus: 'approved',
+      CreatedAt: this.myCreatedAt,
+      comment: 'loan forwarded',
+      Branch: 'BranchApproval',
+      userName: 'Katende Nicholas',
     },
   ];
 
-  constructor() { }
+  constructor() {}
   getloanData() {
-    return of(this.loanData)
+    return of(this.loanData);
   }
   getSpecificCustomers(stage: string) {
-    return of(this.loanData.filter(loans=>loans.Stage === stage))
+    return of(this.loanData.filter((loans) => loans.Stage === stage));
   }
-  getLoanDetails(id:number){
-    return of(this.loanData.find(loans=>loans.Id === id))
+  getLoanDetails(id: number) {
+    return of(this.loanData.find((loans) => loans.Id === id));
   }
 }

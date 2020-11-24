@@ -8,21 +8,15 @@
 }
 hr{
   width: 1%;
-  min-width: 6rem !important;
+  min-width: 4.0rem !important;
   border: 2px solid #bbb212b2;
 }
 
+.head-container{
+  border-radius: 7px !important;
+}
 .state-table {
   height: 100%;
-  min-height: 8rem;
-  max-height: 11.6rem;
-  overflow-y: auto;
-}
-.state-table-2 {
-  height: 100%;
-  min-height: 8rem;
-  max-height: 10rem;
-  overflow-y: auto;
 }
 
 .pointerCursor {
@@ -35,47 +29,7 @@ hr{
 @media (min-width: 320px) {
   .jumbotron-fluid {
     padding-top: 0px !important;
-    padding-bottom: .7rem !important;
-  }
-}
-
-@media (min-width: 360px) {
-}
-
-@media (min-width: 375px) {
-.state-table {
-  max-height: 13.0rem;
-}
-.state-table-2 {
-  max-height: 13.0rem;
-}
-}
-
-@media (min-width: 410px) {
-.state-table {
-  max-height: 15.0rem;
-}
-.state-table-2 {
-  max-height: 12.6rem;
-}
-}
-
-@media (min-width: 445px) {
-  .jumbotron-fluid {
-    padding-top: 8px !important;
-  }
-}
-
-@media (min-width: 568px) {
-  .jumbotron-fluid {
-    padding-top: 0px !important;
-  }
-}
-
-@media (min-width: 640px) {
-  .container {
-    margin-left: auto;
-    margin-right: auto;
+    padding-bottom: 0px !important;
   }
 }
 
@@ -85,15 +39,9 @@ hr{
     margin-right: 0px !important;
   }
   .jumbotron-fluid {
-    padding-top: .4rem !important;
-    padding-bottom: .8rem !important;
+    padding-top: .65rem !important;
+    padding-bottom: 1.8rem !important;
   }
-.state-table {
-  max-height: 26rem;
-}
-.state-table-2 {
-  max-height: 20rem;
-}
 }
 
 @media (min-width: 812px) {
@@ -103,36 +51,18 @@ hr{
   }
   .jumbotron-fluid {
     padding-top: 0px !important;
-    padding-bottom: 0rem !important;
+    padding-bottom: .3rem !important;
   }
-.state-table {
-  max-height: 13rem;
-}
-.state-table-2 {
-  max-height: 16rem;
-}
 }
 
 @media (min-width: 1024px) {
   .jumbotron-fluid {
     padding-top: .6rem !important;
-    padding-bottom: .8rem !important;
+    padding-bottom: 1.8rem !important;
   }
-.state-table {
-  max-height: 36rem;
-}
-.state-table-2 {
-  max-height: 25rem;
-}
 }
 
 @media (min-width: 1100px) {
-.state-table {
-  max-height: 14rem;
-}
-.state-table-2 {
-  max-height: 11.6rem;
-}
 }
 
 @media (min-width: 1280px) {
@@ -143,7 +73,7 @@ hr{
   .jumbotron-fluid {
     margin-top: 0px !important;
     padding-top: 0px !important;
-    padding-bottom: .4rem !important;
+    padding-bottom: 0rem !important;
   }
 }
 

@@ -18,7 +18,6 @@ export class LeftPanelAdminComponent implements OnInit {
   @Input() headerColorTheme: string;
   @Input() navbarColorTheme: string;
   @Input() activeNavColorTheme: string;
-  imageurl = '../../../../assets/avatar3.jpg';
   title: any;
   menuList: any;
   selected: any;

@@ -20,7 +20,7 @@ export class DashboardComponent implements OnInit {
   totalItems:number;
   id:string;
   currentPage:number = 1;
-  pageSize = 8;
+  pageSize = 10;
   age: number;
   key:any = "Id"
   csvTable = [];
