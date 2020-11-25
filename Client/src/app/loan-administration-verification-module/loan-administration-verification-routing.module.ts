@@ -17,11 +17,11 @@ const routes: Routes = [
       {
         path: '',
         pathMatch: 'full',
-        redirectTo: 'loanverifndashboard',
+        redirectTo: 'dashboard',
       },
 
       {
-        path: 'loanverifndashboard',
+        path: 'dashboard',
         component: DashboardComponent,
       },
       {

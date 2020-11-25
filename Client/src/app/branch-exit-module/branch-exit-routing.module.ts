@@ -21,11 +21,11 @@ const routes: Routes = [
       {
         path: '',
         pathMatch: 'full',
-        redirectTo: 'branchExitdashboard',
+        redirectTo: 'dashboard',
       },
 
       {
-        path: 'branchExitdashboard',
+        path: 'dashboard',
         component: DashboardComponent,
       },
       {

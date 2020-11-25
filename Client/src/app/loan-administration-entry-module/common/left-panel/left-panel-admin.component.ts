@@ -52,7 +52,7 @@ export class LeftPanelAdminComponent implements OnInit {
       {
         name: 'Dashboard',
         icon: 'fas fa-tachometer-alt',
-        url: '/loanentry/loanentrydashboard'
+        url: '/loanentry/dashboard'
       },
       {
         name: 'Transactions',

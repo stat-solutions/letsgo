@@ -23,11 +23,11 @@ const routes: Routes = [
       {
         path: '',
         pathMatch: 'full',
-        redirectTo: 'admindashboard'
+        redirectTo: 'dashboard'
       },
 
       {
-        path: 'admindashboard',
+        path: 'dashboard',
        component: DashboardComponent,
       },
       {
@@ -38,7 +38,7 @@ const routes: Routes = [
        path:'createsecurity',
        component:CreatesecurityComponent
       },
-      
+
       {
         path: 'loggedin',
        component:ViewLoggedinUsersComponent,
