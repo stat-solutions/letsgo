@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { ConstantsTableComponent } from './constants-table.component';
 
 describe('ConstantsTableComponent', () => {
@@ -14,6 +13,7 @@ describe('ConstantsTableComponent', () => {
   });
 
   beforeEach(() => {
+    fixture = TestBed.createComponent(ConstantsTableComponent);
     fixture = TestBed.createComponent(ConstantsTableComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

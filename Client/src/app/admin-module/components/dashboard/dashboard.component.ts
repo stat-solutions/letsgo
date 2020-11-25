@@ -93,7 +93,6 @@ fileName = "loanInfo.xlsx";
 
   }
 
-
   clickOnCustomer(id:number){
         this.router.navigate(['admin/customerdetails', id], )
   }
@@ -118,7 +117,6 @@ fileName = "loanInfo.xlsx";
       Object.assign({}, { class: 'white modal-lg modal-dialog-center' })
     );
   }
-
   }
   //exportto excel
   exportToExcel(){

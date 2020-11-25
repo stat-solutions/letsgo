@@ -66,22 +66,17 @@ export class ViewLoggedinUsersComponent implements OnInit {
     this.key = item;
     this.reverse = !this.reverse;
   }
-
-  approveUsers() {
-    this.router.navigate(['admin/approveusers']);
-  }
-
-  exportToExcel() {
+  exportToExcel(){
     //pass the table to worksheet
     //const element =  document.getElementById('export-table');
     const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(this.element);
 
     //create a workbook and add work sheet
-    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    const wb:XLSX.WorkBook = XLSX.utils.book_new()
     XLSX.utils.book_append_sheet(wb, ws, 'Sheet 1');
 
     //save fileName
-    XLSX.writeFile(wb, this.fileName);
+    XLSX.writeFile(wb, this.fileName)
   }
   // exportAsCSV(){
   //    var options = {
@@ -93,8 +88,23 @@ export class ViewLoggedinUsersComponent implements OnInit {
   //   new ngxCsv(this.filteredUsers ,'userData', options)
 
   // }
-  logOut(id: number, email: string, i: number) {
-    this.loggedInUser.logOutUser(id, email, i);
+  logOut(id:number, email:string, i:number){
+    this.loggedInUser.logOutUser(id,email,i)
     //get the user details send them to service
   }
+
+  approveUsers() {
+    this.router.navigate(['admin/approveusers']);
+  }
+
+  // exportAsCSV(){
+  //    var options = {
+  //   fieldSeparator: ',',
+  //   headers: ['userId', 'userName', 'LoanType', 'LoanProduct', 'Tenure', 'Amount', 'Stage',
+  //   'Status','LoanMovedBy', 'StageAt', 'Age', 'CreatedAt', 'TotalAge']
+  // };
+  //   //new ngxCsv(this.filteredCustomerData, ‘CustomerData’)
+  //   new ngxCsv(this.filteredUsers ,'userData', options)
+
+  // }
 }

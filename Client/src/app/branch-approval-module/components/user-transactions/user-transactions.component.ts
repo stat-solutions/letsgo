@@ -4,8 +4,7 @@ import { Component, OnInit , OnChanges, TemplateRef} from '@angular/core';
 import {BsModalService, BsModalRef} from 'ngx-bootstrap/modal';
 import * as moment from 'moment';
 import { AlertService } from 'ngx-alerts';
-import {Router} from '@angular/router';
-import { TabsetComponent } from 'ngx-bootstrap/tabs';
+import {Router} from '@angular/router'
 
 @Component({
   selector: 'app-user-transactions',
@@ -48,29 +47,27 @@ export class UserTransactionsComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    setTimeout(() => {
-      this.userTransactions
-        .getSpecificCustomers('Application')
-        .subscribe((userData) => {
-          this.forwardedLoansFrom = userData.map((eachUser) => {
-            const oldDate = eachUser.CreatedAt;
-            const diffInDates = moment(this.age).diff(moment(oldDate));
-            const timeInMonths = moment(diffInDates).format(
-              'MM [months] DD [days]'
-            );
-            return { ...eachUser, TotalAge: timeInMonths };
-          });
-
-          // this.receivedLoans.push(this.forwardedLoansFrom[0])
-          this.comment = this.fb.group({
-            user_comments: ['', Validators.required],
-          });
-          this.defferTo = this.fb.group({
-            deffer_reason: ['', Validators.required],
-            deffer_to: ['', Validators.required],
-          });
+    this.userTransactions
+      .getSpecificCustomers('Application')
+      .subscribe((userData) => {
+        this.forwardedLoansFrom = userData.map((eachUser) => {
+          const oldDate = eachUser.CreatedAt;
+          const diffInDates = moment(this.age).diff(moment(oldDate));
+          const timeInMonths = moment(diffInDates).format(
+            'MM [months] DD [days]'
+          );
+          return { ...eachUser, TotalAge: timeInMonths };
         });
-    }, 0);
+
+        // this.receivedLoans.push(this.forwardedLoansFrom[0])
+        this.comment = this.fb.group({
+          user_comments: ['', Validators.required],
+        });
+        this.defferTo = this.fb.group({
+          deffer_reason: ['', Validators.required],
+          deffer_to: ['', Validators.required],
+        });
+      });
   }
   //receivedLoansre
   receiveLoans(id: number, index) {
@@ -102,9 +99,8 @@ export class UserTransactionsComponent implements OnInit {
     };
   }
 
-//search loan
+  //search loan
   getValue(event) {}
-
 
   closeModal() {
     this.bsModalRef.hide();
@@ -165,34 +161,43 @@ export class UserTransactionsComponent implements OnInit {
       this.arrayIndex = index;
     }
   }
-  // onApprove(array:Array<any>, id:number, index:number){
-  //   this.receivedLoans = this.receivedLoans.filter(loans=>loans.Id !== id)
-  //   this.receivedLoans = this.receivedLoans.filter(loans=>loans.Id !== id)
-  //   this.closeModal()
-  //   this.alertService.success('Your loan has been approved sucessfully')
 
-  // }
   onReject(array: Array<any>, id: number, index: number) {
     this.receivedLoans = this.receivedLoans.filter((loans) => loans.Id !== id);
     this.commentControls.user_comments.reset();
+    this.makeLoansRejected = [];
     this.closeModal();
-    this.alertService.danger('Your loan has been rejected!');
+    this.alertService.danger('Your loan has been rejected sucessfully');
   }
   onDeffer(array: Array<any>, id, index) {
     this.receivedLoans = this.receivedLoans.filter((loans) => loans.Id !== id);
     const level = this.deffer_controls.deffer_to.value;
     this.deffer_controls.deffer_to.reset();
     this.deffer_controls.deffer_reason.reset();
+    this.makeLoansDeffered = [];
     this.closeModal();
     this.alertService.success(
-      'Your loan has been deferred to ' + level
+      'Your loan has been deffered  successfully to ' + level
     );
   }
+
   onForward(array: Array<any>, id, index) {
     this.receivedLoans = this.receivedLoans.filter((loans) => loans.Id !== id);
     this.commentControls.user_comments.reset();
     this.closeModal();
-
-    this.alertService.success('Your loan has been forwarded successfully');
+    //forward loan
+    if (!this.checkTransactionsTable(this.forwardedLoansTo)) return;
+    else {
+      //getloan type
+      //get loan type
+      let typeOfLoan = this.forwardedLoansTo[0];
+      console.log(typeOfLoan);
+      const { Amount } = typeOfLoan;
+      //forward all loans to branch exit
+      this.alertService.success(
+        'Your loan has been forwarded successfully to branch exit'
+      );
+    }
+    this.forwardedLoansTo = [];
   }
 }

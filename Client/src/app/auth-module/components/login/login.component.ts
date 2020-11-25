@@ -87,11 +87,12 @@ export class LoginComponent implements OnInit {
     if (this.userForm.invalid === true) {
       return;
     } else {
-      
+
       this.authService.loginNormalUser(this.userForm).subscribe((sucess:boolean)=>{
         if(sucess){
-          let loginUserRole = jwt_decode(this.authService.getJwtToken()).role
-          let findRole = this.rolesArray.find(role=>role.toLowerCase() === loginUserRole.toLowerCase())
+          let loginUserDetails = jwt_decode(this.authService.getJwtToken())
+          const {role} = loginUserDetails
+          let findRole = this.rolesArray.find(role=>role.toLowerCase() === role.toLowerCase())
           if(findRole){
             this.spinner.hide()
             this.alertService.success({
@@ -102,7 +103,7 @@ export class LoginComponent implements OnInit {
           else{
             this.spinner.hide()
             this.alertService.danger({
-              html:'<strong>You dont have any roles</strong>'
+              html:'<strong>You don\'t have any roles!</strong>'
             })
           }
 
@@ -110,9 +111,9 @@ export class LoginComponent implements OnInit {
         else{
           this.spinner.hide()
           this.alertService.danger({
-            html:"<b>Cannot find any information about u</b>"
+            html:"<b>Cannot find any information about you!</b>"
           })
-          
+
         }
       }),
       (error:string)=>{
@@ -120,14 +121,14 @@ export class LoginComponent implements OnInit {
         console.log(error)
       }
 
-      
-      
+
+
 
          }
-      
-      
 
-   
+
+
+
   }
 
 

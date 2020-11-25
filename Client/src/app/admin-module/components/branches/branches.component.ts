@@ -46,7 +46,6 @@ export class BranchesComponent implements OnInit {
           this.searchText = event.target.value
           this.filteredBranches =  this.filterBranches(this.searchText)
           this.totalItems = this.filteredBranches.length;
-
     }
 
   }
