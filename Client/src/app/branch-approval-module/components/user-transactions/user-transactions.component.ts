@@ -167,7 +167,7 @@ export class UserTransactionsComponent implements OnInit {
     this.commentControls.user_comments.reset();
     this.makeLoansRejected = [];
     this.closeModal();
-    this.alertService.danger('Your loan has been rejected sucessfully');
+    this.alertService.danger('Your loan has been rejected!');
   }
   onDeffer(array: Array<any>, id, index) {
     this.receivedLoans = this.receivedLoans.filter((loans) => loans.Id !== id);
@@ -177,7 +177,7 @@ export class UserTransactionsComponent implements OnInit {
     this.makeLoansDeffered = [];
     this.closeModal();
     this.alertService.success(
-      'Your loan has been deffered  successfully to ' + level
+      'Your loan has been deferred  successfully to ' + level
     );
   }
 
@@ -195,7 +195,7 @@ export class UserTransactionsComponent implements OnInit {
       const { Amount } = typeOfLoan;
       //forward all loans to branch exit
       this.alertService.success(
-        'Your loan has been forwarded successfully to branch exit'
+        'Your loan has been forwarded successfully to Branch Exit'
       );
     }
     this.forwardedLoansTo = [];

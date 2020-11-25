@@ -52,7 +52,7 @@ export class ReportsComponent implements OnInit {
     this.revert();
 
     setTimeout(() => {
-      this.router.navigate(['authpage/loginpage']);
+      this.router.navigate(['authpage/login']);
     }, 2000);
   }
   createFormGroup() {

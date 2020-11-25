@@ -171,7 +171,7 @@ export class UserTransactionsComponent implements OnInit {
     this.receivedLoans = this.receivedLoans.filter((loans) => loans.Id !== id);
     this.commentControls.user_comments.reset();
     this.closeModal();
-    this.alertService.danger('Your loan has been rejected sucessfully');
+    this.alertService.danger('Your loan has been rejected!');
   }
   onDeffer(array: Array<any>, id, index) {
     this.receivedLoans = this.receivedLoans.filter((loans) => loans.Id !== id);
@@ -180,7 +180,7 @@ export class UserTransactionsComponent implements OnInit {
     this.deffer_controls.deffer_reason.reset();
     this.closeModal();
     this.alertService.success(
-      'Your loan has been deffered  successfully to ' + level
+      'Your loan has been deferred  successfully to ' + level
     );
   }
   onForward(array: Array<any>, id, index) {
@@ -190,7 +190,7 @@ export class UserTransactionsComponent implements OnInit {
 
     this.closeModal();
     this.alertService.success(
-      'Your loan has been forwarded successfully loan administrative entry'
+      'Your loan has been forwarded successfully Loan Administration Entry'
     );
   }
   // onApprove(array:Array<any>, id:number, index:number){

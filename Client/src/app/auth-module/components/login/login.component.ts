@@ -28,8 +28,8 @@ export class LoginComponent implements OnInit {
 
   serviceErrors: any = {};
   rolesArray = ['admin', 'application','branchapproval',
-   'branchexit','disbusement',
-  'loanverification', 'loanentry','loanexit', 'regional', 'legalreview','creditanalysisi', 'headofficeapproval', 'headofficeentry']
+   'branchexit','disbursement',
+  'loanverification', 'loanentry','loanexit', 'regional', 'legalreview','creditanalysis', 'headofficeapproval', 'headofficeentry']
 
 
   constructor(
