@@ -22,11 +22,11 @@ const routes: Routes = [
       {
         path: '',
         pathMatch: 'full',
-        redirectTo: 'headOfficedashboard',
+        redirectTo: 'dashboard',
       },
 
       {
-        path: 'headOfficedashboard',
+        path: 'dashboard',
         component: DashboardComponent,
       },
       {

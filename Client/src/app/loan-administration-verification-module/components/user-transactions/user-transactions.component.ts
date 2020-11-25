@@ -138,7 +138,7 @@ export class UserTransactionsComponent implements OnInit {
     else {
       //forward to loan exit
       this.alertService.success(
-        'Loan has been forwarded sucessfully to loan exit stage'
+        'Loan has been forwarded successfully to Loan Exit stage'
       );
     }
   }

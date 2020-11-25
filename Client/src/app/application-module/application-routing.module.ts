@@ -18,11 +18,11 @@ const routes: Routes = [
       {
         path: '',
         pathMatch: 'full',
-        redirectTo: 'applndashboard',
+        redirectTo: 'dashboard',
       },
 
       {
-        path: 'applndashboard',
+        path: 'dashboard',
         component: DashboardComponent,
       },
       {

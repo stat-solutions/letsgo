@@ -20,11 +20,11 @@ const routes: Routes = [
       {
         path: '',
         pathMatch: 'full',
-        redirectTo: 'loanexitdashboard',
+        redirectTo: 'dashboard',
       },
 
       {
-        path: 'loanexitdashboard',
+        path: 'dashboard',
         component: DashboardComponent,
       },
 
