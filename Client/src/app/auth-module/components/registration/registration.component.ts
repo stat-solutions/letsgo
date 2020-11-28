@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { CustomValidator } from 'src/app/validators/custom-validator';
 import { AlertService } from 'ngx-alerts';
 import {UserToProveService} from 'src/app/shared/services/user-to-prove.service'
+import { BranchesService } from 'src/app/shared/services/branches.service';
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
@@ -23,15 +24,12 @@ export class RegistrationComponent implements OnInit {
   mySubscription: any;
   positionValue: string;
   invalid: boolean = false;
-  
-  branch: Array<string> = [
-    "Branch One",
-    "Branch Two"
-  ];
+  branches: any;
 
   
   constructor(
     private authService: AuthServiceService,
+    private branchService: BranchesService,
     private spinner: NgxSpinnerService,
     private router: Router,
     private alertService: AlertService,
@@ -41,6 +39,7 @@ export class RegistrationComponent implements OnInit {
 
   ngOnInit() {
     this.userForm = this.createFormGroup();
+    this.getBranches();
   }
   createFormGroup() {
     return new FormGroup({
@@ -50,7 +49,11 @@ export class RegistrationComponent implements OnInit {
       ),
       userEmail:this.fb.control(
         '',
-        Validators.compose([Validators.required, Validators.email],)
+        Validators.compose([
+          Validators.required,
+          Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),
+        ]),
+        // Validators.compose([Validators.required, Validators.email],)
       ),
       userPassword: this.fb.control(
         '',
@@ -61,13 +64,23 @@ export class RegistrationComponent implements OnInit {
         Validators.compose([Validators.required])
       ),
 
-      branches: this.fb.control(
+      branch: this.fb.control(
         '',
         Validators.compose([Validators.required])
       ),
 
 
       userNumber: this.fb.control(
+        '',
+        Validators.compose([
+          Validators.required,
+          CustomValidator.patternValidator(
+            /^(([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9]))$/,
+            { hasNumber: true }
+          )
+        ])
+      ),
+      userNumber2: this.fb.control(
         '',
         Validators.compose([
           Validators.required,
@@ -100,6 +113,19 @@ export class RegistrationComponent implements OnInit {
   getBranch(branch) {
     this.fval.branches.setValue(branch.target.value)
   }
+  getBranches() {
+    this.branchService.getAllBranches().subscribe(
+      res => {
+        this.branches = res;
+        // branchId: 500
+        // branchName: "HEAD OFFICE"
+        // branchType: "HEAD OFFICE"
+        // fkCompanyIdBranch: 500
+        // console.log(this.branches);
+      },
+      err => console.log(err)
+    );
+  }
 
   returnHome() {
 
@@ -110,40 +136,45 @@ export class RegistrationComponent implements OnInit {
 
   register() {
     this.submitted = true;
-   // this.spinner.show();
     if (this.userForm.invalid === true) {
       return;
     } else {
       this.spinner.show()
-      this.authService.registerUser(this.userForm).subscribe(()=>{
-        this.spinner.hide();
-          this.alertService.success({
-            html:
-              '<b>User Registration Was Successful</b>' +
-              '</br>' +
-              'Your Can Login'
-          });
-          setTimeout(() => {
-            this.router.navigate(['authpage/login']);
-          }, 2000)
-      }),
-      (error: string) => {
+      let data = {
+          userName: this.fval.userName.value.toUpperCase(),
+          userEmail: this.fval.userEmail.value,
+          userPhone1: this.fval.userNumber.value,
+          userPhone2: this.fval.userNumber2.value,
+          userPassword: this.fval.userPassword.value,
+          branchId: null
+      };
+      this.branches.forEach(branch => {
+        if (branch.branchName.toUpperCase() === this.fval.branch.value){
+          data.branchId = branch.branchId;
+        }
+      })
+      // console.log(data);
+      this.authService.registerUser(data).subscribe(
+        ()=> {
+          this.spinner.hide();
+            this.alertService.success({
+              html:
+                '<b>User Registration Was Successful</b>' +
+                '</br>' +
+                'Your Can Login'
+            });
+            setTimeout(() => {
+              this.router.navigate(['authpage/login']);
+            }, 2000)
+          },
+        (error: string) => {
           this.spinner.hide();
           this.alertService.danger({
             html: '<b>' + error +'</b>'
           });
-          setTimeout(() => {
-            location.reload();
-          }, 3000);
           console.log(error);
-        }
-     
-
-         }
-      
-      
-
-      //   this.registered = true;
+        });
+      }
     }
 }
 

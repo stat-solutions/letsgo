@@ -14,7 +14,7 @@ import { UserTransactionsComponent } from './components/user-transactions/user-t
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'loanexit',
     component: PagesCoreAdminComponent,
     children: [
       {

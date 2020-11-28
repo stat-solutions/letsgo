@@ -1,4 +1,4 @@
-import { creditAnalysisRoutingModule } from './credit-analysisl-routing.module';
+import { CreditAnalysisRoutingModule } from './credit-analysisl-routing.module';
 
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -45,7 +45,7 @@ import {CustomerDetailsComponent} from './components/customer-details/customer-d
   ],
   imports: [
     CommonModule,
-    creditAnalysisRoutingModule,
+    CreditAnalysisRoutingModule,
     SharedModule,
     ReactiveFormsModule,
     NgxSpinnerModule,

@@ -1,147 +1,21 @@
 import { Injectable } from '@angular/core';
-import * as moment from 'moment'
-import { of } from 'rxjs';
-import {Branch} from '../models/branch-model'
+import { environment } from 'src/environments/environment';
+import { Router } from '@angular/router';
+import { FormGroup } from '@angular/forms';
+import { Observable, throwError, of } from 'rxjs';
+import { HttpHeaders, HttpErrorResponse, HttpClient, HttpParams, HttpInterceptor, HttpEvent, HttpHandler, HttpRequest } from '@angular/common/http';
+import { Tokens } from '../models/tokens';
+import { map, tap, catchError, mapTo } from 'rxjs/operators';
+import { JwtHelperService } from '@auth0/angular-jwt';
+
 @Injectable({
   providedIn: 'root',
 })
 export class BranchesService {
-  private createdTime = moment(1577826000000).format('MM/DD/YYYY, h:mm:ss ');
-  private branchesInfo: Branch[] = [
-    {
-      branchNumber: 1,
-      branchName: 'HeadOffice',
-      entityName: 'Letshego Uganda Limited',
-      district: 'Kampala',
-      town: 'kawempe',
-      createdAt: this.createdTime,
-    },
-    {
-      branchNumber: 2,
-      branchName: 'Kabala',
-      entityName: 'Letshego Uganda Limited',
-      district: 'Kampala',
-      town: 'kawempe',
-      createdAt: this.createdTime,
-    },
-    {
-      branchNumber: 3,
-      branchName: 'Gulu',
-      entityName: 'Letshego Uganda Limited',
-      district: 'Kampala',
-      town: 'kawempe',
-      createdAt: this.createdTime,
-    },
-    {
-      branchNumber: 4,
-      branchName: 'Gulu',
-      entityName: 'Letshego Uganda Limited',
-      district: 'Kampala',
-      town: 'kawempe',
-      createdAt: this.createdTime,
-    },
-    {
-      branchNumber: 5,
-      branchName: 'Gulu',
-      entityName: 'Letshego Uganda Limited',
-      district: 'Kampala',
-      town: 'kawempe',
-      createdAt: this.createdTime,
-    },
-    {
-      branchNumber: 3,
-      branchName: 'Gulu',
-      entityName: 'Letshego Uganda Limited',
-      district: 'Kampala',
-      town: 'kawempe',
-      createdAt: this.createdTime,
-    },
-    {
-      branchNumber: 4,
-      branchName: 'Gulu',
-      entityName: 'Letshego Uganda Limited',
-      district: 'Kampala',
-      town: 'kawempe',
-      createdAt: this.createdTime,
-    },
-    {
-      branchNumber: 5,
-      branchName: 'Gulu',
-      entityName: 'Letshego Uganda Limited',
-      district: 'Kampala',
-      town: 'kawempe',
-      createdAt: this.createdTime,
-    },
-
-    {
-      branchNumber: 6,
-      branchName: 'Gulu',
-      entityName: 'Letshego Uganda Limited',
-      district: 'Kampala',
-      town: 'kawempe',
-      createdAt: this.createdTime,
-    },
-    {
-      branchNumber: 7,
-      branchName: 'Gulu',
-      entityName: 'Letshego Uganda Limited',
-      district: 'Kampala',
-      town: 'kawempe',
-      createdAt: this.createdTime,
-    },
-    {
-      branchNumber: 3,
-      branchName: 'Gulu',
-      entityName: 'Letshego Uganda Limited',
-      district: 'Kampala',
-      town: 'kawempe',
-      createdAt: this.createdTime,
-    },
-    {
-      branchNumber: 4,
-      branchName: 'Gulu',
-      entityName: 'Letshego Uganda Limited',
-      district: 'Kampala',
-      town: 'kawempe',
-      createdAt: this.createdTime,
-    },
-    {
-      branchNumber: 5,
-      branchName: 'Gulu',
-      entityName: 'Letshego Uganda Limited',
-      district: 'Kampala',
-      town: 'kawempe',
-      createdAt: this.createdTime,
-    },
-    {
-      branchNumber: 3,
-      branchName: 'Gulu',
-      entityName: 'Letshego Uganda Limited',
-      district: 'Kampala',
-      town: 'kawempe',
-      createdAt: this.createdTime,
-    },
-    {
-      branchNumber: 4,
-      branchName: 'Gulu',
-      entityName: 'Letshego Uganda Limited',
-      district: 'Kampala',
-      town: 'kawempe',
-      createdAt: this.createdTime,
-    },
-    {
-      branchNumber: 5,
-      branchName: 'Gulu',
-      entityName: 'Letshego Uganda Limited',
-      district: 'Kampala',
-      town: 'kawempe',
-      createdAt: this.createdTime,
-    },
-  ];
-
-  constructor() {}
-  getAllBranches() {
-    return of(this.branchesInfo);
+  private API_URL = environment.apiUrl;
+  constructor(private http: HttpClient, private router: Router) {}
+  getAllBranches(): Observable<any> {
+    return this.http.get<any>(`${this.API_URL}/api/adminUser/getAllBranches`);
   }
-  createBranch() {}
+  createBranch(): any {}
 }

@@ -22,8 +22,11 @@ import { LoanAdministrationExitModule } from './loan-administration-exit-module/
 import { RegionalApprovalModule } from './regional-approval-module/regional-approval.module';
 import { LoanApplicationModule } from './application-module/loanapplication.module';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { CommonModule } from '@angular/common';
+import { AsyncPipe, CommonModule } from '@angular/common';
 import {ModalModule} from 'ngx-bootstrap/modal';
+import { InterceptorService } from './shared/services/interceptor.service';
+import { SharedModule } from './shared/shared.module';
+import { JwtModule } from '@auth0/angular-jwt';
 
 
 @NgModule({
@@ -34,7 +37,7 @@ import {ModalModule} from 'ngx-bootstrap/modal';
     HttpClientModule,
     AdminModule,
     CommonModule,
-BrowserModule,
+    BrowserModule,
     BranchApprovalModule,
     BranchExitModule,
     LoanApplicationModule,
@@ -55,9 +58,25 @@ BrowserModule,
     BsDatepickerModule.forRoot(),
     ReactiveFormsModule,
     TooltipModule.forRoot(),
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    JwtModule.forRoot({
+      config: {
+      //   tokenGetter: () => {
+      //   //   // ;
+      //   // },
+      //   allowedDomains: ["localhost:4200/"],
+      //   disallowedRoutes: ["http://example.com/examplebadroute/"],
+      },
+    })
   ],
   providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: InterceptorService,
+      multi: true,
+    },
+    SharedModule,
+    AsyncPipe
   ],
   bootstrap: [AppComponent],
 })
