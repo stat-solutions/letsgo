@@ -11,7 +11,7 @@ import {CustomerDetailsComponent} from './components/customer-details/customer-d
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'loanverification',
     component: PagesCoreAdminComponent,
     children: [
       {

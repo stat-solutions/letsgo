@@ -16,7 +16,7 @@ import { UserTransactionsComponent } from './components/user-transactions/user-t
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'disbursement',
     component: PagesCoreAdminComponent,
     children: [
       {

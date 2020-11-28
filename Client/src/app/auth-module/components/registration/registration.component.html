@@ -171,13 +171,67 @@
           The phone number should be equal to 10 "digits"!
         </div>
       </div>
-
-
+<div class="form-group text-primary">
+        <label
+          for="userNumber"
+          [ngClass]="fval.userNumber2.valid ? 'text-info' : ''"
+          >2nd Phone Number<i
+            *ngIf="fval.userNumber2.valid"
+            class="material-icons"
+            >check_circle</i
+          ></label
+        >
+        <div class="input-group mb-0">
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              <i
+                class="fas fa-phone text-primary mx-auto"
+                style="size: 50px;"
+              ></i>
+            </div>
+          </div>
+          <input
+            id="userNumber2"
+            formControlName="userNumber2"
+            type="text"
+            required
+            class="form-control"
+            [ngClass]="{
+              'is-invalid':
+                (fval.userNumber2.touched ||
+                  fval.userNumber2.dirty) &&
+                fval.userNumber2.errors
+            }"
+            placeholder="e.g. 07XXXXXXXX"
+            autocomplete="off"
+          />
+        </div>
+        <div
+          class="text-danger col"
+          *ngIf="
+            (fval.userNumber2.touched ||
+              fval.userNumber2.dirty) &&
+            fval.userNumber2.errors?.required
+          "
+        >
+          The second phone number is required!
+        </div>
+        <div
+          class="text-danger col"
+          *ngIf="
+            (fval.userNumber2.touched ||
+              fval.userNumber2.dirty) &&
+            fval.userNumber2.errors?.hasNumber
+          "
+        >
+          The second phone number should be equal to 10 "digits"!
+        </div>
+      </div>
       <div class="form-group text-primary">
         <label
           for="position"
-          [ngClass]="fval.branches.valid ? 'text-info' : ''"
-          ><i *ngIf="fval.branches.valid" class="material-icons"
+          [ngClass]="fval.branch.valid ? 'text-info' : ''"
+          ><i *ngIf="fval.branch.valid" class="material-icons"
             >check_circle</i
           >Branch</label
         >
@@ -189,28 +243,26 @@
             </div>
           </div>
           <select
-          formControlName="branches"
+          formControlName="branch"
           class="form-control"
           [ngClass]="{
             'is-invalid':
-              (fval.branches.touched || fval.branches.dirty) &&
-              fval.branches.errors
+              (fval.branch.touched || fval.branch.dirty) &&
+              fval.branch.errors
           }"
           autocomplete="off"
           placeholder="Select a branch"
-          (change) ="getBranch($event)"
           required
         >
-        <option value="" selected disabled>Select Branch</option>
-        <option *ngFor="let branches of branch" [ngValue]="branches">{{branches}}</option>
-
+        <option value="" selected disabled>Select branch</option>
+        <option *ngFor="let branch of branches" >{{branch.branchName.toUpperCase()}}</option>
         </select>
     </div>
         <div
           class="text-danger col"
           *ngIf="
-            (fval.branches.touched || fval.branches.dirty) &&
-            fval.branches.errors?.required
+            (fval.branch.touched || fval.branch.dirty) &&
+            fval.branch.errors?.required
           "
         >
           The branch is required!
@@ -235,7 +287,7 @@
           <input
             id="userPassword"
             formControlName="userPassword"
-            type="userPassword"
+            type="password"
             required
             class="form-control"
             [ngClass]="{
@@ -265,7 +317,7 @@
         </div>
       </div>
       <div class="form-group text-primary">
-        <label for="email" [ngClass]="fval.confirm.valid ? 'text-info' : ''"
+        <label for="confirm" [ngClass]="fval.confirm.valid ? 'text-info' : ''"
           >Confirm Password<i *ngIf="fval.confirm.valid" class="material-icons"
             >check_circle</i
           ></label

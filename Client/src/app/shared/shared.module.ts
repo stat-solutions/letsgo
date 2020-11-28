@@ -6,6 +6,9 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { LayoutService } from './services/layout.service';
 import { MenudropdownDirective } from './directives/menudropdown.directive';
+import { AuthServiceService } from './services/auth-service.service';
+import { BranchesService } from './services/branches.service';
+import { InterceptorService } from './services/interceptor.service';
 
 @NgModule({
   declarations: [
@@ -29,7 +32,10 @@ export class SharedModule {
         LayoutService,
         CustomerService,
         UserToProveService,
-        UsersService
+        UsersService,
+        AuthServiceService,
+        BranchesService,
+        InterceptorService
       ]
     };
   }

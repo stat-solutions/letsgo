@@ -12,7 +12,7 @@ import { UserTransactionsComponent } from './components/user-transactions/user-t
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'loanentry',
     component: PagesCoreAdminComponent,
     children: [
       {

@@ -12,7 +12,7 @@ import { UserTransactionsComponent } from './components/user-transactions/user-t
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'branchapproval',
     component: PagesCoreAdminComponent,
     children: [
       {
@@ -23,27 +23,27 @@ const routes: Routes = [
 
       {
         path: 'dashboard',
-       component:DashboardComponent,
+       component: DashboardComponent,
       },
       {
-        path:"customerdetails/:customerid",
-        component:CustomerDetailsComponent
+        path: 'customerdetails/:customerid',
+        component: CustomerDetailsComponent
       },
       {
         path: 'editprofile',
-       component:EditProfileComponent,
+       component: EditProfileComponent,
       },
       {
         path: 'reports',
-       component:ReportsComponent,
+       component: ReportsComponent,
       },
       {
         path: 'usertransactions',
-       component:UserTransactionsComponent,
+       component: UserTransactionsComponent,
       },
       {
         path: 'customers',
-       component:CustomersComponent,
+       component: CustomersComponent,
       },
     ]
   },

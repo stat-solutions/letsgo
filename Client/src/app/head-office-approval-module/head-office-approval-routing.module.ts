@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { PagesCoreAdminComponent } from './pages-core/pages-core-admin.component';
 
- import { DashboardComponent } from './components/dashboard/dashboard.component';
- import {CustomerDetailsComponent} from './components/customer-details/customer-details.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import {CustomerDetailsComponent} from './components/customer-details/customer-details.component';
 
 
 
@@ -16,7 +16,7 @@ import { UserTransactionsComponent } from './components/user-transactions/user-t
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'headofficeapproval',
     component: PagesCoreAdminComponent,
     children: [
       {

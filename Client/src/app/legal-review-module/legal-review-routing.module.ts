@@ -13,7 +13,7 @@ import { UserTransactionsComponent } from './components/user-transactions/user-t
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'legalreview',
     component: PagesCoreAdminComponent,
     children: [
       {
@@ -29,23 +29,23 @@ const routes: Routes = [
 
       {
         path: 'customers',
-       component:CustomersComponent,
+       component: CustomersComponent,
       },
       {
         path: 'editprofile',
-        component:EditProfileComponent,
+        component: EditProfileComponent,
       },
       {
         path: 'usertransactions',
-       component:UserTransactionsComponent,
+       component: UserTransactionsComponent,
       },
       {
-        path: "reports",
-        component:ReportsComponent
+        path: 'reports',
+        component: ReportsComponent
       },
       {
-        path:"customerdetails/:customerid",
-        component:CustomerDetailsComponent
+        path: 'customerdetails/:customerid',
+        component: CustomerDetailsComponent
       }
 
     ]

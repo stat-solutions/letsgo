@@ -17,7 +17,7 @@ import { ConstantsTableComponent } from './components/constants-table/constants-
 import {CustomersComponent} from './components/customers/customers.component';
 const routes: Routes = [
   {
-    path: '',
+    path: 'admin',
     component: PagesCoreAdminComponent,
     children: [
       {
@@ -32,57 +32,57 @@ const routes: Routes = [
       },
       {
         path: 'approveusers',
-       component:ApproveUsersComponent,
+       component: ApproveUsersComponent,
       },
       {
-       path:'createsecurity',
-       component:CreatesecurityComponent
+       path: 'createsecurity',
+       component: CreatesecurityComponent
       },
 
       {
         path: 'loggedin',
-       component:ViewLoggedinUsersComponent,
+       component: ViewLoggedinUsersComponent,
       },
       {
         path: 'reports',
-       component:ReportsComponent,
+       component: ReportsComponent,
       },
       {
         path: 'constants',
-       component:ConstantsComponent,
+       component: ConstantsComponent,
       },
       {
-        path:"editprofile",
-        component:EditProfileComponent
+        path: "editprofile",
+        component: EditProfileComponent
       },
       {
-        path:"branch",
-        component:BranchesComponent
+        path: "branch",
+        component: BranchesComponent
       },
       {
-        path:"constantstable",
-        component:ConstantsTableComponent
+        path: "constantstable",
+        component: ConstantsTableComponent
       },
       {
 
-        path:"createbranch",
-        component:CreateBranchComponent
+        path: "createbranch",
+        component: CreateBranchComponent
       },
       {
-       path:"customers",
-       component:CustomersComponent
+       path: "customers",
+       component: CustomersComponent
       },
       {
-        path:"customerdetails/:customerid",
-        component:CustomerDetailsComponent
+        path: "customerdetails/:customerid",
+        component: CustomerDetailsComponent
       },
       {
         path: "users",
-        component:UsersComponent
+        component: UsersComponent
       },
       {
-        path:"entities",
-        component:EntitiesComponent
+        path: "entities",
+        component: EntitiesComponent
       }
 
 

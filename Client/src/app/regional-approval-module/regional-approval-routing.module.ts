@@ -13,7 +13,7 @@ import {CustomerDetailsComponent} from './components/customer-details/customer-d
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'regional',
     component: PagesCoreAdminComponent,
     children: [
       {
@@ -27,24 +27,24 @@ const routes: Routes = [
        component: DashboardComponent,
       },
       {
-        path:"customers",
-        component:CustomersComponent
+        path: 'customers',
+        component: CustomersComponent
       },
       {
         path: 'editprofile',
-        component:EditProfileComponent
+        component: EditProfileComponent
       },
       {
         path: 'usertransactions',
-        component:UserTransactionsComponent
+        component: UserTransactionsComponent
       },
        {
         path: 'reports',
-        component:ReportsComponent
+        component: ReportsComponent
       },
       {
-        path:"customerdetails/:customerid",
-        component:CustomerDetailsComponent
+        path: 'customerdetails/:customerid',
+        component: CustomerDetailsComponent
       }
 
     ]

@@ -15,7 +15,7 @@ import { UserTransactionsComponent } from './components/user-transactions/user-t
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'branchexit',
     component: PagesCoreAdminComponent,
     children: [
       {

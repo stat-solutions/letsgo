@@ -1,10 +1,11 @@
 {
-  "name": "thunder-bolt-app",
+  "name": "loanlead-app",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --open",
-    "build": "ng build",
+    "config": "ts-node ./scripts/setenv.ts",
+    "start": "npm run config -- --environment=dev && ng serve --open --port 7070",
+    "build": "npm run config -- --environment=prod && ng build",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
@@ -28,6 +29,7 @@
     "file-saver": "^2.0.2",
     "jquery": "^3.5.1",
     "jwt-decode": "^3.0.0-beta.2",
+    "@auth0/angular-jwt": "^5.0.1",
     "material-icons": "^0.3.1",
     "moment": "^2.29.0",
     "ngx-alerts": "^10.1.1",
