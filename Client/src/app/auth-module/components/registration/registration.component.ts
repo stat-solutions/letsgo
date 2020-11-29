@@ -112,19 +112,6 @@ export class RegistrationComponent implements OnInit {
     if (userPassword !== confirmed) { return true; }
     else { return false; }
   }
-  getBranches() {
-    this.branchService.getAllBranches().subscribe(
-      res => {
-        this.branches = res;
-        // branchId: 500
-        // branchName: "HEAD OFFICE"
-        // branchType: "HEAD OFFICE"
-        // fkCompanyIdBranch: 500
-        // console.log(this.branches);
-      },
-      err => console.log(err)
-    );
-  }
 
   getBranches(): any{
     this.branchService.getAllBranches().subscribe(
