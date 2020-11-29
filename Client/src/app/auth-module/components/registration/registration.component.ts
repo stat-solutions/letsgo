@@ -156,7 +156,6 @@ export class RegistrationComponent implements OnInit {
       // console.log(data);
       this.authService.registerUser(data).subscribe(
         (res ) => {
-          if (res.code === 200){
             this.spinner.hide();
             this.alertService.success({
               html:
@@ -167,26 +166,26 @@ export class RegistrationComponent implements OnInit {
             setTimeout(() => {
               this.router.navigate(['authpage/login']);
             }, 2000);
-          } else if (res.code === 428) {
-            this.spinner.hide();
-            this.alertService.danger({
-              html:
-                '<b> loanlead already registered a user with similar details </b>'
-            });
-            setTimeout(() => {
-              this.router.navigate(['authpage/login']);
-            }, 2000);
-          }
-          },
+        },
         (error: any) => {
           this.spinner.hide();
-          this.alertService.danger({
-            html: '<b>' + error.error.error.message + '</b>'
-          });
-          // console.log(error.error.error.message);
-          setTimeout(() => {
-            this.revert();
-          }, 3000);
+          if (error.status === 500){
+            this.alertService.danger({
+              html: '<b> The Back End was not able to Handle this Request </b>'
+            });
+            // console.log(error.error.error.message);
+            setTimeout(() => {
+              this.revert();
+            }, 3000);
+          } else {
+            this.alertService.danger({
+              html: '<b>' + error.error.error.message + '</b>'
+            });
+            // console.log(error.error.error.message);
+            setTimeout(() => {
+              this.revert();
+            }, 3000);
+          }
         });
       }
     }

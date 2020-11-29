@@ -15,10 +15,12 @@ import {EntitiesComponent} from './components/entities/entities.component';
 import {CreatesecurityComponent} from './components/createsecurity/createsecurity.component';
 import { ConstantsTableComponent } from './components/constants-table/constants-table.component';
 import {CustomersComponent} from './components/customers/customers.component';
+import { AdminGuard } from '../shared/services/route-guards/admin-guard.service';
 const routes: Routes = [
   {
     path: 'admin',
     component: PagesCoreAdminComponent,
+    canActivateChild: [AdminGuard],
     children: [
       {
         path: '',
@@ -52,36 +54,36 @@ const routes: Routes = [
        component: ConstantsComponent,
       },
       {
-        path: "editprofile",
+        path: 'editprofile',
         component: EditProfileComponent
       },
       {
-        path: "branch",
+        path: 'branch',
         component: BranchesComponent
       },
       {
-        path: "constantstable",
+        path: 'constantstable',
         component: ConstantsTableComponent
       },
       {
 
-        path: "createbranch",
+        path: 'createbranch',
         component: CreateBranchComponent
       },
       {
-       path: "customers",
+       path: 'customers',
        component: CustomersComponent
       },
       {
-        path: "customerdetails/:customerid",
+        path: 'customerdetails/:customerid',
         component: CustomerDetailsComponent
       },
       {
-        path: "users",
+        path: 'users',
         component: UsersComponent
       },
       {
-        path: "entities",
+        path: 'entities',
         component: EntitiesComponent
       }
 

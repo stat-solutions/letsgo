@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Router } from '@angular/router';
-import * as jwt_decode from 'jwt-decode';
 import { CustomValidator } from 'src/app/validators/custom-validator';
 import { AuthServiceService } from 'src/app/shared/services/auth-service.service';
 import { AlertService } from 'ngx-alerts';
@@ -21,7 +20,7 @@ export class LoginComponent implements OnInit {
   submitted: boolean;
   errored: boolean;
   userForm: FormGroup;
-  loginStatus: string;
+  loginStatus: any;
   fieldType: boolean;
   value: string;
   stationBalanceExits: boolean;
@@ -39,9 +38,6 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     this.userForm = this.createFormGroup();
   }
-
-
-
 
   createFormGroup(): any {
     return new FormGroup({
@@ -67,6 +63,10 @@ export class LoginComponent implements OnInit {
     return this.userForm.controls;
   }
 
+  revert(): any {
+    this.userForm.reset();
+  }
+
 // toggle visibility of password field
     toggleFieldType(): any {
       this.fieldType = !this.fieldType;
@@ -88,7 +88,7 @@ export class LoginComponent implements OnInit {
           // this.posted = true;
           if (this.jwtHelper.decodeToken(this.authService.getJwtToken()).userStatus === 2) {
             console.log(this.jwtHelper.decodeToken(this.authService.getJwtToken()).roleId);
-            switch (this.jwtHelper.decodeToken(this.authService.getJwtToken()).roleId){
+            switch (this.jwtHelper.decodeToken(this.authService.getJwtToken())){
               case 99:
                 this.alertService.danger({
                   html:
@@ -252,17 +252,22 @@ export class LoginComponent implements OnInit {
       (error: any) => {
         this.spinner.hide();
         this.errored = true;
-        this.loginStatus = error.message;
+        this.loginStatus = error;
         // this.alertService.danger(this.loginStatus);
-        this.alertService.danger({
-          html: '<b>' + this.loginStatus + '</b>' + '<br/>'
-        });
         // this.alertService.warning({html: '<b>Signed In Successfully</b>'});
-        if (
-          this.loginStatus === 'Authorisation Failed! User Not Registered'
-        ) {
+        if (this.loginStatus.status === 412) {
+          this.alertService.danger({
+            html: '<b>' + this.fval.userEmail.value + ' recquires approval first' + '<br/>'
+          });
           setTimeout(() => {
-            this.router.navigate(['authpage/register']);
+            this.revert();
+          }, 1000);
+        } else {
+          this.alertService.danger({
+            html: '<b>' + this.loginStatus.error.error.message + '<br/>'
+          });
+          setTimeout(() => {
+            this.revert();
           }, 1000);
         }
         this.spinner.hide();
