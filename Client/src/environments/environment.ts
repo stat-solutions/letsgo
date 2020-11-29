@@ -1,15 +1,15 @@
 
 export const environment = {
    production: 'false',
-   apiUrl: 'https://statbackend.com:3056',
+   apiUrl: 'undefined',
     firebaseConfig : {
-     apiKey: '',
-     authDomain: '',
-     databaseURL: '',
-     projectId: '',
-     storageBucket: '',
-     messagingSenderId: '',
-     appId: '',
-     measurementId: ''
+     apiKey: 'undefined',
+     authDomain: 'undefined',
+     databaseURL: 'undefined',
+     projectId: 'undefined',
+     storageBucket: 'undefined',
+     messagingSenderId: 'undefined',
+     appId: 'undefined',
+     measurementId: 'undefined'
    }
  };
