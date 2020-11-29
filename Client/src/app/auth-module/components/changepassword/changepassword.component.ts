@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CustomValidator } from 'src/app/validators/custom-validator';
 import { AuthServiceService } from 'src/app/shared/services/auth-service.service';
 import { AlertService } from 'ngx-alerts';
@@ -25,14 +25,13 @@ export class ChangepasswordComponent implements OnInit {
   value: string;
   stationBalanceExits: boolean;
   mySubscription: any;
-
   serviceErrors: any = {};
-
+  userEmail: string;
 
   constructor(
     private authService: AuthServiceService,
-
     private router: Router,
+    private route: ActivatedRoute,
     private alertService: AlertService,
     private spinner: NgxSpinnerService,
     private layoutService: LayoutService,
@@ -41,10 +40,23 @@ export class ChangepasswordComponent implements OnInit {
 
   ngOnInit(): void {
     this.userForm = this.createFormGroup();
+    this.route.params.subscribe(params => {
+      // tslint:disable-next-line: no-string-literal
+      this.userEmail = params['userEmail']; // (+) converts string 'id' to a number
+
+      // In a real app: dispatch action to load the details here.
+   });
+    console.log(this.userEmail);
   }
 
-
-
+  sendResetPasswordLink(): any {
+    this.authService.passwordChangeCode({userEmail: this.userEmail}).subscribe(
+      res => console.log(res),
+      err => {
+        console.log(err.error.error.message);
+      }
+    );
+  }
 
   createFormGroup(): any {
     return this.fb.group({
@@ -52,8 +64,15 @@ export class ChangepasswordComponent implements OnInit {
         '',
         Validators.compose([
           // 1. Password Field is Required
-
-          Validators.required
+          CustomValidator.patternValidator(
+            /^(([0-9])([0-9])([0-9])([0-9])([0-9]))$/,
+            {
+              hasNumber: true,
+            }
+          ),
+          Validators.required,
+          Validators.minLength(5),
+          Validators.maxLength(5),
         ])
       ),
       password: new FormControl(
@@ -64,20 +83,9 @@ export class ChangepasswordComponent implements OnInit {
           Validators.required,
 
           // 2. check whether the entered password has a number
-          CustomValidator.patternValidator(/^(([1-9])([1-9])([1-9])([0-9]))$/, {
+          CustomValidator.patternValidator(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$/, {
             hasNumber: true
           }),
-          // 3. check whether the entered password has upper case letter
-          // CustomValidatorInitialCompanySetup.patternValidator(/[A-Z]/, { hasCapitalCase: true }),
-          // 4. check whether the entered password has a lower-case letter
-          // CustomValidatorInitialCompanySetup.patternValidator(/[a-z]/, { hasSmallCase: true }),
-          // 5. check whether the entered password has a special character
-          // CustomValidatorInitialCompanySetup.
-          //   patternValidator(/[!@#$%^&*_+-=;':"|,.<>/?/<mailto:!@#$%^&*_+-=;':"|,.<>/?]/, { hasSpecialCharacters: true }),
-
-          // 6. Has a minimum length of 8 characters
-          Validators.minLength(4),
-          Validators.maxLength(4)
         ])
       ),
       confirmPassword: new FormControl(
@@ -89,14 +97,11 @@ export class ChangepasswordComponent implements OnInit {
 
           // 2. check whether the entered password has a number
           CustomValidator.patternValidator(
-            /^(([0-9])([0-9])([0-9])([0-9]))$/,
+            /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$/,
             {
               hasNumber: true,
             }
           ),
-          // 6. Has a length of exactly 4 digits
-          Validators.minLength(4),
-          Validators.maxLength(4),
         ])
       )
     }, {validator: CustomValidator.passwordMatchValidator}
@@ -137,53 +142,19 @@ export class ChangepasswordComponent implements OnInit {
       return;
     } else {
       this.authService
-        .changePIN(this.userForm)
-
+        .changePIN(
+          {
+            userEmail: this.userEmail,
+            theChangeCode: this.fval.code.value,
+            userPassword: this.fval.password.value
+          }
+        )
         .subscribe(
           (success: boolean) => {
             if (success) {
-            //   this.posted = true;
-            //   if (
-            //     jwt_decode(this.authService.getJwtToken()).user_status ===
-            //     'Approved'
-            //   ) {
-            //     if (
-            //       jwt_decode(this.authService.getJwtToken()).user_role === 1000
-            //     ) {
-            //       this.alertService.success({
-            //         html: '<strong>PIN Changed Successfully</strong>'
-            //       });
-            //       this.spinner.hide();
-            //       setTimeout(() => {
-            //         this.spinner.hide();
 
-            //         this.router.navigate(['authpage/login']);
-            //         location.reload();
-            //       }, 1000);
-
-            //     } else {
-            //       this.alertService.danger({
-            //         html: '<strong>Check the Code provided and try again</strong>'
-            //       });
-            //       this.spinner.hide();
-            //     }
-            //   } else if (
-            //     jwt_decode(this.authService.getJwtToken()).user_status ===
-            //     'Deactivated'
-            //   ) {
-            //     this.alertService.danger({
-            //       html:
-            //         '<strong>This account has been deactivated!, please contact system admin!</strong>'
-            //     });
-            //     this.spinner.hide();
-            //     return;
-            //   }
-            // } else {
-            //   this.spinner.hide();
-            //   this.errored = true;
             }
           },
-
           (error: string) => {
             this.spinner.hide();
             this.errored = true;

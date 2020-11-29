@@ -62,8 +62,15 @@ export class AuthServiceService {
           tap(res => console.log(`AFTER MAP: ${res}`)),
         );
     }
+    passwordChangeCode(postData): any{
+      return this.http.post<any>(`${this.API_URL}/api/user/postPasswordChangeCode`, postData, this.httpOptions)
+      .pipe(
+        map((res: string) => res),
+        tap(res => console.log(`AFTER MAP: ${res}`)),
+      );
+    }
     changePIN(postData: any): any {
-      return this.http.post<any>(`${this.API_URL}/api/user/registerUser`, postData.value, this.httpOptions)
+      return this.http.post<any>(`${this.API_URL}/api/user/postChangePassword`, postData.value, this.httpOptions)
         .pipe(
           // tap(tokens => console.log(`${tokens}`)),
           tap(tokens => this.doLoginUser(postData.value.main_contact_number, tokens)),

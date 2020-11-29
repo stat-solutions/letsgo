@@ -20,7 +20,7 @@ const routes: Routes = [
         component: RegistrationComponent,
       },
       {
-        path: 'changepassword',
+        path: 'changepassword/:userEmail',
         component: ChangepasswordComponent,
       },
       {

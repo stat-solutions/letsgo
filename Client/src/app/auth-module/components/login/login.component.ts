@@ -23,6 +23,7 @@ export class LoginComponent implements OnInit {
   loginStatus: any;
   fieldType: boolean;
   value: string;
+  passwordFailed = true;
   stationBalanceExits: boolean;
   mySubscription: any;
   serviceErrors: any = {};
@@ -259,22 +260,24 @@ export class LoginComponent implements OnInit {
           this.alertService.danger({
             html: '<b>' + this.fval.userEmail.value + ' recquires approval first' + '<br/>'
           });
-          setTimeout(() => {
-            this.revert();
-          }, 1000);
+          this.passwordFailed = true;
+          // setTimeout(() => {
+          //   this.revert();
+          // }, 1000);
         } else {
           this.alertService.danger({
             html: '<b>' + this.loginStatus.error.error.message + '<br/>'
           });
-          setTimeout(() => {
-            this.revert();
-          }, 1000);
+          // setTimeout(() => {
+          //   this.revert();
+          // }, 1000);
         }
         this.spinner.hide();
 
       });
     }
   }
+
 }
 
 

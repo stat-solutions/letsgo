@@ -159,9 +159,9 @@ export class RegistrationComponent implements OnInit {
             this.spinner.hide();
             this.alertService.success({
               html:
-                '<b>User Registration Was Successful</b>' +
+                '<b>Registration Was Successful</b>' +
                 '</br>' +
-                'Your Can Login'
+                'check your registered email to verify your account'
             });
             setTimeout(() => {
               this.router.navigate(['authpage/login']);
