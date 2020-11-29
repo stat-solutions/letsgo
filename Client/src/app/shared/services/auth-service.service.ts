@@ -54,7 +54,6 @@ export class AuthServiceService {
       const options1 = { params: new HttpParams().set('id', id) };
       return this.http.get<any>(`${this.API_URL}/api/auth/isAgentRegistered`, options1);
     }
-
     registerUser(postData: any): any {
       return this.http.post<any>(`${this.API_URL}/api/user/registerUser`, postData, this.httpOptions)
         .pipe(
