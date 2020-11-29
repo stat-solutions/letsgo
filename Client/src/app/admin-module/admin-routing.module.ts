@@ -15,10 +15,12 @@ import {EntitiesComponent} from './components/entities/entities.component';
 import {CreatesecurityComponent} from './components/createsecurity/createsecurity.component';
 import { ConstantsTableComponent } from './components/constants-table/constants-table.component';
 import {CustomersComponent} from './components/customers/customers.component';
+import { AdminGuard } from '../shared/services/route-guards/admin-guard.service';
 const routes: Routes = [
   {
     path: 'admin',
     component: PagesCoreAdminComponent,
+    canActivateChild: [AdminGuard],
     children: [
       {
         path: '',
@@ -64,7 +66,6 @@ const routes: Routes = [
         component: ConstantsTableComponent
       },
       {
-
         path: "createbranch",
         component: CreateBranchComponent
       },

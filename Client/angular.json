@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "thunder-bolt-app": {
+    "loanlead-app-app": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/thunder-bolt-app",
+            "outputPath": "dist/loanlead-app-app",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -74,18 +74,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "thunder-bolt-app:build"
+            "browserTarget": "loanlead-app-app:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "thunder-bolt-app:build:production"
+              "browserTarget": "loanlead-app-app:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "thunder-bolt-app:build"
+            "browserTarget": "loanlead-app-app:build"
           }
         },
         "test": {
@@ -124,18 +124,18 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "thunder-bolt-app:serve"
+            "devServerTarget": "loanlead-app-app:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "thunder-bolt-app:serve:production"
+              "devServerTarget": "loanlead-app-app:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "thunder-bolt-app",
+  "defaultProject": "loanlead-app",
   "cli": {
     "analytics": "c270c95e-fdca-4148-ad21-067f8fc676a9"
   }

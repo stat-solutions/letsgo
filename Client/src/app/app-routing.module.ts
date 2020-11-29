@@ -1,7 +1,7 @@
 
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AuthGuard } from './shared/services/other-services/route-guards/auth-guard.service';
+import { AuthGuard } from './shared/services/route-guards/auth-guard.service';
 
 const routes: Routes = [
   { path: 'authpage', redirectTo: '/authpage/login', pathMatch: 'full', },

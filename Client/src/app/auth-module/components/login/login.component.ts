@@ -2,13 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Router } from '@angular/router';
-import * as jwt_decode from 'jwt-decode';
 import { CustomValidator } from 'src/app/validators/custom-validator';
 import { AuthServiceService } from 'src/app/shared/services/auth-service.service';
 import { AlertService } from 'ngx-alerts';
 import { LayoutService } from 'src/app/shared/services/layout.service';
 import { Observable } from 'rxjs';
 import {UsersService} from 'src/app/shared/services/users.service';
+import { JwtHelperService } from '@auth0/angular-jwt';
 // import { BootstrapAlertService, BootstrapAlert } from 'ngx-bootstrap-alert';
 @Component({
   selector: 'app-login',
@@ -17,122 +17,264 @@ import {UsersService} from 'src/app/shared/services/users.service';
 })
 export class LoginComponent implements OnInit {
   registered: boolean;
-  submitted:boolean
+  submitted: boolean;
   errored: boolean;
   userForm: FormGroup;
-  loginStatus: string;
+  loginStatus: any;
   fieldType: boolean;
   value: string;
   stationBalanceExits: boolean;
   mySubscription: any;
-
   serviceErrors: any = {};
-  rolesArray = ['admin', 'application','branchapproval',
-   'branchexit','disbursement',
-  'loanverification', 'loanentry','loanexit', 'regional', 'legalreview','creditanalysis', 'headofficeapproval', 'headofficeentry']
-
-
   constructor(
     private authService: AuthServiceService,
-
+    private jwtHelper: JwtHelperService,
     private router: Router,
     private alertService: AlertService,
     private spinner: NgxSpinnerService,
     private layoutService: LayoutService,
-    private userService:UsersService
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.userForm = this.createFormGroup();
   }
 
-
-
-
-  createFormGroup() {
+  createFormGroup(): any {
     return new FormGroup({
 
       userEmail: new FormControl(
         '',
         Validators.compose([
           Validators.required,
-          Validators.email
+          Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')
         ])
       ),
       userPassword: new FormControl(
         '',
         Validators.compose([
-          // 1. Password Field is Required
-          CustomValidator.patternValidator(/\d/, { hasNumber: true }),
-          Validators.maxLength(4),
-          Validators.minLength(4),
-          Validators.required
+          Validators.required,
+          CustomValidator.patternValidator(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$/, { hasNumber: true })
         ])
       )
     });
   }
 
-  get fval() {
+  get fval(): any {
     return this.userForm.controls;
   }
 
-//toggle visibility of password field
-    toggleFieldType() {
+  revert(): any {
+    this.userForm.reset();
+  }
+
+// toggle visibility of password field
+    toggleFieldType(): any {
       this.fieldType = !this.fieldType;
     }
 
-    login() {
+    login(): any {
     this.submitted = true;
-    this.spinner.show()
     if (this.userForm.invalid === true) {
       return;
     } else {
-
-      this.authService.loginNormalUser(this.userForm).subscribe((sucess:boolean)=>{
-        if(sucess){
-          let loginUserDetails = jwt_decode(this.authService.getJwtToken())
-          const {role} = loginUserDetails
-          let findRole = this.rolesArray.find(role=>role.toLowerCase() === role.toLowerCase())
-          if(findRole){
-            this.spinner.hide()
-            this.alertService.success({
-                html: '<strong>Logged In Successfully</strong>'
-            })
-            this.router.navigate([findRole+'/dashboard'])
+      this.spinner.show();
+      this.authService.loginNormalUser(
+        {
+          userEmail: this.fval.userEmail.value,
+          userPassword: this.fval.userPassword.value
+        }
+      ).subscribe((success: boolean) => {
+        if (success) {
+          // this.posted = true;
+          if (this.jwtHelper.decodeToken(this.authService.getJwtToken()).userStatus === 2) {
+            console.log(this.jwtHelper.decodeToken(this.authService.getJwtToken()).roleId);
+            switch (this.jwtHelper.decodeToken(this.authService.getJwtToken())){
+              case 99:
+                this.alertService.danger({
+                  html:
+                    '<strong>This account recquires approval, please contact system admin!</strong>'
+                });
+                this.spinner.hide();
+                break;
+              case 100:
+                this.alertService.success({
+                  html: '<strong>Signed In Successfully</strong>'
+                });
+                this.spinner.hide();
+                setTimeout(() => {
+                  this.spinner.hide();
+                  this.router.navigate(['/application']);
+                }, 1000);
+                break;
+              case 200:
+                this.alertService.success({
+                  html: '<strong>Signed In Successfully</strong>'
+                });
+                this.spinner.hide();
+                setTimeout(() => {
+                  this.spinner.hide();
+                  this.router.navigate(['/branchapproval']);
+                }, 1000);
+                break;
+              case 300:
+                this.alertService.success({
+                  html: '<strong>Signed In Successfully</strong>'
+                });
+                this.spinner.hide();
+                setTimeout(() => {
+                  this.spinner.hide();
+                  this.router.navigate(['/branchexit']);
+                }, 1000);
+                break;
+              case 400:
+                this.alertService.success({
+                  html: '<strong>Signed In Successfully</strong>'
+                });
+                this.spinner.hide();
+                setTimeout(() => {
+                  this.spinner.hide();
+                  this.router.navigate(['/regional']);
+                }, 1000);
+                break;
+              case 500:
+                this.alertService.success({
+                  html: '<strong>Signed In Successfully</strong>'
+                });
+                this.spinner.hide();
+                setTimeout(() => {
+                  this.spinner.hide();
+                  this.router.navigate(['/headofficeentry']);
+                }, 1000);
+                break;
+              case 600:
+                this.alertService.success({
+                  html: '<strong>Signed In Successfully</strong>'
+                });
+                this.spinner.hide();
+                setTimeout(() => {
+                  this.spinner.hide();
+                  this.router.navigate(['/legalreview']);
+                }, 1000);
+                break;
+              case 700:
+                this.alertService.success({
+                  html: '<strong>Signed In Successfully</strong>'
+                });
+                this.spinner.hide();
+                setTimeout(() => {
+                  this.spinner.hide();
+                  this.router.navigate(['/creditanalysis']);
+                }, 1000);
+                break;
+              case 800:
+                this.alertService.success({
+                  html: '<strong>Signed In Successfully</strong>'
+                });
+                this.spinner.hide();
+                setTimeout(() => {
+                  this.spinner.hide();
+                  this.router.navigate(['/headofficeapproval']);
+                }, 1000);
+                break;
+              case 900:
+                this.alertService.success({
+                  html: '<strong>Signed In Successfully</strong>'
+                });
+                this.spinner.hide();
+                setTimeout(() => {
+                  this.spinner.hide();
+                  this.router.navigate(['/loanentry']);
+                }, 1000);
+                break;
+              case 1000:
+                this.alertService.success({
+                  html: '<strong>Signed In Successfully</strong>'
+                });
+                this.spinner.hide();
+                setTimeout(() => {
+                  this.spinner.hide();
+                  this.router.navigate(['/loanverification']);
+                }, 1000);
+                break;
+              case 1100:
+                this.alertService.success({
+                  html: '<strong>Signed In Successfully</strong>'
+                });
+                this.spinner.hide();
+                setTimeout(() => {
+                  this.spinner.hide();
+                  this.router.navigate(['/loanexit']);
+                }, 1000);
+                break;
+              case 1200:
+                this.alertService.success({
+                  html: '<strong>Signed In Successfully</strong>'
+                });
+                this.spinner.hide();
+                setTimeout(() => {
+                  this.spinner.hide();
+                  this.router.navigate(['/disbursement']);
+                }, 1000);
+                break;
+              case 1300:
+                this.alertService.success({
+                  html: '<strong>Signed In Successfully</strong>'
+                });
+                this.spinner.hide();
+                setTimeout(() => {
+                  this.spinner.hide();
+                  this.router.navigate(['/admin']);
+                }, 1000);
+            }
           }
-          else{
-            this.spinner.hide()
+          else if (this.jwtHelper.decodeToken(this.authService.getJwtToken()).userStatus === 3) {
             this.alertService.danger({
-              html:'<strong>You don\'t have any roles!</strong>'
-            })
+              html:
+                '<strong>This account has been deactivated!, please contact system admin!</strong>'
+            });
+            this.spinner.hide();
+            return;
           }
-
+          else if (this.jwtHelper.decodeToken(this.authService.getJwtToken()).userStatus === 1) {
+            this.alertService.danger({
+              html:
+                '<strong>This account recquires approval, please contact system admin!</strong>'
+            });
+            this.spinner.hide();
+            return;
+          }
+        } else {
+          this.spinner.hide();
+          this.errored = true;
         }
-        else{
-          this.spinner.hide()
+      },
+
+      (error: any) => {
+        this.spinner.hide();
+        this.errored = true;
+        this.loginStatus = error;
+        // this.alertService.danger(this.loginStatus);
+        // this.alertService.warning({html: '<b>Signed In Successfully</b>'});
+        if (this.loginStatus.status === 412) {
           this.alertService.danger({
-            html:"<b>Cannot find any information about you!</b>"
-          })
-
+            html: '<b>' + this.fval.userEmail.value + ' recquires approval first' + '<br/>'
+          });
+          setTimeout(() => {
+            this.revert();
+          }, 1000);
+        } else {
+          this.alertService.danger({
+            html: '<b>' + this.loginStatus.error.error.message + '<br/>'
+          });
+          setTimeout(() => {
+            this.revert();
+          }, 1000);
         }
-      }),
-      (error:string)=>{
-        this.spinner.hide()
-        console.log(error)
-      }
+        this.spinner.hide();
 
-
-
-
-         }
-
-
-
-
+      });
+    }
   }
-
-
-
 }
 
 

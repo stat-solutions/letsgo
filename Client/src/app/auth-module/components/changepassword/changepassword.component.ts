@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Router } from '@angular/router';
-import * as jwt_decode from 'jwt-decode';
 import { CustomValidator } from 'src/app/validators/custom-validator';
 import { AuthServiceService } from 'src/app/shared/services/auth-service.service';
 import { AlertService } from 'ngx-alerts';
@@ -37,17 +36,17 @@ export class ChangepasswordComponent implements OnInit {
     private alertService: AlertService,
     private spinner: NgxSpinnerService,
     private layoutService: LayoutService,
-private fb: FormBuilder
+    private fb: FormBuilder
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.userForm = this.createFormGroup();
   }
 
 
 
 
-  createFormGroup() {
+  createFormGroup(): any {
     return this.fb.group({
       code: new FormControl(
         '',
@@ -105,11 +104,11 @@ private fb: FormBuilder
   }
 
 
-  revert() {
+  revert(): any {
     this.userForm.reset();
   }
-//method for canceling action
-  returnHome() {
+// method for canceling action
+  returnHome(): any {
     this.spinner.hide();
     this.revert();
 
@@ -118,18 +117,18 @@ private fb: FormBuilder
     }, 2000);
   }
 
-  get fval() {
+  get fval(): any {
     return this.userForm.controls;
   }
 
-//toggle visibility of password field
-    toggleFieldType() {
+// toggle visibility of password field
+    toggleFieldType(): any {
       this.fieldType = !this.fieldType;
     }
 
 
 
-        changePassword() {
+    changePassword(): any {
     this.submitted = true;
 
     this.spinner.show();
@@ -143,45 +142,45 @@ private fb: FormBuilder
         .subscribe(
           (success: boolean) => {
             if (success) {
-              this.posted = true;
-              if (
-                jwt_decode(this.authService.getJwtToken()).user_status ===
-                'Approved'
-              ) {
-                if (
-                  jwt_decode(this.authService.getJwtToken()).user_role === 1000
-                ) {
-                  this.alertService.success({
-                    html: '<strong>PIN Changed Successfully</strong>'
-                  });
-                  this.spinner.hide();
-                  setTimeout(() => {
-                    this.spinner.hide();
+            //   this.posted = true;
+            //   if (
+            //     jwt_decode(this.authService.getJwtToken()).user_status ===
+            //     'Approved'
+            //   ) {
+            //     if (
+            //       jwt_decode(this.authService.getJwtToken()).user_role === 1000
+            //     ) {
+            //       this.alertService.success({
+            //         html: '<strong>PIN Changed Successfully</strong>'
+            //       });
+            //       this.spinner.hide();
+            //       setTimeout(() => {
+            //         this.spinner.hide();
 
-                    this.router.navigate(['authpage/login']);
-                    location.reload();
-                  }, 1000);
+            //         this.router.navigate(['authpage/login']);
+            //         location.reload();
+            //       }, 1000);
 
-                } else {
-                  this.alertService.danger({
-                    html: '<strong>Check the Code provided and try again</strong>'
-                  });
-                  this.spinner.hide();
-                }
-              } else if (
-                jwt_decode(this.authService.getJwtToken()).user_status ===
-                'Deactivated'
-              ) {
-                this.alertService.danger({
-                  html:
-                    '<strong>This account has been deactivated!, please contact system admin!</strong>'
-                });
-                this.spinner.hide();
-                return;
-              }
-            } else {
-              this.spinner.hide();
-              this.errored = true;
+            //     } else {
+            //       this.alertService.danger({
+            //         html: '<strong>Check the Code provided and try again</strong>'
+            //       });
+            //       this.spinner.hide();
+            //     }
+            //   } else if (
+            //     jwt_decode(this.authService.getJwtToken()).user_status ===
+            //     'Deactivated'
+            //   ) {
+            //     this.alertService.danger({
+            //       html:
+            //         '<strong>This account has been deactivated!, please contact system admin!</strong>'
+            //     });
+            //     this.spinner.hide();
+            //     return;
+            //   }
+            // } else {
+            //   this.spinner.hide();
+            //   this.errored = true;
             }
           },
 

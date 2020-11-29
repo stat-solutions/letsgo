@@ -5,8 +5,9 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { Router } from '@angular/router';
 import { CustomValidator } from 'src/app/validators/custom-validator';
 import { AlertService } from 'ngx-alerts';
-import {UserToProveService} from 'src/app/shared/services/user-to-prove.service'
+import {UserToProveService} from 'src/app/shared/services/user-to-prove.service';
 import { BranchesService } from 'src/app/shared/services/branches.service';
+import { constants } from 'os';
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
@@ -23,31 +24,29 @@ export class RegistrationComponent implements OnInit {
   fieldType: boolean;
   mySubscription: any;
   positionValue: string;
-  invalid: boolean = false;
+  invalid = false;
   branches: any;
-
-  
   constructor(
     private authService: AuthServiceService,
     private branchService: BranchesService,
     private spinner: NgxSpinnerService,
     private router: Router,
     private alertService: AlertService,
-    private fb:FormBuilder,
-    private registerUser:UserToProveService
+    private fb: FormBuilder,
+    private registerUser: UserToProveService
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.userForm = this.createFormGroup();
     this.getBranches();
   }
-  createFormGroup() {
+  createFormGroup(): any {
     return new FormGroup({
-      userName:this.fb.control(
+      userName: this.fb.control(
         '',
         Validators.compose([Validators.required, Validators.minLength(2)])
       ),
-      userEmail:this.fb.control(
+      userEmail: this.fb.control(
         '',
         Validators.compose([
           Validators.required,
@@ -57,9 +56,12 @@ export class RegistrationComponent implements OnInit {
       ),
       userPassword: this.fb.control(
         '',
-        Validators.compose([Validators.required, CustomValidator.patternValidator(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$/, { hasNumber: true })])
+        Validators.compose([
+          Validators.required,
+          CustomValidator.patternValidator(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$/, { hasNumber: true })
+      ])
       ),
-      confirm:this.fb.control(
+      confirm: this.fb.control(
         '',
         Validators.compose([Validators.required])
       ),
@@ -93,25 +95,22 @@ export class RegistrationComponent implements OnInit {
     });
   }
 
-  revert() {
+  revert(): any {
     this.userForm.reset();
   }
 
-  get fval() {
+  get fval(): any {
     return this.userForm.controls;
   }
-    //toggle visibility of userPassword field
-    toggleFieldType() {
+    // toggle visibility of userPassword field
+  toggleFieldType(): any {
       this.fieldType = !this.fieldType;
-    }
-  matchPasswords():boolean {
-    const userPassword = this.fval.userPassword.value;
-    const confirmed = this.fval.confirm.value
-    if (userPassword !== confirmed) return true
-    else return false
   }
-  getBranch(branch) {
-    this.fval.branches.setValue(branch.target.value)
+  matchPasswords(): boolean {
+    const userPassword = this.fval.userPassword.value;
+    const confirmed = this.fval.confirm.value;
+    if (userPassword !== confirmed) { return true; }
+    else { return false; }
   }
   getBranches() {
     this.branchService.getAllBranches().subscribe(
@@ -127,20 +126,32 @@ export class RegistrationComponent implements OnInit {
     );
   }
 
-  returnHome() {
-
-    this.revert();
-      this.router.navigate(['authpage/login']);
- 
+  getBranches(): any{
+    this.branchService.getAllBranches().subscribe(
+      res => {
+        this.branches = res;
+        // branchId: 500
+        // branchName: "HEAD OFFICE"
+        // branchType: "HEAD OFFICE"
+        // fkCompanyIdBranch: 500
+        // console.log(this.branches);
+      },
+      err => console.log(err)
+    );
   }
 
-  register() {
+  returnHome(): any {
+    this.revert();
+    this.router.navigate(['authpage/login']);
+  }
+
+  register(): any {
     this.submitted = true;
     if (this.userForm.invalid === true) {
       return;
     } else {
-      this.spinner.show()
-      let data = {
+      this.spinner.show();
+      const data = {
           userName: this.fval.userName.value.toUpperCase(),
           userEmail: this.fval.userEmail.value,
           userPhone1: this.fval.userNumber.value,
@@ -152,11 +163,11 @@ export class RegistrationComponent implements OnInit {
         if (branch.branchName.toUpperCase() === this.fval.branch.value){
           data.branchId = branch.branchId;
         }
-      })
+      });
       // console.log(data);
       this.authService.registerUser(data).subscribe(
-        ()=> {
-          this.spinner.hide();
+        (res ) => {
+            this.spinner.hide();
             this.alertService.success({
               html:
                 '<b>User Registration Was Successful</b>' +
@@ -165,14 +176,27 @@ export class RegistrationComponent implements OnInit {
             });
             setTimeout(() => {
               this.router.navigate(['authpage/login']);
-            }, 2000)
-          },
-        (error: string) => {
+            }, 2000);
+        },
+        (error: any) => {
           this.spinner.hide();
-          this.alertService.danger({
-            html: '<b>' + error +'</b>'
-          });
-          console.log(error);
+          if (error.status === 500){
+            this.alertService.danger({
+              html: '<b> The Back End was not able to Handle this Request </b>'
+            });
+            // console.log(error.error.error.message);
+            setTimeout(() => {
+              this.revert();
+            }, 3000);
+          } else {
+            this.alertService.danger({
+              html: '<b>' + error.error.error.message + '</b>'
+            });
+            // console.log(error.error.error.message);
+            setTimeout(() => {
+              this.revert();
+            }, 3000);
+          }
         });
       }
     }
