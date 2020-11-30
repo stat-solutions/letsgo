@@ -31,6 +31,9 @@ export class ViewLoggedinUsersComponent implements OnInit {
       this.totalItems = this.loggedInUsers.length;
     });
   }
+  goToUsers(): any{
+    this.router.navigate(['admin/users']);
+  }
   checkLoggedInUsers(array: Array<any>) {
     return array.length ? true : false;
   }

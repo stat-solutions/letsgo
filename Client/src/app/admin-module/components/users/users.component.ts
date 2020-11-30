@@ -4,7 +4,7 @@ import {FormGroup, FormBuilder} from '@angular/forms';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {Router} from '@angular/router';
 import * as XLSX from 'xlsx';
-import { ngxCsv } from 'ngx-csv/ngx-csv'
+import { ngxCsv } from 'ngx-csv/ngx-csv';
 
 @Component({
   selector: 'app-users',
@@ -12,91 +12,92 @@ import { ngxCsv } from 'ngx-csv/ngx-csv'
   styleUrls: ['./users.component.scss']
 })
 export class UsersComponent implements OnInit {
-	user = [];
-	filteredUsers = [];
-	search_term:string;
-  fileName="users.xlsx";
-  totalItems:number;
-  id:string;
-  currentPage:number = 1;
+  user = [];
+  filteredUsers = [];
+  // tslint:disable-next-line: variable-name
+  search_term: string;
+  reverse = false;
+  fileName = 'users.xlsx';
+  totalItems: number;
+  id: string;
+  currentPage = 1;
   pageSize = 9;
   age: number;
-  key:any = 'userId'
-  @ViewChild('exportTable')element:ElementRef
+  key: any = 'userId';
+  @ViewChild('exportTable')element: ElementRef;
 
-  constructor(private userService:UsersService,
-   private fb:FormBuilder, private spinner:NgxSpinnerService,
-   private router:Router
+  constructor(private userService: UsersService,
+              private fb: FormBuilder, private spinner: NgxSpinnerService,
+              private router: Router
    ) { }
 
-  ngOnInit(){
-  	this.userService.getAllUsers().subscribe(users=>{
-  		this.user = users;
-  		this.filteredUsers = this.user;
-      this.totalItems = this.user.length
-  	})
-
+  ngOnInit(): void{
+    this.userService.getUsers().subscribe(res => {
+      this.user = res;
+      this.filteredUsers = this.user;
+      this.totalItems = this.user.length;
+    });
   }
 
 
-    getValue(event) {
-    console.log(event.target.value)
-    this.search_term = event.target.value
-    if(event.target.value === ''){
-       this.filteredUsers = this.user
-       this.totalItems = this.filteredUsers.length
+    getValue(event): any {
+    console.log(event.target.value);
+    this.search_term = event.target.value;
+    if (event.target.value === ''){
+       this.filteredUsers = this.user;
+       this.totalItems = this.filteredUsers.length;
 
     }
     else{
-          this.filteredUsers =  this.filterCustomer(this.search_term)
-          this.totalItems = this.filteredUsers.length
+          this.filteredUsers =  this.filterCustomer(this.search_term);
+          this.totalItems = this.filteredUsers.length;
     }
 
   }
-  filterCustomer(searchTerm:string){
-    if(searchTerm)
+  filterCustomer(searchTerm: string): any{
+    if (searchTerm) {
     return this.filteredUsers.filter(
-      user=>user.name.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1
-      ||user.role.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1
-      ||user.email.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1
-      )
+      user => user.userName.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1
+      || user.fkRoleIdUser.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1
+      || user.userEmail.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1
+      );
+    }
 
   }
-  checkArrayLength(array:Array<any>){
-  	return array.length?true:false
+  checkArrayLength(array: Array<any>): any{
+    return array.length ? true : false;
   }
-  deleteUser(id, name){
-  	const bool = confirm(`Are you sure you want to delete ${name}?`);
-  	if(bool){
-  		this.userService.deleteUser(id)
-  		alert(`${name} deleted successfully`)
-  	}
-  	else{
-  		return;
-  	}
+  deleteUser(id, name): any{
+    const bool = confirm(`Are you sure you want to delete ${name}?`);
+    if (bool){
+      this.userService.deleteUser(id);
+      alert(`${name} deleted successfully`);
+    }
+    else{
+      return;
+    }
+  }
 
+  approveUsers(): any{
+    this.router.navigate(['admin/approveusers']);
 
   }
-  approveUsers(){
-    this.router.navigate(['admin/approveusers'])
-
-  }
-  pageChanged(event){
-     this.currentPage = event
+  pageChanged(event): any{
+     this.currentPage = event;
 
    }
-  //exportto excel
-  exportToExcel(){
-    //pass the table to worksheet
-    //const element =  document.getElementById('export-table');
+  // exportto excel
+  exportToExcel(): any{
+    // pass the table to worksheet
+    //  const element =  document.getElementById('export-table');
     const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(this.element.nativeElement);
 
-    //create a workbook and add work sheet
-    const wb:XLSX.WorkBook = XLSX.utils.book_new()
+    //  create a workbook and add work sheet
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'Sheet 1');
 
-    //save fileName
-    XLSX.writeFile(wb, this.fileName)
+    //  save fileName
+    XLSX.writeFile(wb, this.fileName);
   }
   // exportAsCSV(){
   //    var options = {
@@ -107,15 +108,11 @@ export class UsersComponent implements OnInit {
   //   new ngxCsv(this.filteredUsers,'BranchData', options)
 
   // }
-  reverse:boolean = false;
-  sort(item:string){
+  sort(item: string): any{
     this.key = item;
-    this.reverse = !this.reverse
+    this.reverse = !this.reverse;
   }
-  loggedInUsers(){
-    this.router.navigate(['admin/loggedin'])
-
+  loggedInUsers(): any{
+    this.router.navigate(['admin/loggedin']);
   }
-
-
 }

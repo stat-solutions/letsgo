@@ -1,24 +1,46 @@
 import { Injectable } from '@angular/core';
-import { of } from 'rxjs';
+import { environment } from 'src/environments/environment';
+import { Router } from '@angular/router';
+import { FormGroup } from '@angular/forms';
+import { Observable, throwError, of } from 'rxjs';
+import { HttpHeaders, HttpErrorResponse, HttpClient, HttpParams, HttpInterceptor, HttpEvent, HttpHandler, HttpRequest } from '@angular/common/http';
+import { Tokens } from '../models/tokens';
+import { map, tap, catchError, mapTo } from 'rxjs/operators';
+import { UserRole } from '../models/user-role';
+// import { RegisterUser } from '../models/register';
+import { JwtHelperService } from '@auth0/angular-jwt';
+import { CompanyInfo } from '../models/company';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EntitiesService {
-	private entityDetails = [
-	{
-		id:1,
-		entityName:"Letshego Uganda Limited",
-		shortName:"Letshego",
-		branches:23,
-		plot:"Located 5km away from bombo road",
-		description:"This is a company dealing in loans"
-	}]
-
-  constructor() { }
-
-  getEntities(){
-  	return of(this.entityDetails)
-  }
+    private API_URL = environment.apiUrl;
+    httpOptions = {
+      headers: new HttpHeaders({
+      'Content-Type': 'application/json'
+    })};
+  constructor(private http: HttpClient, private router: Router) { }
+//  create company section
+    createCompany(postData: any): Observable<any>{
+        return this.http.post<any>(`${this.API_URL}/api/adminUser/setUpCompany`, postData, this.httpOptions)
+          .pipe(
+           tap(res => console.log(`AFTER MAP: ${res}`)),
+           // catchError(this.handleCompanySetupError)
+        );
+}
+    updateCompanyLogo(postData: any): Observable<any>{
+        return this.http.post<any>(`${this.API_URL}/api/adminUser/updateCompanyLogo`, postData, this.httpOptions)
+          .pipe(
+           tap(res => console.log(`AFTER MAP: ${res}`)),
+           // catchError(this.handleCompanySetupError)
+          );
+    }
+    getCompanyInfo(): Observable<CompanyInfo> {
+        return this.http.get<CompanyInfo>(`${this.API_URL}/api/adminUser/getTheCompanyDetails`)
+        .pipe(
+         // catchError(this.OtherErrors)
+        ) as Observable<CompanyInfo>;
+    }
 
 }
