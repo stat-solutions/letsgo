@@ -54,7 +54,6 @@ export class AuthServiceService {
       const options1 = { params: new HttpParams().set('id', id) };
       return this.http.get<any>(`${this.API_URL}/api/auth/isAgentRegistered`, options1);
     }
-
     registerUser(postData: any): any {
       return this.http.post<any>(`${this.API_URL}/api/user/registerUser`, postData, this.httpOptions)
         .pipe(
@@ -70,11 +69,11 @@ export class AuthServiceService {
       );
     }
     changePIN(postData: any): any {
-      return this.http.post<any>(`${this.API_URL}/api/user/postChangePassword`, postData.value, this.httpOptions)
+      return this.http.post<any>(`${this.API_URL}/api/user/postChangePassword`, postData, this.httpOptions)
         .pipe(
           // tap(tokens => console.log(`${tokens}`)),
-          tap(tokens => this.doLoginUser(postData.value.main_contact_number, tokens)),
-          mapTo(true),
+          // tap(tokens => this.doLoginUser(postData.value.main_contact_number, tokens)),
+          // mapTo(true),
         );
     }
     // tslint:disable-next-line: typedef

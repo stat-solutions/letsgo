@@ -51,7 +51,13 @@ export class ChangepasswordComponent implements OnInit {
 
   sendResetPasswordLink(): any {
     this.authService.passwordChangeCode({userEmail: this.userEmail}).subscribe(
-      res => console.log(res),
+      res => {
+        this.posted = true;
+        this.alertService.success({
+          html: '<strong>A password change code has been sent to your email,</strong>' +
+                '<br>' + '<strong> use it to change password within 15 minutes</strong>'
+        });
+      },
       err => {
         console.log(err.error.error.message);
       }
@@ -152,7 +158,15 @@ export class ChangepasswordComponent implements OnInit {
         .subscribe(
           (success: boolean) => {
             if (success) {
-
+              this.spinner.hide();
+              this.posted = true;
+              this.alertService.success({
+                html: '<strong>Password changed successfully, you can now log In</strong>'
+              });
+              setTimeout(() => {
+                  this.spinner.hide();
+                  this.router.navigate(['/authpage']);
+                }, 1000);
             }
           },
           (error: string) => {

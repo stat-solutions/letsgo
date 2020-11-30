@@ -26,8 +26,6 @@ export class RegistrationComponent implements OnInit {
   positionValue: string;
   invalid = false;
   branches: any;
-
-
   constructor(
     private authService: AuthServiceService,
     private branchService: BranchesService,

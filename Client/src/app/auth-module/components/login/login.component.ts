@@ -88,8 +88,8 @@ export class LoginComponent implements OnInit {
         if (success) {
           // this.posted = true;
           if (this.jwtHelper.decodeToken(this.authService.getJwtToken()).userStatus === 2) {
-            console.log(this.jwtHelper.decodeToken(this.authService.getJwtToken()).roleId);
-            switch (this.jwtHelper.decodeToken(this.authService.getJwtToken())){
+            // console.log(this.jwtHelper.decodeToken(this.authService.getJwtToken()).roleId);
+            switch (this.jwtHelper.decodeToken(this.authService.getJwtToken()).roleId){
               case 99:
                 this.alertService.danger({
                   html:
@@ -277,7 +277,6 @@ export class LoginComponent implements OnInit {
       });
     }
   }
-
 }
 
 

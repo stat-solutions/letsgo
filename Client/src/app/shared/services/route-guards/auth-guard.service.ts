@@ -17,6 +17,7 @@ import { AlertService } from 'ngx-alerts';
          ) { }
     canActivate(): any {
       if (this.authService.isLoggedIn()) {
+          console.log(this.jwtHelper.decodeToken(this.authService.getJwtToken()).roleId);
           switch (this.jwtHelper.decodeToken(this.authService.getJwtToken()).roleId){
                case 100:
                     this.router.navigate(['/application']);
