@@ -2,7 +2,9 @@
   class="container-fluid justify-content-center mt-0 mb-0 pt-1 pt-xl-0 pb-2 pb-md-0 shadow-lg col-xs-12 col-lg-12"
 >
   <div class="jumbotron-fluid mx-0 px-0 mt-1 mt-xl-0 pt-3 pt-xl-0 mb-0 pb-0">
-    <div class="head-container container my-1 mx-auto px-auto pt-0 pb-2 shadow-lg">
+    <div
+      class="head-container container my-1 mx-auto px-auto pt-0 pb-2 shadow-lg"
+    >
       <div class="row">
         <div class="col-12">
           <h3 class="rub-head4 text-info text-center font-weight-bold py-1">
@@ -69,7 +71,7 @@
               >
                 <thead class="bg-dark text-white">
                   <tr class="mx-2">
-                    <th width="10%">
+                    <th width="14%">
                       <i
                         class="fas fa-sort pointerCursor"
                         (click)="sort('userId')"
@@ -83,14 +85,14 @@
                       ></i>
                       Username
                     </th>
-                    <th width="15%">
+                    <th width="20%">
                       <i
                         class="fas fa-sort pointerCursor"
                         (click)="sort('userRole')"
                       ></i>
                       User Role
                     </th>
-                    <th width="12%">Contact</th>
+                    <th width="15%">Contact</th>
                     <th width="26%">
                       <i
                         class="fas fa-sort pointerCursor"
@@ -98,12 +100,11 @@
                       ></i>
                       Email
                     </th>
-                    <th width="12%">Action</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr
-                    class="mx-2"
+                    class="mx-2 pointerCursor"
                     id="export-table"
                     *ngFor="
                       let user of filteredUsers
@@ -117,20 +118,13 @@
                             };
                       let i = index
                     "
+                    (click)="openModal(template)"
                   >
                     <td>{{ user.userId }}</td>
                     <td>{{ user.userName }}</td>
                     <td>{{ user.userRole }}</td>
                     <td>{{ user.userNumber }}</td>
                     <td>{{ user.userEmail }}</td>
-                    <td>
-                      <button
-                        class="btn btn-danger"
-                        (click)="deleteUser(user.id, user.name)"
-                      >
-                        Delete
-                      </button>
-                    </td>
                   </tr>
                 </tbody>
               </table>
@@ -153,3 +147,301 @@
     </div>
   </div>
 </div>
+<ng-template #template>
+  <div class="modal-header bg-info modal-lg">
+    <h4 class="modal-title text-white-75">User Details</h4>
+
+    <button
+      type="button"
+      class="close pull-right"
+      aria-label="Close"
+      (click)="modalRef.hide()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="col-12 d-flex justify-content-sm-end mx-0 pt-1 px-0 pl-lg-5">
+      <button
+        class="btn btn-info mt-1 ml-1 ml-sm-3 mx-md-1"
+        tooltip="Edit User's role"
+        (click)="openModal2(editUserRole)"
+      >
+        <i class="fas fa-edit"></i>Edit Role
+      </button>
+      <button
+        class="btn btn-danger mt-1 ml-1 ml-sm-3 mx-md-1"
+        tooltip="Delete User"
+      >
+        <i class="fas fa-trash"></i> Delete
+      </button>
+    </div>
+    <div class="row pt-2">
+      <div class="col-12">
+        <div
+          class="list-card card mt-2 pt-1 mb-1 mx-auto px-auto pb-0 shadow-lg"
+        >
+          <div class="list-card-body card-body my-0 py-1 mx-auto px-0 px-xl-1">
+            <div class="row my-0 pt-0 pb-2 mx-auto px-auto">
+              <div
+                class="d-flex col-12 col-md-4 col-xl-3 my-0 pt-0 pt-md-4 pt-xl-2 pb-0"
+              >
+                <!--add data from the database next to the span after &nbsp;-->
+                <img class="details-img img-rounded" src="assets/img/man.svg" />
+              </div>
+              <div
+                class="col-12 col-md-8 col-xl-9 my-0 pt-2 pt-md-5 pt-xl-3 pb-0"
+              >
+                <div class="row my-0 py-0">
+                  <div class="col-12 col-lg-6 mt-2 mb-0 py-0">
+                    <span class="itemCreated">User ID: &nbsp;&nbsp;</span
+                    ><span class="itemCreated text-info">
+                      <!-- {{
+                      checkedClient.name
+                    }} --> </span
+                    ><br />
+                    <span class="itemCreated">Username: &nbsp;&nbsp;</span
+                    ><span class="itemCreated text-info"
+                      >John
+                      <!-- {{
+                      checkedClient.clientName
+                    }} --> </span
+                    ><br />
+                    <span class="itemCreated">Phone Number 1: &nbsp;&nbsp;</span
+                    ><span class="itemCreated text-info">
+                      <!-- {{
+                      checkedClient.phone
+                    }} --> </span
+                    ><br />
+                    <span class="itemCreated">Phone Number 2: &nbsp;&nbsp;</span
+                    ><span class="itemCreated text-info">
+                      <!-- {{
+                      checkedClient.phone
+                    }} --> </span
+                    ><br />
+                  </div>
+                  <div class="col-12 col-lg-6 mt-2 mb-0 py-0">
+                    <span class="itemCreated">Email: &nbsp;&nbsp;</span
+                    ><span class="itemCreated text-info">
+                      <!-- {{
+                      checkedClient.plate
+                    }} --> </span
+                    ><br />
+
+                    <span class="itemCreated">User Role: &nbsp;&nbsp;</span
+                    ><span class="itemCreated text-info">
+                      <!-- {{
+                      checkedClient.name
+                    }} --> </span
+                    ><br />
+                    <span class="itemCreated">Branch Name: &nbsp;&nbsp;</span
+                    ><span class="itemCreated text-info">
+                      <!-- {{
+                      checkedClient.loanLimit
+                    }} -->
+                    </span>
+                  </div>
+                  <div class="col-12 mt-2 mb-0 py-0">
+                    <span class="itemCreated">Comment: &nbsp;&nbsp;</span
+                    ><span class="itemCreated text-info">
+                      <!-- {{
+                      checkedClient.comment
+                    }} -->
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+<ng-template #editUserRole>
+  <div class="modal-header bg-info">
+    <h4 class="modal-title text-center text-white">Edit User Role</h4>
+    <button
+      type="button"
+      class="pull-right close"
+      data-dismiss="modal"
+      aria-
+      label="Close"
+      (click)="modalRef.hide()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="card-body mt-2 pt-3 mb-3 mx-auto pb-2 shadow-lg">
+      <form [formGroup]="userForm" (ngSubmit)="makeChange()">
+        <div class="form-group text-primary">
+          <label
+            for="userName"
+            [ngClass]="fval.userName.valid ? 'text-info' : ''"
+            >Username<i *ngIf="fval.userName.valid" class="material-icons"
+              >check_circle</i
+            ></label
+          >
+          <div class="input-group mb-0">
+            <div class="input-group-prepend">
+              <div class="input-group-text">
+                <i
+                  class="fas fa-user text-primary mx-auto"
+                  style="size: 50px"
+                >
+                </i>
+              </div>
+            </div>
+            <input
+              type="text"
+              formControlName="userName"
+              class="form-control"
+              [ngClass]="{
+                'is-invalid':
+                  (fval.userName.touched ||
+                    fval.userName.dirty) &&
+                  fval.userName.errors
+              }"
+              autocomplete="off"
+              placeholder="Enter Username"
+              (keyup)="onKey($event)"
+            />
+          </div>
+          <div
+            class="text-danger col"
+            *ngIf="
+              (fval.userName.touched || fval.userName.dirty) &&
+              fval.userName.errors?.required
+            "
+          >
+            The username is required!
+          </div>
+        </div>
+        <div class="form-group text-primary">
+          <label
+            for="position"
+            [ngClass]="fval.userRole.valid ? 'text-info' : ''"
+            ><i *ngIf="fval.userRole.valid" class="material-icons"
+              >check_circle</i
+            >User Role</label
+          >
+          <div class="input-group mb-0">
+            <div class="input-group-prepend">
+              <div class="input-group-text">
+                <i
+                  class="fas fa-user-cog text-primary mx-auto"
+                  style="size: 50px"
+                >
+                </i>
+              </div>
+            </div>
+            <select
+              formControlName="userRole"
+              class="form-control"
+              [ngClass]="{
+                'is-invalid':
+                  (fval.userRole.touched || fval.userRole.dirty) &&
+                  fval.userRole.errors
+              }"
+              autocomplete="off"
+              (change)="getBranch($event)"
+              required
+            >
+              <option value="" selected disabled>Select User Role</option>
+              <option *ngFor="let userRole of branch" [ngValue]="userRole">
+                {{ userRole }}
+              </option>
+            </select>
+          </div>
+          <div
+            class="text-danger col"
+            *ngIf="
+              (fval.userRole.touched || fval.userRole.dirty) &&
+              fval.userRole.errors?.required
+            "
+          >
+            The user role is required!
+          </div>
+        </div>
+        <div class="form-group text-primary">
+          <label
+            for="position"
+            [ngClass]="fval.branches.valid ? 'text-info' : ''"
+            ><i *ngIf="fval.branches.valid" class="material-icons"
+              >check_circle</i
+            >Branch</label
+          >
+          <div class="input-group mb-0">
+            <div class="input-group-prepend">
+              <div class="input-group-text">
+                <i
+                  class="fas fa-code-branch text-primary mx-auto"
+                  style="size: 50px"
+                >
+                </i>
+              </div>
+            </div>
+            <select
+              formControlName="branches"
+              class="form-control"
+              [ngClass]="{
+                'is-invalid':
+                  (fval.branches.touched || fval.branches.dirty) &&
+                  fval.branches.errors
+              }"
+              autocomplete="off"
+              placeholder="Select a branch"
+              (change)="getBranch($event)"
+              required
+            >
+              <option value="" selected disabled>Select Branch</option>
+              <option *ngFor="let branches of branch" [ngValue]="branches">
+                {{ branches }}
+              </option>
+            </select>
+          </div>
+          <div
+            class="text-danger col"
+            *ngIf="
+              (fval.branches.touched || fval.branches.dirty) &&
+              fval.branches.errors?.required
+            "
+          >
+            The branch is required!
+          </div>
+        </div>
+        <div class="d-flex mt-3 mb-3 pt-2 pb-3 mx-auto">
+          <button
+            type="submit"
+            class="btn btn-info col-5 mx-auto"
+            [disabled]="!userForm.valid"
+          >
+            Save
+          </button>
+          <button
+            type="button"
+            class="btn btn-info col-5 mx-auto"
+            (click)="refresh()"
+          >
+            Cancel
+          </button>
+          <!-- <ngx-alerts></ngx-alerts> -->
+          <ngx-spinner class="bg-success" size="medium" type="line-spin-fade">
+            <p class="text-light">Please Wait...</p>
+          </ngx-spinner>
+
+          <label class="col" *ngIf="errored" class="text-danger">
+            <i class="material-icons">cancel</i>
+            <!-- <ngx-alerts></ngx-alerts> -->
+          </label>
+
+          <label class="col" *ngIf="posted" class="text-info">
+            <i class="material-icons">check_circle</i>
+            <!-- <ngx-alerts></ngx-alerts> -->
+          </label>
+        </div>
+      </form>
+    </div>
+  </div>
+</ng-template>

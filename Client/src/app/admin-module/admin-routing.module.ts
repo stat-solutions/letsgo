@@ -20,7 +20,7 @@ const routes: Routes = [
   {
     path: 'admin',
     component: PagesCoreAdminComponent,
-    canActivateChild: [AdminGuard],
+    // canActivateChild: [AdminGuard],
     children: [
       {
         path: '',

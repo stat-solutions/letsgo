@@ -19,9 +19,9 @@
         <label
           for="userName"
           [ngClass]="fval.userName.valid ? 'text-info' : ''"
-          ><i *ngIf="fval.userName.valid" class="material-icons"
+          >Full Name <i *ngIf="fval.userName.valid" class="material-icons"
             >check_circle</i
-          >Full Name</label
+          ></label
         >
         <div class="input-group mb-0">
           <div class="input-group-prepend">
@@ -69,7 +69,7 @@
 
 <div class="form-group text-primary">
         <label for="userEmail" [ngClass]="fval.userEmail.valid ? 'text-info' : ''"
-          >Email<i *ngIf="fval.userEmail.valid" class="material-icons"
+          >Email <i *ngIf="fval.userEmail.valid" class="material-icons"
             >check_circle</i
           ></label
         >
@@ -119,7 +119,7 @@
         <label
           for="userNumber"
           [ngClass]="fval.userNumber.valid ? 'text-info' : ''"
-          >Phone Number<i
+          >Phone Number 1 <i
             *ngIf="fval.userNumber.valid"
             class="material-icons"
             >check_circle</i
@@ -175,7 +175,7 @@
         <label
           for="userNumber"
           [ngClass]="fval.userNumber2.valid ? 'text-info' : ''"
-          >2nd Phone Number<i
+          >Phone Number 2 <i
             *ngIf="fval.userNumber2.valid"
             class="material-icons"
             >check_circle</i
@@ -231,9 +231,9 @@
         <label
           for="position"
           [ngClass]="fval.branch.valid ? 'text-info' : ''"
-          ><i *ngIf="fval.branch.valid" class="material-icons"
+          >Branch <i *ngIf="fval.branch.valid" class="material-icons"
             >check_circle</i
-          >Branch</label
+          ></label
         >
         <div class="input-group mb-0">
           <div class="input-group-prepend">
@@ -271,7 +271,7 @@
 
       <div class="form-group text-primary">
         <label for="userPassword" [ngClass]="fval.userPassword.valid ? 'text-info' : ''"
-          >Password<i *ngIf="fval.userPassword.valid" class="material-icons"
+          >Password <i *ngIf="fval.userPassword.valid" class="material-icons"
             >check_circle</i
           ></label
         >
@@ -297,6 +297,18 @@
             placeholder="Enter Password"
             autocomplete="off"
           />
+            <div class="input-group-append">
+              <span class="input-group-text">
+                <i
+                  class="fas"
+                  [ngClass]="{
+                    'fa-eye-slash': !fieldType,
+                    'fa-eye': fieldType
+                  }"
+                  (click)="toggleFieldType()"
+                ></i>
+              </span>
+            </div>
         </div>
         <div
           class="text-danger col"
@@ -318,7 +330,7 @@
       </div>
       <div class="form-group text-primary">
         <label for="confirm" [ngClass]="fval.confirm.valid ? 'text-info' : ''"
-          >Confirm Password<i *ngIf="fval.confirm.valid" class="material-icons"
+          >Confirm Password <i *ngIf="fval.confirm.valid" class="material-icons"
             >check_circle</i
           ></label
         >
@@ -344,6 +356,18 @@
             placeholder="Confirm Password"
             autocomplete="off"
           />
+            <div class="input-group-append">
+              <span class="input-group-text">
+                <i
+                  class="fas"
+                  [ngClass]="{
+                    'fa-eye-slash': !fieldType,
+                    'fa-eye': fieldType
+                  }"
+                  (click)="toggleFieldType()"
+                ></i>
+              </span>
+            </div>
         </div>
         <div
           class="text-danger col"
