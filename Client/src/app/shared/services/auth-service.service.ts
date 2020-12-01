@@ -101,9 +101,20 @@ export class AuthServiceService {
         userName: this.jwtHelper.decodeToken(this.getJwtToken()).userName,
         userId: this.jwtHelper.decodeToken(this.getJwtToken()).userId,
         userPhone: this.jwtHelper.decodeToken(this.getJwtToken()).userPhone1,
-        userLocationId: this.jwtHelper.decodeToken(this.getJwtToken()).locationId,
-        accessRights: this.jwtHelper.decodeToken(this.getJwtToken()).fkAccessRightsIdUser,
+        roleId: this.jwtHelper.decodeToken(this.getJwtToken()).roleId,
       };
+  //     "userId": 10000009,
+  // "userName": "Bazirake Augustine",
+  // "userEmail": "augbazi@gmail.com",
+  // "userStatus": 2,
+  // "userPhone1": "0781331616",
+  // "userEmailVerify": 2,
+  // "branchId": 507,
+  // "roleId": 99,
+  // "iat": 1606637455,
+  // "exp": 1922213455,
+  // "aud": "10000009",
+  // "iss": "::ffff:127.0.0.1"
     }
 
     getJwtToken(): any {

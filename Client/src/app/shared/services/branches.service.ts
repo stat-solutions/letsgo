@@ -12,8 +12,11 @@ import { JwtHelperService } from '@auth0/angular-jwt';
   providedIn: 'root',
 })
 export class BranchesService {
+
   private API_URL = environment.apiUrl;
+
   constructor(private http: HttpClient, private router: Router) {}
+
   getAllBranches(): Observable<any> {
     return this.http.get<any>(`${this.API_URL}/api/adminUser/getAllBranches`);
   }

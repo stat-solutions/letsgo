@@ -54,35 +54,35 @@ const routes: Routes = [
        component: ConstantsComponent,
       },
       {
-        path: "editprofile",
+        path: 'editprofile',
         component: EditProfileComponent
       },
       {
-        path: "branch",
+        path: 'branch',
         component: BranchesComponent
       },
       {
-        path: "constantstable",
+        path: 'constantstable',
         component: ConstantsTableComponent
       },
       {
-        path: "createbranch",
+        path: 'createbranch',
         component: CreateBranchComponent
       },
       {
-       path: "customers",
+       path: 'customers',
        component: CustomersComponent
       },
       {
-        path: "customerdetails/:customerid",
+        path: 'customerdetails/:customerid',
         component: CustomerDetailsComponent
       },
       {
-        path: "users",
+        path: 'users',
         component: UsersComponent
       },
       {
-        path: "entities",
+        path: 'entities',
         component: EntitiesComponent
       }
 

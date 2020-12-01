@@ -36,58 +36,34 @@ export class UsersComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.userService.getAllUsers().subscribe((users) => {
-      this.user = users;
+    this.userService.getUsers().subscribe(res => {
+      this.user = res;
       this.filteredUsers = this.user;
       this.totalItems = this.user.length;
     });
   }
 
-  getValue(event) {
+    getValue(event): any {
     console.log(event.target.value);
     this.search_term = event.target.value;
-    if (event.target.value === '') {
-      this.filteredUsers = this.user;
-      this.totalItems = this.filteredUsers.length;
-    } else {
-      this.filteredUsers = this.filterCustomer(this.search_term);
-      this.totalItems = this.filteredUsers.length;
-    }
-  }
-  filterCustomer(searchTerm: string) {
-    if (searchTerm)
-      return this.filteredUsers.filter(
-        (user) =>
-          user.name.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1 ||
-          user.role.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1 ||
-          user.email.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1
-      );
-  }
-  checkArrayLength(array: Array<any>) {
-    return array.length ? true : false;
-  }
-  deleteUser(id, name) {
-    const bool = confirm(`Are you sure you want to delete ${name}?`);
-    if (bool) {
-      this.userService.deleteUser(id);
-      alert(`${name} deleted successfully`);
-    } else {
-      return;
-    }
-  }
-  approveUsers() {
-    this.router.navigate(['admin/approveusers']);
-  }
-  pageChanged(event) {
-    this.currentPage = event;
-  }
+    if (event.target.value === ''){
+       this.filteredUsers = this.user;
+       this.totalItems = this.filteredUsers.length;
 
+    }
+    else{
+          this.filteredUsers =  this.filterCustomer(this.search_term);
+          this.totalItems = this.filteredUsers.length;
+    }
+  }
+  
   public openModal(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(
       template,
       Object.assign({}, { class: 'white modal-lg modal-dialog-center' })
     );
   }
+  
   public openModal2(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(
       template,
@@ -95,19 +71,51 @@ export class UsersComponent implements OnInit {
     );
   }
 
-  //exportto excel
-  exportToExcel() {
-    //pass the table to worksheet
-    //const element =  document.getElementById('export-table');
-    const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(
-      this.element.nativeElement
-    );
+  filterCustomer(searchTerm: string): any{
+    if (searchTerm) {
+    return this.filteredUsers.filter(
+      user => user.userName.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1
+      || user.fkRoleIdUser.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1
+      || user.userEmail.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1
+      );
+    }
 
-    //create a workbook and add work sheet
+  }
+  
+  checkArrayLength(array: Array<any>): any{
+    return array.length ? true : false;
+  }
+
+  deleteUser(id, name): any{
+    const bool = confirm(`Are you sure you want to delete ${name}?`);
+    if (bool){
+      this.userService.deleteUser(id);
+      alert(`${name} deleted successfully`);
+    }
+    else{
+      return;
+    }
+  }
+
+  approveUsers(): any{
+    this.router.navigate(['admin/approveusers']);
+
+  }
+  pageChanged(event): any{
+     this.currentPage = event;
+
+   }
+  // exportto excel
+  exportToExcel(): any{
+    // pass the table to worksheet
+    //  const element =  document.getElementById('export-table');
+    const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(this.element.nativeElement);
+
+    //  create a workbook and add work sheet
     const wb: XLSX.WorkBook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'Sheet 1');
 
-    //save fileName
+    //  save fileName
     XLSX.writeFile(wb, this.fileName);
   }
   // exportAsCSV(){
@@ -119,12 +127,11 @@ export class UsersComponent implements OnInit {
   //   new ngxCsv(this.filteredUsers,'BranchData', options)
 
   // }
-  reverse: boolean = false;
-  sort(item: string) {
+  sort(item: string): any{
     this.key = item;
     this.reverse = !this.reverse;
   }
-  loggedInUsers() {
+  loggedInUsers(): any{
     this.router.navigate(['admin/loggedin']);
   }
 }

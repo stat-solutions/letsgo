@@ -1,117 +1,173 @@
 import { UserToProveService } from './../../../shared/services/user-to-prove.service';
-import { Component, OnInit, TemplateRef, ElementRef,ViewChild } from '@angular/core';
+import { Component, OnInit, TemplateRef, ElementRef, ViewChild } from '@angular/core';
 import { FormControl, Validators, FormGroup, FormBuilder, FormArray } from '@angular/forms';
-import { NgxSpinnerService } from "ngx-spinner";
+import { NgxSpinnerService } from 'ngx-spinner';
 import {BsModalService, BsModalRef} from 'ngx-bootstrap/modal';
-import {Registration} from 'src/app/shared/models/registration-interface'
+import {Registration} from 'src/app/shared/models/registration-interface';
+import { Router } from '@angular/router';
+import { UsersService } from 'src/app/shared/services/users.service';
+import { AuthServiceService } from 'src/app/shared/services/auth-service.service';
 @Component({
   selector: 'app-approve-users',
   templateUrl: './approve-users.component.html',
   styleUrls: ['./approve-users.component.scss'],
 })
 export class ApproveUsersComponent implements OnInit {
-  users:Registration[] = [];
-  filteredUsers = []
-  approvedUsers:Registration[] = []
-  roles:Array<string> = ['Role 1', 'Role2', 'Role3']
-  bsModalRef:BsModalRef;
-  userName:string;
-  userRole:FormGroup;
-  userId:number;
-  userIndex:number;
+  users: any;
+  filteredUsers: any;
+  reverse = false;
+  approvedUsers: any;
+  roles: any;
+  bsModalRef: BsModalRef;
+  userName: string;
+  userRole: FormGroup;
+  userId: number;
+  userIndex: number;
   makeUserApproved = [];
-  disableButton:boolean =true;
-  key:any = "userId";
-  @ViewChild('exportTable')element:ElementRef
-  search_user:string
-  constructor(private UserToProveService:UserToProveService,
-   private spinner:NgxSpinnerService, private fb:FormBuilder, private bsModalService:BsModalService) { }
-  ngOnInit() {
+  disableButton = true;
+  key: any = 'userId';
+  @ViewChild('exportTable')element: ElementRef;
+  // tslint:disable-next-line: variable-name
+  search_user: string;
+  User = this.authService.loggedInUserInfo();
+  // tslint:disable-next-line: no-shadowed-variable
+  constructor(private UserToProveService: UserToProveService,
+              private authService: AuthServiceService,
+              private userService: UsersService,
+              private spinner: NgxSpinnerService,
+              private fb: FormBuilder,
+              private bsModalService: BsModalService,
+              private router: Router
+              ) { }
+  ngOnInit(): void {
+    this.getUserToApproval();
+    this.getRoles();
+    this.userRole = this.fb.group({
+        role: ['', Validators.required]
+    });
+  }
+  getUserToApproval(): any{
+    this.UserToProveService.getUserForApproval().subscribe(
+      res => {
+        this.users = res;
+        this.filteredUsers = this.users;
+        // console.log(this.filteredUsers);
+      },
+      err => console.log(err.error.error.message)
+    );
+  }
+  getRoles(): any {
+    this.userService.getUserRoles().subscribe(
+      res => {
+        this.roles = res;
+        // tslint:disable-next-line: only-arrow-functions
+        this.roles = this.roles.map(function(role: any): any {
+          return {
+            roleId: role.roleId,
+            roleName: role.roleName.replace(/_/g, ' ').toUpperCase()
+          };
+      });
+        // console.log(this.roles);
+      },
+      err => console.log(err.error.error.message)
+    );
+  }
+  goToUsers(): any{
+    this.router.navigate(['admin/users']);
+  }
 
-      this.UserToProveService.approveUsers().subscribe(allusers => {
-        this.users = allusers
-      })
-      this.filteredUsers = this.users
-      this.userRole = this.fb.group({
-        role:['', Validators.required]
-      })
-  }
-  checkIfUserExists(array:Array<any>):boolean {
-    return array.length?true:false
-  }
-  //closemodal popup
-  closeModal(){
-    this.bsModalRef.hide()
+  // closemodal popup
+  closeModal(): any{
+    this.bsModalRef.hide();
   }
 
-  //getrole FormControl
-  get fval(){
+  // getrole FormControl
+  get fval(): any{
     return this.userRole.controls;
   }
-  getValue(event) {
-    this.search_user = event.target.value
-    if(event.target.value === ''){
-      this.filteredUsers = this.users
-      //this.totalItems = this.users.length;
-
-
+  getValue(event): any {
+    this.search_user = event.target.value;
+    if (event.target.value === ''){
+      this.filteredUsers = this.users;
+      //  this.totalItems = this.users.length;
     }
     else{
-          this.filteredUsers =  this.filterUser(this.search_user)
-          //this.totalItems = this.users.length;
-
+          this.filteredUsers =  this.filterUser(this.search_user);
+          //  this.totalItems = this.users.length;
     }
   }
-  filterUser(searchTerm:string){
-    if(searchTerm)
 
-    return this.filteredUsers.filter(
-      user=>
-      user.userName.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1
-      ||user.userEmail.toLowerCase().indexOf(searchTerm.toLowerCase())!==   -1
-      )
-
-  }
-
-
-
-   cancel(){
-
-     this.closeModal()
-
-   }
-    assignRole(event){
-      this.fval.role.setValue(event.target.value)
-      this.disableButton = false
-
-
-
-    }
-
-    approveUser(template:TemplateRef<any>, id:number, index:number){
-      this.bsModalRef =  this.bsModalService.show(template);
-      this.makeUserApproved.push(this.users[index])
-      if(this.checkIfUserExists(this.makeUserApproved)){
-        this.userId = id;
-        this.userIndex = index;
+  filterUser(searchTerm: string): any{
+    if (searchTerm) {
+      console.log(searchTerm);
+      return this.filteredUsers.filter(
+        user  =>
+        user.userName.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1
+        ||  user.userEmail.toLowerCase().indexOf(searchTerm.toLowerCase())  !==   -1
+        );
       }
-    }
-   onApprove(array:Array<any> , id, index){
-     if(this.checkIfUserExists(array)){
-       console.log(this.fval.role.value)
-       this.disableButton = !this.disableButton
-       this.fval.role.reset()
-       this.closeModal()
-
-
-     }
-
-   }
-   reverse:boolean = false;
-  sort(item:string){
+  }
+  sort(item: string): any{
     this.key = item;
-    this.reverse = !this.reverse
+    this.reverse = !this.reverse;
+  }
+  assignRole(event): any{
+    this.fval.role.setValue(event.target.value);
+    this.disableButton = false;
+}
+
+  approveUser(template: TemplateRef<any>, id: number, index: number): any{
+    this.bsModalRef =  this.bsModalService.show(template);
+    this.makeUserApproved.push(this.users[index]);
+    // console.log(this.makeUserApproved);
+    this.userId = id;
+    this.userIndex = index;
   }
 
+  rejectUser(userInfo: any , id, index): any{
+    // console.log(this.fval.role.value);
+    this.disableButton = !this.disableButton;
+    const data = {
+       userId: userInfo[0].userId,
+      };
+    // console.log(data);
+    this.UserToProveService.rejectUser(data).subscribe(
+      res => {},
+      err => console.log(err.error.error.message)
+    );
+    this.fval.role.reset();
+    this.closeModal();
+    setTimeout(() => {
+      // this.spinner.hide();
+      location.reload();
+    }, 1000);
+  }
+
+   approvedUser(userInfo: any , id, index): any{
+      // console.log(this.fval.role.value);
+      this.disableButton = !this.disableButton;
+      const data = {
+         userId: userInfo[0].userId,
+         userStatus: 2,
+         roleId: null,
+         userIdApprover: this.User.userId
+        };
+      this.roles.forEach(role => {
+        if (this.fval.role.value === role.roleName) {
+          data.roleId = role.roleId;
+        }
+      });
+      // console.log(data);
+      this.UserToProveService.approveUser(data).subscribe(
+        res => {},
+        err => console.log(err.error.error.message)
+      );
+      this.fval.role.reset();
+      this.closeModal();
+      setTimeout(() => {
+        // this.spinner.hide();
+        location.reload();
+      }, 1000);
+   }
 
 }
