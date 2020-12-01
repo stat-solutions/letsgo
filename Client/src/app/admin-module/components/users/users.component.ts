@@ -57,14 +57,14 @@ export class UsersComponent implements OnInit {
           this.totalItems = this.filteredUsers.length;
     }
   }
-  
+
   public openModal(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(
       template,
       Object.assign({}, { class: 'white modal-lg modal-dialog-center' })
     );
   }
-  
+
   public openModal2(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(
       template,
@@ -82,7 +82,7 @@ export class UsersComponent implements OnInit {
     }
 
   }
-  
+
   checkArrayLength(array: Array<any>): any{
     return array.length ? true : false;
   }
