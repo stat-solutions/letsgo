@@ -121,7 +121,7 @@ export class RegistrationComponent implements OnInit {
         // branchName: "HEAD OFFICE"
         // branchType: "HEAD OFFICE"
         // fkCompanyIdBranch: 500
-        // console.log(this.branches);
+        console.log(this.branches);
       },
       err => console.log(err)
     );

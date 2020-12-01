@@ -1937,11 +1937,11 @@ pre code {
 }
 
 .form-control:focus {
-    color: #495057;
+    color: #27292c;
     background-color: #fff;
-    border-color: #fbc2b3;
+    border-color: rgb(17, 75, 136);
     outline: 0;
-    box-shadow: 0 0 0 .2rem rgba(244, 98, 58, .25)
+    box-shadow: 0 0 0 .2rem rgba(17, 75, 136, .25)
 }
 
 .form-control::-webkit-input-placeholder {

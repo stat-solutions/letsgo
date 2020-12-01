@@ -1,44 +1,48 @@
-import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, ElementRef, TemplateRef, ViewChild } from '@angular/core';
 import {UsersService} from '../../../shared/services/users.service';
 import {FormGroup, FormBuilder} from '@angular/forms';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {Router} from '@angular/router';
 import * as XLSX from 'xlsx';
-import { ngxCsv } from 'ngx-csv/ngx-csv';
+import { ngxCsv } from 'ngx-csv/ngx-csv'
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
-  styleUrls: ['./users.component.scss']
+  styleUrls: ['./users.component.scss'],
 })
 export class UsersComponent implements OnInit {
+  modalRef: BsModalRef;
   user = [];
   filteredUsers = [];
-  // tslint:disable-next-line: variable-name
   search_term: string;
-  reverse = false;
   fileName = 'users.xlsx';
   totalItems: number;
   id: string;
-  currentPage = 1;
+  reverse = false;
+  currentPage: number = 1;
   pageSize = 9;
   age: number;
   key: any = 'userId';
-  @ViewChild('exportTable')element: ElementRef;
+  @ViewChild('exportTable') element: ElementRef;
 
-  constructor(private userService: UsersService,
-              private fb: FormBuilder, private spinner: NgxSpinnerService,
-              private router: Router
-   ) { }
+  constructor(
+    private userService: UsersService,
+    private fb: FormBuilder,
+    private spinner: NgxSpinnerService,
+    private router: Router,
+    private modalService: BsModalService
+  ) {}
 
-  ngOnInit(): void{
+  ngOnInit() {
     this.userService.getUsers().subscribe(res => {
       this.user = res;
       this.filteredUsers = this.user;
       this.totalItems = this.user.length;
     });
   }
-
 
     getValue(event): any {
     console.log(event.target.value);
@@ -52,8 +56,22 @@ export class UsersComponent implements OnInit {
           this.filteredUsers =  this.filterCustomer(this.search_term);
           this.totalItems = this.filteredUsers.length;
     }
-
   }
+  
+  public openModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(
+      template,
+      Object.assign({}, { class: 'white modal-lg modal-dialog-center' })
+    );
+  }
+  
+  public openModal2(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(
+      template,
+      Object.assign({}, { class: 'white' })
+    );
+  }
+
   filterCustomer(searchTerm: string): any{
     if (searchTerm) {
     return this.filteredUsers.filter(
@@ -64,9 +82,11 @@ export class UsersComponent implements OnInit {
     }
 
   }
+  
   checkArrayLength(array: Array<any>): any{
     return array.length ? true : false;
   }
+
   deleteUser(id, name): any{
     const bool = confirm(`Are you sure you want to delete ${name}?`);
     if (bool){
