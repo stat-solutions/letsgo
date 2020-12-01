@@ -21,6 +21,7 @@ export class UsersComponent implements OnInit {
   fileName = 'users.xlsx';
   totalItems: number;
   id: string;
+  reverse = false;
   currentPage: number = 1;
   pageSize = 9;
   age: number;
