@@ -62,5 +62,26 @@ export class InterceptorService  implements HttpInterceptor {
         }));
     }
   }
+  // private handle401Error(request: HttpRequest<any>, next: HttpHandler): any {
+  //   if (!this.isRefreshing) {
+  //     this.isRefreshing = true;
+  //     this.refreshTokenSubject.next(null);
+
+  //     return this.authService.refreshToken().pipe(
+  //       switchMap((token: any) => {
+  //         this.isRefreshing = false;
+  //         this.refreshTokenSubject.next(token.jwt);
+  //         return next.handle(this.addToken(request, token.jwt));
+  //       }));
+
+  //   } else {
+  //     return this.refreshTokenSubject.pipe(
+  //       filter(token => token != null),
+  //       take(1),
+  //       switchMap(jwt => {
+  //         return next.handle(this.addToken(request, jwt));
+  //       }));
+  //   }
+  // }
 
 }

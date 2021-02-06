@@ -4,7 +4,7 @@ import { ViewLoggedinUsersComponent } from './components/view-loggedin-users/vie
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AlertModule } from 'ngx-alerts';
-import {  AdminRoutingModule} from "./admin-routing.module";
+import {  AdminRoutingModule} from './admin-routing.module';
 import { SharedModule } from '../shared/shared.module';
 import { PagesCoreAdminComponent } from './pages-core/pages-core-admin.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
@@ -17,7 +17,7 @@ import { ContentSectionAdminComponent } from './content-section/content-section-
 import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { ConstantsComponent } from './components/constants/constants.component';
-import {ApproveUsersComponent} from './components/approve-users/approve-users.component'
+import {ApproveUsersComponent} from './components/approve-users/approve-users.component';
 import { BranchesComponent } from './components/branches/branches.component';
 import { CreateBranchComponent } from './components/create-branch/create-branch.component';
 import {CustomerDetailsComponent} from './components/customer-details/customer-details.component';
