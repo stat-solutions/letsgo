@@ -1,8 +1,9 @@
 import { UsersService } from './../../../shared/services/users.service';
-import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, TemplateRef, ElementRef, ViewChild } from '@angular/core';
 import * as XLSX from 'xlsx';
 import { ngxCsv } from 'ngx-csv/ngx-csv';
 import { Router } from '@angular/router';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-view-loggedin-users',
@@ -10,6 +11,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./view-loggedin-users.component.scss'],
 })
 export class ViewLoggedinUsersComponent implements OnInit {
+  public modalRef: BsModalRef;
   loggedInUsers = [];
   filteredUsers = [];
   fileName = 'users.xlsx';
@@ -22,7 +24,11 @@ export class ViewLoggedinUsersComponent implements OnInit {
   key: any = 'userId';
   @ViewChild('exportTable') element: ElementRef;
 
-  constructor(private loggedInUser: UsersService, private router: Router) {}
+  constructor(
+    private loggedInUser: UsersService,
+    private modalService: BsModalService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.loggedInUser.viewLoggedIn().subscribe((loggedIn) => {
@@ -31,7 +37,7 @@ export class ViewLoggedinUsersComponent implements OnInit {
       this.totalItems = this.loggedInUsers.length;
     });
   }
-  goToUsers(): any{
+  goToUsers(): any {
     this.router.navigate(['admin/users']);
   }
   checkLoggedInUsers(array: Array<any>) {
@@ -69,17 +75,25 @@ export class ViewLoggedinUsersComponent implements OnInit {
     this.key = item;
     this.reverse = !this.reverse;
   }
-  exportToExcel(){
+
+  //modal method
+  public openModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(
+      template,
+      Object.assign({}, { class: 'modal-dialog-center' })
+    );
+  }
+  exportToExcel() {
     //pass the table to worksheet
     //const element =  document.getElementById('export-table');
     const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(this.element);
 
     //create a workbook and add work sheet
-    const wb:XLSX.WorkBook = XLSX.utils.book_new()
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'Sheet 1');
 
     //save fileName
-    XLSX.writeFile(wb, this.fileName)
+    XLSX.writeFile(wb, this.fileName);
   }
   // exportAsCSV(){
   //    var options = {
@@ -91,8 +105,8 @@ export class ViewLoggedinUsersComponent implements OnInit {
   //   new ngxCsv(this.filteredUsers ,'userData', options)
 
   // }
-  logOut(id:number, email:string, i:number){
-    this.loggedInUser.logOutUser(id,email,i)
+  logOut(id: number, email: string, i: number) {
+    this.loggedInUser.logOutUser(id, email, i);
     //get the user details send them to service
   }
 

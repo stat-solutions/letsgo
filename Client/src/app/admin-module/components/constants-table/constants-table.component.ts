@@ -9,7 +9,7 @@ import { AlertService } from 'ngx-alerts';
 @Component({
   selector: 'app-constants-table',
   templateUrl: './constants-table.component.html',
-  styleUrls: ['./constants-table.component.scss']
+  styleUrls: ['./constants-table.component.scss'],
 })
 export class ConstantsTableComponent implements OnInit {
   constantsTable = [];
