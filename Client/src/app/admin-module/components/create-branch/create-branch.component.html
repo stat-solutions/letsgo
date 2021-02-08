@@ -14,9 +14,9 @@ class="container-fluid d-flex flex-row justify-content-center mb-0 mt-1 pt-0 pt-
     <form [formGroup]="userForm" (ngSubmit)="createBranch()">
       <div class="form-group text-primary">
         <label
-          for="branch_name"
-          [ngClass]="fval.branch_name.valid ? 'text-info' : ''"
-          ><i *ngIf="fval.branch_name.valid" class="material-icons"
+          for="branchName"
+          [ngClass]="fval.branchName.valid ? 'text-info' : ''"
+          ><i *ngIf="fval.branchName.valid" class="material-icons"
             >check_circle</i
           >Branch Name</label
         >
@@ -28,15 +28,15 @@ class="container-fluid d-flex flex-row justify-content-center mb-0 mt-1 pt-0 pt-
             </div>
           </div>
           <input
-            id="branch_name"
-            formControlName="branch_name"
+            id="branchName"
+            formControlName="branchName"
             type="text"
             required
             class="form-control"
             [ngClass]="{
               'is-invalid':
-                (fval.branch_name.touched || fval.branch_name.dirty) &&
-                fval.branch_name.errors
+                (fval.branchName.touched || fval.branchName.dirty) &&
+                fval.branchName.errors
             }"
             placeholder="Enter branch name"
             autocomplete="off"
@@ -45,8 +45,8 @@ class="container-fluid d-flex flex-row justify-content-center mb-0 mt-1 pt-0 pt-
         <div
           class="text-danger col"
           *ngIf="
-            (fval.branch_name.touched || fval.branch_name.dirty) &&
-            fval.branch_name.errors?.required
+            (fval.branchName.touched || fval.branchName.dirty) &&
+            fval.branchName.errors?.required
           "
         >
           The branch name is required!
@@ -54,8 +54,8 @@ class="container-fluid d-flex flex-row justify-content-center mb-0 mt-1 pt-0 pt-
         <div
         class="text-danger col"
         *ngIf="
-          (fval.branch_name.touched || fval.branch_name.dirty) &&
-          fval.branch_name.errors?.minlength
+          (fval.branchName.touched || fval.branchName.dirty) &&
+          fval.branchName.errors?.minlength
         "
       >
         At least two characters required!
@@ -66,10 +66,10 @@ class="container-fluid d-flex flex-row justify-content-center mb-0 mt-1 pt-0 pt-
        <div class="form-group text-primary">
         <label
           for="position"
-          [ngClass]="fval.entityName.valid ? 'text-info' : ''"
-          ><i *ngIf="fval.entityName.valid" class="material-icons"
+          [ngClass]="fval.branchType.valid ? 'text-info' : ''"
+          ><i *ngIf="fval.branchType.valid" class="material-icons"
             >check_circle</i
-          >Entity Name</label
+          >Branch Type</label
         >
         <div class="input-group mb-0">
           <div class="input-group-prepend">
@@ -79,124 +79,33 @@ class="container-fluid d-flex flex-row justify-content-center mb-0 mt-1 pt-0 pt-
             </div>
           </div>
           <select
-          formControlName="entityName"
+          formControlName="branchType"
           class="form-control"
           [ngClass]="{
             'is-invalid':
-              (fval.entityName.touched || fval.entityName.dirty) &&
-              fval.entityName.errors
+              (fval.branchType.touched || fval.branchType.dirty) &&
+              fval.branchType.errors
           }"
           autocomplete="off"
-          placeholder="Select an entity name"
-          (change) ="getEntityName($event)"
+          placeholder="Select a branch type"
           required
         >
         <option value="" selected disabled>Select Entity Name</option>
-        <option *ngFor="let entity of entity_name" [ngValue]="entity">{{entity}}</option>
+        <option *ngFor="let branchType of branchTypes">{{branchType.name}}</option>
 
         </select>
     </div>
         <div
           class="text-danger col"
           *ngIf="
-            (fval.entityName.touched || fval.entityName.dirty) &&
-            fval.entityName.errors?.required
+            (fval.branchType.touched || fval.branchType.dirty) &&
+            fval.branchType.errors?.required
           "
         >
-          The entity name is required!
+          The Branch Type is required!
         </div>
       </div>
-
       <!--entity-name-->
-
-
-
-      <div class="form-group text-primary">
-        <label
-          for="district"
-          [ngClass]="fval.district.valid ? 'text-info' : ''"
-          ><i *ngIf="fval.district.valid" class="material-icons"
-            >check_circle</i
-          >District</label
-        >
-        <div class="input-group mb-0">
-          <div class="input-group-prepend">
-            <div class="input-group-text">
-              <i class="fas fa-map-marker text-primary mx-auto" style="size: 50px;">
-              </i>
-            </div>
-          </div>
-          <input
-            id="district"
-            formControlName="district"
-            type="text"
-            required
-            class="form-control"
-            [ngClass]="{
-              'is-invalid':
-                (fval.district.touched || fval.district.dirty) &&
-                fval.district.errors
-            }"
-            placeholder="Enter district"
-            autocomplete="off"
-          />
-        </div>
-        <div
-          class="text-danger col"
-          *ngIf="
-            (fval.district.touched || fval.district.dirty) &&
-            fval.district.errors?.required
-          "
-        >
-          The district is required!
-        </div>
-
-
-      </div>
-
-
-
-
-<div class="form-group text-primary">
-        <label for="town" [ngClass]="fval.town.valid ? 'text-info' : ''"
-          >Town<i *ngIf="fval.town.valid" class="material-icons"
-            >check_circle</i
-          ></label
-        >
-        <div class="input-group mb-0">
-          <div class="input-group-prepend">
-            <div class="input-group-text">
-              <i
-                class="fas fa-map-marker-alt text-primary mx-auto"
-                style="size: 50px;"
-              ></i>
-            </div>
-          </div>
-          <input
-            id="town"
-            formControlName="town"
-            type="text"
-            required
-            class="form-control"
-            [ngClass]="{
-              'is-invalid':
-                (fval.town.touched || fval.town.dirty) && fval.town.errors
-            }"
-            placeholder="Enter town"
-            autocomplete="off"
-          />
-        </div>
-        <div
-          class="text-danger col"
-          *ngIf="
-            (fval.town.touched || fval.town.dirty) &&
-            fval.town.errors?.required
-          "
-        >
-          The town is required!
-        </div>
-      </div>
-
        <div
           class="text-danger col"
           *ngIf="invalid"

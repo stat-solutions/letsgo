@@ -11,8 +11,7 @@ import { AuthServiceService } from 'src/app/shared/services/auth-service.service
 })
 export class CreateBranchComponent implements OnInit {
 
-  
-    registered = false;
+  registered = false;
   submitted = false;
   errored = false;
   posted = false;
@@ -22,70 +21,60 @@ export class CreateBranchComponent implements OnInit {
   fieldType: boolean;
   mySubscription: any;
   positionValue: string;
-  invalid: boolean = false;
-  entity_name = ["Letshego Uganda Limited"]
+  invalid = false;
+  entityName = ["Letshego Uganda Limited"];
+  branchTypes = [
+    {name: "BRANCH", id: 300},
+    {name: "HEAD OFFICE", id: 300},
+    {name: "R", id: 300},
+    {name: "BRANCH", id: 300},
+  ];
 
   constructor(
     private authService: AuthServiceService,
     private spinner: NgxSpinnerService,
     private router: Router,
-    private fb:FormBuilder
+    private fb: FormBuilder
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.userForm = this.createFormGroup();
   }
-  createFormGroup() {
+  createFormGroup(): any {
     return new FormGroup({
-      branch_name:this.fb.control(
+      branchName: this.fb.control(
         '',
         Validators.compose([Validators.required, Validators.minLength(2)])
       ),
-      entityName: this.fb.control(
+      branchType: this.fb.control(
         '',
         Validators.compose([Validators.required])
       ),
-      district: this.fb.control(
-        '',
-        Validators.compose([Validators.required])
-      ),
-      town: this.fb.control(
-        '',
-        Validators.compose([Validators.required])
-      )
     });
   }
 
-  revert() {
+  revert(): any {
     this.userForm.reset();
   }
 
-  get fval() {
+  get fval(): any {
     return this.userForm.controls;
   }
-    
-getEntityName(event){
-  const entity = event.target.value.split(":")[1]
- this.fval.entityName.setValue(entity)
-}
-  
-
-  returnHome() {
+  returnHome(): any {
     this.spinner.hide();
-    this.revert()
+    this.revert();
   }
-  
 
-  createBranch() {
-    console.log(this.userForm)
-    
+  createBranch(): any {
     this.submitted = true;
     this.spinner.show();
     if (this.userForm.invalid === true) {
-      return this.invalid = true
-      //return;
+      return this.invalid = true;
     } else {
-      
+      const data = {
+        branchName: this.fval.branchName.value,
+        branchType: this.fval.branchType.value
+      };
       // this.authService.registerUser(this.userForm).subscribe(
       //   () => {
       //     this.posted = true;
@@ -104,8 +93,7 @@ getEntityName(event){
       //     console.log(error);
       //   }
       // );
-
-        this.registered = true;
+      this.registered = true;
     }
   }
 

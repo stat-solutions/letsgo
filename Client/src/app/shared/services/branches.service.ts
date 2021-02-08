@@ -20,5 +20,15 @@ export class BranchesService {
   getAllBranches(): Observable<any> {
     return this.http.get<any>(`${this.API_URL}/api/adminUser/getAllBranches`);
   }
-  createBranch(): any {}
+  getOneBranch(branchId: number): Observable<any> {
+    return this.http.get<any>(`${this.API_URL}/api/adminUser/getOneBranch/?branchId${branchId}`);
+  }
+  createBranch(postData: any): any {
+    return this.http.post<any>(`${this.API_URL}/api/adminUser/postCreateBranch`, postData);
+    // {
+    //   "branchName":"NAMATUMBA",
+    //   "branchType":"BRANCH",
+    //    "companyId":500
+    //  }
+  }
 }

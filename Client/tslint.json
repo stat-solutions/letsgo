@@ -14,7 +14,7 @@
     "arrow-return-shorthand": true,
     "curly": true,
     "deprecation": {
-      "severity": "warning"
+      "severity": "none"
     },
     "eofline": true,
     "import-blacklist": [
@@ -65,7 +65,7 @@
       "as-needed"
     ],
     "quotemark": [
-      true,
+      false,
       "single"
     ],
     "semicolon": {

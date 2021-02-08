@@ -12,75 +12,73 @@ import { ngxCsv } from 'ngx-csv/ngx-csv';
 export class BranchesComponent implements OnInit {
   AllBranches = [];
   filteredBranches = [];
-  searchText:string;
-  fileName = "branch.xlsx";
-  totalItems:number;
-  id:string;
-  currentPage:number = 1;
-  pageSize = 13;
+  searchText: string;
+  fileName = 'branch.xlsx';
+  totalItems: number;
+  id: string;
+  currentPage = 1;
+  pageSize = 15;
   age: number;
-  key:any = 'branchNumber'
-  @ViewChild('exportTable')element:ElementRef
-  constructor(private branchService:BranchesService, private router:Router) {
+  key: any = 'branchNumber';
+  reverse = false;
+  @ViewChild('exportTable')element: ElementRef;
+  constructor(private branchService: BranchesService, private router: Router) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.branchService.getAllBranches().subscribe((branches) => {
       this.AllBranches = branches;
-      this.totalItems = this.AllBranches.length
-    })
-    this.filteredBranches = this.AllBranches
-    console.log(this.filteredBranches)
-    console.log(this.searchText)
+      this.totalItems = this.AllBranches.length;
+      this.filteredBranches = this.AllBranches;
+      console.log(this.filteredBranches);
+      console.log(this.searchText);
+    });
   }
-  checkTable(array:Array<any>){
-    return array.length?true:false
+  checkTable(array: Array<any>): any{
+    return array.length ? true : false;
   }
 
-  getValue(event) {
-    if(event.target.value === ''){
-       this.filteredBranches = this.AllBranches
+  getValue(event): any {
+    if (event.target.value === ''){
+      this.filteredBranches = this.AllBranches;
       this.totalItems = this.filteredBranches.length;
     }
     else{
-          this.searchText = event.target.value
-          this.filteredBranches =  this.filterBranches(this.searchText)
+          this.searchText = event.target.value;
+          this.filteredBranches =  this.filterBranches(this.searchText);
           this.totalItems = this.filteredBranches.length;
     }
 
   }
-  filterBranches(searchTerm:string){
-    if(searchTerm)
+  filterBranches(searchTerm: string): any{
+    if (searchTerm) {
     return this.filteredBranches.filter(
-      branch=>branch.branchName.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1
-      ||branch.town.toLowerCase().indexOf(searchTerm.toLowerCase())!==  -1
-      ||branch.district.toLowerCase().indexOf(searchTerm.toLowerCase())!== -1
-      )
-
+      branch =>
+        branch.branchName.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1
+        || branch.branchType.toLowerCase().indexOf(searchTerm.toLowerCase()) !==  -1
+      );
+    }
   }
 
 
-  createBranch(){
-    this.router.navigate(['admin/createbranch'])
-
+  createBranch(): any{
+    this.router.navigate(['admin/createbranch']);
   }
-  pageChanged(event){
-     this.currentPage = event
+  pageChanged(event): any{
+     this.currentPage = event;
 
    }
 
-   //exportto excel
-  exportToExcel(){
-    //pass the table to wor
-    console.log(this.element)
+   exportToExcel(): any{
+    console.log(this.element);
     const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(this.element.nativeElement);
 
-    //create a workbook and add work sheet
-    const wb:XLSX.WorkBook = XLSX.utils.book_new()
+    // create a workbook and add work sheet
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'Sheet 1');
 
-    //save fileName
-    XLSX.writeFile(wb, this.fileName)
+    // save fileName
+    XLSX.writeFile(wb, this.fileName);
   }
   // exportAsCSV(){
   //    var options = {
@@ -91,11 +89,9 @@ export class BranchesComponent implements OnInit {
   //   new ngxCsv(this.filteredBranches,'BranchData', options)
 
   // }
-   reverse:boolean = false;
-  sort(item:string){
+    sort(item: string): any{
     this.key = item;
-    this.reverse = !this.reverse
+    this.reverse = !this.reverse;
   }
-
 
 }

@@ -54,36 +54,18 @@
                 </th>
                 <th scope="col">
                   <i class="fas fa-sort pointerCursor"
-                  (click)="sort(entityName)">
-                  </i> Entity Name
-                </th>
-                <th scope="col">
-                  <i class="fas fa-sort pointerCursor"
-                  (click)="sort('district')">
-                  </i> District
-                </th>
-                <th scope="col">
-                  <i class="fas fa-sort pointerCursor"
                   (click)="sort('town')">
-                  </i> Town
-                </th>
-                <th scope="col">
-                  <i class="fas fa-sort pointerCursor"
-                  (click)="sort('createdAt')">
-                  </i> Created At
+                  </i> Branch Type
                 </th>
               </tr>
             </thead>
             <tbody>
               <tr class="mx-2" *ngFor="let branch of filteredBranches|orderBy:key:reverse|paginate:{
- id:'my_pages', itemsPerPage:pageSize, currentPage:currentPage,totalItems:totalItems
-} let i = index">
-                <td>{{branch.branchNumber}}</td>
+                id:'my_pages', itemsPerPage:pageSize, currentPage:currentPage,totalItems:totalItems
+                } let i = index">
+                <td>{{branch.branchId}}</td>
                 <td>{{branch.branchName}}</td>
-                <td>{{branch.entityName}}</td>
-                <td>{{branch.district}}</td>
-                <td>{{branch.town}}</td>
-                <td>{{branch.createdAt}}</td>
+                <td>{{branch.branchType}}</td>
               </tr>
             </tbody>
           </table>
