@@ -27,7 +27,11 @@ import {ModalModule} from 'ngx-bootstrap/modal';
 import { InterceptorService } from './shared/services/interceptor.service';
 import { SharedModule } from './shared/shared.module';
 import { JwtModule } from '@auth0/angular-jwt';
-
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireMessagingModule } from '@angular/fire/messaging';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { environment } from 'src/environments/environment';
 
 @NgModule({
   declarations: [
@@ -59,6 +63,10 @@ import { JwtModule } from '@auth0/angular-jwt';
     ReactiveFormsModule,
     TooltipModule.forRoot(),
     ModalModule.forRoot(),
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireDatabaseModule,
+    AngularFireAuthModule,
+    AngularFireMessagingModule,
     JwtModule.forRoot({
       config: {
       //   tokenGetter: () => {

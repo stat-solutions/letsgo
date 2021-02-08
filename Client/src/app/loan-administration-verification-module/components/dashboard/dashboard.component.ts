@@ -1,4 +1,4 @@
-import { LandingService } from './../../../shared/services/landing.service';
+import { LoaningService } from '../../../shared/services/loaning.service';
 import { Component, OnInit, TemplateRef,  ElementRef , ViewChild} from '@angular/core';
 import * as moment from 'moment';
 import {FormControl, FormGroup, FormBuilder} from '@angular/forms';
@@ -24,13 +24,13 @@ export class DashboardComponent implements OnInit {
   age: number;
   key:any = "Id"
   csvTable = [];
-   @ViewChild('exportTable')exportExcel:ElementRef
+   @ViewChild('exportTable')exportExcel: ElementRef;
 //excel sheet name
 fileName = "loanInfo.xlsx";
 
   constructor(
     private modalService: BsModalService,
-    private landingPage: LandingService,
+    private landingPage: LoaningService,
     private spinner: NgxSpinnerService,
     private fb: FormBuilder,
     private router: Router,

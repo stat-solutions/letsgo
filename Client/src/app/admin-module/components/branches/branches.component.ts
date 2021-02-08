@@ -30,8 +30,8 @@ export class BranchesComponent implements OnInit {
       this.AllBranches = branches;
       this.totalItems = this.AllBranches.length;
       this.filteredBranches = this.AllBranches;
-      console.log(this.filteredBranches);
-      console.log(this.searchText);
+      // console.log(this.filteredBranches);
+      // console.log(this.searchText);
     });
   }
   checkTable(array: Array<any>): any{
@@ -55,7 +55,7 @@ export class BranchesComponent implements OnInit {
     return this.filteredBranches.filter(
       branch =>
         branch.branchName.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1
-        || branch.branchType.toLowerCase().indexOf(searchTerm.toLowerCase()) !==  -1
+        || branch.branchTypeName.toLowerCase().indexOf(searchTerm.toLowerCase()) !==  -1
       );
     }
   }

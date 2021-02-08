@@ -25,10 +25,5 @@ export class BranchesService {
   }
   createBranch(postData: any): any {
     return this.http.post<any>(`${this.API_URL}/api/adminUser/postCreateBranch`, postData);
-    // {
-    //   "branchName":"NAMATUMBA",
-    //   "branchType":"BRANCH",
-    //    "companyId":500
-    //  }
   }
 }

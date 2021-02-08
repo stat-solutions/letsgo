@@ -1,4 +1,4 @@
-import { LandingService } from './../../../shared/services/landing.service';
+import { LoaningService } from 'src/app/shared/services/loaning.service';
 import {
   Component,
   OnInit,
@@ -36,7 +36,7 @@ export class DashboardComponent implements OnInit {
 
   constructor(
     private modalService: BsModalService,
-    private landingPage: LandingService,
+    private landingPage: LoaningService,
     private spinner: NgxSpinnerService,
     private fb: FormBuilder,
     private router: Router,

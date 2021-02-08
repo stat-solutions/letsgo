@@ -90,7 +90,7 @@ class="container-fluid d-flex flex-row justify-content-center mb-0 mt-1 pt-0 pt-
           placeholder="Select a branch type"
           required
         >
-        <option value="" selected disabled>Select Entity Name</option>
+        <option value="" selected disabled>Select branch type</option>
         <option *ngFor="let branchType of branchTypes">{{branchType.name}}</option>
 
         </select>
@@ -119,7 +119,18 @@ class="container-fluid d-flex flex-row justify-content-center mb-0 mt-1 pt-0 pt-
         >
           Create
         </button>
-
+        <ngx-spinner class="bg-info" size="medium" type="ball-scale-multiple">
+          <p class="text-light">Please wait...</p>
+        </ngx-spinner>
+        <ngx-alerts></ngx-alerts>
+        <label class="col" *ngIf="posted" class="text-info">
+          <!-- <i class="material-icons">check_circle</i> -->
+          <ngx-alerts></ngx-alerts>
+        </label>
+        <label class="col" *ngIf="errored" class="text-info">
+          <!-- <i class="material-icons">check_circle</i> -->
+          <ngx-alerts></ngx-alerts>
+        </label>
         <button
           type="button"
           class="btn btn-info col-5 mx-auto"

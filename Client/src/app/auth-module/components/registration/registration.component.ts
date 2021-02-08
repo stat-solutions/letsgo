@@ -121,7 +121,7 @@ export class RegistrationComponent implements OnInit {
         // branchName: "HEAD OFFICE"
         // branchType: "HEAD OFFICE"
         // fkCompanyIdBranch: 500
-        console.log(this.branches);
+        // console.log(this.branches);
       },
       err => console.log(err)
     );
@@ -171,18 +171,10 @@ export class RegistrationComponent implements OnInit {
             this.alertService.danger({
               html: '<b> The Back End was not able to Handle this Request </b>'
             });
-            // console.log(error.error.error.message);
-            setTimeout(() => {
-              this.revert();
-            }, 3000);
           } else {
             this.alertService.danger({
               html: '<b>' + error.error.error.message + '</b>'
             });
-            // console.log(error.error.error.message);
-            setTimeout(() => {
-              this.revert();
-            }, 3000);
           }
         });
       }

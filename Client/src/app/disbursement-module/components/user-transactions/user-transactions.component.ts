@@ -1,5 +1,5 @@
 import { FormBuilder, FormGroup, FormArray, Validators, FormControl } from '@angular/forms';
-import { LandingService } from './../../../shared/services/landing.service';
+import { LoaningService } from 'src/app/shared/services/loaning.service';
 import { Component, OnInit , OnChanges, TemplateRef} from '@angular/core';
 import {BsModalService, BsModalRef} from 'ngx-bootstrap/modal';
 import * as moment from 'moment';
@@ -40,7 +40,7 @@ export class UserTransactionsComponent implements OnInit {
   levels = ['CreditAnalysisStage'];
 
   constructor(
-    private userTransactions: LandingService,
+    private userTransactions: LoaningService,
     private fb: FormBuilder,
     private bsModalService: BsModalService,
     private alertService: AlertService

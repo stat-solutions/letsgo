@@ -102,6 +102,7 @@ export class AuthServiceService {
         userId: this.jwtHelper.decodeToken(this.getJwtToken()).userId,
         userPhone: this.jwtHelper.decodeToken(this.getJwtToken()).userPhone1,
         roleId: this.jwtHelper.decodeToken(this.getJwtToken()).roleId,
+        branchId: this.jwtHelper.decodeToken(this.getJwtToken()).branchId,
       };
   //     "userId": 10000009,
   // "userName": "Bazirake Augustine",

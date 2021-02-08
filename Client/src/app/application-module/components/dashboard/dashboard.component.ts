@@ -1,4 +1,3 @@
-import { LandingService } from './../../../shared/services/landing.service';
 import { Component, OnInit, TemplateRef,  ElementRef , ViewChild} from '@angular/core';
 import * as moment from 'moment';
 import {FormControl, FormGroup, FormBuilder} from '@angular/forms';
@@ -6,6 +5,8 @@ import {Router, ActivatedRoute} from '@angular/router';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import * as XLSX from 'xlsx';
+import { LoaningService } from 'src/app/shared/services/loaning.service';
+
 @Component({
   selector: 'app-admin',
   templateUrl: './dashboard.component.html',
@@ -30,7 +31,7 @@ fileName = "loanInfo.xlsx";
 
   constructor(
     private modalService: BsModalService,
-    private landingPage: LandingService,
+    private landingPage: LoaningService,
     private spinner: NgxSpinnerService,
     private fb: FormBuilder,
     private router: Router,

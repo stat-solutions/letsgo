@@ -1,13 +1,17 @@
 import { of } from 'rxjs';
 import { Injectable } from '@angular/core';
 import * as moment from 'moment';
-import {CustomerModel} from '../models/customer-model'
+import {CustomerModel} from '../models/customer-model';
+import { environment } from 'src/environments/environment';
+import { HttpHeaders, HttpErrorResponse, HttpClient, HttpParams, HttpInterceptor, HttpEvent, HttpHandler, HttpRequest } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CustomerService {
-  constructor() {}
+  API_URL = environment.apiUrl;
+
+  constructor(private http: HttpClient) {}
   private customerTable: CustomerModel[] = [
     {
       customerId: 1,
@@ -29,202 +33,23 @@ export class CustomerService {
       phoneNumber2: '0734780335',
       createdAt: moment(new Date()).format('MM/DD/YYYY'),
     },
-    {
-      customerId: 3,
-      customerName: 'katende',
-      documentType: 'National ID',
-      documentId: '12345678',
-      userName: 'Nicholas',
-      phoneNumber1: '0759983853',
-      phoneNumber2: '0734780335',
-      createdAt: moment(new Date()).format('MM/DD/YYYY'),
-    },
-    {
-      customerId: 4,
-      customerName: 'katende',
-      documentType: 'National ID',
-      documentId: '12345678',
-      userName: 'Nicholas',
-      phoneNumber1: '0759983853',
-      phoneNumber2: '0734780335',
-      createdAt: moment(new Date()).format('MM/DD/YYYY'),
-    },
-    {
-      customerId: 5,
-      customerName: 'katende',
-      documentType: 'National ID',
-      documentId: '12345678',
-      userName: 'Nicholas',
-      phoneNumber1: '0759983853',
-      phoneNumber2: '0734780335',
-      createdAt: moment(new Date()).format('MM/DD/YYYY'),
-    },
-    {
-      customerId: 3,
-      customerName: 'katende',
-      documentType: 'National ID',
-      documentId: '12345678',
-      userName: 'Nicholas',
-      phoneNumber1: '0759983853',
-      phoneNumber2: '0734780335',
-      createdAt: moment(new Date()).format('MM/DD/YYYY'),
-    },
-    {
-      customerId: 4,
-      customerName: 'katende',
-      documentType: 'National ID',
-      documentId: '12345678',
-      userName: 'Nicholas',
-      phoneNumber1: '0759983853',
-      phoneNumber2: '0734780335',
-      createdAt: moment(new Date()).format('MM/DD/YYYY'),
-    },
-    {
-      customerId: 5,
-      customerName: 'katende',
-      documentType: 'National ID',
-      documentId: '12345678',
-      userName: 'Nicholas',
-      phoneNumber1: '0759983853',
-      phoneNumber2: '0734780335',
-      createdAt: moment(new Date()).format('MM/DD/YYYY'),
-    },
-    {
-      customerId: 3,
-      customerName: 'katende',
-      documentType: 'National ID',
-      documentId: '12345678',
-      userName: 'Nicholas',
-      phoneNumber1: '0759983853',
-      phoneNumber2: '0734780335',
-      createdAt: moment(new Date()).format('MM/DD/YYYY'),
-    },
-    {
-      customerId: 4,
-      customerName: 'katende',
-      documentType: 'National ID',
-      documentId: '12345678',
-      userName: 'Nicholas',
-      phoneNumber1: '0759983853',
-      phoneNumber2: '0734780335',
-      createdAt: moment(new Date()).format('MM/DD/YYYY'),
-    },
-    {
-      customerId: 5,
-      customerName: 'katende',
-      documentType: 'National ID',
-      documentId: '12345678',
-      userName: 'Nicholas',
-      phoneNumber1: '0759983853',
-      phoneNumber2: '0734780335',
-      createdAt: moment(new Date()).format('MM/DD/YYYY'),
-    },
-    {
-      customerId: 6,
-      customerName: 'katende',
-      documentType: 'National ID',
-      documentId: '12345678',
-      userName: 'Nicholas',
-      phoneNumber1: '0759983853',
-      phoneNumber2: '0734780335',
-      createdAt: moment(new Date()).format('MM/DD/YYYY'),
-    },
-    {
-      customerId: 7,
-      customerName: 'katende',
-      documentType: 'National ID',
-      documentId: '12345678',
-      userName: 'Nicholas',
-      phoneNumber1: '0759983853',
-      phoneNumber2: '0734780335',
-      createdAt: moment(new Date()).format('MM/DD/YYYY'),
-    },
-    {
-      customerId: 3,
-      customerName: 'katende',
-      documentType: 'National ID',
-      documentId: '12345678',
-      userName: 'Nicholas',
-      phoneNumber1: '0759983853',
-      phoneNumber2: '0734780335',
-      createdAt: moment(new Date()).format('MM/DD/YYYY'),
-    },
-    {
-      customerId: 4,
-      customerName: 'katende',
-      documentType: 'National ID',
-      documentId: '12345678',
-      userName: 'Nicholas',
-      phoneNumber1: '0759983853',
-      phoneNumber2: '0734780335',
-      createdAt: moment(new Date()).format('MM/DD/YYYY'),
-    },
-    {
-      customerId: 5,
-      customerName: 'katende',
-      documentType: 'National ID',
-      documentId: '12345678',
-      userName: 'Nicholas',
-      phoneNumber1: '0759983853',
-      phoneNumber2: '0734780335',
-      createdAt: moment(new Date()).format('MM/DD/YYYY'),
-    },
-    {
-      customerId: 3,
-      customerName: 'katende',
-      documentType: 'National ID',
-      documentId: '12345678',
-      userName: 'Nicholas',
-      phoneNumber1: '0759983853',
-      phoneNumber2: '0734780335',
-      createdAt: moment(new Date()).format('MM/DD/YYYY'),
-    },
-    {
-      customerId: 4,
-      customerName: 'katende',
-      documentType: 'National ID',
-      documentId: '12345678',
-      userName: 'Nicholas',
-      phoneNumber1: '0759983853',
-      phoneNumber2: '0734780335',
-      createdAt: moment(new Date()).format('MM/DD/YYYY'),
-    },
-    {
-      customerId: 5,
-      customerName: 'katende',
-      documentType: 'National ID',
-      documentId: '12345678',
-      userName: 'Nicholas',
-      phoneNumber1: '0759983853',
-      phoneNumber2: '0734780335',
-      createdAt: moment(new Date()).format('MM/DD/YYYY'),
-    }
   ];
-  getCustomers() {
+  addCustomer(postData: any): any {
+    return this.http.post<any>(`${this.API_URL}/api/customer/postCreateCustomer`, postData);
+  }
+  getAllCustomers(): any {
+    return this.http.get<any>(`${this.API_URL}/api/customer/getAllCustomers`);
+  }
+  getAllCustomersByBranch(branchId: number): any {
+    return this.http.get<any>(`${this.API_URL}/api/customer/getAllCustomersByBranch?branchId=554`);
+  }
+
+
+
+  getCustomers(): any {
     return of(this.customerTable);
   }
-  addCustomer(data: any) {
-    console.log(data);
-    let lastId = this.customerTable.slice(-1);
-    const newId = lastId[0].customerId + 1;
-    //const newcustomerId = lastcustomerId++
-    const newUserInfo = {
-      customerId: newId,
-      customerName: data.full_name,
-      documentType: 'village',
-      documentId: data.document_type,
-      userName: 'katende',
-      phoneNumber1: data.user_contact_number,
-      phoneNumber2: data.user_contact_two,
-      createdAt: moment(new Date()).format('MM/DD/YYYY'),
-    };
-    this.customerTable.push(newUserInfo);
-  }
-  getCustomer(customerId: number) {
-    return of(
-      this.customerTable.find(
-        (allCustomers) => allCustomers.customerId === customerId
-      )
-    );
+  getCustomer(customerId: number): any {
+    //
   }
 }

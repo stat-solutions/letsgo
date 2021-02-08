@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import  {ActivatedRoute} from '@angular/router';
-import {LandingService} from '../../../../app/shared//services/landing.service'
+import { LoaningService } from 'src/app/shared/services/loaning.service';
+
 
 
 @Component({
@@ -11,7 +12,7 @@ import {LandingService} from '../../../../app/shared//services/landing.service'
 export class CustomerDetailsComponent implements OnInit {
 	customerDetails = []
 
-  constructor(private ActivatedRoute:ActivatedRoute, private customerService:LandingService) { }
+  constructor(private ActivatedRoute:ActivatedRoute, private customerService:LoaningService) { }
 
   ngOnInit() {}
  
