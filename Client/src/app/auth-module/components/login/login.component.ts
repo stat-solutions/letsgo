@@ -93,7 +93,7 @@ export class LoginComponent implements OnInit {
               case 99:
                 this.alertService.danger({
                   html:
-                    '<strong>This account recquires approval, please contact system admin!</strong>'
+                    '<strong>This account is not assigned a role, please contact system admin!</strong>'
                 });
                 this.spinner.hide();
                 break;
@@ -254,23 +254,16 @@ export class LoginComponent implements OnInit {
         this.spinner.hide();
         this.errored = true;
         this.loginStatus = error;
-        // this.alertService.danger(this.loginStatus);
-        // this.alertService.warning({html: '<b>Signed In Successfully</b>'});
         if (this.loginStatus.status === 412) {
           this.alertService.danger({
             html: '<b>' + this.fval.userEmail.value + ' recquires approval first' + '<br/>'
           });
           this.passwordFailed = true;
-          // setTimeout(() => {
-          //   this.revert();
-          // }, 1000);
+          this.spinner.hide();
         } else {
           this.alertService.danger({
             html: '<b>' + this.loginStatus.error.error.message + '<br/>'
           });
-          // setTimeout(() => {
-          //   this.revert();
-          // }, 1000);
         }
         this.spinner.hide();
 
