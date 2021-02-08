@@ -16,106 +16,185 @@
           </div>
         </div>
       <div class="row">
-      <div class="col-6 col-sm-6 col-md-7 col-lg-8 col-xl-9 mr-0 mx-sm-auto px-0 px-sm-2 px-lg-3">
-          <div class="mt-0 pt-xl-0 mb-1 mb-md-2 mx-1 pl-0 px-sm-auto pl-xl-2">
-            <!-- the search section -->
-            <input
-              type="text"
-              (input)="getValue($event)"
-              class="form-control col-11 col-sm-12 col-md-10 col-lg-7 col-xl-5"
-              name=""
-              id="search"
-              placeholder="Search"
-              autocomplete="on"
-            />
+      <div class="col-10 col-md-5 col-lg-4">
+                <div class="mt-1 mt-xl-0 pt-xl-0 mb-2 mx-0 pl-0 pl-xl-2">
+						<input type="text" name=""
+            class="form-control col-12"
+						(input)="getValue($event)"
+						 id="search" placeholder="Search" autocomplete="on" />
+			</div>
+			</div>
+        <div class="col-1 mx-0 px-0">
+          <div class="mx-0 px-0">
+            <div ngbDropdown class="d-inline-block mt-0 mx-0 px-0">
+              <button
+                class="btn mx-0 px-0"
+                id="dropdownBasic1"
+                tooltip="Filter by"
+                ngbDropdownToggle
+              >
+                <i class="fas fa-filter fa-2x text-info"></i>
+              </button>
+              <div
+                ngbDropdownMenu
+                aria-labelledby="dropdownBasic1"
+                class="dropdown-menu"
+              >
+                <button ngbDropdownItem>Loan ID</button>
+                <button ngbDropdownItem>Customer</button>
+                <button ngbDropdownItem>Phone Number</button>
+              </div>
+            </div>
           </div>
-        </div>
-                        <div class="col-6 col-sm-6 col-md-5 col-lg-4 col-xl-3 ml-0 py-1 px-0 pl-sm-5">
-          <button
-            class="btn btn-primary mt-0 ml-0 ml-sm-5 px-2"
+          </div>
+            <div class="col-12 col-md-6 col-lg-7 mx-0 pt-1 px-0 px-sm-5 px-md-0 pl-lg-4 d-flex justify-content-end">
+          <button class="btn btn-primary my-2 ml-1 ml-sm-5 mx-md-1 ml-xl-5" tooltip="Export to Excel"
             tooltip="Export to Excel"
             (click)="exportToExcel()"
           >
             <i class="fas fa-file-export"></i> Export
           </button>
-          <button class="btn btn-info mt-0 mx-1"
+          <button class="btn btn-info my-2 ml-1 ml-sm-5 mx-md-1 px-3" (click)="goToUsers()"
           ><i class="fas fa-chevron-left"></i> Back</button>
         </div>
       </div>
     </div>
     <div class="row">
-      <div class="col-12 mx-0 px-0">
-      <div class="condition" *ngIf="checkTable(constantsTable); else nobranch">
-          <div class="table-col col-12 pt-2 pb-1 mb-0">
-            <div class="state-table table-responsive pb-0">
-              <!--table-->
-              <table
-              *ngIf="checkTable(filteredConstants); else noconstant"
-                class="table table-hover table-striped table-sm"
-                #exportTable
+      <div class="col-12">
+           <!--record container-->
+        <div
+          class="invest-card card mt-1 py-2 mb-2 mx-auto px-2 shadow-lg"
+           *ngIf="checkTable(constantsTable); else nobranch"
+        >
+          <div
+            class="iteration"
+            *ngIf="checkTable(filteredConstants); else noconstant"
+          >
+            <div class="item-container-1 mt-1">
+              <div
+                class="list-card card mt-1 pt-2 mb-0 mx-auto px-0 pb-1 shadow-lg"
+                 *ngFor="let constant of filteredConstants|orderBy:key:reverse let i = index"
               >
-              <thead class="bg-dark text-white">
-                <tr class="mx-2">
-                <th scope="col">
-                	<i class="fas fa-sort pointerCursor"
-                	(click)="sort('id')"
-                	></i> ID
-                </th>
-                <th scope="col">
-                	 <i class="fas fa-sort pointerCursor"
-                	(click)="sort('loanType')"
-                	></i>LoanType
-                </th>
-                 <th scope="col">
-                	 <i class="fas fa-sort pointerCursor"
-                	(click)="sort('loanproduct')"
-                	></i>LoanProduct
-                </th>
+                <div class="list-card-body card-body my-0 py-0 mx-0">
+                  <div class="row my-0 py-0">
+                    <div class="col-12">
+                      <div class="row mx-md-0 px-md-0">
+                        <div class="col-12 col-md-6 col-xl-4">
+                          <div class="row">
+                            <div
+                              class="col-5 col-md-4 d-flex justify-content-start mx-md-0 px-md-0"
+                            >
+                              <span class="">ID</span>
+                            </div>
+                            <div
+                              class="col-7 col-md-8 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
+                            >
+                              <span class="itemCreated">{{constant.id}}
+ </span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-12 col-md-6 col-xl-4">
+                          <div class="row">
+                            <div
+                              class="col-5 col-md-4 d-flex justify-content-start mx-md-0 px-md-0"
+                            >
+                              <span class="">Loan Type</span>
+                            </div>
+                            <div
+                              class="col-7 col-md-8 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
+                            >
+                              <span class="itemCreated">
+                                {{constant.loanType}}
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-12 col-md-6 col-xl-4">
+                          <div class="row">
+                            <div
+                              class="col-5 col-md-4 d-flex justify-content-start mx-md-0 px-md-0"
+                            >
+                              <span class="">Loan Product</span>
+                            </div>
+                            <div
+                              class="col-7 col-md-8 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
+                            >
+                              <span class="itemCreated">
+                                {{constant.loanproduct}}
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-12 col-md-6 col-xl-4">
+                          <div class="row">
+                            <div
+                              class="col-5 col-md-4 d-flex justify-content-start mx-md-0 px-md-0"
+                            >
+                              <span class="">Threshold</span>
+                            </div>
+                            <div
+                              class="col-7 col-md-8 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
+                            >
+                              <span class="itemCreated">
+{{constant.timeThreshold}}                              </span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-12 col-md-6 col-xl-4">
+                          <div class="row">
+                            <div
+                              class="col-5 col-md-4 d-flex justify-content-start mx-md-0 px-md-0"
+                            >
+                              <span class="">Tenure</span>
+                            </div>
+                            <div
+                              class="col-7 col-md-8 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
+                            >
+                              <span class="itemCreated">
+                           {{constant.tenure}}
 
-                <th scope="col">
-                	<i class="fas fa-sort pointerCursor"
-                	(click)="sort('timeThreshold')"
-                	></i>Threshold
-                </th>
-                   <th scope="col">
-                	<i class="fas fa-sort pointerCursor"
-                	(click)="sort('tenure')"
-                	></i> Tenure
-                </th>
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-12 col-md-6 col-xl-4">
+                          <div class="row">
+                            <div
+                              class="col-5 col-md-4 d-flex justify-content-start mx-md-0 px-md-0"
+                            >
+                              <span class="">Max'm Amount</span>
+                            </div>
+                            <div
+                              class="col-7 col-md-8 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
+                            >
+                              <span class="itemCreated">
+                              {{constant.maximumAmount}}
 
-                <th scope="col">
-                	<i class="fas fa-sort pointerCursor"
-                	(click)="sort('maximumAmount')"
-                	></i>Max'm Amount
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr class="mx-2" *ngFor="let constant of filteredConstants|orderBy:key:reverse let i = index">
-                <td>{{constant.id}}</td>
-                <td>{{constant.loanType}}</td>
-                <td>{{constant.loanproduct}}</td>
-                <td>{{constant.timeThreshold}}</td>
-                <td>{{constant.tenure}}</td>
-                <td>{{constant.maximumAmount}}</td>
-              </tr>
-            </tbody>
-          </table>
-           <!--table-->
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+           <!--/end of record container-->
            <ng-template #noconstant>
            	<div class="text-center">
            		<h2>No Details found</h2>
            	</div>
            </ng-template>
+           <ng-template #nobranch>
+                             <div class="col-12 my-5 py-5 justify-content-between">
+               <h4 class="text-center text-info">No constants found</h4>
+             </div>
+             </ng-template>
          </div>
       </div>
     </div>
-  </div>
-</div>
-            <ng-template #nobranch>
-                              <div class="col-12 my-5 py-5 justify-content-between">
-                <h4 class="text-center text-info">No constants Found!</h4>
-              </div>
-              </ng-template>
-  </div>
   </div>

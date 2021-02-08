@@ -8,6 +8,7 @@ import {  AdminRoutingModule} from "./admin-routing.module";
 import { SharedModule } from '../shared/shared.module';
 import { PagesCoreAdminComponent } from './pages-core/pages-core-admin.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { LeftPanelAdminComponent } from './common/left-panel/left-panel-admin.component';
@@ -58,6 +59,7 @@ import {CustomersComponent} from './components/customers/customers.component';
     ReactiveFormsModule,
     NgxSpinnerModule,
     DatepickerModule,
+NgbModule,
     NgxPaginationModule,
     BsDatepickerModule,
     AlertModule.forRoot({ maxMessages: 5, timeout: 7000 }),

@@ -24,6 +24,7 @@
     "@auth0/angular-jwt": "^5.0.1",
     "@fortawesome/angular-fontawesome": "^0.7.0",
     "@fortawesome/fontawesome-free": "^5.14.0",
+    "@ng-bootstrap/ng-bootstrap": "^9.0.2",
     "@popperjs/core": "^2.5.3",
     "bootstrap": "^4.5.2",
     "dotenv": "^8.2.0",

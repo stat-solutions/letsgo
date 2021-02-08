@@ -15,12 +15,19 @@ hr{
 .head-container{
   border-radius: 7px !important;
 }
-.state-table {
-  height: 100%;
+.list-card{
+  border-left: 3px solid #84868ace;
 }
-
-.pointerCursor {
-  cursor: pointer;
+.list-card:hover{
+  border-left: 3px solid #114888ce;
+}
+.img-circle{
+  width: 50px;
+  height: 50px;
+}
+.img-circle-1{
+  width: 130px;
+  height: 130px;
 }
 
 
@@ -60,20 +67,32 @@ hr{
     padding-top: .6rem !important;
     padding-bottom: 1.8rem !important;
   }
+.img-circle{
+  width: 45px;
+  height: 45px;
+}
+.img-circle-1{
+  width: 190px;
+  height: 190px;
+}
 }
 
 @media (min-width: 1100px) {
+  .jumbotron-fluid {
+    margin-top: 0px !important;
+    padding-top: 0px !important;
+    padding-bottom: 0rem !important;
+  }
+.img-circle{
+  width: 35px;
+  height: 35px;
+}
 }
 
 @media (min-width: 1280px) {
   .container {
     margin-left: auto !important;
     margin-right: auto !important;
-  }
-  .jumbotron-fluid {
-    margin-top: 0px !important;
-    padding-top: 0px !important;
-    padding-bottom: 0rem !important;
   }
 }
 

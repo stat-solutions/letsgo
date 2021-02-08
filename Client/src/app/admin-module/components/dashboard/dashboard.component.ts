@@ -114,11 +114,12 @@ fileName = "loanInfo.xlsx";
   if(this.checkTable(this.specificLoanTable)){
        this.modalRef = this.modalService.show(
       template,
-      Object.assign({}, { class: 'white modal-lg modal-dialog-center' })
+      Object.assign({}, { class: 'modal-lg modal-dialog-center' })
     );
   }
   }
-  //exportto excel
+  
+  //export to excel
   exportToExcel(){
     const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(this.exportExcel.nativeElement);
 
