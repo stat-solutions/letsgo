@@ -24,6 +24,7 @@ import { LoanApplicationModule } from './application-module/loanapplication.modu
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AsyncPipe, CommonModule } from '@angular/common';
 import {ModalModule} from 'ngx-bootstrap/modal';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { InterceptorService } from './shared/services/interceptor.service';
 import { SharedModule } from './shared/shared.module';
 import { JwtModule } from '@auth0/angular-jwt';
@@ -61,6 +62,7 @@ import { environment } from 'src/environments/environment';
     DatepickerModule.forRoot(),
     BsDatepickerModule.forRoot(),
     ReactiveFormsModule,
+NgbModule,
     TooltipModule.forRoot(),
     ModalModule.forRoot(),
     AngularFireModule.initializeApp(environment.firebaseConfig),

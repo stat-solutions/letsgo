@@ -32,58 +32,138 @@
     </div>
           <div class="row">
             <div class="col-12 mx-auto px-0 px-sm-3 px-md-0">
-      <div class="condition" *ngIf="checkTable(filteredBranches); else nobranch">
-          <div class="table-col col-12 py-2">
-            <div class="state-table table-responsive">
-              <!--table-->
-              <table
-                #exportTable
-                class="table table-hover table-striped table-sm"
+                         <!--record container-->
+        <div
+          class="invest-card card mt-1 py-2 mb-2 mx-auto px-2 shadow-lg"
+           *ngIf="checkTable(filteredBranches); else nobranch"
+        >
+            <div class="item-container-1 mt-1">
+              <div
+                class="list-card card mt-1 pt-2 mb-0 mx-auto px-0 pb-1 shadow-lg"
+                 *ngFor="let branch of filteredBranches|orderBy:key:reverse|paginate:{
+ id:'my_pages', itemsPerPage:pageSize, currentPage:currentPage,totalItems:totalItems
+} let i = index"
               >
-              <thead class="bg-dark text-white">
-                <tr class="mx-2">
-                <th scope="col">
-                  <i class="fas fa-sort pointerCursor"
-                  (click)="sort('branchNumber')">
-                  </i> BranchNo
-                </th>
-                <th scope="col">
-                  <i class="fas fa-sort pointerCursor"
-                  (click)="sort('branchName')">
-                  </i> Branch Name
-                </th>
-                <th scope="col">
-                  <i class="fas fa-sort pointerCursor"
-                  (click)="sort('town')">
-                  </i> Branch Type 
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr class="mx-2" *ngFor="let branch of filteredBranches|orderBy:key:reverse|paginate:{
-                id:'my_pages', itemsPerPage:pageSize, currentPage:currentPage,totalItems:totalItems
-                } let i = index">
-                <td>{{branch.branchId}}</td>
-                <td>{{branch.branchName}}</td>
-                <td>{{branch.branchTypeName}}</td>
-              </tr>
-            </tbody>
-          </table>
-            <pagination-controls  id="my_pages"
-            (pageChange)="pageChanged($event)"
-            (pageBoundsCorrection)="pageChanged($event)"
-            directionLinks="true">
-           </pagination-controls>
+                <div class="list-card-body card-body my-0 py-0 mx-0">
+                  <div class="row my-0 py-0">
+                    <div class="col-12">
+                      <div class="row mx-md-0 px-md-0">
+                        <div class="col-12 col-md-6 col-xl-4">
+                          <div class="row">
+                            <div
+                              class="col-5 col-md-4 d-flex justify-content-start mx-md-0 px-md-0"
+                            >
+                              <span class="">Branch No</span>
+                            </div>
+                            <div
+                              class="col-7 col-md-8 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
+                            >
+                              <span class="itemCreated">{{branch.branchNumber}}
+ </span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-12 col-md-6 col-xl-4">
+                          <div class="row">
+                            <div
+                              class="col-5 col-md-4 d-flex justify-content-start mx-md-0 px-md-0"
+                            >
+                              <span class="">Branch Name</span>
+                            </div>
+                            <div
+                              class="col-7 col-md-8 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
+                            >
+                              <span class="itemCreated">
+                                {{branch.branchName}}
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-12 col-md-6 col-xl-4">
+                          <div class="row">
+                            <div
+                              class="col-5 col-md-4 d-flex justify-content-start mx-md-0 px-md-0"
+                            >
+                              <span class="">Entity Name</span>
+                            </div>
+                            <div
+                              class="col-7 col-md-8 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
+                            >
+                              <span class="itemCreated">
+                                {{branch.entityName}}
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-12 col-md-6 col-xl-4">
+                          <div class="row">
+                            <div
+                              class="col-5 col-md-4 d-flex justify-content-start mx-md-0 px-md-0"
+                            >
+                              <span class="">District</span>
+                            </div>
+                            <div
+                              class="col-7 col-md-8 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
+                            >
+                              <span class="itemCreated">
+{{branch.district}}                              </span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-12 col-md-6 col-xl-4">
+                          <div class="row">
+                            <div
+                              class="col-5 col-md-4 d-flex justify-content-start mx-md-0 px-md-0"
+                            >
+                              <span class="">Town</span>
+                            </div>
+                            <div
+                              class="col-7 col-md-8 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
+                            >
+                              <span class="itemCreated">
+                           {{branch.town}}
+
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-12 col-md-6 col-xl-4">
+                          <div class="row">
+                            <div
+                              class="col-5 col-md-4 d-flex justify-content-start mx-md-0 px-md-0"
+                            >
+                              <span class="">Created At</span>
+                            </div>
+                            <div
+                              class="col-7 col-md-8 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
+                            >
+                              <span class="itemCreated">
+                              {{branch.createdAt}}
+
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+<!--/ end of record container-->
+             <pagination-controls  id="my_pages"
+              (pageChange)="pageChanged($event)"
+              (pageBoundsCorrection)="pageChanged($event)"
+              directionLinks="true">
+             </pagination-controls>
+            </div>
+          </div>
+        </div>
            <!--table-->
          </div>
       </div>
     </div>
-  </div>
-</div>
             <ng-template #nobranch>
                               <div class="col-12 my-5 py-5 justify-content-between">
-                <h4 class="text-center text-info">No Branch found!</h4>
+                <h4 class="text-center text-info">No Branch found</h4>
               </div>
               </ng-template>
-  </div>
-  </div>
