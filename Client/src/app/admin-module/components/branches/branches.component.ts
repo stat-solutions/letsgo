@@ -17,7 +17,7 @@ export class BranchesComponent implements OnInit {
   totalItems: number;
   id: string;
   currentPage = 1;
-  pageSize = 15;
+  pageSize = 9;
   age: number;
   key: any = 'branchNumber';
   reverse = false;

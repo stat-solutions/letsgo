@@ -1,9 +1,7 @@
-import { UserToProveService } from './../../../shared/services/user-to-prove.service';
 import { Component, OnInit, TemplateRef, ElementRef, ViewChild } from '@angular/core';
 import { FormControl, Validators, FormGroup, FormBuilder, FormArray } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
 import {BsModalService, BsModalRef} from 'ngx-bootstrap/modal';
-import {Registration} from 'src/app/shared/models/registration-interface';
 import { Router } from '@angular/router';
 import { UsersService } from 'src/app/shared/services/users.service';
 import { AuthServiceService } from 'src/app/shared/services/auth-service.service';
@@ -12,6 +10,7 @@ import { AuthServiceService } from 'src/app/shared/services/auth-service.service
   templateUrl: './approve-users.component.html',
   styleUrls: ['./approve-users.component.scss'],
 })
+
 export class ApproveUsersComponent implements OnInit {
   users: any;
   filteredUsers: any;
@@ -31,7 +30,7 @@ export class ApproveUsersComponent implements OnInit {
   search_user: string;
   User = this.authService.loggedInUserInfo();
   // tslint:disable-next-line: no-shadowed-variable
-  constructor(private UserToProveService: UserToProveService,
+  constructor(
               private authService: AuthServiceService,
               private userService: UsersService,
               private spinner: NgxSpinnerService,
@@ -47,7 +46,7 @@ export class ApproveUsersComponent implements OnInit {
     });
   }
   getUserToApproval(): any{
-    this.UserToProveService.getUserForApproval().subscribe(
+    this.userService.getUserForApproval().subscribe(
       res => {
         this.users = res;
         this.filteredUsers = this.users;
@@ -131,7 +130,7 @@ export class ApproveUsersComponent implements OnInit {
        userId: userInfo[0].userId,
       };
     // console.log(data);
-    this.UserToProveService.rejectUser(data).subscribe(
+    this.userService.rejectUser(data).subscribe(
       res => {},
       err => console.log(err.error.error.message)
     );
@@ -158,7 +157,7 @@ export class ApproveUsersComponent implements OnInit {
         }
       });
       // console.log(data);
-      this.UserToProveService.approveUser(data).subscribe(
+      this.userService.approveUser(data).subscribe(
         res => {},
         err => console.log(err.error.error.message)
       );

@@ -18,7 +18,7 @@
           id="search"
               class="form-control col-12 col-sm-10 col-md-8 col-lg-7 col-xl-5"
           (input)="getValue($event)"
-           placeholder="Search" autocomplete="on"
+           placeholder="Search by branch name or type" autocomplete="on"
           >
                 </div>
                 </div>
@@ -41,8 +41,8 @@
               <div
                 class="list-card card mt-1 pt-2 mb-0 mx-auto px-0 pb-1 shadow-lg"
                  *ngFor="let branch of filteredBranches|orderBy:key:reverse|paginate:{
- id:'my_pages', itemsPerPage:pageSize, currentPage:currentPage,totalItems:totalItems
-} let i = index"
+                  id:'my_pages', itemsPerPage:pageSize, currentPage:currentPage,totalItems:totalItems
+                  } let i = index"
               >
                 <div class="list-card-body card-body my-0 py-0 mx-0">
                   <div class="row my-0 py-0">
@@ -58,7 +58,7 @@
                             <div
                               class="col-7 col-md-8 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
                             >
-                              <span class="itemCreated">{{branch.branchNumber}}
+                              <span class="itemCreated">{{branch.branchId}}
  </span>
                             </div>
                           </div>
@@ -84,62 +84,13 @@
                             <div
                               class="col-5 col-md-4 d-flex justify-content-start mx-md-0 px-md-0"
                             >
-                              <span class="">Entity Name</span>
+                              <span class="">Branch Type</span>
                             </div>
                             <div
                               class="col-7 col-md-8 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
                             >
                               <span class="itemCreated">
-                                {{branch.entityName}}
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-12 col-md-6 col-xl-4">
-                          <div class="row">
-                            <div
-                              class="col-5 col-md-4 d-flex justify-content-start mx-md-0 px-md-0"
-                            >
-                              <span class="">District</span>
-                            </div>
-                            <div
-                              class="col-7 col-md-8 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
-                            >
-                              <span class="itemCreated">
-{{branch.district}}                              </span>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-12 col-md-6 col-xl-4">
-                          <div class="row">
-                            <div
-                              class="col-5 col-md-4 d-flex justify-content-start mx-md-0 px-md-0"
-                            >
-                              <span class="">Town</span>
-                            </div>
-                            <div
-                              class="col-7 col-md-8 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
-                            >
-                              <span class="itemCreated">
-                           {{branch.town}}
-
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-12 col-md-6 col-xl-4">
-                          <div class="row">
-                            <div
-                              class="col-5 col-md-4 d-flex justify-content-start mx-md-0 px-md-0"
-                            >
-                              <span class="">Created At</span>
-                            </div>
-                            <div
-                              class="col-7 col-md-8 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
-                            >
-                              <span class="itemCreated">
-                              {{branch.createdAt}}
-
+                                {{branch.branchTypeName}}
                               </span>
                             </div>
                           </div>

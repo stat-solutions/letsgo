@@ -23,32 +23,9 @@
               class="form-control col-12"
               name=""
               id="customer"
-              placeholder="Search"
+              placeholder="Search by customer name"
               autocomplete="on"
             />
-          </div>
-        </div>
-        <div class="col-1 mx-0 px-0">
-          <div class="mx-0 px-0">
-            <div ngbDropdown class="d-inline-block mt-0 mx-0 px-0">
-              <button
-                class="btn mx-0 px-0"
-                id="dropdownBasic1"
-                tooltip="Filter by"
-                ngbDropdownToggle
-              >
-                <i class="fas fa-filter fa-2x text-info"></i>
-              </button>
-              <div
-                ngbDropdownMenu
-                aria-labelledby="dropdownBasic1"
-                class="dropdown-menu"
-              >
-                <button ngbDropdownItem>Loan ID</button>
-                <button ngbDropdownItem>Customer</button>
-                <button ngbDropdownItem>Phone Number</button>
-              </div>
-            </div>
           </div>
         </div>
         <div class="col-4 col-md-5 col-lg-7 d-flex justify-content-end">
@@ -67,8 +44,8 @@
               <!--record container-->
         <div
           class="invest-card card mt-1 py-2 mb-2 mx-auto px-2 shadow-lg"
-*ngIf="checkTable(filterCustomers); else noCustomer"
-        >
+          *ngIf="checkTable(filterCustomers); else noCustomer"
+          >
             <div class="item-container-1 mt-1">
               <div
                 class="list-card card mt-1 pt-2 mb-0 mx-auto px-0 pb-1 shadow-lg"
@@ -84,14 +61,14 @@
                             };
                       let i = index
                     "
-                (click)="openModal(template)"
               >
-                <div class="list-card-body card-body my-0 py-0 mx-0">
-                  <div class="row my-0 py-0">
+          <div class="list-card-body card-body my-0 py-0 mx-0">
+        <div class="row my-0 py-0">
           <div class="col-2 col-md-1 mx-md-0 px-md-0 d-flex justify-content-center">
             <img
               class="img-circle mx-auto mt-2 mt-md-0 mt-xl-1 mb-1 pb-0"
-              src="assets/img/man.svg"
+              [src]="customer.customerPhotoUrl"
+              (click)="openModal(template, customer.customerPhotoUrl)"
             />
           </div>
                     <div class="col-10 col-md-11 mx-md-0 px-md-0">
@@ -137,7 +114,7 @@
                               class="col-7 col-md-9 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
                             >
                               <span class="itemCreated">
-                                {{ customer.documentType }}
+                                {{ customer.customerIdType }}
                               </span>
                             </div>
                           </div>
@@ -147,13 +124,13 @@
                             <div
                               class="col-5 col-md-3 d-flex justify-content-start mx-md-0 px-md-0"
                             >
-                              <span class="">Username</span>
+                              <span class="">ID Number</span>
                             </div>
                             <div
                               class="col-7 col-md-9 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
                             >
                               <span class="itemCreated">
-                                {{ customer.userName }}
+                                {{ customer.customerIdNumber }}
                               </span>
                             </div>
                           </div>
@@ -169,7 +146,7 @@
                               class="col-7 col-md-9 d-flex justify-content-start font-weight-bold"
                             >
                               <span class="itemCreated">
-                                {{ customer.phoneNumber1 }}
+                                {{ customer.customerPhone1 }}
                               </span>
                             </div>
                           </div>
@@ -185,7 +162,7 @@
                               class="col-7 col-md-9 d-flex justify-content-start font-weight-bold"
                             >
                               <span class="itemCreated">
-                                {{ customer.phoneNumber2 }}
+                                {{ customer.customerPhone2 }}
                               </span>
                             </div>
                           </div>
@@ -195,13 +172,13 @@
                             <div
                               class="col-5 col-md-4 col-lg-3 d-flex justify-content-start mx-md-0 px-md-0"
                             >
-                              <span class="">Created At</span>
+                              <span class="">Branch ID</span>
                             </div>
                             <div
                               class="col-7 col-md-8 col-lg-9 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
                             >
                               <span class="itemCreated">
-                                {{ customer.createdAt }}
+                                {{ customer.fkBranchIdCustomer }}
                               </span>
                             </div>
                           </div>
@@ -251,7 +228,7 @@
           <div class="col-12 d-flex justify-content-center">
             <img
               class="img-circle-1 mx-auto mt-2 mt-md-0 mt-xl-1 mb-1 pb-0"
-              src="assets/img/man.svg"
+              [src]="imageUrl"
             />
           </div>
         </div>

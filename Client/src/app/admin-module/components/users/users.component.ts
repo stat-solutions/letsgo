@@ -4,7 +4,7 @@ import {FormGroup, FormBuilder} from '@angular/forms';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {Router} from '@angular/router';
 import * as XLSX from 'xlsx';
-import { ngxCsv } from 'ngx-csv/ngx-csv'
+import { ngxCsv } from 'ngx-csv/ngx-csv';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 
@@ -17,12 +17,12 @@ export class UsersComponent implements OnInit {
   modalRef: BsModalRef;
   user = [];
   filteredUsers = [];
-  search_term: string;
+  searchTerm: string;
   fileName = 'users.xlsx';
   totalItems: number;
   id: string;
   reverse = false;
-  currentPage: number = 1;
+  currentPage = 1;
   pageSize = 9;
   age: number;
   key: any = 'userId';
@@ -36,7 +36,7 @@ export class UsersComponent implements OnInit {
     private modalService: BsModalService
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.userService.getUsers().subscribe(res => {
       this.user = res;
       this.filteredUsers = this.user;
@@ -46,26 +46,25 @@ export class UsersComponent implements OnInit {
 
     getValue(event): any {
     console.log(event.target.value);
-    this.search_term = event.target.value;
+    this.searchTerm = event.target.value;
     if (event.target.value === ''){
        this.filteredUsers = this.user;
        this.totalItems = this.filteredUsers.length;
 
     }
     else{
-          this.filteredUsers =  this.filterCustomer(this.search_term);
+          this.filteredUsers =  this.filterCustomer(this.searchTerm);
           this.totalItems = this.filteredUsers.length;
     }
   }
-
-  public openModal(template: TemplateRef<any>) {
+  public openModal(template: TemplateRef<any>): any {
     this.modalRef = this.modalService.show(
       template,
       Object.assign({}, { class: 'white modal-lg modal-dialog-center' })
     );
   }
 
-  public openModal2(template: TemplateRef<any>) {
+  public openModal2(template: TemplateRef<any>): any {
     this.modalRef = this.modalService.show(
       template,
       Object.assign({}, { class: 'white' })
@@ -80,9 +79,7 @@ export class UsersComponent implements OnInit {
       || user.userEmail.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1
       );
     }
-
   }
-
   checkArrayLength(array: Array<any>): any{
     return array.length ? true : false;
   }

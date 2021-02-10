@@ -16,80 +16,80 @@ export class CustomersComponent implements OnInit {
   customerTable: CustomerModel[] = [];
   filterCustomers = [];
   fileName = 'customer.xlsx';
-  search_customer: string;
+  searchCustomer: string;
   totalItems: number;
   id: string;
-  currentPage: number = 1;
+  currentPage = 1;
   pageSize = 13;
-  key: any = 'customerId';
+  key = 'customerId';
+  reverse = false;
+  imageUrl: string;
   @ViewChild('exportTable') element: ElementRef;
-  constructor(private customer: CustomerService,
-    private modalService: BsModalService,
-     private router: Router) {}
-  ngOnInit() {
+  constructor(
+      private customer: CustomerService,
+      private modalService: BsModalService,
+      private router: Router
+      ) {}
+  ngOnInit(): any {
     setTimeout(() => {
-      this.customer.getCustomers().subscribe((data) => {
-        console.log(data);
-        this.customerTable = data;
-        this.filterCustomers = this.customerTable;
-        this.totalItems = this.customerTable.length;
-      });
+      this.customer.getAllCustomers().subscribe(data => {
+      this.customerTable = data;
+      this.filterCustomers = this.customerTable;
+      this.totalItems = this.customerTable.length;
+    });
     }, 0);
   }
-  checkTable(array: Array<any>) {
+  checkTable(array: Array<any>): any {
     return array.length ? true : false;
   }
 
-  getValue(event) {
+  getValue(event): any {
     console.log(event.target.value);
     if (event.target.value === '') {
       this.filterCustomers = this.customerTable;
       this.totalItems = this.filterCustomers.length;
     } else {
-      this.search_customer = event.target.value;
-      this.filterCustomers = this.filterCustomer(this.search_customer);
+      this.searchCustomer = event.target.value;
+      this.filterCustomers = this.filterCustomer(this.searchCustomer);
       this.totalItems = this.filterCustomers.length;
     }
   }
-  filterCustomer(searchTerm: string) {
-    if (searchTerm)
+  filterCustomer(searchTerm: string): any {
+    if (searchTerm) {
       return this.filterCustomers.filter(
         (customer) =>
-          customer.customerName
-            .toLowerCase()
-            .indexOf(searchTerm.toLowerCase()) !== -1 ||
-          customer.userName.toLowerCase().indexOf(searchTerm.toLowerCase()) !==
-            -1 ||
-          customer.documentType
-            .toLowerCase()
-            .indexOf(searchTerm.toLowerCase()) !== -1
+          customer.customerName.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1
+          // || customer.userName.toLowerCase().indexOf(searchTerm.toLowerCase()) !==-1 ||
+          // customer.documentType.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1
       );
+    }
   }
-  pageChanged(event) {
+  pageChanged(event): any {
     this.currentPage = event;
   }
 
-//modal method
-  public openModal(template: TemplateRef<any>) {
+  // modal method
+  public openModal(template: TemplateRef<any>, imageUrl: string): any {
+      this.imageUrl = imageUrl;
       this.modalRef = this.modalService.show(
         template,
         Object.assign({}, { class: 'modal-dialog-center' })
       );
     }
 
-  //export to excel
-  exportToExcel() {
-    //pass the table to worksheet
-    //const element =  document.getElementById('export-table');
+  // export to excel
+  exportToExcel(): any {
+    // pass the table to worksheet
+    // const element =  document.getElementById('export-table');
     const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(
       this.element.nativeElement
     );
 
-    //create a workbook and add work sheet
+    // create a workbook and add work sheet
     const wb: XLSX.WorkBook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'Sheet 1');
 
-    //save fileName
+    // save fileName
     XLSX.writeFile(wb, this.fileName);
   }
   // exportAsCSV(){
@@ -101,8 +101,8 @@ export class CustomersComponent implements OnInit {
   //   new ngxCsv(this.filterCustomers ,'CustomerData', options)
 
   // }
-  reverse: boolean = false;
-  sort(item: string) {
+
+  sort(item: string): any {
     this.key = item;
     this.reverse = !this.reverse;
   }
