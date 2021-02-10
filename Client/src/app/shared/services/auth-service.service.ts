@@ -9,6 +9,9 @@ import { map, tap, catchError, mapTo } from 'rxjs/operators';
 import { UserRole } from '../models/user-role';
 // import { RegisterUser } from '../models/register';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { runInThisContext } from 'vm';
+import { UsersService } from 'src/app/shared/services/users.service';
+
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +19,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 export class AuthServiceService {
 
 
-
+    pleaseLogin = false;
     private API_URL = environment.apiUrl;
     private loggedInUser: string;
     private readonly ACCESS_TOKEN = 'ACCESS TOKEN';
@@ -28,7 +31,12 @@ export class AuthServiceService {
       })
     };
 
-    constructor(private http: HttpClient, private router: Router, private jwtHelper: JwtHelperService) { }
+    constructor(
+      private userService: UsersService,
+      private http: HttpClient,
+      private router: Router,
+      private jwtHelper: JwtHelperService
+      ) { }
 
     loginNormalUser(postData: any): any {
       return this.http.post<any>(`${this.API_URL}/api/user/loginUser`, postData, this.httpOptions)
@@ -80,11 +88,19 @@ export class AuthServiceService {
     doLoginUser(phoneNubmer: string, tokens: Tokens): any {
       this.loggedInUser = phoneNubmer;
       this.storeTokens(tokens);
+      this.setPleaseLogin(false);
     }
 
     doLogoutUser(): any {
       this.loggedInUser = null;
-      this.removeTokens();
+      if (!this.getPleaseLogin()) {
+        this.userService.userLogOut(this.loggedInUserInfo().userId).subscribe(
+          res => {
+            this.removeTokens();
+          },
+          err => console.log(err)
+        );
+      }
     }
 
     private removeTokens(): any {
@@ -124,13 +140,25 @@ export class AuthServiceService {
 
     refreshToken(): any {
       // console.log('am refreshing');
-      return this.http.post<any>(`${this.API_URL}/api/user/userRefreshToken`, {
-        refreshToken: this.getRefreshToken()
-      }).pipe(tap((tokens: Tokens) => {
-        this.storeJwtToken(tokens.accessToken);
-      }));
+      const bool = this.jwtHelper.isTokenExpired(this.getRefreshToken());
+      if (!bool) {
+        return this.http.post<any>(`${this.API_URL}/api/user/userRefreshToken`, {
+          refreshToken: this.getRefreshToken()
+        }).pipe(tap((tokens: Tokens) => {
+          this.storeTokens(tokens);
+        }));
+      } else {
+        this.setPleaseLogin(true);
+        this.doLogoutUser();
+        this.router.navigate(['/authpage/login']);
+      }
     }
-
+    setPleaseLogin(val: boolean): any {
+      this.pleaseLogin = val;
+    }
+    getPleaseLogin(): any {
+      return this.pleaseLogin;
+    }
     storeJwtToken(accessToken: string): any {
       localStorage.setItem(this.ACCESS_TOKEN, accessToken);
     }

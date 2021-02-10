@@ -23,7 +23,8 @@ export class InterceptorService  implements HttpInterceptor {
     }
     return next.handle(request).pipe(
       catchError(error => {
-      if (error instanceof HttpErrorResponse && error.status === 401) {
+      if (error instanceof HttpErrorResponse && error.status === 500) {
+        // console.log(error.status);
         return this.handle401Error(request, next);
       } else {
         return throwError(error);
@@ -49,16 +50,16 @@ export class InterceptorService  implements HttpInterceptor {
       return this.authService.refreshToken().pipe(
         switchMap((token: any) => {
           this.isRefreshing = false;
-          this.refreshTokenSubject.next(token.jwt);
-          return next.handle(this.addToken(request, token.jwt));
+          this.refreshTokenSubject.next(token.accessToken);
+          return next.handle(this.addToken(request, token.accessToken));
         }));
 
     } else {
       return this.refreshTokenSubject.pipe(
         filter(token => token != null),
         take(1),
-        switchMap(jwt => {
-          return next.handle(this.addToken(request, jwt));
+        switchMap(accessToken => {
+          return next.handle(this.addToken(request, accessToken));
         }));
     }
   }

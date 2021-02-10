@@ -38,6 +38,11 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.userForm = this.createFormGroup();
+    if (this.authService.getPleaseLogin()) {
+      this.alertService.warning({
+        html: '<b>System logged you out due to 12 mins of inactivity</b>'
+      });
+    }
   }
 
   createFormGroup(): any {

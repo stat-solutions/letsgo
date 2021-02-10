@@ -49,8 +49,8 @@ export class CustomersComponent implements OnInit {
       return this.filterCustomers.filter(
       customer =>
         customer.customerName.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1
-        || customer.userName.toLowerCase().indexOf(searchTerm.toLowerCase()) !==   -1
-        || customer.documentType.toLowerCase().indexOf(searchTerm.toLowerCase()) !==  -1
+        // || customer.userName.toLowerCase().indexOf(searchTerm.toLowerCase()) !==   -1
+        // || customer.documentType.toLowerCase().indexOf(searchTerm.toLowerCase()) !==  -1
       );
     }
   }

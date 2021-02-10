@@ -76,14 +76,14 @@
                         class="fas fa-sort pointerCursor"
                         (click)="sort('documentType')"
                       ></i>
-                      Document
+                      Document Type
                     </th>
                     <th scope="col">
                       <i
                         class="fas fa-sort pointerCursor"
                         (click)="sort('userName')"
                       ></i>
-                      Username
+                      ID Number
                     </th>
                     <th scope="col">Phone 1</th>
                     <th scope="col">Phone 2</th>
@@ -92,7 +92,7 @@
                         class="fas fa-sort pointerCursor"
                         (click)="sort('createdAt')"
                       ></i>
-                      Created At
+                     Branch ID
                     </th>
                   </tr>
                 </thead>
@@ -113,11 +113,11 @@
                   >
                     <td>{{ customer.customerId }}</td>
                     <td>{{ customer.customerName }}</td>
-                    <td>{{ customer.documentType }}</td>
-                    <td>{{ customer.userName }}</td>
-                    <td>{{ customer.phoneNumber1 }}</td>
-                    <td>{{ customer.phoneNumber2 }}</td>
-                    <td>{{ customer.createdAt }}</td>
+                    <td>{{ customer.customerIdType }}</td>
+                    <td>{{ customer.customerIdNumber }}</td>
+                    <td>{{ customer.customerPhone1 }}</td>
+                    <td>{{ customer.customerPhone2 }}</td>
+                    <td>{{ customer.fkBranchIdCustomer }}</td>
                   </tr>
                 </tbody>
               </table>

@@ -29,7 +29,7 @@ export class EntitiesComponent implements OnInit {
   fieldType: boolean;
   mySubscription: any;
   myDateValue: Date;
-  // // companyInfo: CompanyInfo;
+  companyInfo = [];
   User = this.authService.loggedInUserInfo();
   constructor(
     private entities: EntitiesService,
@@ -42,7 +42,9 @@ export class EntitiesComponent implements OnInit {
   ngOnInit(): void {
     this.companyForm = this.createFormGroup();
     this.setCompanyValues();
-    this.disableForm();
+    if (this.companyInfo.length > 0) {
+      this.disableForm();
+    }
   }
 
   createFormGroup(): any {
@@ -171,23 +173,23 @@ export class EntitiesComponent implements OnInit {
   setCompanyValues(): any {
     this.entities.getCompanyInfo().subscribe(
       (item) => {
-        // this.companyCreated = true;
-        console.log(item);
-        // this.companyForm.value = item[0];
-        this.fval.companyName.setValue(item[0].companyName);
-        this.fval.companyBoxNumber.setValue(item[0].companyBoxNumber);
-        this.fval.companyCityLocation.setValue(item[0].companyCityLocation);
-        this.fval.companyCountryLocation.setValue(
-          item[0].companyCountryLocation
-        );
-        this.fval.companyRegionLocation.setValue(item[0].companyRegionLocation);
-        this.fval.companyOfficeFloor.setValue(item[0].companyOfficeFloor);
-        this.fval.companyPlotNumber.setValue(item[0].companyPlotNumber);
-        this.fval.companyStreetBuilding.setValue(item[0].companyStreetBuilding);
-        this.fval.companyEmail1.setValue(item[0].companyEmail1);
-        this.fval.companyEmail2.setValue(item[0].companyEmail2);
-        this.fval.companyPhoneContact1.setValue(item[0].companyPhoneContact1);
-        this.fval.companyPhoneContact2.setValue(item[0].companyPhoneContact2);
+        this.companyInfo = item[0];
+        if (this.companyInfo.length > 0) {
+          this.fval.companyName.setValue(item[0].companyName);
+          this.fval.companyBoxNumber.setValue(item[0].companyBoxNumber);
+          this.fval.companyCityLocation.setValue(item[0].companyCityLocation);
+          this.fval.companyCountryLocation.setValue(
+            item[0].companyCountryLocation
+          );
+          this.fval.companyRegionLocation.setValue(item[0].companyRegionLocation);
+          this.fval.companyOfficeFloor.setValue(item[0].companyOfficeFloor);
+          this.fval.companyPlotNumber.setValue(item[0].companyPlotNumber);
+          this.fval.companyStreetBuilding.setValue(item[0].companyStreetBuilding);
+          this.fval.companyEmail1.setValue(item[0].companyEmail1);
+          this.fval.companyEmail2.setValue(item[0].companyEmail2);
+          this.fval.companyPhoneContact1.setValue(item[0].companyPhoneContact1);
+          this.fval.companyPhoneContact2.setValue(item[0].companyPhoneContact2);
+        }
       },
       (error: string) => {
         //

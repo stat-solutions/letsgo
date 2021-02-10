@@ -24,29 +24,6 @@
 						 id="name" placeholder="Search" autocomplete="on" />
 			</div>
 			</div>
-        <div class="col-1 mx-0 px-0">
-          <div class="mx-0 px-0">
-            <div ngbDropdown class="d-inline-block mt-0 mx-0 px-0">
-              <button
-                class="btn mx-0 px-0"
-                id="dropdownBasic1"
-                tooltip="Filter by"
-                ngbDropdownToggle
-              >
-                <i class="fas fa-filter fa-2x text-info"></i>
-              </button>
-              <div
-                ngbDropdownMenu
-                aria-labelledby="dropdownBasic1"
-                class="dropdown-menu"
-              >
-                <button ngbDropdownItem>Loan ID</button>
-                <button ngbDropdownItem>Customer</button>
-                <button ngbDropdownItem>Phone Number</button>
-              </div>
-            </div>
-          </div>
-          </div>
             <div class="col-12 col-md-6 col-lg-7 mx-0 pt-1 px-0 px-sm-5 px-md-0 pl-lg-4 d-flex justify-content-end">
           <button class="btn btn-primary my-2 ml-1 ml-sm-5 mx-md-1 ml-xl-5" tooltip="Export to Excel"
             tooltip="Export to Excel"
@@ -75,8 +52,8 @@
           <div class="row my-0 py-0">
                   <div class="col-2 col-md-1">
                     <img
-                      class="img-circle mx-auto mt-2 mt-md-0 mb-1 pb-0" (click)="openModal(template)"
-                      src="assets/img/man.svg"
+                      class="img-circle mx-auto mt-2 mt-md-0 mb-1 pb-0" (click)="openModal(template, logged.userPhotoUrl)"
+                      [src]="logged.userPhotoUrl"
                     />
                   </div>
             <div class="col-10 col-md-11 mx-lg-0 px-lg-0">
@@ -90,7 +67,7 @@
                         class="col-9 col-xl-10 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
                       >
                       <span class="itemCreated">
-{{ logged.userId }}                      </span>
+                        {{ logged.loggedInUsersId }}                      </span>
                     </div>
                   </div>
                 </div>
@@ -103,20 +80,7 @@
                         class="col-9 col-xl-10 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
                       >
                       <span class="itemCreated">
-{{ logged.userName }}                      </span>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-12 col-md-4">
-                  <div class="row">
-                      <div class="col-3 col-xl-2 d-flex justify-content-start mx-md-0 px-md-0">
-                      <span class="">Branch</span>
-                    </div>
-                    <div
-                        class="col-9 col-xl-10 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
-                    >
-                      <span class="itemCreated">
-{{ logged.userBranch }}                      </span>
+                      {{ logged.userName }}                      </span>
                     </div>
                   </div>
                 </div>
@@ -129,15 +93,53 @@
                         class="col-9 col-xl-10 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
                       >
                       <span class="itemCreated">
-{{ logged.userEmail }}                      </span>
+                        {{ logged.userEmail }}                      </span>
+                    </div>
+                  </div>
+                </div> <div class="col-12 col-md-6">
+                  <div class="row">
+                      <div class="col-3 col-xl-2 d-flex justify-content-start mx-md-0 px-md-0">
+                      <span class="">Phone</span>
+                    </div>
+                      <div
+                        class="col-9 col-xl-10 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
+                      >
+                      <span class="itemCreated">
+                        {{ logged.userPhone1 }}                      </span>
+                    </div>
+                  </div>
+                </div> 
+                <div class="col-12 col-md-6">
+                  <div class="row">
+                      <div class="col-3 col-xl-2 d-flex justify-content-start mx-md-0 px-md-0">
+                      <span class="">LogIn Date</span>
+                    </div>
+                      <div
+                        class="col-9 col-xl-10 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
+                      >
+                      <span class="itemCreated">
+                        {{ logged.loginDate }}                      </span>
+                    </div>
+                  </div>
+                </div> 
+                <div class="col-12 col-md-6">
+                  <div class="row">
+                      <div class="col-3 col-xl-2 d-flex justify-content-start mx-md-0 px-md-0">
+                      <span class="">LogIn Time</span>
+                    </div>
+                      <div
+                        class="col-9 col-xl-10 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
+                      >
+                      <span class="itemCreated">
+                        {{ logged.loginTime }}                      </span>
                     </div>
                   </div>
                 </div>
                 <div class="col-12 col-md-2 ">
                   <div class="row">
                       <div class="col d-flex justify-content-end">
-<button class="btn btn-info"
-                      (click)="logOut(logged.userId, logged.userEmail, i)"
+                      <button class="btn btn-info"
+                      (click)="logOut(logged.loggedInUsersId)"
                       >Logout</button>
                                         </div>
                   </div>
@@ -184,7 +186,7 @@
           <div class="col-12 d-flex justify-content-center">
             <img
               class="img-circle-1 mx-auto mt-2 mt-md-0 mt-xl-1 mb-1 pb-0"
-              src="assets/img/man.svg"
+              [src]="imageUrl"
             />
           </div>
         </div>

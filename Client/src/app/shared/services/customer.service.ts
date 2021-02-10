@@ -44,8 +44,6 @@ export class CustomerService {
     return this.http.get<any>(`${this.API_URL}/api/customer/getAllCustomersByBranch?branchId=554`);
   }
 
-
-
   getCustomers(): any {
     return of(this.customerTable);
   }
