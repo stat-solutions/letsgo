@@ -16,6 +16,7 @@ import {CreatesecurityComponent} from './components/createsecurity/createsecurit
 import { ConstantsTableComponent } from './components/constants-table/constants-table.component';
 import {CustomersComponent} from './components/customers/customers.component';
 import { AdminGuard } from '../shared/services/route-guards/admin-guard.service';
+import { EditBranchComponent } from './components/edit-branch/edit-branch.component';
 const routes: Routes = [
   {
     path: 'admin',
@@ -25,69 +26,71 @@ const routes: Routes = [
       {
         path: '',
         pathMatch: 'full',
-        redirectTo: 'dashboard'
+        redirectTo: 'dashboard',
       },
 
       {
         path: 'dashboard',
-       component: DashboardComponent,
+        component: DashboardComponent,
       },
       {
         path: 'approveusers',
-       component: ApproveUsersComponent,
+        component: ApproveUsersComponent,
       },
       {
-       path: 'createsecurity',
-       component: CreatesecurityComponent
+        path: 'createsecurity',
+        component: CreatesecurityComponent,
       },
 
       {
         path: 'loggedin',
-       component: ViewLoggedinUsersComponent,
+        component: ViewLoggedinUsersComponent,
       },
       {
         path: 'reports',
-       component: ReportsComponent,
+        component: ReportsComponent,
       },
       {
         path: 'constants',
-       component: ConstantsComponent,
+        component: ConstantsComponent,
       },
       {
         path: 'editprofile',
-        component: EditProfileComponent
+        component: EditProfileComponent,
       },
       {
         path: 'branch',
-        component: BranchesComponent
+        component: BranchesComponent,
       },
       {
         path: 'constantstable',
-        component: ConstantsTableComponent
+        component: ConstantsTableComponent,
       },
       {
         path: 'createbranch',
-        component: CreateBranchComponent
+        component: CreateBranchComponent,
       },
       {
-       path: 'customers',
-       component: CustomersComponent
+        path: 'editbranch',
+        component: EditBranchComponent,
+      },
+      {
+        path: 'customers',
+        component: CustomersComponent,
       },
       {
         path: 'customerdetails/:customerid',
-        component: CustomerDetailsComponent
+        component: CustomerDetailsComponent,
       },
       {
         path: 'users',
-        component: UsersComponent
+        component: UsersComponent,
       },
       {
         path: 'entities',
-        component: EntitiesComponent
-      }
-
-
-    ]
+        component: EntitiesComponent,
+      },
+    ],
   },
 ];
 

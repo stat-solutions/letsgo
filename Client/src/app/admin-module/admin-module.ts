@@ -30,6 +30,8 @@ import {CreatesecurityComponent} from './components/createsecurity/createsecurit
 import { OrderModule } from 'ngx-order-pipe';
 import { ConstantsTableComponent } from './components/constants-table/constants-table.component';
 import {CustomersComponent} from './components/customers/customers.component';
+import { EditBranchComponent } from './components/edit-branch/edit-branch.component';
+
 @NgModule({
   declarations: [
     PagesCoreAdminComponent,
@@ -50,7 +52,8 @@ import {CustomersComponent} from './components/customers/customers.component';
     EntitiesComponent,
     CreatesecurityComponent,
     ConstantsTableComponent,
-    CustomersComponent
+    CustomersComponent,
+    EditBranchComponent
   ],
   imports: [
     CommonModule,
@@ -59,13 +62,13 @@ import {CustomersComponent} from './components/customers/customers.component';
     ReactiveFormsModule,
     NgxSpinnerModule,
     DatepickerModule,
-NgbModule,
+    NgbModule,
     NgxPaginationModule,
     BsDatepickerModule,
     AlertModule.forRoot({ maxMessages: 5, timeout: 7000 }),
     TooltipModule.forRoot(),
     ModalModule.forRoot(),
-    OrderModule
+    OrderModule,
   ],
 })
 export class AdminModule {}

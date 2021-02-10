@@ -16,7 +16,7 @@
           </div>
         </div>
       <div class="row">
-      <div class="col-10 col-md-5 col-lg-4">
+      <div class="col-12 col-md-6 col-lg-4">
                 <div class="mt-1 mt-xl-0 pt-xl-0 mb-2 mx-0 pl-0 pl-xl-2">
 						<input type="text" name=""
             class="form-control col-12"
@@ -24,7 +24,7 @@
 						 id="name" placeholder="Search" autocomplete="on" />
 			</div>
 			</div>
-            <div class="col-12 col-md-6 col-lg-7 mx-0 pt-1 px-0 px-sm-5 px-md-0 pl-lg-4 d-flex justify-content-end">
+            <div class="col-12 col-md-6 col-lg-8 mx-0 pt-1 px-0 px-sm-5 px-md-0 pl-lg-4 d-flex justify-content-end">
           <button class="btn btn-primary my-2 ml-1 ml-sm-5 mx-md-1 ml-xl-5" tooltip="Export to Excel"
             tooltip="Export to Excel"
             (click)="exportToExcel()"
@@ -108,7 +108,7 @@
                         {{ logged.userPhone1 }}                      </span>
                     </div>
                   </div>
-                </div> 
+                </div>
                 <div class="col-12 col-md-6">
                   <div class="row">
                       <div class="col-3 col-xl-2 d-flex justify-content-start mx-md-0 px-md-0">
@@ -121,7 +121,7 @@
                         {{ logged.loginDate }}                      </span>
                     </div>
                   </div>
-                </div> 
+                </div>
                 <div class="col-12 col-md-6">
                   <div class="row">
                       <div class="col-3 col-xl-2 d-flex justify-content-start mx-md-0 px-md-0">
@@ -150,20 +150,20 @@
         </div>
       </div>
 </div>
+<!--/ records container-->
+<pagination-controls  id="my_pages"
+(pageChange)="pageChanged($event)"
+(pageBoundsCorrection)="pageChanged($event)"
+directionLinks="true">
+</pagination-controls>
       </div>
-              <!--/ records container-->
-            <pagination-controls  id="my_pages"
-            (pageChange)="pageChanged($event)"
-            (pageBoundsCorrection)="pageChanged($event)"
-            directionLinks="true">
-           </pagination-controls>
             </div>
           </div>
         </div>
       </div>
                   <ng-template #noCustomer>
                               <div class="col-12 my-5 py-5 justify-content-between">
-              <h4 class="text-center text-info">No User found!</h4>
+              <h4 class="text-center text-info">No User logged in</h4>
             </div>
                   </ng-template>
 <ng-template #template>
