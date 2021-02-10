@@ -14,7 +14,7 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-7 col-md-6 col-lg-4">
+        <div class="col-12 col-md-6 col-lg-4">
           <div class="mt-1 mt-xl-0 pt-xl-0 mb-2 mx-0 pl-0 pl-xl-2 pr-0">
             <!-- the search section -->
             <input
@@ -28,7 +28,7 @@
             />
           </div>
         </div>
-        <div class="col-4 col-md-5 col-lg-7 d-flex justify-content-end">
+        <div class="col-12 col-md-6 col-lg-8 d-flex justify-content-end">
           <button
             class="btn btn-primary my-2 ml-sm-4 ml-md-5 ml-xl-1 px-2"
             tooltip="Export to Excel"
@@ -190,19 +190,18 @@
               </div>
             </div>
           </div>
-        <!--/ end of record container-->
-        <pagination-controls
-          id="my_pages"
-          (pageChange)="pageChanged($event)"
-          (pageBoundsCorrection)="pageChanged($event)"
-          directionLinks="true"
-        >
-        </pagination-controls>
-
+          <!--/ end of record container-->
+          <pagination-controls
+            id="my_pages"
+            (pageChange)="pageChanged($event)"
+            (pageBoundsCorrection)="pageChanged($event)"
+            directionLinks="true"
+          >
+          </pagination-controls>
       </div>
       <ng-template #noCustomer>
         <div class="col-12 my-5 py-5 justify-content-between">
-          <h4 class="text-center text-info">No Customer found!</h4>
+          <h4 class="text-center text-info">No Customer found</h4>
         </div>
       </ng-template>
     </div>

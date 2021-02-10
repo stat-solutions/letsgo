@@ -7,7 +7,7 @@ import { ngxCsv } from 'ngx-csv/ngx-csv';
 @Component({
   selector: 'app-branches',
   templateUrl: './branches.component.html',
-  styleUrls: ['./branches.component.scss']
+  styleUrls: ['./branches.component.scss'],
 })
 export class BranchesComponent implements OnInit {
   AllBranches = [];
@@ -21,9 +21,8 @@ export class BranchesComponent implements OnInit {
   age: number;
   key: any = 'branchNumber';
   reverse = false;
-  @ViewChild('exportTable')element: ElementRef;
-  constructor(private branchService: BranchesService, private router: Router) {
-  }
+  @ViewChild('exportTable') element: ElementRef;
+  constructor(private branchService: BranchesService, private router: Router) {}
 
   ngOnInit(): void {
     this.branchService.getAllBranches().subscribe((branches) => {
@@ -34,44 +33,50 @@ export class BranchesComponent implements OnInit {
       // console.log(this.searchText);
     });
   }
-  checkTable(array: Array<any>): any{
+  checkTable(array: Array<any>): any {
     return array.length ? true : false;
   }
 
   getValue(event): any {
-    if (event.target.value === ''){
+    if (event.target.value === '') {
       this.filteredBranches = this.AllBranches;
       this.totalItems = this.filteredBranches.length;
+    } else {
+      this.searchText = event.target.value;
+      this.filteredBranches = this.filterBranches(this.searchText);
+      this.totalItems = this.filteredBranches.length;
     }
-    else{
-          this.searchText = event.target.value;
-          this.filteredBranches =  this.filterBranches(this.searchText);
-          this.totalItems = this.filteredBranches.length;
-    }
-
   }
-  filterBranches(searchTerm: string): any{
+  filterBranches(searchTerm: string): any {
     if (searchTerm) {
-    return this.filteredBranches.filter(
-      branch =>
-        branch.branchName.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1
-        || branch.branchTypeName.toLowerCase().indexOf(searchTerm.toLowerCase()) !==  -1
+      return this.filteredBranches.filter(
+        (branch) =>
+          branch.branchName.toLowerCase().indexOf(searchTerm.toLowerCase()) !==
+            -1 ||
+          branch.branchTypeName
+            .toLowerCase()
+            .indexOf(searchTerm.toLowerCase()) !== -1
       );
     }
   }
 
-
-  createBranch(): any{
+//branch methods
+  createBranch(): any {
     this.router.navigate(['admin/createbranch']);
   }
-  pageChanged(event): any{
-     this.currentPage = event;
+  editBranch(): any {
+    this.router.navigate(['admin/editbranch']);
+  }
 
-   }
+  pageChanged(event): any {
+    this.currentPage = event;
+  }
 
-   exportToExcel(): any{
+  exportToExcel(): any {
     console.log(this.element);
-    const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(this.element.nativeElement);
+    const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(
+      this.element.nativeElement
+    );
 
     // create a workbook and add work sheet
     const wb: XLSX.WorkBook = XLSX.utils.book_new();
@@ -89,9 +94,8 @@ export class BranchesComponent implements OnInit {
   //   new ngxCsv(this.filteredBranches,'BranchData', options)
 
   // }
-    sort(item: string): any{
+  sort(item: string): any {
     this.key = item;
     this.reverse = !this.reverse;
   }
-
 }

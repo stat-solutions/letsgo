@@ -5,44 +5,53 @@
     <div
       class="head-container container my-1 mx-auto px-auto pt-0 pb-2 shadow-lg"
     >
-              <div class="row">
-          <div class="col-12">
-            <h3
-              class="rub-head4 text-info text-center font-weight-bold py-1"
-            >
-              CONSTANTS
-            </h3>
-            <hr class="mt-0" />
+      <div class="row">
+        <div class="col-12">
+          <h3 class="rub-head4 text-info text-center font-weight-bold py-1">
+            CONSTANTS
+          </h3>
+          <hr class="mt-0" />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 col-sm-8 col-md-6 col-lg-4">
+          <div class="mt-1 mt-xl-0 pt-xl-0 mb-2 mx-0 pl-0 pl-xl-2">
+            <input
+              type="text"
+              name=""
+              class="form-control col-12"
+              (input)="getValue($event)"
+              id="search"
+              placeholder="Search"
+              autocomplete="on"
+            />
           </div>
         </div>
-      <div class="row">
-      <div class="col-10 col-md-5 col-lg-4">
-                <div class="mt-1 mt-xl-0 pt-xl-0 mb-2 mx-0 pl-0 pl-xl-2">
-						<input type="text" name=""
-            class="form-control col-12"
-						(input)="getValue($event)"
-						 id="search" placeholder="Search" autocomplete="on" />
-			</div>
-			</div>
-            <div class="col-12 col-md-6 col-lg-7 mx-0 pt-1 px-0 px-sm-5 px-md-0 pl-lg-4 d-flex justify-content-end">
-          <button class="btn btn-primary my-2 ml-1 ml-sm-5 mx-md-1 ml-xl-5" tooltip="Export to Excel"
+        <div
+          class="col-12 col-md-6 col-lg-8 mx-0 pt-1 px-0 px-sm-5 px-md-0 pl-lg-4 d-flex justify-content-end"
+        >
+          <button
+            class="btn btn-primary my-2 ml-1 ml-sm-5 mx-md-1 ml-xl-5"
             tooltip="Export to Excel"
             (click)="exportToExcel()"
           >
             <i class="fas fa-file-export"></i> Export
           </button>
-          <button class="btn btn-info my-2 ml-1 ml-sm-5 mx-md-1 px-3"
-            routerLink='/admin/constants'
-          ><i class="fas fa-chevron-left"></i> Back</button>
+          <button
+            class="btn btn-info my-2 ml-1 ml-sm-5 mx-md-1 px-3"
+            routerLink="/admin/constants"
+          >
+            <i class="fas fa-chevron-left"></i> Back
+          </button>
         </div>
       </div>
     </div>
     <div class="row">
       <div class="col-12">
-           <!--record container-->
+        <!--record container-->
         <div
           class="invest-card card mt-1 py-2 mb-2 mx-auto px-2 shadow-lg"
-           *ngIf="checkTable(constantsTable); else nobranch"
+          *ngIf="checkTable(constantsTable); else nobranch"
         >
           <div
             class="iteration"
@@ -51,7 +60,10 @@
             <div class="item-container-1 mt-1">
               <div
                 class="list-card card mt-1 pt-2 mb-0 mx-auto px-0 pb-1 shadow-lg"
-                 *ngFor="let constant of filteredConstants|orderBy:key:reverse let i = index"
+                *ngFor="
+                  let constant of filteredConstants | orderBy: key:reverse;
+                  let i = index
+                "
               >
                 <div class="list-card-body card-body my-0 py-0 mx-0">
                   <div class="row my-0 py-0">
@@ -67,8 +79,9 @@
                             <div
                               class="col-7 col-md-8 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
                             >
-                              <span class="itemCreated">{{constant.id}}
- </span>
+                              <span class="itemCreated"
+                                >{{ constant.id }}
+                              </span>
                             </div>
                           </div>
                         </div>
@@ -83,7 +96,7 @@
                               class="col-7 col-md-8 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
                             >
                               <span class="itemCreated">
-                                {{constant.loanType}}
+                                {{ constant.loanType }}
                               </span>
                             </div>
                           </div>
@@ -99,7 +112,7 @@
                               class="col-7 col-md-8 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
                             >
                               <span class="itemCreated">
-                                {{constant.loanproduct}}
+                                {{ constant.loanproduct }}
                               </span>
                             </div>
                           </div>
@@ -115,7 +128,8 @@
                               class="col-7 col-md-8 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
                             >
                               <span class="itemCreated">
-{{constant.timeThreshold}}                              </span>
+                                {{ constant.timeThreshold }}
+                              </span>
                             </div>
                           </div>
                         </div>
@@ -130,8 +144,7 @@
                               class="col-7 col-md-8 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
                             >
                               <span class="itemCreated">
-                           {{constant.tenure}}
-
+                                {{ constant.tenure }}
                               </span>
                             </div>
                           </div>
@@ -147,8 +160,7 @@
                               class="col-7 col-md-8 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
                             >
                               <span class="itemCreated">
-                              {{constant.maximumAmount}}
-
+                                {{ constant.maximumAmount }}
                               </span>
                             </div>
                           </div>
@@ -161,18 +173,18 @@
             </div>
           </div>
         </div>
-           <!--/end of record container-->
-           <ng-template #noconstant>
-           	<div class="text-center">
-           		<h2>No Details found</h2>
-           	</div>
-           </ng-template>
-           <ng-template #nobranch>
-                             <div class="col-12 my-5 py-5 justify-content-between">
-               <h4 class="text-center text-info">No constants found</h4>
-             </div>
-             </ng-template>
-         </div>
+        <!--/end of record container-->
+        <ng-template #noconstant>
+          <div class="text-center">
+            <h2>No Details found</h2>
+          </div>
+        </ng-template>
+        <ng-template #nobranch>
+          <div class="col-12 my-5 py-5 justify-content-between">
+            <h4 class="text-center text-info">No Constants found</h4>
+          </div>
+        </ng-template>
       </div>
     </div>
   </div>
+</div>
