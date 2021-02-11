@@ -18,17 +18,19 @@ hr{
 
 .list-card {
   width: 100%!important;
-  max-width: 920px !important;
-  min-width: 290px !important;
   height: auto;
   border-radius: 8px;
   contain: auto;
 }
 .list-card-body {
   width: 100% !important;
-  max-width: 880px !important;
-  min-width: 260px !important;
   height: auto;
+}
+.list-card-1{
+  border-left: 3px solid #84868ace;
+}
+.list-card-1:hover{
+  border-left: 3px solid #114888ce;
 }
 .details-img {
   width: 100%;
@@ -127,9 +129,6 @@ hr{
   width: 45px;
   height: 45px;
 }
-.img-div{
-  border-right: 3px solid #304257ce
-}
 .img-circle-1{
   width: 160px;
   height: 160px;
@@ -145,6 +144,10 @@ hr{
 .img-circle{
   width: 35px;
   height: 35px;
+}
+.details-img {
+  width: 85%;
+  height: 85%;
 }
 }
 

@@ -2,7 +2,6 @@
   height: inherit !important;
 }
 
-
 .rub-head4 {
   margin-top: 2px !important;
   margin-bottom: 2px !important;
@@ -16,8 +15,11 @@ hr{
 .head-container{
   border-radius: 7px !important;
 }
-.state-table {
-  height: 100%;
+.list-card{
+  border-left: 3px solid #84868ace;
+}
+.list-card:hover{
+  border-left: 3px solid #114888ce;
 }
 .sm-card-1 {
   background-image: linear-gradient(215deg, #114888ce, rgba(182, 188, 190, 0.7));
@@ -39,10 +41,10 @@ hr{
   border: 0rem;
 }
 
-.pointerCursor {
-  cursor: pointer;
+.img-circle{
+  width: 60px;
+  height: 60px;
 }
-
 
 
 
@@ -122,10 +124,6 @@ hr{
   .sm-card-4 {
       min-width: 125px;
   }
-.state-table {
-  min-height: 12rem;
-  max-height: 34rem;
-}
 }
 
 @media (min-width: 812px) {
@@ -137,10 +135,6 @@ hr{
     padding-top: 0px !important;
     padding-bottom: .3rem !important;
   }
-.state-table {
-  min-height: 12rem;
-  max-height: 22rem;
-}
 }
 
 @media (min-width: 1024px) {
@@ -163,17 +157,13 @@ hr{
   .sm-card-4 {
       min-width: 140px;
   }
-.state-table {
-  min-height: 12rem;
-  max-height: 39rem;
+.img-circle{
+  width: 85px;
+  height: 85px;
 }
 }
 
 @media (min-width: 1100px) {
-.state-table {
-  min-height: 12rem;
-  max-height: 23.4rem;
-}
 }
 
 @media (min-width: 1280px) {
