@@ -93,7 +93,7 @@ export class UserTransactionsComponent implements OnInit {
   }
   saveEdit() {
     if (this.editLoanForm.invalid) {
-      this.alertService.danger('Something went wrong!');
+      this.alertService.danger('Something went wrong');
     } else {
       //pass the data for editting
       this.alertService.success({

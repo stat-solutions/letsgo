@@ -1,7 +1,7 @@
 <div
-class="container-fluid d-flex flex-row justify-content-center mb-0 mt-1 pt-0 pt-lg-5 pt-xl-0 pb-0 shadow-lg col-xs-12 col-lg-8"
+class="container-fluid d-flex flex-row justify-content-center mb-0 mt-1 pt-0 pt-md-5 pt-xl-1 pb-0 pb-xl-5 shadow-lg col-xs-12 col-lg-9"
 >
-  <div class="jumbotron-fluid mx-0 px-0 mt-1 mt-xl-0 pt-2 pt-xl-0 mb-0 mb-xl-4 pb-1">
+  <div class="jumbotron-fluid col-12 mx-0 px-0 mt-1 mt-xl-0 pt-3 pt-xl-0 mb-0 pb-0">
     <div class="row">
       <div class="col-12">
         <h3 class="rub-head4 text-info text-center font-weight-bold pt-0 pb-1">
@@ -10,7 +10,7 @@ class="container-fluid d-flex flex-row justify-content-center mb-0 mt-1 pt-0 pt-
         <hr class="mt-0" />
       </div>
     </div>
-  <div class="card-body mt-2 pt-3 mt-xl-1 mb-4 mx-auto pb-4 shadow-lg">
+  <div class="form-card card-body mt-2 pt-3 mt-xl-1 mb-4 mx-auto pb-4 shadow-lg">
     <form [formGroup]="userForm" (ngSubmit)="register()">
       <div class="form-group text-primary">
          <button
@@ -33,50 +33,141 @@ class="container-fluid d-flex flex-row justify-content-center mb-0 mt-1 pt-0 pt-
                  (input)="getValue($event)"
                  placeholder="Search" class="form-control col-12 col-sm-9 col-md-7 col-lg-5">
                 </div>
-                         <div class="state-table table-responsive pt-0 pb-0">
-            <!--table-->
-            <table class="table table-hover table-striped table-sm" *ngIf="checkTable(filteredCustomers); else noloans">
-              <thead class="bg-dark text-white">
-                <tr class="mx-2">
-              <th scope="col">
-                <i class="fas fa-sort pointerCursor"
-                (click)="sort('customerId')"></i> ID
-              </th>
-              <th scope="col">
-               <i class="fas fa-sort pointerCursor"
-                (click)="sort('customerName')"></i> Name
-              </th>
-              <th scope="col">
-                  <i class="fas fa-sort pointerCursor"
-                (click)="sort('documentType')"></i> Document Type
-              </th>
-              <th scope="col">
-                <i class="fas fa-sort pointerCursor"
-                (click)="sort('documentId')"></i> Doument ID
-              </th>
-              <th scope="col">
-                Phone 1
-              </th>
-              <th scope="col">
-                Phone 2
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-                <tr class="mx-2 pointerCursor"
-                *ngFor="let customer of filteredCustomers|orderBy:key:reverse|paginate:{
+    <div class="row">
+      <div class="col-12">
+        <!--record container-->
+        <div
+          class="invest-card card mt-1 py-2 mb-2 mx-auto px-2 shadow-lg"
+           *ngIf="checkTable(filteredCustomers); else noloans"
+        >
+          <div class="item-container-1 mt-1">
+            <div
+              class="list-card card my-1 mt-lg-0 pt-0 mx-auto mx-xl-3 px-0 pb-0 shadow-lg"
+              *ngFor="let customer of filteredCustomers|orderBy:key:reverse|paginate:{
  id:'my_pages', itemsPerPage:pageSize, currentPage:currentPage,totalItems:totalItems
 }"
-                (click)="getCustomerName(customer.customerId)">
-              <td>{{customer.customerId}}</td>
-              <td>{{ customer.customerName }}</td>
-              <td>{{ customer.documentType}}</td>
-              <td>{{ customer.documentId }}</td>
-              <td>{{ customer.phoneNumber1 }}</td>
-              <td>{{ customer.phoneNumber2 }}</td>
-            </tr>
-          </tbody>
-        </table>
+                (click)="getCustomerName(customer.customerId)"
+            >
+              <div class="list-card-body card-body mt-1 py-0 mx-lg-0 px-lg-0">
+                <div class="row my-0 py-0">
+                  <div
+                    class="col-2 d-flex justify-content-center mx-lg-0 px-lg-0"
+                  >
+                    <img
+                      class="img-circle mx-auto mx-lg-0 px-lg-2 mt-2 mt-md-0 my-xl-0 pb-0"
+                      src="assets/img/man.svg"
+              (click)="openModal(template)"
+                    />
+                  </div>
+                  <div class="col-10 mx-lg-0 px-lg-0">
+                    <div class="row mx-md-0 px-md-0">
+                      <div
+                        class="col-12 col-md-5 col-lg-3 mx-xl-0 px-xl-0"
+                      >
+                        <div class="row">
+                          <div
+                            class="col-4 col-md-3 d-flex justify-content-start mx-0 px-0"
+                          >
+                            <span class="">ID:</span>
+                          </div>
+                          <div
+                            class="col-8 col-md-9 d-flex justify-content-start font-weight-bold mx-0 px-0"
+                          >
+                            <span class="itemCreated"> {{ customer.customerId}} </span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-12 col-md-7 col-lg-5 mx-xl-0 px-xl-0">
+                        <div class="row">
+                          <div
+                            class="col-4 col-md-3 d-flex justify-content-start mx-0 px-0"
+                          >
+                            <span class="">Name:</span>
+                          </div>
+                          <div
+                            class="col-8 col-md-9 d-flex justify-content-start font-weight-bold mx-0 px-0"
+                          >
+                            <span class="itemCreated">
+                              {{ customer.customerName}}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-12 col-md-5 col-lg-4 mx-xl-0 px-xl-0">
+                        <div class="row">
+                          <div
+                            class="col-5 col-md-3 col-xl-6 d-flex justify-content-start mx-0 px-0"
+                          >
+                            <span class="">Document Type:</span>
+                          </div>
+                          <div
+                            class="col-7 col-md-9 col-xl-6 d-flex justify-content-start font-weight-bold mx-0 px-0"
+                          >
+                            <span class="itemCreated">
+                              {{ customer.documentType}}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-12 col-md-6 col-lg-4 mx-xl-0 px-xl-0">
+                        <div class="row">
+                          <div
+                            class="col-5 col-md-6 d-flex justify-content-start mx-0 px-0"
+                          >
+                            <span class="">Document ID:</span>
+                          </div>
+                          <div
+                            class="col-7 col-md-6 d-flex justify-content-start font-weight-bold mx-lg-0 px-lg-0"
+                          >
+                            <span class="itemCreated">
+                              {{ customer.documentId}}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-12 col-md-6 col-xl-4 mx-xl-0 px-xl-0">
+                        <div class="row">
+                          <div
+                            class="col-4 col-md-3 d-flex justify-content-start mx-0 px-0"
+                          >
+                            <span class="">Phone 1:</span>
+                          </div>
+                          <div
+                            class="col-8 col-md-9 d-flex justify-content-start font-weight-bold mx-0 px-0"
+                          >
+                            <span class="itemCreated">
+                                            {{ customer.phoneNumber1 }}
+
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-12 col-md-6 col-xl-4 mx-xl-0 px-xl-0">
+                        <div class="row">
+                          <div
+                            class="col-4 col-md-3 d-flex justify-content-start mx-0 px-0"
+                          >
+                            <span class="">Phone 2:</span>
+                          </div>
+                          <div
+                            class="col-8 col-md-9 d-flex justify-content-start font-weight-bold mx-0 px-0"
+                          >
+                            <span class="itemCreated">
+                                            {{ customer.phoneNumber2 }}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--/ end of record container-->
+      </div>
+    </div>
               <pagination-controls  id="my_pages"
             (pageChange)="pageChanged($event)"
             (pageBoundsCorrection)="pageChanged($event)"
@@ -84,12 +175,11 @@ class="container-fluid d-flex flex-row justify-content-center mb-0 mt-1 pt-0 pt-
            </pagination-controls>
         <ng-template #noloans>
           <div class="col-12 my-5 py-5 justify-content-between">
-            <h4 class="text-center text-info">No Customer found!</h4>
+            <h4 class="text-center text-info">No Customer found</h4>
           </div>
         </ng-template
         >
       </div>
-    </div>
   </ng-template>
 <br>
         <label for="full_name">Customer Name</label>

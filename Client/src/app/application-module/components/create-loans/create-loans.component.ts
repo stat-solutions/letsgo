@@ -187,7 +187,7 @@ export class CreateLoansComponent implements OnInit {
    getCustomer(template:TemplateRef<any>){
      this.bsModal = this.bsModalService.show(
        template,
-       Object.assign({}, { class: 'white modal-lg modal-dialog-center' })
+       Object.assign({}, { class: 'modal-xl modal-dialog-center' })
      );
 
    }
