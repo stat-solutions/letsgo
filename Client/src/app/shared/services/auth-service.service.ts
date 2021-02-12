@@ -113,12 +113,13 @@ export class AuthServiceService {
     }
     loggedInUserInfo(): any {
       // console.log(this.jwtHelper.decodeToken(this.getJwtToken()));
+      const tk = this.jwtHelper.decodeToken(this.getJwtToken());
       return {
-        userName: this.jwtHelper.decodeToken(this.getJwtToken()).userName,
-        userId: this.jwtHelper.decodeToken(this.getJwtToken()).userId,
-        userPhone: this.jwtHelper.decodeToken(this.getJwtToken()).userPhone1,
-        roleId: this.jwtHelper.decodeToken(this.getJwtToken()).roleId,
-        branchId: this.jwtHelper.decodeToken(this.getJwtToken()).branchId,
+        userName: tk.userName,
+        userId: tk.userId,
+        userPhone: tk.userPhone1,
+        roleId: tk.roleId,
+        branchId: tk.branchId,
       };
   //     "userId": 10000009,
   // "userName": "Bazirake Augustine",
