@@ -15,8 +15,11 @@ hr{
 .head-container{
   border-radius: 7px !important;
 }
-.state-table {
-  height: 100%;
+.list-card{
+  border-left: 3px solid #84868ace;
+}
+.list-card:hover{
+  border-left: 3px solid #114888ce;
 }
 
 
