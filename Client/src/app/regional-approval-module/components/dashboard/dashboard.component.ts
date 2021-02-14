@@ -1,8 +1,14 @@
-import { LoaningService } from 'src/app/shared/services/loaning.service';
-import { Component, OnInit, TemplateRef,  ElementRef , ViewChild} from '@angular/core';
+import { LoaningService } from '../../../shared/services/loaning.service';
+import {
+  Component,
+  OnInit,
+  TemplateRef,
+  ElementRef,
+  ViewChild,
+} from '@angular/core';
 import * as moment from 'moment';
-import {FormControl, FormGroup, FormBuilder} from '@angular/forms';
-import {Router, ActivatedRoute} from '@angular/router';
+import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import * as XLSX from 'xlsx';
@@ -15,18 +21,18 @@ export class DashboardComponent implements OnInit {
   public modalRef: BsModalRef;
   loanTable = [];
   filteredLoans = [];
-  specificLoanTable = []
-  search_customer:string;
-  totalItems:number;
-  id:string;
-  currentPage:number = 1;
+  specificLoanTable = [];
+  search_customer: string;
+  totalItems: number;
+  id: string;
+  currentPage: number = 1;
   pageSize = 10;
   age: number;
-  key:any = "Id"
+  key: any = 'Id';
   csvTable = [];
-   @ViewChild('exportTable')exportExcel:ElementRef
-//excel sheet name
-fileName = "loanInfo.xlsx";
+  @ViewChild('exportTable') exportExcel: ElementRef;
+  //excel sheet name
+  fileName = 'loanInfo.xlsx';
 
   constructor(
     private modalService: BsModalService,
@@ -34,26 +40,25 @@ fileName = "loanInfo.xlsx";
     private spinner: NgxSpinnerService,
     private fb: FormBuilder,
     private router: Router,
-    private activatedRouter:ActivatedRoute
+    private activatedRouter: ActivatedRoute
   ) {}
 
   ngOnInit() {
     setTimeout(() => {
-      this.landingPage.getloanData().subscribe(userData => {
-       this.loanTable = userData.map(eachUser => {
-          const oldDate = eachUser.CreatedAt
-          const diffInDates = moment(this.age).diff(moment(oldDate))
-          const timeInMonths = moment(diffInDates).format('MM [months] DD [days]')
-          return { ...eachUser, TotalAge:timeInMonths }
-        })
-           this.filteredLoans = this.loanTable;
-           this.totalItems = this.filteredLoans.length;
-
-
-      })
-    },0)
+      this.landingPage.getloanData().subscribe((userData) => {
+        this.loanTable = userData.map((eachUser) => {
+          const oldDate = eachUser.CreatedAt;
+          const diffInDates = moment(this.age).diff(moment(oldDate));
+          const timeInMonths = moment(diffInDates).format(
+            'MM [months] DD [days]'
+          );
+          return { ...eachUser, TotalAge: timeInMonths };
+        });
+        this.filteredLoans = this.loanTable;
+        this.totalItems = this.filteredLoans.length;
+      });
+    }, 0);
   }
-
 
   checkTable(array: Array<any>) {
     return array.length ? true : false;
@@ -89,49 +94,47 @@ fileName = "loanInfo.xlsx";
       );
   }
 
-
-  clickOnCustomer(id:number){
-        this.router.navigate(['admin/customerdetails', id], )
+  clickOnCustomer(id: number) {
+    this.router.navigate(['admin/customerdetails', id]);
   }
-   pageChanged(event){
-     this.currentPage = event
-     console.log(this.filteredLoans.length)
-     //get
-     //if(currentPage )
-
-   }
-
-  public openModal(template: TemplateRef<any>, id:number, index:number) {
-    console.log(id, index)
-  this.landingPage.getLoanDetails(id).subscribe(details=>{
-    console.log(details)
-    this.specificLoanTable.push(details)
-  })
-  console.log(this.specificLoanTable)
-  if(this.checkTable(this.specificLoanTable)){
-       this.modalRef = this.modalService.show(
-      template,
-      Object.assign({}, { class: 'white modal-lg modal-dialog-center' })
-    );
+  pageChanged(event) {
+    this.currentPage = event;
+    console.log(this.filteredLoans.length);
+    //get
+    //if(currentPage )
   }
+
+  public openModal(template: TemplateRef<any>, id: number, index: number) {
+    console.log(id, index);
+    this.landingPage.getLoanDetails(id).subscribe((details) => {
+      console.log(details);
+      this.specificLoanTable.push(details);
+    });
+    console.log(this.specificLoanTable);
+    if (this.checkTable(this.specificLoanTable)) {
+      this.modalRef = this.modalService.show(
+        template,
+        Object.assign({}, { class: 'white modal-lg modal-dialog-center' })
+      );
+    }
   }
   //exportto excel
-  exportToExcel(){
-    const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(this.exportExcel.nativeElement);
+  exportToExcel() {
+    const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(
+      this.exportExcel.nativeElement
+    );
 
     //create a workbook and add work sheet
-    const wb:XLSX.WorkBook = XLSX.utils.book_new()
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'Sheet 1');
 
     //save fileName
-    XLSX.writeFile(wb, this.fileName)
+    XLSX.writeFile(wb, this.fileName);
   }
 
-
-
-   reverse:boolean = false;
-  sort(item:string){
+  reverse: boolean = false;
+  sort(item: string) {
     this.key = item;
-    this.reverse = !this.reverse
+    this.reverse = !this.reverse;
   }
 }
