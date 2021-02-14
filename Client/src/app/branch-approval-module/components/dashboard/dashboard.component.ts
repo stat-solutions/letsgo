@@ -1,4 +1,3 @@
-import { LoaningService } from '../../../shared/services/loaning.service';
 import { Component, OnInit, TemplateRef,  ElementRef , ViewChild} from '@angular/core';
 import * as moment from 'moment';
 import {FormControl, FormGroup, FormBuilder} from '@angular/forms';
@@ -6,6 +5,7 @@ import {Router, ActivatedRoute} from '@angular/router';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import * as XLSX from 'xlsx';
+import { LoaningService } from 'src/app/shared/services/loaning.service';
 @Component({
   selector: 'app-admin',
   templateUrl: './dashboard.component.html',
@@ -65,31 +65,33 @@ fileName = "loanInfo.xlsx";
   }
 
   getValue(event) {
-    console.log(event.target.value);
-    this.search_customer = event.target.value;
-    if (event.target.value === '') {
-      this.filteredLoans = this.loanTable;
+    console.log(event.target.value)
+    this.search_customer = event.target.value
+    if(event.target.value === ''){
+      this.filteredLoans = this.loanTable
       this.totalItems = this.filteredLoans.length;
-    } else {
-      this.filteredLoans = this.filterCustomer(this.search_customer);
-      this.totalItems = this.filteredLoans.length;
+
+
+    }
+    else{
+          this.filteredLoans =  this.filterCustomer(this.search_customer)
+          this.totalItems = this.filteredLoans.length;
 
     }
   }
-  filterCustomer(searchTerm: string) {
-    if (searchTerm)
-      return this.filteredLoans.filter(
-        (loan) =>
-          loan.Customer.toLowerCase().indexOf(searchTerm.toLowerCase()) !==
-            -1 ||
-          loan.Stage.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1 ||
-          loan.Status.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1 ||
-          loan.LoanProduct.toLowerCase().indexOf(searchTerm.toLowerCase()) !==
-            -1 ||
-          loan.LoanType.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1
-      );
-  }
+  filterCustomer(searchTerm:string){
+    if(searchTerm)
 
+    return this.filteredLoans.filter(
+      loan=>
+      loan.Customer.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1
+      ||loan.Stage.toLowerCase().indexOf(searchTerm.toLowerCase())!==   -1
+      ||loan.Status.toLowerCase().indexOf(searchTerm.toLowerCase())!==  -1
+      ||loan.LoanProduct.toLowerCase().indexOf(searchTerm.toLowerCase())!==-1
+      ||loan.LoanType.toLowerCase().indexOf(searchTerm.toLowerCase())!==-1
+      )
+
+  }
 
   clickOnCustomer(id:number){
         this.router.navigate(['admin/customerdetails', id], )
@@ -112,11 +114,12 @@ fileName = "loanInfo.xlsx";
   if(this.checkTable(this.specificLoanTable)){
        this.modalRef = this.modalService.show(
       template,
-      Object.assign({}, { class: 'white modal-lg modal-dialog-center' })
+      Object.assign({}, { class: 'modal-lg modal-dialog-center' })
     );
   }
   }
-  //exportto excel
+
+  //export to excel
   exportToExcel(){
     const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(this.exportExcel.nativeElement);
 
