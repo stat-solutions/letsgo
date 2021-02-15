@@ -79,10 +79,11 @@ export class EditBranchComponent implements OnInit {
       return (this.invalid = true);
     } else {
       const data = {
+        branchId: 507,
         branchName: this.fval.branchName.value.toUpperCase(),
         branchTypeCode: this.fval.branchType.value === 'BRANCH' ? 1200 : 1100,
       };
-      this.branchService.createBranch(data).subscribe(
+      this.branchService.putUpdateBranch(data).subscribe(
         (res) => {
           this.spinner.hide();
           this.posted = true;

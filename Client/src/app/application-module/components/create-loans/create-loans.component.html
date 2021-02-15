@@ -11,12 +11,12 @@ class="container-fluid d-flex flex-row justify-content-center mb-0 mt-1 pt-0 pt-
       </div>
     </div>
   <div class="form-card card-body mt-2 pt-3 mt-xl-1 mb-4 mx-auto pb-4 shadow-lg">
-    <form [formGroup]="userForm" (ngSubmit)="register()">
+    <form [formGroup]="userForm">
       <div class="form-group text-primary">
          <button
              class="btn btn-info mt-1 mb-3"
              type="button"
-             (click)="getCustomer(template)"
+             (click)="openModal(template)"
              >Choose Customer</button>
              <!--create a customer modal-->
               <ng-template #template>
@@ -44,124 +44,136 @@ class="container-fluid d-flex flex-row justify-content-center mb-0 mt-1 pt-0 pt-
             <div
               class="list-card card my-1 mt-lg-0 pt-0 mx-auto mx-xl-3 px-0 pb-0 shadow-lg"
               *ngFor="let customer of filteredCustomers|orderBy:key:reverse|paginate:{
- id:'my_pages', itemsPerPage:pageSize, currentPage:currentPage,totalItems:totalItems
-}"
-                (click)="getCustomerName(customer.customerId)"
+                id:'my_pages', itemsPerPage:pageSize, currentPage:currentPage,totalItems:totalItems
+                  }"
+              (click)="checkCustomer(customer)"
             >
-              <div class="list-card-body card-body mt-1 py-0 mx-lg-0 px-lg-0">
-                <div class="row my-0 py-0">
-                  <div
-                    class="col-2 d-flex justify-content-center mx-lg-0 px-lg-0"
-                  >
-                    <img
-                      class="img-circle mx-auto mx-lg-0 px-lg-2 mt-2 mt-md-0 my-xl-0 pb-0"
-                      src="assets/img/man.svg"
-              (click)="openModal(template)"
-                    />
-                  </div>
-                  <div class="col-10 mx-lg-0 px-lg-0">
-                    <div class="row mx-md-0 px-md-0">
-                      <div
-                        class="col-12 col-md-5 col-lg-3 mx-xl-0 px-xl-0"
-                      >
-                        <div class="row">
-                          <div
-                            class="col-4 col-md-3 d-flex justify-content-start mx-0 px-0"
-                          >
-                            <span class="">ID:</span>
-                          </div>
-                          <div
-                            class="col-8 col-md-9 d-flex justify-content-start font-weight-bold mx-0 px-0"
-                          >
-                            <span class="itemCreated"> {{ customer.customerId}} </span>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-12 col-md-7 col-lg-5 mx-xl-0 px-xl-0">
-                        <div class="row">
-                          <div
-                            class="col-4 col-md-3 d-flex justify-content-start mx-0 px-0"
-                          >
-                            <span class="">Name:</span>
-                          </div>
-                          <div
-                            class="col-8 col-md-9 d-flex justify-content-start font-weight-bold mx-0 px-0"
-                          >
-                            <span class="itemCreated">
-                              {{ customer.customerName}}
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-12 col-md-5 col-lg-4 mx-xl-0 px-xl-0">
-                        <div class="row">
-                          <div
-                            class="col-5 col-md-3 col-xl-6 d-flex justify-content-start mx-0 px-0"
-                          >
-                            <span class="">Document Type:</span>
-                          </div>
-                          <div
-                            class="col-7 col-md-9 col-xl-6 d-flex justify-content-start font-weight-bold mx-0 px-0"
-                          >
-                            <span class="itemCreated">
-                              {{ customer.documentType}}
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-12 col-md-6 col-lg-4 mx-xl-0 px-xl-0">
-                        <div class="row">
-                          <div
-                            class="col-5 col-md-6 d-flex justify-content-start mx-0 px-0"
-                          >
-                            <span class="">Document ID:</span>
-                          </div>
-                          <div
-                            class="col-7 col-md-6 d-flex justify-content-start font-weight-bold mx-lg-0 px-lg-0"
-                          >
-                            <span class="itemCreated">
-                              {{ customer.documentId}}
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-12 col-md-6 col-xl-4 mx-xl-0 px-xl-0">
-                        <div class="row">
-                          <div
-                            class="col-4 col-md-3 d-flex justify-content-start mx-0 px-0"
-                          >
-                            <span class="">Phone 1:</span>
-                          </div>
-                          <div
-                            class="col-8 col-md-9 d-flex justify-content-start font-weight-bold mx-0 px-0"
-                          >
-                            <span class="itemCreated">
-                                            {{ customer.phoneNumber1 }}
-
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-12 col-md-6 col-xl-4 mx-xl-0 px-xl-0">
-                        <div class="row">
-                          <div
-                            class="col-4 col-md-3 d-flex justify-content-start mx-0 px-0"
-                          >
-                            <span class="">Phone 2:</span>
-                          </div>
-                          <div
-                            class="col-8 col-md-9 d-flex justify-content-start font-weight-bold mx-0 px-0"
-                          >
-                            <span class="itemCreated">
-                                            {{ customer.phoneNumber2 }}
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+            <div class="list-card-body card-body my-0 py-0 mx-0">
+              <div class="row my-0 py-0">
+                <div class="col-2 col-md-1 mx-md-0 px-md-0 d-flex justify-content-center">
+                  <img
+                    class="img-circle mx-auto mt-2 mt-md-0 mt-xl-1 mb-1 pb-0"
+                    [src]="customer.customerPhotoUrl"
+                    
+                  />
+                  <!-- (click)="openModal(template, customer.customerPhotoUrl)" -->
                 </div>
-              </div>
+                          <div class="col-10 col-md-11 mx-md-0 px-md-0">
+                            <div class="row mx-md-0 px-md-0">
+                              <div class="col-12 col-md-6 col-xl-3 mx-xl-0 px-xl-0">
+                                <div class="row">
+                                  <div
+                                    class="col-5 col-md-3 d-flex justify-content-start mx-md-0 px-md-0"
+                                  >
+                                    <span class="">ID</span>
+                                  </div>
+                                  <div
+                                    class="col-7 col-md-9 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
+                                  >
+                                    <span class="itemCreated"> {{ customer.customerId }} </span>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-12 col-md-6 col-xl-5 mx-xl-0 px-xl-0">
+                                <div class="row">
+                                  <div
+                                    class="col-5 col-md-3 d-flex justify-content-start mx-md-0 px-md-0"
+                                  >
+                                    <span class="">Customer</span>
+                                  </div>
+                                  <div
+                                    class="col-7 col-md-9 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
+                                  >
+                                    <span class="itemCreated">
+                                      {{ customer.customerName }}
+                                    </span>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-12 col-md-6 col-xl-4 mx-xl-0 px-xl-0">
+                                <div class="row">
+                                  <div
+                                    class="col-5 col-md-3 d-flex justify-content-start mx-md-0 px-md-0"
+                                  >
+                                    <span class="">Document</span>
+                                  </div>
+                                  <div
+                                    class="col-7 col-md-9 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
+                                  >
+                                    <span class="itemCreated">
+                                      {{ customer.customerIdType }}
+                                    </span>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-12 col-md-6 col-xl-4 mx-xl-0 px-xl-0">
+                                <div class="row">
+                                  <div
+                                    class="col-5 col-md-3 d-flex justify-content-start mx-md-0 px-md-0"
+                                  >
+                                    <span class="">ID Number</span>
+                                  </div>
+                                  <div
+                                    class="col-7 col-md-9 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
+                                  >
+                                    <span class="itemCreated">
+                                      {{ customer.customerIdNumber }}
+                                    </span>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-12 col-md-4 col-xl-3 mx-xl-0 px-xl-0">
+                                <div class="row">
+                                  <div
+                                    class="col-5 col-md-3 d-flex justify-content-start mx-md-0 px-md-0"
+                                  >
+                                    <span class="">Phone 1</span>
+                                  </div>
+                                  <div
+                                    class="col-7 col-md-9 d-flex justify-content-start font-weight-bold"
+                                  >
+                                    <span class="itemCreated">
+                                      {{ customer.customerPhone1 }}
+                                    </span>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-12 col-md-4 col-xl-3 mx-xl-0 px-xl-0">
+                                <div class="row">
+                                  <div
+                                    class="col-5 col-md-3 d-flex justify-content-start mx-md-0 px-md-0"
+                                  >
+                                    <span class="">Phone 2</span>
+                                  </div>
+                                  <div
+                                    class="col-7 col-md-9 d-flex justify-content-start font-weight-bold"
+                                  >
+                                    <span class="itemCreated">
+                                      {{ customer.customerPhone2 }}
+                                    </span>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-12 col-md-4 col-xl-2 mx-xl-0 px-xl-0">
+                                <div class="row">
+                                  <div
+                                    class="col-5 col-md-6 d-flex justify-content-start mx-md-0 px-md-0"
+                                  >
+                                    <span class="">Branch ID</span>
+                                  </div>
+                                  <div
+                                    class="col-7 col-md-6 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
+                                  >
+                                    <span class="itemCreated">
+                                      {{ customer.fkBranchIdCustomer }}
+                                    </span>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
             </div>
           </div>
         </div>
@@ -180,9 +192,201 @@ class="container-fluid d-flex flex-row justify-content-center mb-0 mt-1 pt-0 pt-
         </ng-template
         >
       </div>
+  </ng-template>              
+  <ng-template #securities>
+    <div class="card-body mt-2 pt-3 mt-xl-1 mb-3 mb-xl-0 mx-auto pb-4 shadow-lg">
+      <form [formGroup]="securityForm">
+        <div class="form-group text-primary">
+          <label
+            for="position"
+            [ngClass]="securityForm.controls.securityType.valid ? 'text-info' : ''"
+            ><i *ngIf="securityForm.controls.securityType.valid" class="material-icons"
+              >check_circle</i
+            >Security Type</label
+          >
+          <div class="input-group mb-0">
+            <div class="input-group-prepend">
+              <div class="input-group-text">
+                <i class="fas fa-file text-primary mx-auto" style="size: 50px;">
+                </i>
+              </div>
+            </div>
+            <select
+            formControlName="securityType"
+            class="form-control"
+            [ngClass]="{
+              'is-invalid':
+                (securityForm.controls.securityType.touched || securityForm.controls.securityType.dirty) &&
+                securityForm.controls.securityType.errors
+            }"
+            autocomplete="off"
+            placeholder="Select security type"
+            required
+          >
+            <option value="security">Select Security Type</option>
+            <option *ngFor="let name of securityNames">{{name}}</option>
+          </select>
+      </div>
+          <div
+            class="text-danger col"
+            *ngIf="
+              (securityForm.controls.securityType.touched || securityForm.controls.securityType.dirty) &&
+              securityForm.controls.securityType.errors?.required
+            "
+          >
+            The security type is required!
+          </div>
+        </div>
+        <div class="form-group text-primary">
+  
+          <label
+            for="securityName"
+            [ngClass]="securityForm.controls.securityName.valid ? 'text-info' : ''"
+            ><i *ngIf="securityForm.controls.securityName.valid" class="material-icons"
+              >check_circle</i
+            >Security Name</label
+          >
+          <div class="input-group mb-0">
+            <div class="input-group-prepend">
+              <div class="input-group-text">
+                <i class="fas fa-user text-primary mx-auto" style="size: 50px;">
+                </i>
+              </div>
+            </div>
+            <input
+              id="securityName"
+              formControlName="securityName"
+              type="text"
+              required
+              class="form-control"
+              [ngClass]="{
+                'is-invalid':
+                  (securityForm.controls.securityName.touched || securityForm.controls.securityName.dirty) &&
+                  securityForm.controls.securityName.errors
+              }"
+              placeholder="Security Name"
+              autocomplete="off"
+            />
+          </div>
+          <div
+            class="text-danger col click"
+            *ngIf="
+              (securityForm.controls.securityName.touched || securityForm.controls.securityName.dirty) &&
+              securityForm.controls.securityName.errors?.required
+            "
+          >
+            The Security Name is required!
+          </div>
+        </div><div class="form-group text-primary">
+  
+          <label
+            for="securityLocation"
+            [ngClass]="securityForm.controls.securityLocation.valid ? 'text-info' : ''"
+            ><i *ngIf="securityForm.controls.securityLocation.valid" class="material-icons"
+              >check_circle</i
+            >Security Location</label
+          >
+          <div class="input-group mb-0">
+            <div class="input-group-prepend">
+              <div class="input-group-text">
+                <i class="fas fa-user text-primary mx-auto" style="size: 50px;">
+                </i>
+              </div>
+            </div>
+            <input
+              id="securityLocation"
+              formControlName="securityLocation"
+              type="text"
+              required
+              class="form-control"
+              [ngClass]="{
+                'is-invalid':
+                  (securityForm.controls.securityLocation.touched || securityForm.controls.securityLocation.dirty) &&
+                  securityForm.controls.securityLocation.errors
+              }"
+              placeholder="security Location"
+              autocomplete="off"
+            />
+          </div>
+          <div
+            class="text-danger col click"
+            *ngIf="
+              (securityForm.controls.securityLocation.touched || securityForm.controls.securityLocation.dirty) &&
+              securityForm.controls.securityLocation.errors?.required
+            "
+          >
+            The Security Location is required!
+          </div>
+        </div>
+        <!---->
+        <div class="form-group text-primary">
+          <label
+            for="securityPhotoUrl"
+            [ngClass]="securityForm.controls.securityPhotoUrl.valid ? 'text-info' : ''"
+            >Security Photo<i
+              *ngIf="securityForm.controls.securityPhotoUrl.valid"
+              class="material-icons"
+              >check_circle</i
+            ></label
+          >
+          <div class="input-group mb-0">
+            <div class="input-group-prepend">
+              <div class="input-group-text">
+                <i
+                  class="fas fa-image text-primary mx-auto"
+                  style="size: 50px"
+                ></i>
+              </div>
+            </div>
+            <input
+              id="securityPhotoUrl"
+              formControlName="securityPhotoUrl"
+              type="file"
+              src="image/*"
+              capture
+              (change)="onFileSelected($event)"
+              class="form-control"
+              [ngClass]="{
+                'is-invalid':
+                  (securityForm.controls.securityPhotoUrl.touched ||
+                  securityForm.controls.securityPhotoUrl.dirty) &&
+                  securityForm.controls.securityPhotoUrl.errors
+              }"
+            />
+          </div>
+          <div
+            class="text-danger col"
+            *ngIf="
+              (securityForm.controls.securityPhotoUrl.touched || securityForm.controls.securityPhotoUrl.dirty) &&
+              securityForm.controls.securityPhotoUrl.errors?.required
+            "
+          >
+            Please upload the security photo!
+          </div>
+        </div>
+        <div class="d-flex my-2 py-2 mx-auto">
+          <button
+            type="button"
+            class="btn btn-info col-5 mx-auto"
+            [disabled]="!securityForm.valid"
+            (click)="addSecurity()"
+          >
+            Save & New
+          </button>
+          <button
+            type="button"
+            class="btn btn-info col-5 mx-auto"
+            [disabled]="!securityForm.valid"
+            (click)="finishSecurity()"
+          >
+            Save & Finish
+          </button>
+        </div>
+      </form>
+    </div>
   </ng-template>
 <br>
-        <label for="full_name">Customer Name</label>
+  <label for="full_name">Customer Name</label>
         <div class="input-group mb-0">
           <div class="input-group-prepend">
             <div class="input-group-text">
@@ -204,11 +408,11 @@ class="container-fluid d-flex flex-row justify-content-center mb-0 mt-1 pt-0 pt-
       <!--loan type-->
       <div class="form-group text-primary">
         <label
-          for="position"
+          for="loan_type"
           [ngClass]="fval.loan_type.valid ? 'text-info' : ''"
           ><i *ngIf="fval.loan_type.valid" class="material-icons"
             >check_circle</i
-          >Loan Type</label
+          >Loan Threshold Type</label
         >
         <div class="input-group mb-0">
           <div class="input-group-prepend">
@@ -227,11 +431,11 @@ class="container-fluid d-flex flex-row justify-content-center mb-0 mt-1 pt-0 pt-
           }"
           autocomplete="off"
           placeholder="Select a loan"
-          (change) ="getLoanType($event)"
           required
+          (change)='setMaxtenureAndAmount(fval.loan_type.value)'
         >
         <option value="" selected disabled>selectLoan</option>
-        <option *ngFor="let loan_type of loan_types" [ngValue]="loan_type">{{loan_type}}</option>
+        <option *ngFor="let loan_type of loanTypes">{{loan_type.loanThresholdType}}</option>
 
         </select>
     </div>
@@ -258,9 +462,10 @@ class="container-fluid d-flex flex-row justify-content-center mb-0 mt-1 pt-0 pt-
           <input
             id="amount"
             formControlName="amount"
-            type="text"
+            type="number"
             required
             class="form-control"
+            (blur)="checkTenureAndAmount($event)"
             [ngClass]="{
               'is-invalid':
                 (fval.amount.touched || fval.amount.dirty) &&
@@ -280,50 +485,6 @@ class="container-fluid d-flex flex-row justify-content-center mb-0 mt-1 pt-0 pt-
           The loan amount is required!
         </div>
       </div>
-
-
-      <!--loan type-->
-      <div class="form-group text-primary">
-        <label
-          for="loan_product"
-          [ngClass]="fval.loan_product.valid ? 'text-info' : ''"
-          ><i *ngIf="fval.loan_product.valid" class="material-icons"
-            >check_circle</i
-          >Loan Product</label
-        >
-        <div class="input-group mb-0">
-          <div class="input-group-prepend">
-            <div class="input-group-text">
-              <i class="fas fa-anchor text-primary mx-auto" style="size: 50px;">
-              </i>
-            </div>
-          </div>
-          <input
-            id="loan_product"
-            formControlName="loan_product"
-            type="text"
-            required
-            class="form-control"
-            [ngClass]="{
-              'is-invalid':
-                (fval.loan_product.touched || fval.loan_product.dirty) &&
-                fval.loan_product.errors
-            }"
-            placeholder="Enter Loan Product"
-            autocomplete="off"
-          />
-        </div>
-        <div
-          class="text-danger col"
-          *ngIf="
-            (fval.loan_product.touched || fval.loan_product.dirty) &&
-            fval.amount.errors?.required
-          "
-        >
-          The loan product is required!
-        </div>
-      </div>
-
       <div class="form-group text-primary">
         <label
           for="tenure"
@@ -342,7 +503,9 @@ class="container-fluid d-flex flex-row justify-content-center mb-0 mt-1 pt-0 pt-
           <input
             id="tenure"
             formControlName="tenure"
-            type="text"
+            type="number"
+            [max]="maxTenure"
+            min="0"
             required
             class="form-control"
             [ngClass]="{
@@ -352,6 +515,7 @@ class="container-fluid d-flex flex-row justify-content-center mb-0 mt-1 pt-0 pt-
             }"
             placeholder="Enter Loan tenure"
             autocomplete="off"
+            (blur)="checkTenureAndAmount($event)"
           />
         </div>
         <div
@@ -364,29 +528,72 @@ class="container-fluid d-flex flex-row justify-content-center mb-0 mt-1 pt-0 pt-
           The loan tenure is required!
         </div>
       </div>
-      <!--securities-->
-      <label for="">Choose Security</label>
-      <div class="form-group form-check">
-        <input type="checkbox"
-        (click)="getAllSecurities(checkAllSecurities)"
-        id="checks">
-        <label for="checks">&nbsp;&nbsp;Check All Security</label>
+      <div class="form-group text-primary">
+        <label
+          for="comment"
+          [ngClass]="fval.comment.valid ? 'text-info' : ''"
+          ><i *ngIf="fval.comment.valid" class="material-icons"
+            >check_circle</i
+          >Comment</label
+        >
+        <div class="input-group mb-0">
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              <i class="fas fa-anchor text-primary mx-auto" style="size: 50px;">
+              </i>
+            </div>
+          </div>
+          <input
+            id="comment"
+            formControlName="comment"
+            type="text"
+            required
+            class="form-control"
+            [ngClass]="{
+              'is-invalid':
+                (fval.comment.touched || fval.comment.dirty) &&
+                fval.comment.errors
+            }"
+            placeholder="Enter Comment"
+            autocomplete="off"
+          />
+        </div>
+        <div
+          class="text-danger col"
+          *ngIf="
+            (fval.comment.touched || fval.comment.dirty) &&
+            fval.comment.errors?.required
+          "
+        >
+          The comment is required!
+        </div>
+        <div
+        class="text-danger col"
+        *ngIf="
+          (fval.comment.touched || fval.comment.dirty) &&
+          fval.comment.errors?.maxlength
+        "
+      >
+        At most 30 characters required!
+      </div>
+      </div>
+      <div class="form-group text-primary">
+        <label
+          for="securities"
+          >Securities</label
+        >
+        <button
+          type="button"
+          class="btn btn-info col-12 mx-auto"
+          (click)="openModal(securities)"
+        >
+          Add Securities
+        </button>
       </div>
 
-        <div class="form-group form-check" *ngFor="let security of FormArrayControls.controls; let i = index ">
-          <!-- <div class="form-control"> -->
-             <input type="checkbox"
-             [formControl]="security"
-             required
-             (change) = "getSecuritiesChecked()"
-             class="m-2" id="checkbox{{i}}">
-            <label  for="checkbox{{i}}">{{securities[i]}}</label>
-          <!-- </div> -->
-          <div class="text-center">
-            <p *ngIf="error" class="text-danger">At least One Security is required!</p>
-          </div>
-
-  </div>
+      <!--securities-->
+      
+        
       <div
           class="text-danger col"
           *ngIf="invalid"
@@ -397,6 +604,8 @@ class="container-fluid d-flex flex-row justify-content-center mb-0 mt-1 pt-0 pt-
         <button
           type="submit"
           class="btn btn-info col-5 mx-auto"
+          [disabled]="!userForm.valid"
+          (click)="register()"
         >
           Create
         </button>
@@ -414,13 +623,13 @@ class="container-fluid d-flex flex-row justify-content-center mb-0 mt-1 pt-0 pt-
         </ngx-spinner>
 
         <label class="col" *ngIf="errored" class="text-danger">
-          <i class="material-icons">Cancel</i>
+          <!-- <i class="material-icons">Cancel</i> -->
 
           <ngx-alerts></ngx-alerts>
         </label>
 
         <label class="col" *ngIf="posted" class="text-info">
-          <i class="material-icons">check_circle</i>
+          <!-- <i class="material-icons">check_circle</i> -->
           <ngx-alerts></ngx-alerts>
         </label>
       </div>

@@ -17,16 +17,16 @@ export class DashboardComponent implements OnInit {
   loanTable = [];
   filteredLoans = [];
   specificLoanTable = []
-  search_customer:string;
-  totalItems:number;
-  id:string;
-  currentPage:number = 1;
+  search_customer: string;
+  totalItems: number;
+  id: string;
+  currentPage: number = 1;
   pageSize = 10;
   age: number;
-  key:any = "Id"
+  key = "Id"
   csvTable = [];
-   @ViewChild('exportTable')exportExcel:ElementRef
-//excel sheet name
+   @ViewChild('exportTable')exportExcel: ElementRef;
+// excel sheet name
 fileName = "loanInfo.xlsx";
 
   constructor(
@@ -35,24 +35,31 @@ fileName = "loanInfo.xlsx";
     private spinner: NgxSpinnerService,
     private fb: FormBuilder,
     private router: Router,
-    private activatedRouter:ActivatedRoute
+    private activatedRouter: ActivatedRoute
   ) {}
 
-  ngOnInit() {
-    setTimeout(() => {
-      this.landingPage.getloanData().subscribe(userData => {
-       this.loanTable = userData.map(eachUser => {
-          const oldDate = eachUser.CreatedAt
-          const diffInDates = moment(this.age).diff(moment(oldDate))
-          const timeInMonths = moment(diffInDates).format('MM [months] DD [days]')
-          return { ...eachUser, TotalAge:timeInMonths }
-        })
-           this.filteredLoans = this.loanTable;
-           this.totalItems = this.filteredLoans.length;
-
-
-      })
-    },0)
+  ngOnInit(): any {
+    this.landingPage.getloanData().subscribe(userData => {
+    this.loanTable = userData.map(eachUser => {
+        const oldDate = eachUser.CreatedAt;
+        const diffInDates = moment(this.age).diff(moment(oldDate));
+        const timeInMonths = moment(diffInDates).format('MM [months] DD [days]');
+        return { ...eachUser, TotalAge: timeInMonths };
+      });
+    this.filteredLoans = this.loanTable;
+    this.totalItems = this.filteredLoans.length;
+    });
+    this.landingPage.getAllLoanDetails().subscribe(userData => {
+      res => console.log(res)
+    // this.loanTable = userData.map(eachUser => {
+    //     const oldDate = eachUser.CreatedAt;
+    //     const diffInDates = moment(this.age).diff(moment(oldDate));
+    //     const timeInMonths = moment(diffInDates).format('MM [months] DD [days]');
+    //     return { ...eachUser, TotalAge: timeInMonths };
+    //   });
+    // this.filteredLoans = this.loanTable;
+    // this.totalItems = this.filteredLoans.length;
+    });
   }
 
 

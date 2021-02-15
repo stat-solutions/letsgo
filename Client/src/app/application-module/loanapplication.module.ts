@@ -10,7 +10,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { LeftPanelAdminComponent } from './common/left-panel/left-panel-admin.component';
 import { RightPanelAdminComponent } from './common/right-panel/right-panel-admin.component';
 import { HeaderAdminComponent } from './common/header/header-admin.component';
-import { ContentSectionAdminComponent } from './content-section/content-section-admin.component'
+import { ContentSectionAdminComponent } from './content-section/content-section-admin.component';
 import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { CreateLoansComponent } from './components/create-loans/create-loans.component';
@@ -18,8 +18,8 @@ import { CreateCustomerComponent } from './components/create-customer/create-cus
 import { EditUserProfileComponent } from './components/edit-user-profile/edit-user-profile.component';
 import { UserTransactionsComponent } from './components/user-transactions/user-transactions.component';
 import { CustomersComponent } from './components/customers/customers.component';
-import { ReportsComponent } from './components/reports/reports.component'
-import  {ModalModule} from 'ngx-bootstrap/modal';
+import { ReportsComponent } from './components/reports/reports.component';
+import {ModalModule} from 'ngx-bootstrap/modal';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { OrderModule } from 'ngx-order-pipe';
 import { CustomerDetailsComponent } from './components/customer-details/customer-details.component';

@@ -33,176 +33,6 @@ export class LoaningService {
       userName: 'Katende Nicholas',
     },
     {
-      Id: 2,
-      Customer: 'Chiller',
-      LoanType: 'Group',
-      LoanProduct: 'product 2',
-      Tenure: 12,
-      Amount: 500000,
-      userName: 'Katende Nicholas',
-    },
-    {
-      Id: 3,
-      Customer: 'Katende',
-      LoanType: 'SME',
-      LoanProduct: 'product 3',
-      Tenure: 5,
-      Amount: 500000,
-      Stage: 'BranchExit',
-      LoanMovedBy: 'Branch office',
-      HowLong: 3,
-      LoanStatus: 'disbursed',
-      StageAt: this.createdAt,
-      CreatedAt: this.myCreatedAt,
-      comment: 'loan forwarded',
-      Branch: 'BranchApproval',
-      userName: 'Katende Nicholas',
-    },
-    {
-      Id: 1,
-      Customer: 'Nicolas',
-      LoanType: 'Group',
-      LoanProduct: 'product 1',
-      Tenure: 9,
-      Amount: 500000,
-      Stage: 'Application',
-      Status: 'Notforwaded',
-      LoanMovedBy: 'Branch office',
-      StageAt: this.createdAt,
-      HowLong: 4,
-      CreatedAt: this.createdAt,
-      LoanStatus: 'running',
-      comment: 'loan created',
-      Branch: 'Application',
-      userName: 'Katende Nicholas',
-    },
-    {
-      Id: 1,
-      Customer: 'Nicolas',
-      LoanType: 'Group',
-      LoanProduct: 'product 1',
-      Tenure: 9,
-      Amount: 500000,
-      Stage: 'Application',
-      Status: 'Notforwaded',
-      LoanMovedBy: 'Branch office',
-      StageAt: this.createdAt,
-      HowLong: 4,
-      CreatedAt: this.createdAt,
-      LoanStatus: 'running',
-      comment: 'loan created',
-      Branch: 'Application',
-      userName: 'Katende Nicholas',
-    },
-    {
-      Id: 1,
-      Customer: 'Nicolas',
-      LoanType: 'Group',
-      LoanProduct: 'product 1',
-      Tenure: 9,
-      Amount: 500000,
-      Stage: 'Application',
-      Status: 'Notforwaded',
-      LoanMovedBy: 'Branch office',
-      StageAt: this.createdAt,
-      HowLong: 4,
-      CreatedAt: this.createdAt,
-      LoanStatus: 'running',
-      comment: 'loan created',
-      Branch: 'Application',
-      userName: 'Katende Nicholas',
-    },
-    {
-      Id: 1,
-      Customer: 'Nicolas',
-      LoanType: 'Group',
-      LoanProduct: 'product 1',
-      Tenure: 9,
-      Amount: 500000,
-      Stage: 'Application',
-      Status: 'Notforwaded',
-      LoanMovedBy: 'Branch office',
-      StageAt: this.createdAt,
-      HowLong: 4,
-      CreatedAt: this.createdAt,
-      LoanStatus: 'running',
-      comment: 'loan created',
-      Branch: 'Application',
-      userName: 'Katende Nicholas',
-    },
-    {
-      Id: 4,
-      Customer: 'Henry',
-      LoanType: 'Group',
-      LoanProduct: 'product 1',
-      Tenure: 3,
-      Amount: 500000,
-      Stage: 'Regional',
-      Status: 'Notforwaded',
-      LoanMovedBy: 'Branch office',
-      StageAt: this.myCreatedAt,
-      HowLong: 1,
-      LoanStatus: 'approved',
-      CreatedAt: this.myCreatedAt,
-      comment: 'loan forwarded',
-      Branch: 'BranchApproval',
-      userName: 'Katende Nicholas',
-    },
-    {
-      Id: 5,
-      Customer: 'Henry',
-      LoanType: 'Group',
-      LoanProduct: 'product 1',
-      Tenure: 3,
-      Amount: 500000,
-      Stage: 'loanVerification',
-      Status: 'forwaded',
-      LoanMovedBy: 'Branch office',
-      StageAt: this.myCreatedAt,
-      HowLong: 1,
-      LoanStatus: 'deferred',
-      CreatedAt: this.myCreatedAt,
-      comment: 'loan forwarded',
-      Branch: 'BranchApproval',
-      userName: 'Katende Nicholas',
-    },
-    {
-      Id: 1,
-      Customer: 'Nicolas',
-      LoanType: 'Group',
-      LoanProduct: 'product 1',
-      Tenure: 9,
-      Amount: 500000,
-      Stage: 'Application',
-      Status: 'Notforwaded',
-      LoanMovedBy: 'Branch office',
-      StageAt: this.createdAt,
-      HowLong: 4,
-      CreatedAt: this.createdAt,
-      LoanStatus: 'running',
-      comment: 'loan created',
-      Branch: 'Application',
-      userName: 'Katende Nicholas',
-    },
-    {
-      Id: 1,
-      Customer: 'Nicolas',
-      LoanType: 'Group',
-      LoanProduct: 'product 1',
-      Tenure: 9,
-      Amount: 500000,
-      Stage: 'Application',
-      Status: 'Notforwaded',
-      LoanMovedBy: 'Branch office',
-      StageAt: this.createdAt,
-      HowLong: 4,
-      CreatedAt: this.createdAt,
-      LoanStatus: 'running',
-      comment: 'loan created',
-      Branch: 'Application',
-      userName: 'Katende Nicholas',
-    },
-    {
       Id: 5,
       Customer: 'Henry',
       LoanType: 'Group',
@@ -273,43 +103,7 @@ export class LoaningService {
       comment: 'loan forwarded',
       Branch: 'BranchApproval',
       userName: 'Katende Nicholas',
-    },
-    {
-      Id: 9,
-      Customer: 'Henry',
-      LoanType: 'Group',
-      LoanProduct: 'product 1',
-      Tenure: 3,
-      Amount: 500000,
-      Stage: 'Branch',
-      Status: 'forwaded',
-      LoanMovedBy: 'Branch office',
-      StageAt: this.myCreatedAt,
-      HowLong: 1,
-      LoanStatus: 'approved',
-      CreatedAt: this.myCreatedAt,
-      comment: 'loan forwarded',
-      Branch: 'BranchApproval',
-      userName: 'Katende Nicholas',
-    },
-    {
-      Id: 10,
-      Customer: 'Henry',
-      LoanType: 'Group',
-      LoanProduct: 'product 1',
-      Tenure: 3,
-      Amount: 500000,
-      Stage: 'Branch',
-      Status: 'forwaded',
-      LoanMovedBy: 'Branch office',
-      StageAt: this.myCreatedAt,
-      HowLong: 1,
-      LoanStatus: 'approved',
-      CreatedAt: this.myCreatedAt,
-      comment: 'loan forwarded',
-      Branch: 'BranchApproval',
-      userName: 'Katende Nicholas',
-    },
+    }
   ];
 
   constructor(private http: HttpClient) {}
@@ -318,15 +112,6 @@ export class LoaningService {
   }
   putUpdateLoanThresholds(postData: any): any {
     return this.http.post<any>(`${this.API_URL}/api/adminUser/putUpdateLoanThresholds`, postData);
-//   {
-//     "loanThresholdId":9,
-//   "userId":10000015,
-// "loanThresholdType":  "MSE",
-// "loanThresholdProduct":"MSE Education",
-// "loanThresholdMaxAmount": 30000000,
-// "loanThresholdMaxTenure":30,
-// "loanThresholdTime":5
-// }
   }
   getAllLoanThresholds(): Observable<any> {
     return this.http.get<any>(`${this.API_URL}/api/adminUser/getAllLoanThresholds`);
@@ -336,6 +121,46 @@ export class LoaningService {
   }
   postCreateLoanSecurityType(postData: any): any {
     return this.http.post<any>(`${this.API_URL}/api/adminUser/postCreateLoanSecurityType`, postData);
+  }
+  deleteLoanSecurityType(postData: any): any {
+    return this.http.post<any>(`${this.API_URL}/api/adminUser/deleteLoanSecurityType`, postData);
+    // {
+    //   "securityTypeCode":  99
+    //   }
+  }
+  getLoanSecurityType(): any {
+    return this.http.get<any>(`${this.API_URL}/api/adminUser/getLoanSecurityType`);
+  }
+  postCreateLoan(postData: any): any {
+    return this.http.post<any>(`${this.API_URL}/api/loan/postCreateLoan`, postData);
+    //   [
+    //     {
+    //         "securityTypeCode":100,
+    //         "loanSecurityName":"Land Title",
+    //    "loanSecurityLocation":"Buloba Nandanda",
+    //    "loanSecurityPhotoUrl":"photoUrlMissing.com"
+    //     },
+    //      {
+    //         "securityTypeCode": 100,
+    //         "loanSecurityName":"Centenary Bank Cheque",
+    //    "loanSecurityLocation":"To be presented",
+    //    "loanSecurityPhotoUrl":"photoUrlMissing.com"
+    //     }
+    //   ]
+    //   ]
+  }
+  getAllLoanDetails(): Observable<any> {
+    return this.http.get<any>(`${this.API_URL}/api/loan/getAllLoanDetails`);
+  }
+  getCreatedLoans(id: number): Observable<any> {
+    return this.http.get<any>(`${this.API_URL}/api/applicationUser/getCreatedLoans/?branchId=${id}`);
+  }
+  forwardApplicationLoans(postData: any): Observable<any> {
+    return this.http.post<any>(`${this.API_URL}/api/applicationUser/forwardApplicationLoans`, postData);
+    // {
+    //   "loanId":3000004,
+    //      "loanComment":"He is a good customer"
+    //    }
   }
   getloanData(): any {
     return of(this.loanData);

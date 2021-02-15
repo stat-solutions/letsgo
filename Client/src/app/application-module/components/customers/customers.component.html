@@ -76,8 +76,9 @@
             <img
               class="img-circle mx-auto mt-2 mt-md-0 mt-xl-1 mb-1 pb-0"
               [src]="customer.customerPhotoUrl"
-              (click)="openModal(template, customer.customerPhotoUrl)"
+              
             />
+            <!-- (click)="openModal(template, customer.customerPhotoUrl)" -->
           </div>
                     <div class="col-10 col-md-11 mx-md-0 px-md-0">
                       <div class="row mx-md-0 px-md-0">
@@ -223,8 +224,9 @@
       type="button"
       class="close pull-right"
       aria-label="Close"
-      (click)="modalRef.hide()"
+      
     >
+    <!-- (click)="modalRef.hide()" -->
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
@@ -235,8 +237,9 @@
           <div class="col-12 d-flex justify-content-center">
             <img
               class="img-circle-1 mx-auto mt-2 mt-md-0 mt-xl-1 mb-1 pb-0"
-              [src]="imageUrl"
+              
             />
+            <!-- [src]="imageUrl" -->
           </div>
         </div>
       </div>
