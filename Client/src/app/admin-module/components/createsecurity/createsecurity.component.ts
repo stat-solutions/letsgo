@@ -36,16 +36,20 @@ export class CreatesecurityComponent implements OnInit {
   ngOnInit(): void {
     this.userForm = this.createFormGroup();
   }
+
   createFormGroup(): any {
     return new FormGroup({
-      security: this.fb.control(
-        '',
-        Validators.compose([Validators.required])
-      )
+      securityType: this.fb.control('', Validators.compose([Validators.required])),
+      securityName: this.fb.control('', Validators.compose([Validators.required])),
+      securityLocation: this.fb.control('', Validators.compose([Validators.required])),
+      securityPhotoUrl: this.fb.control('', Validators.compose([Validators.required])),
     });
   }
 
-  revert(): any {
+  onFileSelected(event): any {
+
+      }
+          revert(): any {
     this.userForm.reset();
   }
 
