@@ -12,37 +12,148 @@ class="container-fluid d-flex flex-row justify-content-center mb-0 mt-md-1 mt-1 
     </div>
   <div class="card-body mt-2 pt-3 mt-xl-1 mb-0 mx-auto pb-4 shadow-lg">
     <form [formGroup]="userForm" (ngSubmit)="onCreate()">
+      <div class="form-group text-primary">
+        <label
+          for="position"
+          [ngClass]="fval.securityType.valid ? 'text-info' : ''"
+          >Security Type <i *ngIf="fval.securityType.valid" class="material-icons"
+            >check_circle</i
+          ></label
+        >
+        <div class="input-group mb-0">
+          <select
+          formControlName="securityType"
+          class="form-control"
+          [ngClass]="{
+            'is-invalid':
+              (fval.securityType.touched || fval.securityType.dirty) &&
+              fval.securityType.errors
+          }"
+          autocomplete="off"
+          placeholder="Select Security Type"
+          required
+        >
+        <option value="" selected disabled>Select securityType</option>
+        <!-- <option *ngFor="let securityType of branches" >{{securityType.branchName.toUpperCase()}}</option> -->
+        </select>
+    </div>
+        <div
+          class="text-danger col"
+          *ngIf="
+            (fval.securityType.touched || fval.securityType.dirty) &&
+            fval.securityType.errors?.required
+          "
+        >
+          The Security Type is required
+        </div>
+      </div>
 <div class="form-group text-primary">
-        <label for="security" [ngClass]="fval.security.valid ? 'text-info' : ''"
-          >Security<i *ngIf="fval.security.valid" class="material-icons"
+        <label for="securityName" [ngClass]="fval.securityName.valid ? 'text-info' : ''"
+          >Security Name<i *ngIf="fval.securityName.valid" class="material-icons"
             >check_circle</i
           ></label
         >
         <div class="input-group mb-0">
           <input
-            id="security"
-            formControlName="security"
+            id="securityName"
+            formControlName="securityName"
             type="text"
             required
             class="form-control"
             [ngClass]="{
               'is-invalid':
-                (fval.security.touched || fval.security.dirty) && fval.security.errors
+                (fval.securityName.touched || fval.securityName.dirty) && fval.securityName.errors
             }"
-            placeholder="Create security"
+            placeholder="Create Security Name"
             autocomplete="off"
           />
         </div>
         <div
           class="text-danger col"
           *ngIf="
-            (fval.security.touched || fval.security.dirty) &&
-            fval.security.errors?.required
+            (fval.securityName.touched || fval.securityName.dirty) &&
+            fval.securityName.errors?.required
           "
         >
-          The security is required!
+          The Security Name is required
         </div>
       </div>
+<div class="form-group text-primary">
+        <label for="securityLocation" [ngClass]="fval.securityLocation.valid ? 'text-info' : ''"
+          >securityLocation<i *ngIf="fval.securityLocation.valid" class="material-icons"
+            >check_circle</i
+          ></label
+        >
+        <div class="input-group mb-0">
+          <input
+            id="securityLocation"
+            formControlName="securityLocation"
+            type="text"
+            required
+            class="form-control"
+            [ngClass]="{
+              'is-invalid':
+                (fval.securityLocation.touched || fval.securityLocation.dirty) && fval.securityLocation.errors
+            }"
+            placeholder="Create Security Location"
+            autocomplete="off"
+          />
+        </div>
+        <div
+          class="text-danger col"
+          *ngIf="
+            (fval.securityLocation.touched || fval.securityLocation.dirty) &&
+            fval.securityLocation.errors?.required
+          "
+        >
+          The Security Location is required
+        </div>
+      </div>
+            <div class="form-group text-primary">
+              <label
+                for="securityPhotoUrl"
+                [ngClass]="fval.securityPhotoUrl.valid ? 'text-info' : ''"
+                >Security Photo<i
+                  *ngIf="fval.securityPhotoUrl.valid"
+                  class="material-icons"
+                  >check_circle</i
+                ></label
+              >
+              <div class="input-group mb-0">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">
+                    <i
+                      class="fas fa-image text-primary mx-auto"
+                      style="size: 50px"
+                    ></i>
+                  </div>
+                </div>
+                <input
+                  id="securityPhotoUrl"
+                  formControlName="securityPhotoUrl"
+                  type="file"
+                  src="image/*"
+                  capture
+                  (change)="onFileSelected($event)"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid':
+                      (fval.securityPhotoUrl.touched ||
+                        fval.securityPhotoUrl.dirty) &&
+                      fval.securityPhotoUrl.errors
+                  }"
+                />
+              </div>
+              <div
+                class="text-danger col"
+                *ngIf="
+                  (fval.securityPhotoUrl.touched || fval.securityPhotoUrl.dirty) &&
+                  fval.securityPhotoUrl.errors?.required
+                "
+              >
+                Please upload a photo of the security
+                           </div>
+            </div>
 
       <div class="d-flex my-2 py-2 mx-auto">
         <button
