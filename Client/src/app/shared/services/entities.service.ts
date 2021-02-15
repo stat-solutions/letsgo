@@ -36,11 +36,11 @@ export class EntitiesService {
            // catchError(this.handleCompanySetupError)
           );
     }
-    getCompanyInfo(): Observable<CompanyInfo> {
-        return this.http.get<CompanyInfo>(`${this.API_URL}/api/adminUser/getTheCompanyDetails`)
+    getCompanyInfo(): Observable<any> {
+        return this.http.get<any>(`${this.API_URL}/api/adminUser/getTheCompanyDetails`)
         .pipe(
          // catchError(this.OtherErrors)
-        ) as Observable<CompanyInfo>;
+        ) as Observable<any>;
     }
 
 }

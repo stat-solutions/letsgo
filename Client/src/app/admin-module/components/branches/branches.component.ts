@@ -64,8 +64,9 @@ export class BranchesComponent implements OnInit {
   createBranch(): any {
     this.router.navigate(['admin/createbranch']);
   }
-  editBranch(): any {
-    this.router.navigate(['admin/editbranch']);
+  editBranch(branch: any): any {
+    const param = JSON.stringify(branch);
+    this.router.navigate(['admin/editbranch/:branch']);
   }
 
   pageChanged(event): any {

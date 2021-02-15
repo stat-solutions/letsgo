@@ -26,8 +26,8 @@ export class CreateBranchComponent implements OnInit {
   invalid = false;
   entityName = ["Letshego Uganda Limited"];
   branchTypes = [
-    {name: "BRANCH", id: 300},
-    {name: "HEAD OFFICE", id: 300},
+    { name: 'BRANCH', id: 1200 },
+    { name: 'HEAD OFFICE', id: 1100 }
   ];
 
   constructor(

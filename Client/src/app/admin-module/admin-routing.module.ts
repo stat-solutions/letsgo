@@ -71,7 +71,7 @@ const routes: Routes = [
         component: CreateBranchComponent,
       },
       {
-        path: 'editbranch',
+        path: 'editbranch/:branch',
         component: EditBranchComponent,
       },
       {

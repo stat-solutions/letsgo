@@ -19,7 +19,6 @@
             <input
               type="text"
               name=""
-              formControlName="search_text"
               class="form-control col-12"
               (input)="getValue($event)"
               id="name"
@@ -78,7 +77,7 @@
                       };
                 let i = index
               "
-              (click)="openModal(usertemplate)"
+              (click)="openModal(usertemplate, user)"
             >
               <div class="list-card-body card-body my-0 py-0 mx-0">
                 <div class="row my-0 py-0">
@@ -87,8 +86,8 @@
                   >
                     <img
                       class="img-circle mx-auto mt-2 mt-md-0 mt-xl-1 mb-1 pb-0"
-                      src="assets/img/man.svg"
-              (click)="openModal(template)"
+                      [src]="user.userPhotoUrl === 'MissingPhotoUrl.com' ? 'assets/img/man.svg' : user.userPhotoUrl"
+                      (click)="openModal(usertemplate, user)"
                     />
                   </div>
                   <div class="col-10 col-md-11 mx-lg-0 px-lg-0">
@@ -208,7 +207,7 @@
       <button
         class="btn btn-info mt-1 ml-1 ml-sm-3 mx-md-1"
         tooltip="Edit User's role"
-        (click)="openModal2(editUserRole)"
+        (click)="openModal2(editUserRole, user)"
       >
         <i class="fas fa-edit"></i>Edit Role
       </button>
@@ -230,7 +229,8 @@
                 class="d-flex col-12 col-md-4 col-xl-2 my-0 pt-0 pt-md-4 pt-xl-1 pb-0 mx-lg-0 px-lg-0"
               >
                 <!--add data from the database next to the span after &nbsp;-->
-                <img class="details-img img-rounded" src="assets/img/man.svg" />
+                <img class="details-img img-rounded" 
+                [src]="user.userPhotoUrl === 'MissingPhotoUrl.com' ? 'assets/img/man.svg' : user.userPhotoUrl" />
               </div>
               <div
                 class="col-12 col-md-8 col-xl-10 my-0 pt-2 pt-md-5 pt-xl-3 pb-0 mx-lg-0 px-lg-0"
@@ -341,12 +341,12 @@
   </div>
   <div class="modal-body">
     <div class="card-body mt-2 pt-3 mb-3 mx-auto pb-2 shadow-lg">
-      <form [formGroup]="userForm" (ngSubmit)="makeChange()">
+      <form [formGroup]="userForm" (ngSubmit)="updateUserRole(editUserRole)">
         <div class="form-group text-primary">
           <label
             for="userName"
-            [ngClass]="fval.userName.valid ? 'text-info' : ''"
-            >Username<i *ngIf="fval.userName.valid" class="material-icons"
+            [ngClass]="userForm.controls.userName.valid ? 'text-info' : ''"
+            >Username<i *ngIf="userForm.controls.userName.valid" class="material-icons"
               >check_circle</i
             ></label
           >
@@ -363,19 +363,18 @@
               class="form-control"
               [ngClass]="{
                 'is-invalid':
-                  (fval.userName.touched || fval.userName.dirty) &&
-                  fval.userName.errors
+                  (userForm.controls.userName.touched || userForm.controls.userName.dirty) &&
+                  userForm.controls.userName.errors
               }"
               autocomplete="off"
               placeholder="Enter Username"
-              (keyup)="onKey($event)"
             />
           </div>
           <div
             class="text-danger col"
             *ngIf="
-              (fval.userName.touched || fval.userName.dirty) &&
-              fval.userName.errors?.required
+              (userForm.controls.userName.touched || userForm.controls.userName.dirty) &&
+              userForm.controls.userName.errors?.required
             "
           >
             The username is required!
@@ -383,9 +382,9 @@
         </div>
         <div class="form-group text-primary">
           <label
-            for="position"
-            [ngClass]="fval.userRole.valid ? 'text-info' : ''"
-            ><i *ngIf="fval.userRole.valid" class="material-icons"
+            for="role"
+            [ngClass]="userForm.controls.role.valid ? 'text-info' : ''"
+            ><i *ngIf="userForm.controls.role.valid" class="material-icons"
               >check_circle</i
             >User Role</label
           >
@@ -400,38 +399,30 @@
               </div>
             </div>
             <select
-              formControlName="userRole"
-              class="form-control"
-              [ngClass]="{
-                'is-invalid':
-                  (fval.userRole.touched || fval.userRole.dirty) &&
-                  fval.userRole.errors
-              }"
-              autocomplete="off"
-              (change)="getBranch($event)"
-              required
+              placeholder="assign role"
+              formControlName="role"
             >
-              <option value="" selected disabled>Select User Role</option>
-              <option *ngFor="let userRole of branch" [ngValue]="userRole">
-                {{ userRole }}
+              <option selected disabled>AssignRole</option>
+              <option [ngValue]="role" *ngFor="let role of roles">
+                {{ role.roleName }}
               </option>
             </select>
           </div>
           <div
             class="text-danger col"
             *ngIf="
-              (fval.userRole.touched || fval.userRole.dirty) &&
-              fval.userRole.errors?.required
+              (userForm.controls.role.touched || userForm.controls.role.dirty) &&
+              userForm.controls.role.errors?.required
             "
           >
             The user role is required!
           </div>
         </div>
-        <div class="form-group text-primary">
+        <!-- <div class="form-group text-primary">
           <label
-            for="position"
-            [ngClass]="fval.branches.valid ? 'text-info' : ''"
-            ><i *ngIf="fval.branches.valid" class="material-icons"
+            for="branch"
+            [ngClass]="userForm.controls.branch.valid ? 'text-info' : ''"
+            ><i *ngIf="userForm.controls.branch.valid" class="material-icons"
               >check_circle</i
             >Branch</label
           >
@@ -446,20 +437,19 @@
               </div>
             </div>
             <select
-              formControlName="branches"
+              formControlName="branch"
               class="form-control"
               [ngClass]="{
                 'is-invalid':
-                  (fval.branches.touched || fval.branches.dirty) &&
-                  fval.branches.errors
+                  (userForm.controls.branch.touched || userForm.controls.branch.dirty) &&
+                  userForm.controls.branch.errors
               }"
               autocomplete="off"
               placeholder="Select a branch"
-              (change)="getBranch($event)"
               required
             >
               <option value="" selected disabled>Select Branch</option>
-              <option *ngFor="let branches of branch" [ngValue]="branches">
+              <option *ngFor="let branches of branches" [ngValue]="branches">
                 {{ branches }}
               </option>
             </select>
@@ -467,13 +457,13 @@
           <div
             class="text-danger col"
             *ngIf="
-              (fval.branches.touched || fval.branches.dirty) &&
-              fval.branches.errors?.required
+              (userForm.controls.branch.touched || userForm.controls.branch.dirty) &&
+              userForm.controls.branch.errors?.required
             "
           >
             The branch is required!
           </div>
-        </div>
+        </div> -->
         <div class="d-flex mt-3 mb-3 pt-2 pb-3 mx-auto">
           <button
             type="submit"
@@ -485,7 +475,7 @@
           <button
             type="button"
             class="btn btn-info col-5 mx-auto"
-            (click)="refresh()"
+            (click)="modalRef.hide()"
           >
             Cancel
           </button>
@@ -528,7 +518,7 @@
           <div class="col-2 mx-md-0 px-md-0">
             <img
               class="img-circle-1 mx-auto mt-2 mt-md-0 mt-xl-1 mb-1 pb-0"
-              src="assets/img/man.svg"
+              [src]="imageUrl"
             />
           </div>
         </div>

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AlertService } from 'ngx-alerts';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AuthServiceService } from 'src/app/shared/services/auth-service.service';
@@ -25,9 +25,10 @@ export class EditBranchComponent implements OnInit {
   invalid = false;
   entityName = ['Letshego Uganda Limited'];
   branchTypes = [
-    { name: 'BRANCH', id: 300 },
-    { name: 'HEAD OFFICE', id: 300 },
+    { name: 'BRANCH', id: 1200 },
+    { name: 'HEAD OFFICE', id: 1100 }
   ];
+  branch: any;
 
   constructor(
     private authService: AuthServiceService,
@@ -35,10 +36,15 @@ export class EditBranchComponent implements OnInit {
     private router: Router,
     private fb: FormBuilder,
     private branchService: BranchesService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private route: ActivatedRoute,
   ) {}
 
   ngOnInit(): void {
+    this.route.queryParams.subscribe(params => {
+      // tslint:disable-next-line: no-string-literal
+      this.branch = JSON.parse(params['branch']);
+    });
     this.userForm = this.createFormGroup();
   }
   createFormGroup(): any {

@@ -42,9 +42,6 @@ export class EntitiesComponent implements OnInit {
   ngOnInit(): void {
     this.companyForm = this.createFormGroup();
     this.setCompanyValues();
-    if (this.companyInfo.length > 0) {
-      this.disableForm();
-    }
   }
 
   createFormGroup(): any {
@@ -174,7 +171,8 @@ export class EntitiesComponent implements OnInit {
     this.entities.getCompanyInfo().subscribe(
       (item) => {
         this.companyInfo = item[0];
-        if (this.companyInfo.length > 0) {
+
+        if (item.length > 0) {
           this.fval.companyName.setValue(item[0].companyName);
           this.fval.companyBoxNumber.setValue(item[0].companyBoxNumber);
           this.fval.companyCityLocation.setValue(item[0].companyCityLocation);
@@ -189,6 +187,7 @@ export class EntitiesComponent implements OnInit {
           this.fval.companyEmail2.setValue(item[0].companyEmail2);
           this.fval.companyPhoneContact1.setValue(item[0].companyPhoneContact1);
           this.fval.companyPhoneContact2.setValue(item[0].companyPhoneContact2);
+          this.disableForm();
         }
       },
       (error: string) => {
