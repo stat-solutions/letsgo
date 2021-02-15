@@ -2812,19 +2812,20 @@ background-image: linear-gradient(110deg, rgba(168, 7, 28, 0.97), rgba(158, 70, 
 }
 
 .btn-outline-primary {
-    color: #f4623a;
-    border-color: #f4623a
+    color: none;
+    background-color: transparent;
+    border-color: transparent;
 }
 
-.btn-outline-primary:hover {
-    color: #fff;
-    background-color: #f4623a;
-    border-color: #f4623a
+.btn-outline-primary:hover,
+.btn-outline-primary:focus {
+    color: none;
+    background-color: transparent;
+    border-color: transparent;
 }
-
 .btn-outline-primary.focus,
 .btn-outline-primary:focus {
-    box-shadow: 0 0 0 .2rem rgba(244, 98, 58, .5)
+  box-shadow: 0 0 0 0.12rem  transparent;
 }
 
 .btn-outline-primary.disabled,
@@ -2836,15 +2837,15 @@ background-image: linear-gradient(110deg, rgba(168, 7, 28, 0.97), rgba(158, 70, 
 .btn-outline-primary:not(:disabled):not(.disabled).active,
 .btn-outline-primary:not(:disabled):not(.disabled):active,
 .show>.btn-outline-primary.dropdown-toggle {
-    color: #fff;
-    background-color: #f4623a;
-    border-color: #f4623a
+    color: none;
+    background-color: transparent;
+    border-color: transparent;
 }
 
 .btn-outline-primary:not(:disabled):not(.disabled).active:focus,
 .btn-outline-primary:not(:disabled):not(.disabled):active:focus,
 .show>.btn-outline-primary.dropdown-toggle:focus {
-    box-shadow: 0 0 0 .2rem rgba(244, 98, 58, .5)
+    box-shadow: 0 0 0 .2rem transparent
 }
 
 .btn-outline-secondary {
