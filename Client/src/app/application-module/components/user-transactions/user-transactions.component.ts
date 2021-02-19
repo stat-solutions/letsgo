@@ -62,7 +62,7 @@ export class UserTransactionsComponent implements OnInit {
   }
   editFormDetails() {}
 
-  //search loan
+  //search 0726099610 loan
   getValue(event) {}
 
   get editControls() {

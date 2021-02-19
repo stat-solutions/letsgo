@@ -48,6 +48,8 @@ export class CreateLoansComponent implements OnInit {
   securityDetails = [];
   securityPhotoUrl: string;
   User: any;
+  values: any;
+  numberValue: any;
 
   constructor(
     private customer: CustomerService,
@@ -95,7 +97,7 @@ export class CreateLoansComponent implements OnInit {
       ),
       amount: this.fb.control(
         '',
-        Validators.compose([Validators.required])
+        Validators.compose([Validators.required,  CustomValidator.patternValidator(/\d/, { hasNumber: true }),])
       ),
       tenure: this.fb.control(
         '',
@@ -159,6 +161,16 @@ export class CreateLoansComponent implements OnInit {
           // console.log(url);
         }
       });
+  }
+  onKey(event: any): any {
+    // without type info
+    this.values = event.target.value.replace(/[\D\s\._\-]+/g, '');
+
+    this.numberValue = this.values ? parseInt(this.values, 10) : 0;
+
+    // tslint:disable-next-line:no-unused-expression
+    this.values = this.numberValue === 0 ? '' : this.numberValue.toLocaleString('en-US');
+    this.fval.amount.setValue(this.values);
   }
   addSecurity(): any{
     this.spinner.show();
@@ -237,20 +249,25 @@ export class CreateLoansComponent implements OnInit {
     });
   }
   checkTenureAndAmount(event: any): any{
+    // tslint:disable-next-line: radix
+    // console.log(parseInt(event.target.value.replace(/[\D\s\._\-]+/g, '')));
     if (event.target.id === 'tenure' && event.target.value > this.maxTenure) {
       this.errored = true;
       this.alertService.danger({
         html: '<b>Tenure should not be greater than ' + this.maxTenure + '<b>'
       });
       this.fval.tenure.setValue('');
-    } else if (event.target.id === 'amount' && event.target.value > this.maxAmount) {
-      this.errored = true;
-      this.alertService.danger({
-        html: '<b>Amount should not be greater than ' + this.maxAmount + '<b>'
-      });
-      this.fval.amount.setValue('');
-    } else {
-      return;
+    } else if (event.target.id === 'amount') {
+      const amount = parseInt(event.target.value.replace(/[\D\s\._\-]+/g, ''), 10 );
+      if ( amount > this.maxAmount) {
+        this.errored = true;
+        this.alertService.danger({
+          html: '<b>Amount should not be greater than ' + this.maxAmount + '<b>'
+        });
+        this.fval.amount.setValue('');
+      } else {
+        return;
+      }
     }
   }
   revert(): any {
@@ -280,7 +297,7 @@ export class CreateLoansComponent implements OnInit {
     data.push({
       customerId: this.currentCustomer.customerId,
       loanThresholdId: this.loanThresholdId,
-      loanAmount: this.fval.amount.value,
+      loanAmount: parseInt(this.fval.amount.value.replace(/[\D\s\._\-]+/g, ''), 10 ),
       loanTenure: this.fval.tenure.value,
       comment: this.fval.comment.value,
       userId: this.User.userId,
