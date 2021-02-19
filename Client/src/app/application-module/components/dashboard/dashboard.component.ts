@@ -39,15 +39,17 @@ fileName = "loanInfo.xlsx";
   ) {}
 
   ngOnInit(): any {
-    this.landingPage.getloanData().subscribe(userData => {
-    this.loanTable = userData.map(eachUser => {
+    this.landingPage.getAllLoanDetails().subscribe((userData) => {
+      this.loanTable = userData.map((eachUser) => {
         const oldDate = eachUser.CreatedAt;
         const diffInDates = moment(this.age).diff(moment(oldDate));
-        const timeInMonths = moment(diffInDates).format('MM [months] DD [days]');
+        const timeInMonths = moment(diffInDates).format(
+          'MM [months] DD [days]'
+        );
         return { ...eachUser, TotalAge: timeInMonths };
       });
-    this.filteredLoans = this.loanTable;
-    this.totalItems = this.filteredLoans.length;
+      this.filteredLoans = this.loanTable;
+      this.totalItems = this.filteredLoans.length;
     });
     this.landingPage.getAllLoanDetails().subscribe(userData => {
       res => console.log(res)
