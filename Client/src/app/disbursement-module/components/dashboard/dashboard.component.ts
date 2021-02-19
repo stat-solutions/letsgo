@@ -45,7 +45,7 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     setTimeout(() => {
-      this.landingPage.getloanData().subscribe((userData) => {
+      this.landingPage.getAllLoanDetails().subscribe((userData) => {
         this.loanTable = userData.map((eachUser) => {
           const oldDate = eachUser.CreatedAt;
           const diffInDates = moment(this.age).diff(moment(oldDate));
