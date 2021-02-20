@@ -4,6 +4,7 @@ import { Component, OnInit , OnChanges, TemplateRef} from '@angular/core';
 import {BsModalService, BsModalRef} from 'ngx-bootstrap/modal';
 import * as moment from 'moment';
 import {AlertService} from 'ngx-alerts';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-transactions',

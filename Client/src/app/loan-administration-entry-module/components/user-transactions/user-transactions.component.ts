@@ -17,6 +17,7 @@ export class UserTransactionsComponent implements OnInit {
   forwardedLoansFrom = [];
   forwardedLoansTo = [];
   makeLoansReceived = [];
+  makeLoansDeffered = [];
   //create comments
   comment: FormGroup;
   //create defferedloans
@@ -74,6 +75,11 @@ export class UserTransactionsComponent implements OnInit {
     return this.comment.controls;
   }
 
+  //get deffer controls
+  get deffer_controls() {
+    return this.defferTo.controls;
+  }
+
   //validate_comments
   validateComments() {
     return {
@@ -94,6 +100,10 @@ export class UserTransactionsComponent implements OnInit {
 
   //search loan
   getValue(event) {}
+
+  getWhereToDeffer(event) {
+    this.deffer_controls.deffer_to.setValue(event.target.value);
+  }
 
   checkTransactionsTable(array: Array<any>) {
     return array.length ? true : false;
@@ -129,6 +139,14 @@ export class UserTransactionsComponent implements OnInit {
       this.arrayIndex = index;
     }
   }
+  defferLoan(template: TemplateRef<any>, id: number, index: number) {
+    this.bsModalRef = this.bsModalService.show(template);
+    this.makeLoansDeffered.push(this.receivedLoans[index]);
+    if (this.checkTransactionsTable(this.makeLoansDeffered)) {
+      this.arrayIndex = index;
+      this.arrayId = id;
+    }
+  }
 
   // onForward(array:Array<any>, id, index){
   //   this.receivedLoans = this.receivedLoans.filter(loans=>loans.Id !== id)
@@ -149,5 +167,16 @@ export class UserTransactionsComponent implements OnInit {
         'Your loan has been forwarded successfully to Loan Administration Verification'
       );
     }
+  }
+  onDeffer(array: Array<any>, id, index) {
+    this.receivedLoans = this.receivedLoans.filter((loans) => loans.Id !== id);
+    const level = this.deffer_controls.deffer_to.value;
+    this.deffer_controls.deffer_to.reset();
+    this.deffer_controls.deffer_reason.reset();
+    this.makeLoansDeffered = [];
+    this.closeModal();
+    this.alertService.success(
+      'Your loan has been deferred  successfully to ' + level
+    );
   }
 }
