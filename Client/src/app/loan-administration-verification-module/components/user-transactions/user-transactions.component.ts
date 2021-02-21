@@ -5,6 +5,8 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import * as moment from 'moment';
 import { AlertService } from 'ngx-alerts';
 import { TabsetComponent } from 'ngx-bootstrap/tabs';
+import { AuthServiceService } from 'src/app/shared/services/auth-service.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-user-transactions',
@@ -12,134 +14,260 @@ import { TabsetComponent } from 'ngx-bootstrap/tabs';
   styleUrls: ['./user-transactions.component.scss'],
 })
 export class UserTransactionsComponent implements OnInit {
-  //arrays to store data
   receivedLoans = [];
-  forwardedLoansFrom = [];
-  forwardedLoansTo = [];
-  makeLoansReceived = [];
-  //create comments
-  comment: FormGroup;
-  //create defferedloans
-  defferTo: FormGroup;
-  //array index, arrayid
-  arrayId: number;
-  arrayIndex: number;
+  forwardLoansTo = [];
+  errored = false;
+  posted = false;
+  filteredReceivedLoans = [];
   age = moment(new Date()).format('MM/DD/YYYY, h:mm:ss');
-  checkAll: boolean = true;
-  receiveGroupLoans: FormGroup;
-  //booleans
-  enableForwardedFrom: boolean = true;
-  enableForwardedTo: boolean = false;
   bsModalRef: BsModalRef;
-  //disable button
-  disableButton: boolean = false;
-  levels = ['Application'];
+  comment: FormGroup;
+  editLoanForm: FormGroup;
+  User: any;
+  filteredLoans: any;
+  loanTable: any;
+  totalItems: any;
+  actionLoan: any;
+  actionType: string;
+  numberValue: number;
+  values: any;
+  maxAmount: number;
+  maxTenure: number;
+  loanThresholdId: number;
+  loanTypes: any;
+  currentPage = 1;
+  pageSize = 10;
 
   constructor(
     private userTransactions: LoaningService,
+    private authService: AuthServiceService,
     private fb: FormBuilder,
+    private alertService: AlertService,
     private bsModalService: BsModalService,
-    private alertService: AlertService
+    private spinner: NgxSpinnerService
   ) {}
 
-  ngOnInit() {
-    this.userTransactions
-      .getSpecificCustomers('Application')
-      .subscribe((userData) => {
-        this.forwardedLoansFrom = userData.map((eachUser) => {
-          const oldDate = eachUser.CreatedAt;
-          const diffInDates = moment(this.age).diff(moment(oldDate));
-          const timeInMonths = moment(diffInDates).format(
-            'MM [months] DD [days]'
-          );
-          return { ...eachUser, TotalAge: timeInMonths };
-        });
-
-        // this.receivedLoans.push(this.forwardedLoansFrom[0])
-        this.comment = this.fb.group({
-          user_comments: ['', Validators.required],
-        });
-      });
+  ngOnInit(): void {
+    this.User = this.authService.loggedInUserInfo();
+    this.getForwadedLoans();
+    this.comment = this.commentForm();
   }
-  //receivedLoansre
-  receiveLoans(id: number, index) {
-    const removed = this.forwardedLoansFrom.splice(index, 1);
-    this.receivedLoans.push(...removed);
-    this.enableForwardedFrom = false;
-    this.enableForwardedTo = true;
-    //console.log(removed)
+  pageChanged(event): any{
+    this.currentPage = event;
   }
-  //get comment controls
-  get commentControls() {
+  commentForm(): any {
+    return new FormGroup({
+        comments: this.fb.control(
+          '',
+          Validators.compose([Validators.required])
+        ),
+    });
+  }
+  // getcoment controls
+  get commentControls(): any {
     return this.comment.controls;
   }
 
-  //validate_comments
-  validateComments() {
+  getForwadedLoans(): any {
+    this.filteredLoans = [];
+    this.loanTable = [];
+    this.userTransactions.getForwardedLoanAdministrationVerificationLoans(this.User.branchId).subscribe((userData) => {
+      this.loanTable = userData.map((eachUser) => {
+        const oldDate = eachUser.CreatedAt;
+        const diffInDates = moment(this.age).diff(moment(oldDate));
+        const timeInMonths = moment(diffInDates).format(
+          'MM [months] DD [days]'
+        );
+        return { ...eachUser, TotalAge: timeInMonths };
+      });
+      this.filteredLoans = this.loanTable;
+      this.totalItems = this.filteredLoans.length;
+    });
+  }
+  getReceivedLoans(): any {
+    this.filteredLoans = [];
+    this.loanTable = [];
+    this.userTransactions.getReceivedLoanAdministrationVerificationLoans(this.User.branchId).subscribe((userData) => {
+      this.loanTable = userData.map((eachUser) => {
+        const oldDate = eachUser.CreatedAt;
+        const diffInDates = moment(this.age).diff(moment(oldDate));
+        const timeInMonths = moment(diffInDates).format(
+          'MM [months] DD [days]'
+        );
+        return { ...eachUser, TotalAge: timeInMonths };
+      });
+      this.filteredLoans = this.loanTable;
+      this.totalItems = this.filteredLoans.length;
+    });
+  }
+  getApprovedLoans(): any {
+    this.filteredLoans = [];
+    this.loanTable = [];
+    this.userTransactions.getApprovedLoanAdministrationVerificationLoans(this.User.branchId).subscribe((userData) => {
+      this.loanTable = userData.map((eachUser) => {
+        const oldDate = eachUser.CreatedAt;
+        const diffInDates = moment(this.age).diff(moment(oldDate));
+        const timeInMonths = moment(diffInDates).format(
+          'MM [months] DD [days]'
+        );
+        return { ...eachUser, TotalAge: timeInMonths };
+      });
+      this.filteredLoans = this.loanTable;
+      this.totalItems = this.filteredLoans.length;
+    });
+  }
+
+  // search 0726099610 loan
+  getValue(event): any {}
+
+  get editControls(): any {
+    return this.editLoanForm.controls;
+  }
+
+  setClassInvalid(contact): any {
     return {
-      'is-invalid':
-        (this.commentControls.user_comments.touched ||
-          this.commentControls.dirty) &&
-        this.commentControls.user_comments.hasError('required'),
-      error:
-        (this.commentControls.user_comments.touched ||
-          this.commentControls.dirty) &&
-        this.commentControls.user_comments.hasError('required'),
+      'is-invalid': (contact.touched || contact.dirty) && contact.errors,
     };
   }
 
-  closeModal() {
-    this.bsModalRef.hide();
+  openComment(loan: any, template: TemplateRef<any>, type: string): any {
+    this.actionType = type;
+    this.actionLoan = loan;
+    this.bsModalService.show(template);
   }
 
-  //search loan
-  getValue(event) {}
-
-  checkTransactionsTable(array: Array<any>) {
-    return array.length ? true : false;
-  }
-  //receive//approve all loans
-  receiveAllLoans() {
-    console.log('received all');
-    this.makeLoansReceived.push(...this.forwardedLoansFrom);
-    this.receivedLoans.push(...this.makeLoansReceived);
-    this.forwardedLoansFrom = [];
-    this.disableButton = true;
-    this.enableForwardedFrom = false;
-    this.enableForwardedTo = true;
-  }
-  branchApprovalReceivedLoans() {
-    this.enableForwardedFrom = false;
-    this.enableForwardedTo = true;
+  closeModal(): any {
+    this.forwardLoansTo = [];
+    this.bsModalService.hide();
   }
 
-  branchApprovalForwardedLoans() {
-    this.enableForwardedFrom = true;
-    this.enableForwardedTo = false;
-  }
-
-  cancel() {
-    this.closeModal();
-  }
-  forwardLoan(template: TemplateRef<any>, id: number, index: number) {
-    this.bsModalRef = this.bsModalService.show(template);
-    this.forwardedLoansTo.push(this.receivedLoans[index]);
-    if (this.checkTransactionsTable(this.forwardedLoansTo)) {
-      this.arrayId = id;
-      this.arrayIndex = index;
+  // receive defered
+  receive(loan: any, category: string): any{
+    const data = [];
+    this.spinner.show();
+    if (category === 'One') {
+      data.push({
+      loanId: loan.loanId,
+      userId: this.User.userId,
+      branchId: this.User.branchId
+    });
+    } else if (category === 'All') {
+      this.filteredLoans.forEach(ln => {
+        data.push({
+          loanId: ln.loanId,
+          userId: this.User.userId,
+          branchId: this.User.branchId
+        });
+      });
     }
+    this.userTransactions.receiveForwardedLoanAdministrationVerificationLoans(data).subscribe(
+      res => {
+        this.posted = true;
+        this.getForwadedLoans();
+        this.spinner.hide();
+        this.alertService.success({
+          html: '<b> Operation was successful</b>',
+        });
+      },
+      err => {
+        this.errored = true;
+        this.alertService.danger({
+          html: '<b> There was a problem </b>',
+        });
+      }
+    );
   }
-  onForward(array: Array<any>, id, index) {
-    this.receivedLoans = this.receivedLoans.filter((loans) => loans.Id !== id);
-    this.commentControls.user_comments.reset();
+
+  finalizeAction(comment: string): any {
+    const data = {
+      loanId: this.actionLoan.loanId,
+      userId: this.User.userId,
+      loanComment: comment.toUpperCase()
+    };
+    const deferData = {
+      loanId: this.actionLoan.loanId,
+      userId: this.User.userId,
+      loanComment: comment.toUpperCase(),
+      movementStageId: null
+    };
     this.closeModal();
-    //forward loan
-    if (!this.checkTransactionsTable(this.forwardedLoansTo)) return;
-    else {
-      //forward to loan exit
-      this.alertService.success(
-        'Loan has been forwarded successfully to Loan Exit stage'
-      );
+    switch (this.actionType) {
+      case 'Approve':
+        this.approveLoan(data);
+        break;
+      case 'Application':
+        deferData.movementStageId = 100;
+        this.deferLoan(deferData);
+        break;
+      case 'Branch':
+        deferData.movementStageId = 200;
+        this.deferLoan(deferData);
+        break;
+      case 'Forwad Approved':
+        this.forwadLoan(data);
+        break;
     }
+    this.comment.reset();
+  }
+  approveLoan(data: any): any {
+    this.spinner.show();
+    this.userTransactions.approveLoanAdministrationVerificationLoans(data).subscribe(
+      res => {
+        this.posted = true;
+        this.getReceivedLoans();
+        this.spinner.hide();
+        this.alertService.success({
+          html: '<b>Operation was successful</b>',
+        });
+      },
+      err => {
+        this.errored = true;
+        this.spinner.hide();
+        this.alertService.danger({
+          html: '<b> There was a problem </b>',
+        });
+      }
+    );
+  }
+  deferLoan(data: any): any {
+    this.spinner.show();
+    this.userTransactions.deferLoanAdministrationVerificationLoans(data).subscribe(
+      res => {
+        this.posted = true;
+        this.getReceivedLoans();
+        this.spinner.hide();
+        this.alertService.success({
+          html: '<b>Operation was successful</b>',
+        });
+      },
+      err => {
+        this.errored = true;
+        this.spinner.hide();
+        this.alertService.danger({
+          html: '<b> There was a problem </b>',
+        });
+      }
+    );
+  }
+  forwadLoan(data: any): any {
+    this.spinner.show();
+    this.userTransactions.forwardLoanAdministrationVerificationLoans(data).subscribe(
+      res => {
+        this.posted = true;
+        this.getApprovedLoans();
+        this.spinner.hide();
+        this.alertService.success({
+          html: '<b>Operation was successful</b>',
+        });
+      },
+      err => {
+        this.errored = true;
+        this.spinner.hide();
+        this.alertService.danger({
+          html: '<b> There was a problem </b>',
+        });
+      }
+    );
   }
 }
+

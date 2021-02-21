@@ -7,6 +7,16 @@
     >
       <div class="row">
         <div class="col-12">
+          <label class="col" *ngIf="errored" class="text-danger">
+            <!-- <i class="material-icons">Cancel</i> -->
+
+            <ngx-alerts></ngx-alerts>
+          </label>
+
+          <label class="col" *ngIf="posted" class="text-info">
+            <!-- <i class="material-icons">check_circle</i> -->
+            <ngx-alerts></ngx-alerts>
+          </label>
           <h3 class="rub-head4 text-info text-center font-weight-bold py-1">
             TRANSACTIONS
           </h3>
@@ -32,47 +42,72 @@
     </div>
     <div class="row">
       <div class="col-12 mx-0 px-3 py-2">
+        <pagination-controls
+        id="my_pages"
+        (pageChange)="pageChanged($event)"
+        (pageBoundsCorrection)="pageChanged($event)"
+        directionLinks="true"
+        autoHide="true"
+        responsive="true"
+      >
+      </pagination-controls>
+      </div>
+      <div class="col-12 mx-0 px-3 py-2">
         <tabset>
-          <!-- (click)="branchApprovalReceivedLoans()" -->
-          <tab heading="Forwarded Loans">
-            <div *ngIf="enableForwardedFrom && !enableForwardedTo">
-          <!--record container-->
-        <div
-          class="invest-card card mt-1 py-2 mb-2 mx-auto px-2 shadow-lg"
-          *ngIf="
-                      checkTransactionsTable(forwardedLoansFrom);
-                      else noforwarded
-                    "
-        >
-            <div class="col-12">
-                    <button (click)="receiveAllLoans()" class="btn btn-primary my-2">
-                      Receive All
-                    </button>
-            </div>
-          <div
-            class="iteration"
-          >
-            <div class="item-container-1 mt-1">
-              <div
-                class="list-card card mt-1 pt-2 mb-0 mx-auto px-0 pb-0 shadow-lg"
- *ngFor="
-                          let forwarded of forwardedLoansFrom;
-                          let i = index
-                        "              >
+          <tab heading="Forwaded Loans" (selectTab)="getForwadedLoans()">
+              <div>
+                <!--record container-->
+                <div
+                class="invest-card card mt-1 py-2 mb-2 mx-auto px-2 shadow-lg"
+                *ngIf="!filteredLoans.length"
+              >
+                  <div class="col-12 my-5 py-5 justify-content-between">
+                    <h4 class="text-center text-info">No Forwaded Loans yet</h4>
+                  </div>
+                </div>
+                <div
+                class="invest-card card mt-1 py-2 mb-2 mx-auto px-2 shadow-lg"
+                *ngIf="filteredLoans.length"
+              >
+              <div class="col-12">
+                <button
+                  class="btn btn-primary my-2"
+                  (click)="receive('None', 'All')"
+                >
+                  Receive All
+                </button>
+              </div>
+                <div
+                  class="iteration"
+                >
+                  <div class="item-container-1 mt-1">
+                    <div
+                      class="list-card card mt-1 pt-2 mb-0 mx-auto px-0 pb-0 shadow-lg"
+                      *ngFor="
+                        let loans of filteredLoans
+                        | paginate
+                        : {
+                            id: 'my_pages',
+                            itemsPerPage: pageSize,
+                            currentPage: currentPage,
+                            totalItems: totalItems
+                          };
+                        let i = index
+                      "
+                      >
                       <div class="list-card-body card-body my-0 py-0 mx-0 px-0">
-                        <div class="row my-0 pt-0 pb-1 mx-md-0 px-md-0">
+                        <div class="row my-0 pt-md-0 pb-md-1 mx-md-0 px-md-0">
                           <div
-                            class="col-3 col-sm-2 col-lg-1 d-flex flex-column justify-content-center pl-2 pr-0 pl-sm-3 px-lg-2 mx-md-0"
+                          class="col-3 col-sm-2 col-lg-1 d-flex flex-column justify-content-center pl-4 pr-0 pl-sm-3 px-md-2 mx-md-0"
+                        >
+                          <button
+                            class="btn btn-info mx-md-0 px-0 py-1"
+                            (click)="receive(loans, 'One')"
                           >
-                            <button
-                              class="btn btn-info mx-md-0 px-0 py-1"
-                              [disable]="disableButton"
-                              (click)="receiveLoans(forwarded.Id, i)"
-                            >
-                              Receive
-                            </button>
-                          </div>
-                          <div class="col-9 col-sm-10 col-lg-11 mx-md-0">
+                            Receive
+                          </button>
+                        </div>
+                        <div class="col-9 col-sm-10 col-lg-11 mx-md-0">
                             <div class="row mx-md-0 px-md-0">
                               <div
                                 class="col-12 col-md-6 col-xl-3 mx-md-0 px-md-0"
@@ -87,7 +122,7 @@
                                     class="col-7 col-md-8 col-lg-9 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
                                   >
                                     <span class="itemCreated">
-                                      {{ forwarded.Id }}
+                                      {{ loans.customerIdNumber }}
                                     </span>
                                   </div>
                                 </div>
@@ -105,7 +140,7 @@
                                     class="col-7 col-md-8 col-lg-9 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
                                   >
                                     <span class="itemCreated">
-                                      {{ forwarded.Customer }}
+                                      {{ loans.customerName }}
                                     </span>
                                   </div>
                                 </div>
@@ -123,7 +158,7 @@
                                     class="col-7 col-md-8 col-lg-9 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
                                   >
                                     <span class="itemCreated">
-                                      {{ forwarded.LoanType }}
+                                      {{ loans.loanThresholdType }}
                                     </span>
                                   </div>
                                 </div>
@@ -141,7 +176,7 @@
                                     class="col-7 col-md-8 col-lg-9 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
                                   >
                                     <span class="itemCreated">
-                                      {{ forwarded.LoanProduct }}
+                                      {{ loans.loanThresholdProduct }}
                                     </span>
                                   </div>
                                 </div>
@@ -159,7 +194,7 @@
                                     class="col-7 col-md-8 col-lg-9 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
                                   >
                                     <span class="itemCreated">
-                                      {{ forwarded.Tenure }}
+                                      {{ loans.loanTenure }}
                                     </span>
                                   </div>
                                 </div>
@@ -177,7 +212,7 @@
                                     class="col-7 col-md-8 col-lg-9 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
                                   >
                                     <span class="itemCreated">
-                                      {{ forwarded.Amount | number }}
+                                      {{ loans.loanAmount | number }}
                                     </span>
                                   </div>
                                 </div>
@@ -195,7 +230,7 @@
                                     class="col-7 col-md-8 col-lg-9 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
                                   >
                                     <span class="itemCreated">
-                                      {{ forwarded.Stage }}
+                                      {{ loans.movementStage }}
                                     </span>
                                   </div>
                                 </div>
@@ -213,7 +248,10 @@
                                     class="col-7 col-md-8 col-lg-9 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
                                   >
                                     <span class="itemCreated">
-                                      {{ forwarded.Status }}
+                                      {{ loans.movementStatus === 1 ? 'CREATED' : 
+                                      loans.movementStatus === 2 ? 'FOWARDED' : 
+                                      loans.movementStatus === 3 ? 'RECEIVED' : 
+                                      loans.movementStatus === 4 ? 'DISBURSED' : 'DEFFERED' }}
                                     </span>
                                   </div>
                                 </div>
@@ -231,25 +269,7 @@
                                     class="col-7 col-md-8 col-lg-9 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
                                   >
                                     <span class="itemCreated">
-                                      {{ forwarded.LoanMovedBy }}
-                                    </span>
-                                  </div>
-                                </div>
-                              </div>
-                              <div
-                                class="col-12 col-md-6 col-xl-4 mx-md-0 px-md-0"
-                              >
-                                <div class="row">
-                                  <div
-                                    class="col-5 col-md-4 col-lg-3 d-flex justify-content-start mx-md-0 px-md-0"
-                                  >
-                                    <span class="">Stage At:</span>
-                                  </div>
-                                  <div
-                                    class="col-7 col-md-8 col-lg-9 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
-                                  >
-                                    <span class="itemCreated">
-                                      {{ forwarded.StageAt }}
+                                      {{ !loans.movedBy ? "NONE" : loans.movedBy }}
                                     </span>
                                   </div>
                                 </div>
@@ -267,7 +287,7 @@
                                     class="col-7 col-md-8 col-lg-9 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
                                   >
                                     <span class="itemCreated">
-                                      {{ forwarded.HowLong }}
+                                      {{ loans.ageSinceMovement }}
                                     </span>
                                   </div>
                                 </div>
@@ -285,7 +305,7 @@
                                     class="col-7 col-md-8 col-lg-9 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
                                   >
                                     <span class="itemCreated">
-                                      {{ forwarded.CreatedAt }}
+                                      {{ loans.loanCreationDate }}
                                     </span>
                                   </div>
                                 </div>
@@ -303,7 +323,7 @@
                                     class="col-7 col-md-8 col-lg-9 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
                                   >
                                     <span class="itemCreated">
-                                      {{ forwarded.TotalAge }}
+                                      {{ loans.ageSinceCreation }}
                                     </span>
                                   </div>
                                 </div>
@@ -316,272 +336,289 @@
                   </div>
                 </div>
               </div>
-              <!--/ end of record container-->
-            </div>
+                <!--/ end of record container-->
+              </div>
           </tab>
           <!-- (click)="branchApprovalForwardedLoans()" -->
-          <tab heading="Received Loans">
+          <tab heading="Received Loans" (selectTab)="getReceivedLoans()">
             <!---forward users-->
-            <div *ngIf="!enableForwardedFrom && enableForwardedTo">
-          <!--record container-->
-        <div
-          class="invest-card card mt-1 py-2 mb-2 mx-auto px-2 shadow-lg"
-          *ngIf="checkTransactionsTable(receivedLoans); else noloans"
-        >
-          <div
-            class="iteration"
+            <div
+            class="invest-card card mt-1 py-2 mb-2 mx-auto px-2 shadow-lg"
+            *ngIf="!filteredLoans.length"
           >
-            <div class="item-container-1 mt-1">
-              <div
-                class="list-card card mt-1 pt-2 mb-0 mx-auto px-0 pb-1 shadow-lg"
-*ngFor="let received of receivedLoans; let i = index">
-                      <div class="list-card-body card-body my-0 py-0 mx-0 px-0">
-                        <div class="row my-0 pt-0 pb-1 mx-md-0 px-md-0">
-                          <div
-                            class="col-3 col-sm-2 col-lg-1 d-flex flex-column justify-content-center pl-2 pr-0 pl-sm-3 px-lg-2 mx-md-0"
+              <div class="col-12 my-5 py-5 justify-content-between">
+                <h4 class="text-center text-info">No Received Loans yet</h4>
+              </div>
+            </div>
+          <div
+            class="invest-card card mt-1 py-2 mb-2 mx-auto px-2 shadow-lg"
+            *ngIf="filteredLoans.length"
+          >
+            <div
+              class="iteration"
+            >
+              <div class="item-container-1 mt-1">
+                <div
+                  class="list-card card mt-1 pt-2 mb-0 mx-auto px-0 pb-0 shadow-lg"
+                  *ngFor="
+                    let loans of filteredLoans
+                    | paginate
+                    : {
+                        id: 'my_pages',
+                        itemsPerPage: pageSize,
+                        currentPage: currentPage,
+                        totalItems: totalItems
+                      };
+                    let i = index
+                  "
+                  >
+                  <div class="list-card-body card-body my-0 py-0 mx-0 px-0">
+                    <div class="row my-0 pt-md-0 pb-md-1 mx-md-0 px-md-0">
+                        <div
+                          class="col-2 col-md-1 pl-2 pr-0 mx-md-0 px-md-0 d-flex justify-content-center"
+                        >
+                        <div class="dropdown">
+                          <button
+                            class="btn btn-outline-primary dropdown-toggle"
+                            id="dropdownMenuButton"
+                            data-toggle="dropdown"
+                            aria-haspopup="true"
+                            aria-expanded="false"
+                            tooltip="Options"
                           >
-                            <button
-                              class="btn btn-info mx-md-0 px-0 py-1"
-                              (click)="forwardLoan(forward, received.Id, i)"
+                            <i class="fas fa-ellipsis-v fa-2x text-info"></i>
+                          </button>
+                          <div
+                            class="dropdown-menu"
+                            aria-labelledby="dropdownMenuButton"
+                          >
+                            <a
+                              class="dropdown-item pointerCursor text-primo"
+                              (click)="openComment(loans, forward)"
                             >
                               Forward
-                            </button>
-                  </div>
-                    <div class="col-9 col-sm-10 mx-md-0">
-                            <div class="row mx-md-0 px-md-0">
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                        <div class="col-10 col-md-11 mx-lg-0 px-lg-0">
+                        <div class="row mx-md-0 px-md-0">
+                          <div
+                            class="col-12 col-md-6 col-xl-3 mx-md-0 px-md-0"
+                          >
+                            <div class="row">
                               <div
-                                class="col-12 col-md-6 col-xl-3 mx-md-0 px-md-0"
+                                class="col-5 col-md-4 col-lg-3 d-flex justify-content-start mx-md-0 px-md-0"
                               >
-                                <div class="row">
-                                  <div
-                                    class="col-5 col-md-4 col-lg-3 d-flex justify-content-start mx-md-0 px-md-0"
-                                  >
-                                    <span class="">ID:</span>
-                                  </div>
-                                  <div
-                                    class="col-7 col-md-8 col-lg-9 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
-                                  >
-                                    <span class="itemCreated">
-                                      {{ received.Id }}
-                                    </span>
-                                  </div>
-                                </div>
+                                <span class="">ID:</span>
                               </div>
                               <div
-                                class="col-12 col-md-6 col-xl-6 mx-md-0 px-md-0"
+                                class="col-7 col-md-8 col-lg-9 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
                               >
-                                <div class="row">
-                                  <div
-                                    class="col-5 col-md-4 col-lg-3 d-flex justify-content-start mx-md-0 px-md-0"
-                                  >
-                                    <span class="">Customer:</span>
-                                  </div>
-                                  <div
-                                    class="col-7 col-md-8 col-lg-9 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
-                                  >
-                                    <span class="itemCreated">
-                                      {{ received.Customer }}
-                                    </span>
-                                  </div>
-                                </div>
+                                <span class="itemCreated">
+                                  {{ loans.customerIdNumber }}
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                          <div
+                            class="col-12 col-md-6 col-xl-6 mx-md-0 px-md-0"
+                          >
+                            <div class="row">
+                              <div
+                                class="col-5 col-md-4 col-lg-3 d-flex justify-content-start mx-md-0 px-md-0"
+                              >
+                                <span class="">Customer:</span>
                               </div>
                               <div
-                                class="col-12 col-md-6 col-xl-3 mx-md-0 px-md-0"
+                                class="col-7 col-md-8 col-lg-9 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
                               >
-                                <div class="row">
-                                  <div
-                                    class="col-5 col-md-4 col-lg-3 d-flex justify-content-start mx-md-0 px-md-0"
-                                  >
-                                    <span class="">Loan Type:</span>
-                                  </div>
-                                  <div
-                                    class="col-7 col-md-8 col-lg-9 d-flex justify-content-start font-weight-bold mx-md-0"
-                                  >
-                                    <span class="itemCreated">
-                                      {{ received.LoanType }}
-                                    </span>
-                                  </div>
-                                </div>
+                                <span class="itemCreated">
+                                  {{ loans.customerName }}
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                          <div
+                            class="col-12 col-md-6 col-xl-3 mx-md-0 px-md-0"
+                          >
+                            <div class="row">
+                              <div
+                                class="col-5 col-md-4 col-lg-3 d-flex justify-content-start mx-md-0 px-md-0"
+                              >
+                                <span class="">Loan Type:</span>
                               </div>
                               <div
-                                class="col-12 col-md-6 col-xl-4 mx-md-0 px-md-0"
+                                class="col-7 col-md-8 col-lg-9 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
                               >
-                                <div class="row">
-                                  <div
-                                    class="col-5 col-md-4 col-lg-3 d-flex justify-content-start mx-md-0 px-md-0"
-                                  >
-                                    <span class="">Loan Product:</span>
-                                  </div>
-                                  <div
-                                    class="col-7 col-md-8 col-lg-9 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
-                                  >
-                                    <span class="itemCreated">
-                                      {{ received.LoanProduct }}
-                                    </span>
-                                  </div>
-                                </div>
+                                <span class="itemCreated">
+                                  {{ loans.loanThresholdType }}
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                          <div
+                            class="col-12 col-md-6 col-xl-4 mx-md-0 px-md-0"
+                          >
+                            <div class="row">
+                              <div
+                                class="col-5 col-md-4 col-lg-3 d-flex justify-content-start mx-md-0 px-md-0"
+                              >
+                                <span class="">Loan Product:</span>
                               </div>
                               <div
-                                class="col-12 col-md-6 col-xl-4 mx-md-0 px-md-0"
+                                class="col-7 col-md-8 col-lg-9 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
                               >
-                                <div class="row">
-                                  <div
-                                    class="col-5 col-md-4 col-lg-3 d-flex justify-content-start mx-md-0 px-md-0"
-                                  >
-                                    <span class="">Tenure:</span>
-                                  </div>
-                                  <div
-                                    class="col-7 col-md-8 col-lg-9 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
-                                  >
-                                    <span class="itemCreated">
-                                      {{ received.Tenure }}
-                                    </span>
-                                  </div>
-                                </div>
+                                <span class="itemCreated">
+                                  {{ loans.loanThresholdProduct }}
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                          <div
+                            class="col-12 col-md-6 col-xl-4 mx-md-0 px-md-0"
+                          >
+                            <div class="row">
+                              <div
+                                class="col-5 col-md-4 col-lg-3 d-flex justify-content-start mx-md-0 px-md-0"
+                              >
+                                <span class="">Tenure:</span>
                               </div>
                               <div
-                                class="col-12 col-md-6 col-xl-4 mx-md-0 px-md-0"
+                                class="col-7 col-md-8 col-lg-9 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
                               >
-                                <div class="row">
-                                  <div
-                                    class="col-5 col-md-4 col-lg-3 d-flex justify-content-start mx-md-0 px-md-0"
-                                  >
-                                    <span class="">Amount:</span>
-                                  </div>
-                                  <div
-                                    class="col-7 col-md-8 col-lg-9 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
-                                  >
-                                    <span class="itemCreated">
-                                      {{ received.Amount | number }}
-                                    </span>
-                                  </div>
-                                </div>
+                                <span class="itemCreated">
+                                  {{ loans.loanTenure }}
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                          <div
+                            class="col-12 col-md-6 col-xl-4 mx-md-0 px-md-0"
+                          >
+                            <div class="row">
+                              <div
+                                class="col-5 col-md-4 col-lg-3 d-flex justify-content-start mx-md-0 px-md-0"
+                              >
+                                <span class="">Amount:</span>
                               </div>
                               <div
-                                class="col-12 col-md-6 col-xl-4 mx-md-0 px-md-0"
+                                class="col-7 col-md-8 col-lg-9 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
                               >
-                                <div class="row">
-                                  <div
-                                    class="col-5 col-md-4 col-lg-3 d-flex justify-content-start mx-md-0 px-md-0"
-                                  >
-                                    <span class="">Stage:</span>
-                                  </div>
-                                  <div
-                                    class="col-7 col-md-8 col-lg-9 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
-                                  >
-                                    <span class="itemCreated">
-                                      {{ received.Stage }}
-                                    </span>
-                                  </div>
-                                </div>
+                                <span class="itemCreated">
+                                  {{ loans.loanAmount | number }}
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                          <div
+                            class="col-12 col-md-6 col-xl-4 mx-md-0 px-md-0"
+                          >
+                            <div class="row">
+                              <div
+                                class="col-5 col-md-4 col-lg-3 d-flex justify-content-start mx-md-0 px-md-0"
+                              >
+                                <span class="">Stage:</span>
                               </div>
                               <div
-                                class="col-12 col-md-6 col-xl-4 mx-md-0 px-md-0"
+                                class="col-7 col-md-8 col-lg-9 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
                               >
-                                <div class="row">
-                                  <div
-                                    class="col-5 col-md-4 col-lg-3 d-flex justify-content-start mx-md-0 px-md-0"
-                                  >
-                                    <span class="">Status:</span>
-                                  </div>
-                                  <div
-                                    class="col-7 col-md-8 col-lg-9 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
-                                  >
-                                    <span class="itemCreated">
-                                      {{ received.Status }}
-                                    </span>
-                                  </div>
-                                </div>
+                                <span class="itemCreated">
+                                  {{ loans.movementStage }}
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                          <div
+                            class="col-12 col-md-6 col-xl-4 mx-md-0 px-md-0"
+                          >
+                            <div class="row">
+                              <div
+                                class="col-5 col-md-4 col-lg-3 d-flex justify-content-start mx-md-0 px-md-0"
+                              >
+                                <span class="">Status:</span>
                               </div>
                               <div
-                                class="col-12 col-md-6 col-xl-4 mx-md-0 px-md-0"
+                                class="col-7 col-md-8 col-lg-9 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
                               >
-                                <div class="row">
-                                  <div
-                                    class="col-5 col-md-4 col-lg-3 d-flex justify-content-start mx-md-0 px-md-0"
-                                  >
-                                    <span class="">Moved by:</span>
-                                  </div>
-                                  <div
-                                    class="col-7 col-md-8 col-lg-9 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
-                                  >
-                                    <span class="itemCreated">
-                                      {{ received.LoanMovedBy }}
-                                    </span>
-                                  </div>
-                                </div>
+                                <span class="itemCreated">
+                                  {{ loans.movementStatus === 1 ? 'CREATED' : 
+                                  loans.movementStatus === 2 ? 'FOWARDED' : 
+                                  loans.movementStatus === 3 ? 'RECEIVED' : 
+                                  loans.movementStatus === 4 ? 'DISBURSED' : 'DEFFERED' }}
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                          <div
+                            class="col-12 col-md-6 col-xl-4 mx-md-0 px-md-0"
+                          >
+                            <div class="row">
+                              <div
+                                class="col-5 col-md-4 col-lg-3 d-flex justify-content-start mx-md-0 px-md-0"
+                              >
+                                <span class="">Moved by:</span>
                               </div>
                               <div
-                                class="col-12 col-md-6 col-xl-4 mx-md-0 px-md-0"
+                                class="col-7 col-md-8 col-lg-9 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
                               >
-                                <div class="row">
-                                  <div
-                                    class="col-5 col-md-4 col-lg-3 d-flex justify-content-start mx-md-0 px-md-0"
-                                  >
-                                    <span class="">Stage At:</span>
-                                  </div>
-                                  <div
-                                    class="col-7 col-md-8 col-lg-9 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
-                                  >
-                                    <span class="itemCreated">
-                                      {{ received.StageAt }}
-                                    </span>
-                                  </div>
-                                </div>
+                                <span class="itemCreated">
+                                  {{ !loans.movedBy ? "NONE" : loans.movedBy }}
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                          <div
+                            class="col-12 col-md-6 col-xl-4 mx-md-0 px-md-0"
+                          >
+                            <div class="row">
+                              <div
+                                class="col-5 col-md-4 col-lg-3 d-flex justify-content-start mx-md-0 px-md-0"
+                              >
+                                <span class="">Age:</span>
                               </div>
                               <div
-                                class="col-12 col-md-6 col-xl-4 mx-md-0 px-md-0"
+                                class="col-7 col-md-8 col-lg-9 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
                               >
-                                <div class="row">
-                                  <div
-                                    class="col-5 col-md-4 col-lg-3 d-flex justify-content-start mx-md-0 px-md-0"
-                                  >
-                                    <span class="">Age:</span>
-                                  </div>
-                                  <div
-                                    class="col-7 col-md-8 col-lg-9 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
-                                  >
-                                    <span class="itemCreated">
-                                      {{ received.HowLong }}
-                                    </span>
-                                  </div>
-                                </div>
+                                <span class="itemCreated">
+                                  {{ loans.ageSinceMovement }}
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                          <div
+                            class="col-12 col-md-6 col-xl-4 mx-md-0 px-md-0"
+                          >
+                            <div class="row">
+                              <div
+                                class="col-5 col-md-4 col-lg-3 d-flex justify-content-start mx-md-0 px-md-0"
+                              >
+                                <span class="">Created At:</span>
                               </div>
                               <div
-                                class="col-12 col-md-6 col-xl-4 mx-md-0 px-md-0"
+                                class="col-7 col-md-8 col-lg-9 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
                               >
-                                <div class="row">
-                                  <div
-                                    class="col-5 col-md-4 col-lg-3 d-flex justify-content-start mx-md-0 px-md-0"
-                                  >
-                                    <span class="">Created At:</span>
-                                  </div>
-                                  <div
-                                    class="col-7 col-md-8 col-lg-9 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
-                                  >
-                                    <span class="itemCreated">
-                                      {{ received.CreatedAt }}
-                                    </span>
-                                  </div>
-                                </div>
+                                <span class="itemCreated">
+                                  {{ loans.loanCreationDate }}
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                          <div
+                            class="col-12 col-md-6 col-xl-4 mx-md-0 px-md-0"
+                          >
+                            <div class="row">
+                              <div
+                                class="col-5 col-md-4 col-lg-3 d-flex justify-content-start mx-md-0 px-md-0"
+                              >
+                                <span class="">Total Age:</span>
                               </div>
                               <div
-                                class="col-12 col-md-6 col-xl-4 mx-md-0 px-md-0"
+                                class="col-7 col-md-8 col-lg-9 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
                               >
-                                <div class="row">
-                                  <div
-                                    class="col-5 col-md-4 col-lg-3 d-flex justify-content-start mx-md-0 px-md-0"
-                                  >
-                                    <span class="">Total Age:</span>
-                                  </div>
-                                  <div
-                                    class="col-7 col-md-8 col-lg-9 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
-                                  >
-                                    <span class="itemCreated">
-                                      {{ received.TotalAge }}
-                                    </span>
-                                  </div>
-                                </div>
+                                <span class="itemCreated">
+                                  {{ loans.ageSinceCreation }}
+                                </span>
                               </div>
                             </div>
                           </div>
@@ -591,22 +628,14 @@
                   </div>
                 </div>
               </div>
-              <!--/ end of record container-->
-              </div>
-
+            </div>
+          </div>
           </tab>
         </tabset>
       </div>
     </div>
   </div>
 </div>
-<!--no forwarded Loans-->
-<ng-template #noforwarded>
-  <div class="col-12 my-5 py-5 justify-content-between">
-    <h4 class="text-center text-info">No Forwarded Loans</h4>
-  </div>
-</ng-template>
-<!--create forward template-->
 
 <ng-template #forward>
   <div class="modal-header bg-info">
@@ -623,13 +652,12 @@
   <div class="modal-body">
     <div class="form-group text-primary" [formGroup]="comment">
       <textarea
-        name="reject"
-        id="c"
-        formControlName="user_comments"
+        name="arae"
+        formControlName="comments"
+        id=""
         class="form-control"
         rows="5"
         placeholder="Comment"
-        [ngClass]="validateComments()"
       ></textarea>
     </div>
   </div>
@@ -637,18 +665,13 @@
     <button
       type="submit"
       class="btn btn-info"
-      [disabled]="comment.invalid"
-      (click)="onForward(forwardedLoansTo, arrayId, arrayIndex)"
+      (click)="finalizeAction(commentControls.comments.value)"
+      [disabled]="!comment.valid"
     >
       OK
     </button>
-    <button class="btn btn-info" type="button" (click)="cancel()">
+    <button type="submit" class="btn btn-info" (click)="closeModal()">
       Cancel
     </button>
-  </div>
-</ng-template>
-<ng-template #noloans>
-  <div class="col-12 my-5 py-5 justify-content-between">
-    <h4 class="text-center text-info">No Received Loans</h4>
   </div>
 </ng-template>

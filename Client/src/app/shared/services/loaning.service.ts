@@ -185,6 +185,9 @@ export class LoaningService {
   rejectBranchApprovalLoans(postData: any): Observable<any> {
     return this.http.post<any>(`${this.API_URL}/api/branchApprovalUser/rejectBranchApprovalLoans`, postData);
   }
+  forwardBranchApprovalLoans(postData: any): Observable<any> {
+    return this.http.post<any>(`${this.API_URL}/api/branchApprovalUser/forwardBranchApprovalLoans`, postData);
+  }
 
   // BranchExit
   getForwardedBranchExitLoans(id: number): Observable<any> {
@@ -234,11 +237,58 @@ export class LoaningService {
   forwardRegionalApprovalLoans(postData: any): Observable<any> {
     return this.http.post<any>(`${this.API_URL}/api/regionalApprovalUser/forwardRegionalApprovalLoans`, postData);
   }
+  receiveRegionalApprovalDefferedLoans(postData: any): Observable<any> {
+    return this.http.post<any>(`${this.API_URL}/api/regionalApprovalUser/receiveRegionalApprovalDefferedLoans`, postData);
+  }
   rectifyRegionalApprovalDefferedLoans(postData: any): Observable<any> {
     return this.http.post<any>(`${this.API_URL}/api/regionalApprovalUser/rectifyRegionalApprovalDefferedLoans`, postData);
   }
   forwardRectifiedRegionalApprovalDefferedLoans(postData: any): Observable<any> {
     return this.http.post<any>(`${this.API_URL}/api/regionalApprovalUser/forwardRectifiedRegionalApprovalDefferedLoans`, postData);
+  }
+
+  // creditAnlysisUser
+  getForwardedCreditAnlysisLoans(id: number): Observable<any> {
+    return this.http.get<any>(`${this.API_URL}/api/creditAnlysisUser/getForwardedCreditAnlysisLoans/?branchId=${id}`);
+  }
+  getReceivedCreditAnlysisLoans(id: number): Observable<any> {
+    return this.http.get<any>(`${this.API_URL}/api/creditAnlysisUser/getReceivedCreditAnlysisLoans/?branchId=${id}`);
+  }
+  getApprovedCreditAnlysisLoans(id: number): Observable<any> {
+    return this.http.get<any>(`${this.API_URL}/api/creditAnlysisUser/getApprovedCreditAnlysisLoans/?branchId=${id}`);
+  }
+  getCreditAnlysisDefferredLoans(id: number): Observable<any> {
+    return this.http.get<any>(`${this.API_URL}/api/creditAnlysisUser/getCreditAnlysisDefferredLoans/?branchId=${id}`);
+  }
+  getReceivedCreditAnlysisDefferredLoans(id: number): Observable<any> {
+    return this.http.get<any>(`${this.API_URL}/api/creditAnlysisUser/getReceivedCreditAnlysisDefferredLoans/?branchId=${id}`);
+  }
+  getRectifiedCreditAnlysisDefferredLoans(id: number): Observable<any> {
+    return this.http.get<any>(`${this.API_URL}/api/creditAnlysisUser/getRectifiedCreditAnlysisDefferredLoans/?branchId==${id}`);
+  }
+  receiveForwardedCreditAnlysisLoans(postData: any): Observable<any> {
+    return this.http.post<any>(`${this.API_URL}/api/creditAnlysisUser/receiveForwardedCreditAnlysisLoans`, postData);
+  }
+  approveCreditAnlysisLoans(postData: any): Observable<any> {
+    return this.http.post<any>(`${this.API_URL}/api/creditAnlysisUser/approveCreditAnlysisLoans`, postData);
+  }
+  deferCreditAnlysisLoans(postData: any): Observable<any> {
+    return this.http.post<any>(`${this.API_URL}/api/creditAnlysisUser/deferCreditAnlysisLoans`, postData);
+  }
+  rejectCreditAnlysisLoans(postData: any): Observable<any> {
+    return this.http.post<any>(`${this.API_URL}/api/creditAnlysisUser/rejectCreditAnlysisLoans`, postData);
+  }
+  forwardCreditAnlysisLoans(postData: any): Observable<any> {
+    return this.http.post<any>(`${this.API_URL}/api/creditAnlysisUser/forwardCreditAnlysisLoans`, postData);
+  }
+  receiveCreditAnlysisDefferedLoans(postData: any): Observable<any> {
+    return this.http.post<any>(`${this.API_URL}/api/creditAnlysisUser/receiveCreditAnlysisDefferedLoans`, postData);
+  }
+  rectifyCreditAnlysisDefferedLoans(postData: any): Observable<any> {
+    return this.http.post<any>(`${this.API_URL}/api/creditAnlysisUser/rectifyCreditAnlysisDefferedLoans`, postData);
+  }
+  forwardRectifiedCreditAnlysisDefferedLoans(postData: any): Observable<any> {
+    return this.http.post<any>(`${this.API_URL}/api/creditAnlysisUser/forwardRectifiedCreditAnlysisDefferedLoans`, postData);
   }
 
   // Head Office Entry
@@ -254,6 +304,127 @@ export class LoaningService {
   forwardHeadOfficeEntryLoans(postData: any): Observable<any> {
     return this.http.post<any>(`${this.API_URL}/api/headOfficeEntryUser/forwardHeadOfficeEntryLoans`, postData);
   }
+
+  // loanAdministrationEntryUser
+  getForwardedLoanAdministrationEntryLoans(id: number): Observable<any> {
+    return this.http.get<any>(`${this.API_URL}/api/loanAdministrationEntryUser/getForwardedLoanAdministrationEntryLoans/?branchId=${id}`);
+  }
+  getReceivedLoanAdministrationEntryLoans(id: number): Observable<any> {
+    return this.http.get<any>(`${this.API_URL}/api/loanAdministrationEntryUser/getReceivedLoanAdministrationEntryLoans/?branchId=${id}`);
+  }
+  receiveForwardedLoanAdministrationEntryLoans(postData: any): Observable<any> {
+    return this.http.post<any>(`${this.API_URL}/api/loanAdministrationEntryUser/receiveForwardedLoanAdministrationEntryLoans`, postData);
+  }
+  forwardLoanAdministrationEntryLoans(postData: any): Observable<any> {
+    return this.http.post<any>(`${this.API_URL}/api/loanAdministrationEntryUser/forwardLoanAdministrationEntryLoans`, postData);
+  }
+
+  // loanAdministrationExitUser
+  getForwardedLoanAdministrationExitLoans(id: number): Observable<any> {
+    return this.http.get<any>(`${this.API_URL}/api/loanAdministrationExitUser/getForwardedLoanAdministrationExitLoans/?branchId=${id}`);
+  }
+  getReceivedLoanAdministrationExitLoans(id: number): Observable<any> {
+    return this.http.get<any>(`${this.API_URL}/api/loanAdministrationExitUser/getReceivedLoanAdministrationExitLoans/?branchId=${id}`);
+  }
+  receiveForwardedLoanAdministrationExitLoans(postData: any): Observable<any> {
+    return this.http.post<any>(`${this.API_URL}/api/loanAdministrationExitUser/receiveForwardedLoanAdministrationExitLoans`, postData);
+  }
+  forwardLoanAdministrationExitLoans(postData: any): Observable<any> {
+    return this.http.post<any>(`${this.API_URL}/api/loanAdministrationExitUser/forwardLoanAdministrationExitLoans`, postData);
+  }
+
+  // loanAdministrationVerificationUser
+  getForwardedLoanAdministrationVerificationLoans(id: number): Observable<any> {
+    return this.http.get<any>(`${this.API_URL}/api/loanAdministrationVerificationUser/getForwardedLoanAdministrationVerificationLoans/?branchId=${id}`);
+  }
+  getReceivedLoanAdministrationVerificationLoans(id: number): Observable<any> {
+    return this.http.get<any>(`${this.API_URL}/api/loanAdministrationVerificationUser/getReceivedLoanAdministrationVerificationLoans/?branchId=${id}`);
+  }
+  getApprovedLoanAdministrationVerificationLoans(id: number): Observable<any> {
+    return this.http.get<any>(`${this.API_URL}/api/loanAdministrationVerificationUser/getApprovedLoanAdministrationVerificationLoans/?branchId=${id}`);
+  }
+  receiveForwardedLoanAdministrationVerificationLoans(postData: any): Observable<any> {
+    return this.http.post<any>(`${this.API_URL}/api/loanAdministrationVerificationUser/receiveForwardedLoanAdministrationVerificationLoans`, postData);
+  }
+  approveLoanAdministrationVerificationLoans(postData: any): Observable<any> {
+    return this.http.post<any>(`${this.API_URL}/api/loanAdministrationVerificationUser/approveLoanAdministrationVerificationLoans`, postData);
+  }
+  deferLoanAdministrationVerificationLoans(postData: any): Observable<any> {
+    return this.http.post<any>(`${this.API_URL}/api/loanAdministrationVerificationUser/deferLoanAdministrationVerificationLoans`, postData);
+  }
+  forwardLoanAdministrationVerificationLoans(postData: any): Observable<any> {
+    return this.http.post<any>(`${this.API_URL}/api/loanAdministrationVerificationUser/forwardLoanAdministrationVerificationLoans`, postData);
+  }
+
+  // headOfficeApprovalUser
+  getForwardedHeadOfficeApprovalLoans(id: number): Observable<any> {
+    return this.http.get<any>(`${this.API_URL}/api/headOfficeApprovalUser/getForwardedHeadOfficeApprovalLoans/?branchId=${id}`);
+  }
+  getReceivedHeadOfficeApprovalLoans(id: number): Observable<any> {
+    return this.http.get<any>(`${this.API_URL}/api/headOfficeApprovalUser/getReceivedHeadOfficeApprovalLoans/?branchId=${id}`);
+  }
+  getApprovedHeadOfficeApprovalLoans(id: number): Observable<any> {
+    return this.http.get<any>(`${this.API_URL}/api/headOfficeApprovalUser/getApprovedHeadOfficeApprovalLoans/?branchId=602${id}`);
+  }
+  receiveForwardedHeadOfficeApprovalLoans(postData: any): Observable<any> {
+    return this.http.post<any>(`${this.API_URL}/api/headOfficeApprovalUser/receiveForwardedHeadOfficeApprovalLoans`, postData);
+  }
+  approveHeadOfficeApprovalLoans(postData: any): Observable<any> {
+    return this.http.post<any>(`${this.API_URL}/api/headOfficeApprovalUser/approveHeadOfficeApprovalLoans`, postData);
+  }
+  deferHeadOfficeApprovalLoans(postData: any): Observable<any> {
+    return this.http.post<any>(`${this.API_URL}/api/headOfficeApprovalUser/deferHeadOfficeApprovalLoans`, postData);
+  }
+  forwardHeadOfficeApprovalLoans(postData: any): Observable<any> {
+    return this.http.post<any>(`${this.API_URL}/api/headOfficeApprovalUser/forwardHeadOfficeApprovalLoans`, postData);
+  }
+
+  // legalReviewUser
+  getForwardedLegalReviewLoans(id: number): Observable<any> {
+    return this.http.get<any>(`${this.API_URL}/api/legalReviewUser/getForwardedLegalReviewLoans/?branchId=${id}`);
+  }
+  getReceivedlegalReviewLoans(id: number): Observable<any> {
+    return this.http.get<any>(`${this.API_URL}/api/legalReviewUser/getReceivedlegalReviewLoans/?branchId=${id}`);
+  }
+  getApprovedlegalReviewLoans(id: number): Observable<any> {
+    return this.http.get<any>(`${this.API_URL}/api/legalReviewUser/getApprovedlegalReviewLoans/?branchId=${id}`);
+  }
+  receiveForwardedlegalReviewLoans(postData: any): Observable<any> {
+    return this.http.post<any>(`${this.API_URL}/api/legalReviewUser/receiveForwardedlegalReviewLoans`, postData);
+  }
+  approvelegalReviewLoans(postData: any): Observable<any> {
+    return this.http.post<any>(`${this.API_URL}/api/legalReviewUser/approvelegalReviewLoans`, postData);
+  }
+  deferlegalReviewLoans(postData: any): Observable<any> {
+    return this.http.post<any>(`${this.API_URL}/api/legalReviewUser/deferlegalReviewLoans`, postData);
+  }
+  forwardlegalReviewLoans(postData: any): Observable<any> {
+    return this.http.post<any>(`${this.API_URL}/api/legalReviewUser/forwardlegalReviewLoans`, postData);
+  }
+
+  // loanDisbursementUser
+  getForwardedLoanDisbursementLoans(id: number): Observable<any> {
+    return this.http.get<any>(`${this.API_URL}/api/loanDisbursementUser/getForwardedLoanDisbursementLoans/?branchId=${id}`);
+  }
+  getReceivedLoanDisbursementLoans(id: number): Observable<any> {
+    return this.http.get<any>(`${this.API_URL}/api/loanDisbursementUser/getReceivedLoanDisbursementLoans/?branchId=${id}`);
+  }
+  getApprovedLoanDisbursementLoans(id: number): Observable<any> {
+    return this.http.get<any>(`${this.API_URL}/api/loanDisbursementUser/getApprovedLoanDisbursementLoans/?branchId=${id}`);
+  }
+  receiveForwardedLoanDisbursementLoans(postData: any): Observable<any> {
+    return this.http.post<any>(`${this.API_URL}/api/loanDisbursementUser/receiveForwardedLoanDisbursementLoans`, postData);
+  }
+  approveLoanDisbursementLoans(postData: any): Observable<any> {
+    return this.http.post<any>(`${this.API_URL}/api/loanDisbursementUser/approveLoanDisbursementLoans`, postData);
+  }
+  deferLoanDisbursementLoans(postData: any): Observable<any> {
+    return this.http.post<any>(`${this.API_URL}/api/loanDisbursementUser/deferLoanDisbursementLoans`, postData);
+  }
+  disburseLoanDisbursementLoans(postData: any): Observable<any> {
+    return this.http.post<any>(`${this.API_URL}/api/loanDisbursementUser/disburseLoanDisbursementLoans`, postData);
+  }
+
 
   getSpecificCustomers(stage: string): any {
     return of(this.loanData.filter((loans) => loans.Stage === stage));

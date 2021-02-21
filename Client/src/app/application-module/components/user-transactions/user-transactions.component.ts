@@ -5,6 +5,9 @@ import {BsModalService, BsModalRef} from 'ngx-bootstrap/modal';
 import * as moment from 'moment';
 import {AlertService} from 'ngx-alerts';
 import { Router } from '@angular/router';
+import { AuthServiceService } from 'src/app/shared/services/auth-service.service';
+import { CustomValidator } from 'src/app/validators/custom-validator';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-user-transactions',
@@ -12,192 +15,347 @@ import { Router } from '@angular/router';
   styleUrls: ['./user-transactions.component.scss'],
 })
 export class UserTransactionsComponent implements OnInit {
-  //arrays to store data
   receivedLoans = [];
-  forwardedLoansFrom = [];
-  makeLoansReceived = [];
-  makeLoansDeffered = [];
-  makeLoansRejected = [];
-  makeLoansApproved = [];
-  forwardedLoansTo = [];
-  approvedLoans = [];
-  //create comments
-  comment: FormGroup;
-  //create defferedloans
-  defferTo: FormGroup;
-  //array index, arrayid
-  arrayId: number;
-  arrayIndex: number;
+  forwardLoansTo = [];
+  errored = false;
+  posted = false;
+  filteredReceivedLoans = [];
   age = moment(new Date()).format('MM/DD/YYYY, h:mm:ss');
-  receiveGroupLoans: FormGroup;
-  //booleans
-  enableForwardedFrom: boolean = true;
-  enableForwardedTo: boolean = false;
   bsModalRef: BsModalRef;
-  //disable button
-  disableButton: boolean = false;
-  levels = ['Application'];
+  comment: FormGroup;
+  editLoanForm: FormGroup;
+  User: any;
+  filteredLoans: any;
+  loanTable: any;
+  totalItems: any;
+  actionLoan: any;
+  actionType: string;
+  numberValue: number;
+  values: any;
+  maxAmount: number;
+  maxTenure: number;
+  loanThresholdId: number;
+  loanTypes: any;
+  currentPage = 1;
+  pageSize = 10;
+  rectifyData: any;
 
   constructor(
     private userTransactions: LoaningService,
+    private authService: AuthServiceService,
     private fb: FormBuilder,
-    private bsModalService: BsModalService,
     private alertService: AlertService,
-    private router: Router
+    private bsModalService: BsModalService,
+    private spinner: NgxSpinnerService
   ) {}
 
-  ngOnInit():void {
-    this.userTransactions
-      .getSpecificCustomers('Application')
-      .subscribe((userData) => {
-        this.forwardedLoansFrom = userData.map((eachUser) => {
-          const oldDate = eachUser.CreatedAt;
-          const diffInDates = moment(this.age).diff(moment(oldDate));
-          const timeInMonths = moment(diffInDates).format(
-            'MM [months] DD [days]'
-          );
-          return { ...eachUser, TotalAge: timeInMonths };
-        });
-
-        // this.receivedLoans.push(this.forwardedLoansFrom[0])
-        this.comment = this.fb.group({
-          user_comments: ['', Validators.required],
-        });
-        this.defferTo = this.fb.group({
-          deffer_reason: ['', Validators.required],
-          deffer_to: ['', Validators.required],
-        });
-      });
+  ngOnInit(): void {
+    this.User = this.authService.loggedInUserInfo();
+    this.getCreatedLoans();
+    this.userTransactions.getAllLoanThresholds().subscribe(thresholds => {
+      this.loanTypes = thresholds;
+    });
+    this.editLoanForm = this.createLoanForm();
+    this.comment = this.commentForm();
   }
-  //receivedLoansre
-  receiveLoans(id: number, index) {
-    const removed = this.forwardedLoansFrom.splice(index, 1);
-    this.receivedLoans.push(...removed);
-    this.enableForwardedFrom = false;
-    this.enableForwardedTo = true;
-    //console.log(removed)
+  pageChanged(event): any{
+    this.currentPage = event;
   }
-  //get comment controls
-  get commentControls() {
+  commentForm(): any {
+    return new FormGroup({
+        comments: this.fb.control(
+          '',
+          Validators.compose([Validators.required])
+        ),
+    });
+  }
+  // getcoment controls
+  get commentControls(): any {
     return this.comment.controls;
   }
-  //get deffer controls
-  get deffer_controls() {
-    return this.defferTo.controls;
+  getCreatedLoans(): any {
+    this.filteredLoans = [];
+    this.loanTable = [];
+    this.userTransactions.getCreatedLoans(this.User.branchId).subscribe((userData) => {
+      this.loanTable = userData.map((eachUser) => {
+        const oldDate = eachUser.CreatedAt;
+        const diffInDates = moment(this.age).diff(moment(oldDate));
+        const timeInMonths = moment(diffInDates).format(
+          'MM [months] DD [days]'
+        );
+        return { ...eachUser, TotalAge: timeInMonths };
+      });
+      this.filteredLoans = this.loanTable;
+      this.totalItems = this.filteredLoans.length;
+    });
   }
-  //validate_comments
-  validateComments() {
+  getdefferedLoans(): any {
+    this.filteredLoans = [];
+    this.loanTable = [];
+    this.userTransactions.getApplicationDefferredLoans(this.User.branchId).subscribe((userData) => {
+      this.loanTable = userData.map((eachUser) => {
+        const oldDate = eachUser.CreatedAt;
+        const diffInDates = moment(this.age).diff(moment(oldDate));
+        const timeInMonths = moment(diffInDates).format(
+          'MM [months] DD [days]'
+        );
+        return { ...eachUser, TotalAge: timeInMonths };
+      });
+      this.filteredLoans = this.loanTable;
+      this.totalItems = this.filteredLoans.length;
+    });
+  }
+  getReceivedDefferedLoans(): any {
+    this.filteredLoans = [];
+    this.loanTable = [];
+    this.userTransactions.getApplicationReceivedDefferredLoans(this.User.branchId).subscribe((userData) => {
+      this.loanTable = userData.map((eachUser) => {
+        const oldDate = eachUser.CreatedAt;
+        const diffInDates = moment(this.age).diff(moment(oldDate));
+        const timeInMonths = moment(diffInDates).format(
+          'MM [months] DD [days]'
+        );
+        return { ...eachUser, TotalAge: timeInMonths };
+      });
+      this.filteredLoans = this.loanTable;
+      this.totalItems = this.filteredLoans.length;
+    });
+  }
+  getRectifiedDefferredLoans(): any {
+    this.filteredLoans = [];
+    this.loanTable = [];
+    this.userTransactions.getApplicationRectifiedDefferredLoans(this.User.branchId).subscribe((userData) => {
+      this.loanTable = userData.map((eachUser) => {
+        const oldDate = eachUser.CreatedAt;
+        const diffInDates = moment(this.age).diff(moment(oldDate));
+        const timeInMonths = moment(diffInDates).format(
+          'MM [months] DD [days]'
+        );
+        return { ...eachUser, TotalAge: timeInMonths };
+      });
+      this.filteredLoans = this.loanTable;
+      this.totalItems = this.filteredLoans.length;
+    });
+  }
+  createLoanForm(): any {
+    return new FormGroup({
+      customerName: this.fb.control(
+        {value: ''},
+        Validators.compose([Validators.required])
+      ),
+      loanType: this.fb.control(
+        '',
+        Validators.compose([Validators.required])
+      ),
+      amount: this.fb.control(
+        '',
+        Validators.compose([Validators.required,  CustomValidator.patternValidator(/\d/, { hasNumber: true })])
+      ),
+      tenure: this.fb.control(
+        '',
+        Validators.compose([Validators.required])
+      ),
+    });
+  }
+  // search 0726099610 loan
+  getValue(event): any {}
+
+  get editControls(): any {
+    return this.editLoanForm.controls;
+  }
+
+  setClassInvalid(contact): any {
     return {
-      'is-invalid':
-        (this.commentControls.user_comments.touched ||
-          this.commentControls.dirty) &&
-        this.commentControls.user_comments.hasError('required'),
-      error:
-        (this.commentControls.user_comments.touched ||
-          this.commentControls.dirty) &&
-        this.commentControls.user_comments.hasError('required'),
+      'is-invalid': (contact.touched || contact.dirty) && contact.errors,
     };
   }
+  onKey(event: any): any {
+    // without type info
+    this.values = event.target.value.replace(/[\D\s\._\-]+/g, '');
 
-  //search loan
-  getValue(event) {}
+    this.numberValue = this.values ? parseInt(this.values, 10) : 0;
 
-  closeModal() {
-    this.bsModalRef.hide();
-  }
-
-  getWhereToDeffer(event) {
-    this.deffer_controls.deffer_to.setValue(event.target.value);
-  }
-
-  checkTransactionsTable(array: Array<any>) {
-    return array.length ? true : false;
-  }
-  //receive//approve all loans
-  receiveAllLoans() {
-    this.makeLoansReceived.push(...this.forwardedLoansFrom);
-    this.receivedLoans.push(...this.makeLoansReceived);
-    this.forwardedLoansFrom = [];
-    this.disableButton = true;
-    this.enableForwardedFrom = false;
-    this.enableForwardedTo = true;
-  }
-  branchApprovalReceivedLoans() {
-    this.enableForwardedFrom = false;
-    this.enableForwardedTo = true;
+    // tslint:disable-next-line:no-unused-expression
+    this.values = this.numberValue === 0 ? '' : this.numberValue.toLocaleString('en-US');
+    this.editControls.amount.setValue(this.values);
   }
 
-  branchApprovalForwardedLoans() {
-    this.enableForwardedFrom = true;
-    this.enableForwardedTo = false;
-  }
-
-  rejectLoan(template: TemplateRef<any>, id: number, index: number) {
-    this.bsModalRef = this.bsModalService.show(template);
-    this.makeLoansRejected.push(this.receivedLoans[index]);
-    if (this.checkTransactionsTable(this.makeLoansRejected)) {
-      this.arrayId = id;
-      this.arrayIndex = index;
-    }
-    // this.onSubmit()
-  }
-  defferLoan(template: TemplateRef<any>, id: number, index: number) {
-    this.bsModalRef = this.bsModalService.show(template);
-    this.makeLoansDeffered.push(this.receivedLoans[index]);
-    if (this.checkTransactionsTable(this.makeLoansDeffered)) {
-      this.arrayIndex = index;
-      this.arrayId = id;
+  openComment(loan: any, template: TemplateRef<any>, type: string): any {
+    this.actionType = type;
+    this.actionLoan = loan;
+    if (this.actionType !== 'Rectified'){
+      const { customerName, loanThresholdType, loanTenure, loanAmount } = loan;
+      this.setMaxtenureAndAmount(loanThresholdType);
+      this.editControls.customerName.setValue(customerName);
+      this.editControls.customerName.disable();
+      this.editControls.loanType.setValue(loanThresholdType);
+      this.editControls.tenure.setValue(loanTenure);
+      this.numberValue = loanAmount ? parseInt(loanAmount, 10) : 0;
+      // tslint:disable-next-line:no-unused-expression
+      this.values = this.numberValue === 0 ? '' : this.numberValue.toLocaleString('en-US');
+      this.editControls.amount.setValue(this.values);
+      this.bsModalService.show(template);
+    } else {
+      this.bsModalService.show(template);
     }
   }
 
-  cancel() {
-    this.closeModal();
-  }
-  forwardLoan(template: TemplateRef<any>, id: number, index: number) {
-    this.bsModalRef = this.bsModalService.show(template);
-    this.forwardedLoansTo.push(this.receivedLoans[index]);
-    if (this.checkTransactionsTable(this.forwardedLoansTo)) {
-      this.arrayId = id;
-      this.arrayIndex = index;
-    }
+  closeModal(): any {
+    this.bsModalService.hide();
   }
 
-  onReject(array: Array<any>, id: number, index: number) {
-    this.receivedLoans = this.receivedLoans.filter((loans) => loans.Id !== id);
-    this.commentControls.user_comments.reset();
-    this.makeLoansRejected = [];
-    this.closeModal();
-    this.alertService.danger('Your loan has been rejected!');
-  }
-  onDeffer(array: Array<any>, id, index) {
-    this.receivedLoans = this.receivedLoans.filter((loans) => loans.Id !== id);
-    const level = this.deffer_controls.deffer_to.value;
-    this.deffer_controls.deffer_to.reset();
-    this.deffer_controls.deffer_reason.reset();
-    this.makeLoansDeffered = [];
-    this.closeModal();
-    this.alertService.success(
-      'Your loan has been deferred  successfully to ' + level
+
+  // forwared selected loan
+  forwardSelected(loan: any): any {
+    const data = {
+      loanId: loan.loanId,
+      userId: this.User.userId,
+      loanComment: "Please receive this customer"
+    };
+    this.userTransactions.forwardApplicationLoans(data).subscribe(
+      res => {
+        this.posted = true;
+        this.alertService.success({
+          html: '<b> Operation was successful</b>',
+        });
+        this.getCreatedLoans();
+      }
     );
   }
 
-  onForward(array: Array<any>, id, index) {
-    this.receivedLoans = this.receivedLoans.filter((loans) => loans.Id !== id);
-    this.commentControls.user_comments.reset();
-    this.closeModal();
-    //forward loan
-    if (!this.checkTransactionsTable(this.forwardedLoansTo)) return;
-    else {
-      //getloan type
-      //get loan type
-      let typeOfLoan = this.forwardedLoansTo[0];
-      console.log(typeOfLoan);
-      const { Amount } = typeOfLoan;
-      //forward all loans to branch exit
-      this.alertService.success(
-        'Your loan has been forwarded successfully to Branch Exit'
-      );
+  setMaxtenureAndAmount(val: any): any{
+    // console.log(val);
+    this.loanTypes.forEach(type => {
+      if (type.loanThresholdType === val) {
+        // console.log(type);
+        this.maxTenure = type.loanThresholdMaxTenure;
+        this.maxAmount = type.loanThresholdMaxAmount;
+        this.loanThresholdId = type.loanThresholdId;
+        this.editControls.tenure.setValue('');
+        this.editControls.amount.setValue('');
+      }
+    });
+  }
+  checkTenureAndAmount(event: any): any{
+    if (event.target.id === 'tenure' && event.target.value > this.maxTenure) {
+      this.errored = true;
+      this.alertService.danger({
+        html: '<b>Tenure should not be greater than ' + this.maxTenure + '<b>'
+      });
+      this.editControls.tenure.setValue('');
+    } else if (event.target.id === 'amount') {
+      const amount = parseInt(event.target.value.replace(/[\D\s\._\-]+/g, ''), 10 );
+      if ( amount > this.maxAmount) {
+        this.errored = true;
+        this.alertService.danger({
+          html: '<b>Amount should not be greater than ' + this.maxAmount + '<b>'
+        });
+        this.editControls.amount.setValue('');
+      } else {
+        return;
+      }
     }
-    this.forwardedLoansTo = [];
+  }
+  // receive defered
+  receive(loan: any, category: string): any{
+    const data = [];
+    this.spinner.show();
+    if (category === 'One') {
+      data.push({
+      loanId: loan.loanId,
+      userId: this.User.userId,
+      branchId: this.User.branchId
+    });
+    } else if (category === 'All') {
+      this.filteredLoans.forEach(ln => {
+        data.push({
+          loanId: ln.loanId,
+          userId: this.User.userId,
+          branchId: this.User.branchId
+        });
+      });
+    }
+    this.userTransactions.receiveApplicationDefferedLoans(data).subscribe(
+      res => {
+        console.log(res);
+        this.getdefferedLoans();
+        this.spinner.hide();
+      }
+    );
+  }
+
+  finalizeAction(comment: string): any {
+    this.closeModal();
+    const data = {
+      loanId: this.actionLoan.loanId,
+      userId: this.User.userId,
+      loanComment: comment.toUpperCase()
+    };
+    switch (this.actionType) {
+      case 'Rectified':
+        this.forwadRectified(data);
+        break;
+      case 'Rectify':
+        this.rectifyData.loanComment = comment.toUpperCase();
+        this.rectifyLoan(this.rectifyData);
+        break;
+    }
+    this.comment.reset();
+  }
+
+  forwadRectified(data: any): any {
+    this.spinner.show();
+    this.userTransactions.forwardApplicationRectifiedDefferedLoans(data).subscribe(
+      res => {
+        this.posted = true;
+        this.getRectifiedDefferredLoans();
+        this.spinner.hide();
+        this.alertService.success({
+          html: '<b>Operation was successful</b>',
+        });
+      },
+      err => {
+        this.errored = true;
+        this.spinner.hide();
+        this.alertService.danger({
+          html: '<b> There was a problem </b>',
+        });
+      }
+    );
+  }
+  rectifyLoan(rectifyData: any): any {
+    this.spinner.show();
+    this.userTransactions.rectifyApplicationDefferedLoans(rectifyData).subscribe(
+      res => {
+        this.posted = true;
+        this.getReceivedDefferedLoans();
+        this.spinner.hide();
+        this.alertService.success({
+          html: '<b>Operation was successful</b>',
+        });
+      },
+      er => {
+        this.errored = true;
+        this.spinner.hide();
+        this.alertService.danger({
+          html: '<b> There was a problem </b>',
+        });
+      }
+    );
+  }
+  editOrRectify(template: TemplateRef<any>): any{
+    if (this.actionType === 'Edit') {
+      //
+    } else if (this.actionType === 'Rectify'){
+      this.bsModalService.show(template);
+      this.rectifyData = {
+        loanId: this.actionLoan.loanId,
+        userId: this.User.userId,
+        loanComment: '',
+        loanThresholdId: this.loanThresholdId,
+        loanAmount: parseInt(this.editControls.amount.value.replace(/[\D\s\._\-]+/g, ''), 10 ),
+        loanTenure: this.editControls.tenure.value
+      };
+    }
   }
 }
