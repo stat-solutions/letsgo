@@ -670,7 +670,7 @@
                               >
                                 <a
                                   class="dropdown-item text-primo-1 pointerCursor"
-                                  (click)="forwardLoan(forward, received.Id, i)"
+                                  (click)="forwardLoan(rectify, received.Id, i)"
                                   ><i class="fas fa-check"></i>
                                   Rectify
                                 </a>
@@ -1051,9 +1051,55 @@
                   </div>
                 </ng-template>
 
-                <!--create forward template-->
+                <!--forward modal template-->
 
                 <ng-template #forward>
+  <div class="modal-header bg-info">
+    <h4 class="modal-title text-white-75">Forward Loan</h4>
+                    <button
+                      type="button"
+                      class="close pull-right"
+                      aria-label="Close"
+                      (click)="closeModal()"
+                    >
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <div class="form-group text-primary" [formGroup]="comment">
+                      <textarea
+                        name="reject"
+                        id="c"
+                        formControlName="user_comments"
+                        class="form-control"
+                        rows="5"
+                        placeholder="Comment"
+                        [ngClass]="validateComments()"
+                      ></textarea>
+                    </div>
+                  </div>
+    <div class="modal-footer">
+                    <button
+                      type="submit"
+                      class="btn btn-info"
+                      [disabled]="comment.invalid"
+                      (click)="onForward(forwardedLoansTo, arrayId, arrayIndex)"
+                    >
+                      OK
+                    </button>
+                    <button
+                      class="btn btn-info"
+                      type="button"
+                      (click)="cancel()"
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </ng-template>
+
+                <!--rectify modal template-->
+
+                <ng-template #rectify>
   <div class="modal-header bg-info">
     <h4 class="modal-title text-white-75">Rectify Loan</h4>
                     <button
@@ -1096,7 +1142,8 @@
                     </button>
                   </div>
                 </ng-template>
-                    <ng-template #noloans>
+
+                <ng-template #noloans>
                 <div class="col-12 my-5 py-5 justify-content-between">
                   <h4 class="text-center text-info">No Received Loans</h4>
                 </div>
