@@ -27,14 +27,17 @@ export class ReportsComponent implements OnInit {
   myDateValue: Date;
   positionValue: string;
   reportTypes = [
-    { id: 1, reportType: 'Running Loans' },
-    { id: 2, reportType: 'Disbursed Loans' },
-    { id: 3, reportType: 'Rejected Loans' },
-    { id: 4, reportType: 'Approved Loans' },
-    { id: 5, reportType: 'Forwarded Loans' },
-    { id: 6, reportType: 'Deferred Loans' },
-    { id: 7, reportType: 'Received Loans' },
-    { id: 8, reportType: 'Comprehensive report' },
+    { id: 1, reportType: 'Comprehensive report' },
+    { id: 2, reportType: 'Running Loans' },
+    { id: 3, reportType: 'Disbursed Loans' },
+    { id: 4, reportType: 'Rejected Loans' },
+    { id: 5, reportType: 'Approved Loans' },
+    { id: 6, reportType: 'Forwarded Loans' },
+    { id: 7, reportType: 'Deferred Loans' },
+    { id: 8, reportType: 'Received Loans' },
+    { id: 9, reportType: 'Running By Branch' },
+    { id: 10, reportType: 'Running By Movement stage' },
+    { id: 11, reportType: 'Running By User' },
   ];
 
   constructor(
@@ -73,11 +76,21 @@ export class ReportsComponent implements OnInit {
     this.userForm.reset();
   }
 
+  fetchReport(val: any): any {}
+
   get fval() {
     return this.userForm.controls;
   }
   getReport(branch) {
-    this.fval.branches.setValue(branch.target.value);
+    this.fval.report_type.setValue(branch.target.value);
+  }
+  report() {
+    if (this.userForm.invalid) {
+      return;
+    } else {
+      //get userForm
+      this.userForm.reset();
+    }
   }
   register() {}
 }

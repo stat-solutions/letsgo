@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -8,6 +8,9 @@ import {
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Router } from '@angular/router';
 import { CustomValidator } from 'src/app/validators/custom-validator';
+import { CustomerService } from 'src/app/shared/services/customer.service';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { CustomerModel } from 'src/app/shared/models/customer-model';
 
 @Component({
   selector: 'app-reports',
@@ -15,6 +18,7 @@ import { CustomValidator } from 'src/app/validators/custom-validator';
   styleUrls: ['./reports.component.scss'],
 })
 export class ReportsComponent implements OnInit {
+  public modalRef: BsModalRef;
   registered = false;
   submitted = false;
   errored = false;
@@ -22,25 +26,30 @@ export class ReportsComponent implements OnInit {
   userForm: FormGroup;
   serviceErrors: any = {};
   value: string;
+  imageUrl: string;
   fieldType: boolean;
   mySubscription: any;
   myDateValue: Date;
   positionValue: string;
   reportTypes = [
-    { id: 1, reportType: 'Running Loans' },
-    { id: 2, reportType: 'Disbursed Loans' },
-    { id: 3, reportType: 'Rejected Loans' },
-    { id: 4, reportType: 'Approved Loans' },
-    { id: 5, reportType: 'Forwarded Loans' },
-    { id: 6, reportType: 'Deferred Loans' },
-    { id: 7, reportType: 'Received Loans' },
-    { id: 8, reportType: 'Comprehensive report' },
+    { id: 1, reportType: 'Comprehensive report' },
+    { id: 2, reportType: 'Running Loans' },
+    { id: 3, reportType: 'Disbursed Loans' },
+    { id: 4, reportType: 'Rejected Loans' },
+    { id: 5, reportType: 'Approved Loans' },
+    { id: 6, reportType: 'Forwarded Loans' },
+    { id: 7, reportType: 'Deferred Loans' },
+    { id: 8, reportType: 'Received Loans' },
+    { id: 9, reportType: 'Running By Branch' },
+    { id: 10, reportType: 'Running By Movement stage' },
+    { id: 11, reportType: 'Running By User' },
   ];
 
   constructor(
     private fb: FormBuilder,
     private spinner: NgxSpinnerService,
-    private router: Router
+    private router: Router,
+    private modalService: BsModalService
   ) {}
 
   ngOnInit() {
@@ -52,7 +61,7 @@ export class ReportsComponent implements OnInit {
     this.revert();
 
     setTimeout(() => {
-      this.router.navigate(['authpage/loginpage']);
+      this.router.navigate(['authpage/login']);
     }, 2000);
   }
   createFormGroup() {
@@ -76,8 +85,28 @@ export class ReportsComponent implements OnInit {
   get fval() {
     return this.userForm.controls;
   }
+
+  // modal method
+  public openModal(template: TemplateRef<any>, imageUrl: string): any {
+    this.imageUrl = imageUrl;
+    this.modalRef = this.modalService.show(
+      template,
+      Object.assign({}, { class: 'modal-dialog-center' })
+    );
+  }
+
+  fetchReport(val: any): any {}
+
   getReport(branch) {
-    this.fval.branches.setValue(branch.target.value);
+    this.fval.report_type.setValue(branch.target.value);
+  }
+  report() {
+    if (this.userForm.invalid) {
+      return;
+    } else {
+      //get userForm
+      this.userForm.reset();
+    }
   }
   register() {}
 }

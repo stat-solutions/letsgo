@@ -143,7 +143,7 @@
                               </div>
                             </div>
                             <div
-                              class="col-12 col-md-6 col-xl-6 mx-md-0 px-md-0"
+                              class="col-12 col-md-6 col-xl-5 mx-md-0 px-md-0"
                             >
                               <div class="row">
                                 <div
@@ -161,7 +161,7 @@
                               </div>
                             </div>
                             <div
-                              class="col-12 col-md-6 col-xl-3 mx-md-0 px-md-0"
+                              class="col-12 col-md-6 col-xl-4 mx-md-0 px-md-0"
                             >
                               <div class="row">
                                 <div
@@ -263,9 +263,9 @@
                                   class="col-7 col-md-8 col-lg-9 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
                                 >
                                   <span class="itemCreated">
-                                    {{ loans.movementStatus === 1 ? 'CREATED' : 
-                                    loans.movementStatus === 2 ? 'FOWARDED' : 
-                                    loans.movementStatus === 3 ? 'RECEIVED' : 
+                                    {{ loans.movementStatus === 1 ? 'CREATED' :
+                                    loans.movementStatus === 2 ? 'FOWARDED' :
+                                    loans.movementStatus === 3 ? 'RECEIVED' :
                                     loans.movementStatus === 4 ? 'DISBURSED' : 'DEFFERED' }}
                                   </span>
                                 </div>
@@ -284,9 +284,9 @@
                                     class="col-7 col-md-8 col-lg-9 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
                                   >
                                     <span class="itemCreated">
-                                      {{ loans.transactionStatus === 0 ? 'NONE' : 
-                                      loans.transactionStatus === 1 ? 'APPROVED' : 
-                                      loans.transactionStatus === 2 ? 'DEFERED' : 
+                                      {{ loans.transactionStatus === 0 ? 'NONE' :
+                                      loans.transactionStatus === 1 ? 'APPROVED' :
+                                      loans.transactionStatus === 2 ? 'DEFERED' :
                                       loans.transactionStatus === 3 ? 'REJECETED' : 'RECTIFIED' }}
                                     </span>
                                   </div>
@@ -573,9 +573,9 @@
                                   class="col-7 col-md-8 col-lg-9 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
                                 >
                                   <span class="itemCreated">
-                                    {{ loans.movementStatus === 1 ? 'CREATED' : 
-                                    loans.movementStatus === 2 ? 'FOWARDED' : 
-                                    loans.movementStatus === 3 ? 'RECEIVED' : 
+                                    {{ loans.movementStatus === 1 ? 'CREATED' :
+                                    loans.movementStatus === 2 ? 'FOWARDED' :
+                                    loans.movementStatus === 3 ? 'RECEIVED' :
                                     loans.movementStatus === 4 ? 'DISBURSED' : 'DEFFERED' }}
                                   </span>
                                 </div>
@@ -594,9 +594,9 @@
                                     class="col-7 col-md-8 col-lg-9 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
                                   >
                                     <span class="itemCreated">
-                                      {{ loans.transactionStatus === 0 ? 'NONE' : 
-                                      loans.transactionStatus === 1 ? 'APPROVED' : 
-                                      loans.transactionStatus === 2 ? 'DEFERED' : 
+                                      {{ loans.transactionStatus === 0 ? 'NONE' :
+                                      loans.transactionStatus === 1 ? 'APPROVED' :
+                                      loans.transactionStatus === 2 ? 'DEFERED' :
                                       loans.transactionStatus === 3 ? 'REJECETED' : 'RECTIFIED' }}
                                     </span>
                                   </div>
@@ -746,7 +746,7 @@
                               (click)="openComment(loans, edit, 'Rectify')"
                               [hidden]="loans.transactionStatus === 4"
                               ><i class="fas fa-check"></i>
-                              
+
                               Rectify
                             </a>
                             <a
@@ -900,9 +900,9 @@
                                 class="col-7 col-md-8 col-lg-9 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
                               >
                                 <span class="itemCreated">
-                                  {{ loans.movementStatus === 1 ? 'CREATED' : 
-                                  loans.movementStatus === 2 ? 'FOWARDED' : 
-                                  loans.movementStatus === 3 ? 'RECEIVED' : 
+                                  {{ loans.movementStatus === 1 ? 'CREATED' :
+                                  loans.movementStatus === 2 ? 'FOWARDED' :
+                                  loans.movementStatus === 3 ? 'RECEIVED' :
                                   loans.movementStatus === 4 ? 'DISBURSED' : 'DEFFERED' }}
                                 </span>
                               </div>
@@ -921,9 +921,9 @@
                                   class="col-7 col-md-8 col-lg-9 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
                                 >
                                   <span class="itemCreated">
-                                    {{ loans.transactionStatus === 0 ? 'NONE' : 
-                                    loans.transactionStatus === 1 ? 'APPROVED' : 
-                                    loans.transactionStatus === 2 ? 'DEFERED' : 
+                                    {{ loans.transactionStatus === 0 ? 'NONE' :
+                                    loans.transactionStatus === 1 ? 'APPROVED' :
+                                    loans.transactionStatus === 2 ? 'DEFERED' :
                                     loans.transactionStatus === 3 ? 'REJECETED' : 'RECTIFIED' }}
                                   </span>
                                 </div>
@@ -1013,7 +1013,7 @@
             </div>
             </tab>
             </tabset>
-            </div>          
+            </div>
           </tab>
         </tabset>
       </div>
