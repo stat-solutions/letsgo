@@ -16,6 +16,8 @@ export class ConstantsComponent implements OnInit {
   errored = false;
   posted = false;
   userForm: FormGroup;
+  values: any;
+  numberValue: any;
   serviceErrors: any = {};
   value: string;
   fieldType: boolean;
@@ -81,7 +83,16 @@ export class ConstantsComponent implements OnInit {
     this.spinner.hide();
     this.revert();
   }
+  onKey(event: any): any {
+    // without type info
+    this.values = event.target.value.replace(/[\D\s\._\-]+/g, '');
 
+    this.numberValue = this.values ? parseInt(this.values, 10) : 0;
+
+    // tslint:disable-next-line:no-unused-expression
+    this.values = this.numberValue === 0 ? '' : this.numberValue.toLocaleString('en-US');
+    this.fval.maximum_amount.setValue(this.values);
+  }
   save(): any{
     this.submitted = true;
     this.spinner.show();
@@ -92,7 +103,7 @@ export class ConstantsComponent implements OnInit {
           userId: this.User.userId,
           loanThresholdType: this.fval.loan_type.value.toUpperCase(),
           loanThresholdProduct: this.fval.loan_product.value.toUpperCase(),
-          loanThresholdMaxAmount: this.fval.maximum_amount.value,
+          loanThresholdMaxAmount: parseInt(this.fval.maximum_amount.value.replace(/[\D\s\._\-]+/g, ''), 10 ),
           loanThresholdMaxTenure: this.fval.tenure.value,
           loanThresholdTime: this.fval.threshold.value
         };

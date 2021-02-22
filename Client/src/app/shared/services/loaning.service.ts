@@ -124,47 +124,137 @@ export class LoaningService {
   }
   deleteLoanSecurityType(postData: any): any {
     return this.http.post<any>(`${this.API_URL}/api/adminUser/deleteLoanSecurityType`, postData);
-    // {
-    //   "securityTypeCode":  99
-    //   }
   }
   getLoanSecurityType(): any {
     return this.http.get<any>(`${this.API_URL}/api/adminUser/getLoanSecurityType`);
   }
   postCreateLoan(postData: any): any {
     return this.http.post<any>(`${this.API_URL}/api/loan/postCreateLoan`, postData);
-    //   [
-    //     {
-    //         "securityTypeCode":100,
-    //         "loanSecurityName":"Land Title",
-    //    "loanSecurityLocation":"Buloba Nandanda",
-    //    "loanSecurityPhotoUrl":"photoUrlMissing.com"
-    //     },
-    //      {
-    //         "securityTypeCode": 100,
-    //         "loanSecurityName":"Centenary Bank Cheque",
-    //    "loanSecurityLocation":"To be presented",
-    //    "loanSecurityPhotoUrl":"photoUrlMissing.com"
-    //     }
-    //   ]
-    //   ]
   }
   getAllLoanDetails(): Observable<any> {
     return this.http.get<any>(`${this.API_URL}/api/loan/getAllLoanDetails`);
   }
+
+
+  // Application User
   getCreatedLoans(id: number): Observable<any> {
     return this.http.get<any>(`${this.API_URL}/api/applicationUser/getCreatedLoans/?branchId=${id}`);
   }
+  getApplicationDefferredLoans(id: number): Observable<any> {
+    return this.http.get<any>(`${this.API_URL}/api/applicationUser/getApplicationDefferredLoans/?branchId=${id}`);
+  }
+  getApplicationReceivedDefferredLoans(id: number): Observable<any> {
+    return this.http.get<any>(`${this.API_URL}/api/applicationUser/getApplicationReceivedDefferredLoans/?branchId=${id}`);
+  }
+  getApplicationRectifiedDefferredLoans(id: number): Observable<any> {
+    return this.http.get<any>(`${this.API_URL}/api/applicationUser/getApplicationRectifiedDefferredLoans/?branchId=${id}`);
+  }
   forwardApplicationLoans(postData: any): Observable<any> {
     return this.http.post<any>(`${this.API_URL}/api/applicationUser/forwardApplicationLoans`, postData);
-    // {
-    //   "loanId":3000004,
-    //      "loanComment":"He is a good customer"
-    //    }
   }
-  getloanData(): any {
-    return of(this.loanData);
+  receiveApplicationDefferedLoans(postData: any): Observable<any> {
+    return this.http.post<any>(`${this.API_URL}/api/applicationUser/receiveApplicationDefferedLoans`, postData);
   }
+  rectifyApplicationDefferedLoans(postData: any): Observable<any> {
+    return this.http.post<any>(`${this.API_URL}/api/applicationUser/rectifyApplicationDefferedLoans`, postData);
+  }
+  forwardApplicationRectifiedDefferedLoans(postData: any): Observable<any> {
+    return this.http.post<any>(`${this.API_URL}/api/applicationUser/forwardApplicationRectifiedDefferedLoans`, postData);
+  }
+
+
+  // BranchApproval
+  getBranchApprovalForwardedLoans(id: number): Observable<any> {
+    return this.http.get<any>(`${this.API_URL}/api/branchApprovalUser/getBranchApprovalForwardedLoans/?branchId=${id}`);
+  }
+  getReceivedBranchApprovalLoans(id: number): Observable<any> {
+    return this.http.get<any>(`${this.API_URL}/api/branchApprovalUser/getReceivedBranchApprovalLoans/?branchId=${id}`);
+  }
+  getApprovedBranchApprovalLoans(id: number): Observable<any> {
+    return this.http.get<any>(`${this.API_URL}/api/branchApprovalUser/getApprovedBranchApprovalLoans/?branchId=${id}`);
+  }
+  receiveBranchApprovalForwardedLoans(postData: any): Observable<any> {
+    return this.http.post<any>(`${this.API_URL}/api/branchApprovalUser/receiveBranchApprovalForwardedLoans`, postData);
+  }
+  approveBranchApprovalLoans(postData: any): Observable<any> {
+    return this.http.post<any>(`${this.API_URL}/api/branchApprovalUser/approveBranchApprovalLoans`, postData);
+  }
+  deferBranchApprovalLoans(postData: any): Observable<any> {
+    return this.http.post<any>(`${this.API_URL}/api/branchApprovalUser/deferBranchApprovalLoans`, postData);
+  }
+  rejectBranchApprovalLoans(postData: any): Observable<any> {
+    return this.http.post<any>(`${this.API_URL}/api/branchApprovalUser/rejectBranchApprovalLoans`, postData);
+  }
+
+  // BranchExit
+  getForwardedBranchExitLoans(id: number): Observable<any> {
+    return this.http.get<any>(`${this.API_URL}/api/branchExitUser/getForwardedBranchExitLoans/?branchId=${id}`);
+  }
+  getReceivedBranchExitLoans(id: number): Observable<any> {
+    return this.http.get<any>(`${this.API_URL}/api/branchExitUser/getReceivedBranchExitLoans/?branchId=${id}`);
+  }
+  receiveForwardedBranchExitLoans(postData: any): Observable<any> {
+    return this.http.post<any>(`${this.API_URL}/api/branchExitUser/receiveForwardedBranchExitLoans`, postData);
+  }
+  forwardBranchExitLoans(postData: any): Observable<any> {
+    return this.http.post<any>(`${this.API_URL}/api/branchExitUser/forwardBranchExitLoans`, postData);
+  }
+
+  // Regional Approval
+  getForwardedRegionalApprovalLoans(id: number): Observable<any> {
+    return this.http.get<any>(`${this.API_URL}/api/regionalApprovalUser/getForwardedRegionalApprovalLoans/?branchId=${id}`);
+  }
+  getReceivedRegionalApprovalLoans(id: number): Observable<any> {
+    return this.http.get<any>(`${this.API_URL}/api/regionalApprovalUser/getReceivedRegionalApprovalLoans/?branchId=${id}`);
+  }
+  getApprovedRegionalApprovalLoans(id: number): Observable<any> {
+    return this.http.get<any>(`${this.API_URL}/api/regionalApprovalUser/getApprovedRegionalApprovalLoans/?branchId=${id}`);
+  }
+  getRegionalApprovalDefferredLoans(id: number): Observable<any> {
+    return this.http.get<any>(`${this.API_URL}/api/regionalApprovalUser/getRegionalApprovalDefferredLoans/?branchId=${id}`);
+  }
+  getReceivedRegionalApprovalDefferredLoans(id: number): Observable<any> {
+    return this.http.get<any>(`${this.API_URL}/api/regionalApprovalUser/getReceivedRegionalApprovalDefferredLoans/?branchId=${id}`);
+  }
+  getRectifiedRegionalApprovalDefferredLoans(id: number): Observable<any> {
+    return this.http.get<any>(`${this.API_URL}/api/regionalApprovalUser/getRectifiedRegionalApprovalDefferredLoans/?branchId=${id}`);
+  }
+  receiveForwardedRegionalApprovalLoans(postData: any): Observable<any> {
+    return this.http.post<any>(`${this.API_URL}/api/regionalApprovalUser/receiveForwardedRegionalApprovalLoans`, postData);
+  }
+  approveRegionalApprovalLoans(postData: any): Observable<any> {
+    return this.http.post<any>(`${this.API_URL}/api/regionalApprovalUser/approveRegionalApprovalLoans`, postData);
+  }
+  deferRegionalApprovalLoans(postData: any): Observable<any> {
+    return this.http.post<any>(`${this.API_URL}/api/regionalApprovalUser/deferRegionalApprovalLoans`, postData);
+  }
+  rejectRegionalApprovalLoans(postData: any): Observable<any> {
+    return this.http.post<any>(`${this.API_URL}/api/regionalApprovalUser/rejectRegionalApprovalLoans`, postData);
+  }
+  forwardRegionalApprovalLoans(postData: any): Observable<any> {
+    return this.http.post<any>(`${this.API_URL}/api/regionalApprovalUser/forwardRegionalApprovalLoans`, postData);
+  }
+  rectifyRegionalApprovalDefferedLoans(postData: any): Observable<any> {
+    return this.http.post<any>(`${this.API_URL}/api/regionalApprovalUser/rectifyRegionalApprovalDefferedLoans`, postData);
+  }
+  forwardRectifiedRegionalApprovalDefferedLoans(postData: any): Observable<any> {
+    return this.http.post<any>(`${this.API_URL}/api/regionalApprovalUser/forwardRectifiedRegionalApprovalDefferedLoans`, postData);
+  }
+
+  // Head Office Entry
+  getForwardedHeadOfficeEntryLoans(id: number): Observable<any> {
+    return this.http.get<any>(`${this.API_URL}/api/headOfficeEntryUser/getForwardedHeadOfficeEntryLoans/?branchId=${id}`);
+  }
+  getReceivedHeadOfficeEntryLoans(id: number): Observable<any> {
+    return this.http.get<any>(`${this.API_URL}/api/headOfficeEntryUser/getReceivedHeadOfficeEntryLoans/?branchId=${id}`);
+  }
+  receiveForwardedHeadOfficeEntryLoans(postData: any): Observable<any> {
+    return this.http.post<any>(`${this.API_URL}/api/headOfficeEntryUser/receiveForwardedHeadOfficeEntryLoans`, postData);
+  }
+  forwardHeadOfficeEntryLoans(postData: any): Observable<any> {
+    return this.http.post<any>(`${this.API_URL}/api/headOfficeEntryUser/forwardHeadOfficeEntryLoans`, postData);
+  }
+
   getSpecificCustomers(stage: string): any {
     return of(this.loanData.filter((loans) => loans.Stage === stage));
   }

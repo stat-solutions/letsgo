@@ -195,6 +195,7 @@
             <div class="item-container-1 mt-1">
               <div
                 class="list-card card mt-1 pt-2 mb-0 mx-auto px-0 pb-1 shadow-lg"
+                [ngClass]=""
                 *ngFor="
                   let loans of filteredLoans
                     | orderBy: key:reverse

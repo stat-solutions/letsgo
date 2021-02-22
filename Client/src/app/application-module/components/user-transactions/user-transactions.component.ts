@@ -12,26 +12,45 @@ import { Router } from '@angular/router';
   styleUrls: ['./user-transactions.component.scss'],
 })
 export class UserTransactionsComponent implements OnInit {
+  //arrays to store data
   receivedLoans = [];
-  forwardLoansTo = [];
-  filteredReceivedLoans = [];
-  age = moment(new Date()).format('MM/DD/YYYY, h:mm:ss');
-  bsModalRef: BsModalRef;
+  forwardedLoansFrom = [];
+  makeLoansReceived = [];
+  makeLoansDeffered = [];
+  makeLoansRejected = [];
+  makeLoansApproved = [];
+  forwardedLoansTo = [];
+  approvedLoans = [];
+  //create comments
   comment: FormGroup;
-  editLoanForm: FormGroup;
+  //create defferedloans
+  defferTo: FormGroup;
+  //array index, arrayid
+  arrayId: number;
+  arrayIndex: number;
+  age = moment(new Date()).format('MM/DD/YYYY, h:mm:ss');
+  receiveGroupLoans: FormGroup;
+  //booleans
+  enableForwardedFrom: boolean = true;
+  enableForwardedTo: boolean = false;
+  bsModalRef: BsModalRef;
+  //disable button
+  disableButton: boolean = false;
+  levels = ['Application'];
 
   constructor(
     private userTransactions: LoaningService,
     private fb: FormBuilder,
+    private bsModalService: BsModalService,
     private alertService: AlertService,
-    private bsModalService: BsModalService
+    private router: Router
   ) {}
 
-  ngOnInit() {
+  ngOnInit():void {
     this.userTransactions
       .getSpecificCustomers('Application')
       .subscribe((userData) => {
-        this.receivedLoans = userData.map((eachUser) => {
+        this.forwardedLoansFrom = userData.map((eachUser) => {
           const oldDate = eachUser.CreatedAt;
           const diffInDates = moment(this.age).diff(moment(oldDate));
           const timeInMonths = moment(diffInDates).format(
@@ -39,96 +58,146 @@ export class UserTransactionsComponent implements OnInit {
           );
           return { ...eachUser, TotalAge: timeInMonths };
         });
-        this.comment = this.fb.group({
-          comments: ['', Validators.required],
-        });
-        // this.receivedLoans.push(this.forwardedLoansFrom[0])
-        this.filteredReceivedLoans = this.receivedLoans;
-      });
 
-    this.editLoanForm = this.createLoanForm();
+        // this.receivedLoans.push(this.forwardedLoansFrom[0])
+        this.comment = this.fb.group({
+          user_comments: ['', Validators.required],
+        });
+        this.defferTo = this.fb.group({
+          deffer_reason: ['', Validators.required],
+          deffer_to: ['', Validators.required],
+        });
+      });
   }
-  //getcoment controls
+  //receivedLoansre
+  receiveLoans(id: number, index) {
+    const removed = this.forwardedLoansFrom.splice(index, 1);
+    this.receivedLoans.push(...removed);
+    this.enableForwardedFrom = false;
+    this.enableForwardedTo = true;
+    //console.log(removed)
+  }
+  //get comment controls
   get commentControls() {
     return this.comment.controls;
   }
-  createLoanForm() {
-    return this.fb.group({
-      customerName: ['', Validators.required],
-      loanType: ['', Validators.required],
-      loanProduct: ['', Validators.required],
-      tenure: [null, Validators.required],
-      amount: ['', Validators.required],
-    });
+  //get deffer controls
+  get deffer_controls() {
+    return this.defferTo.controls;
   }
-  editFormDetails() {}
-
-  //search 0726099610 loan
-  getValue(event) {}
-
-  get editControls() {
-    return this.editLoanForm.controls;
-  }
-  setClassInvalid(contact) {
+  //validate_comments
+  validateComments() {
     return {
-      'is-invalid': (contact.touched || contact.dirty) && contact.errors,
+      'is-invalid':
+        (this.commentControls.user_comments.touched ||
+          this.commentControls.dirty) &&
+        this.commentControls.user_comments.hasError('required'),
+      error:
+        (this.commentControls.user_comments.touched ||
+          this.commentControls.dirty) &&
+        this.commentControls.user_comments.hasError('required'),
     };
   }
 
-  //forwared selected loan
-  forwardSelected(template: TemplateRef<any>, id) {
-    this.bsModalRef = this.bsModalService.show(template);
-    console.log(id);
-  }
-  //edit loan
-  editLoan(edit: TemplateRef<any>, id: number, index: number) {
-    const getLoan = this.receivedLoans[index];
-    const { Customer, LoanType, LoanProduct, Tenure, Amount } = getLoan;
-    this.editControls.customerName.setValue(Customer);
-    this.editControls.customerName.disable();
-    this.editControls.loanType.setValue(LoanType);
-    this.editControls.loanProduct.setValue(LoanProduct);
-    this.editControls.tenure.setValue(Tenure);
-    this.editControls.amount.setValue(Amount);
-    this.bsModalRef = this.bsModalService.show(edit);
-  }
-  saveEdit() {
-    if (this.editLoanForm.invalid) {
-      this.alertService.danger('Something went wrong');
-    } else {
-      //pass the data for editting
-      this.alertService.success({
-        html: '<h4>Edited successfully</h4>',
-      });
-    }
-    this.closeModal();
-  }
+  //search loan
+  getValue(event) {}
 
   closeModal() {
-    this.forwardLoansTo = [];
     this.bsModalRef.hide();
   }
+
+  getWhereToDeffer(event) {
+    this.deffer_controls.deffer_to.setValue(event.target.value);
+  }
+
   checkTransactionsTable(array: Array<any>) {
     return array.length ? true : false;
   }
+  //receive//approve all loans
+  receiveAllLoans() {
+    this.makeLoansReceived.push(...this.forwardedLoansFrom);
+    this.receivedLoans.push(...this.makeLoansReceived);
+    this.forwardedLoansFrom = [];
+    this.disableButton = true;
+    this.enableForwardedFrom = false;
+    this.enableForwardedTo = true;
+  }
+  branchApprovalReceivedLoans() {
+    this.enableForwardedFrom = false;
+    this.enableForwardedTo = true;
+  }
 
-  onSubmit() {
-    if (!this.checkTransactionsTable(this.forwardLoansTo)) return;
-    else {
-      //get loan type
-      let typeOfLoan = this.forwardLoansTo[0];
-      console.log(typeOfLoan);
-      const { LoanType, Amount } = typeOfLoan;
-      if (LoanType.toLowerCase() === 'group') {
-        console.log('group');
-        //forward to branch exit
-        this.alertService.success('Forwarded successfully to Branch Exit');
-      } else {
-        //do the loans to branchapproval
-        this.alertService.success('Forwarded successfully to Branch Approval');
-      }
+  branchApprovalForwardedLoans() {
+    this.enableForwardedFrom = true;
+    this.enableForwardedTo = false;
+  }
+
+  rejectLoan(template: TemplateRef<any>, id: number, index: number) {
+    this.bsModalRef = this.bsModalService.show(template);
+    this.makeLoansRejected.push(this.receivedLoans[index]);
+    if (this.checkTransactionsTable(this.makeLoansRejected)) {
+      this.arrayId = id;
+      this.arrayIndex = index;
     }
-    this.forwardLoansTo = [];
+    // this.onSubmit()
+  }
+  defferLoan(template: TemplateRef<any>, id: number, index: number) {
+    this.bsModalRef = this.bsModalService.show(template);
+    this.makeLoansDeffered.push(this.receivedLoans[index]);
+    if (this.checkTransactionsTable(this.makeLoansDeffered)) {
+      this.arrayIndex = index;
+      this.arrayId = id;
+    }
+  }
+
+  cancel() {
     this.closeModal();
+  }
+  forwardLoan(template: TemplateRef<any>, id: number, index: number) {
+    this.bsModalRef = this.bsModalService.show(template);
+    this.forwardedLoansTo.push(this.receivedLoans[index]);
+    if (this.checkTransactionsTable(this.forwardedLoansTo)) {
+      this.arrayId = id;
+      this.arrayIndex = index;
+    }
+  }
+
+  onReject(array: Array<any>, id: number, index: number) {
+    this.receivedLoans = this.receivedLoans.filter((loans) => loans.Id !== id);
+    this.commentControls.user_comments.reset();
+    this.makeLoansRejected = [];
+    this.closeModal();
+    this.alertService.danger('Your loan has been rejected!');
+  }
+  onDeffer(array: Array<any>, id, index) {
+    this.receivedLoans = this.receivedLoans.filter((loans) => loans.Id !== id);
+    const level = this.deffer_controls.deffer_to.value;
+    this.deffer_controls.deffer_to.reset();
+    this.deffer_controls.deffer_reason.reset();
+    this.makeLoansDeffered = [];
+    this.closeModal();
+    this.alertService.success(
+      'Your loan has been deferred  successfully to ' + level
+    );
+  }
+
+  onForward(array: Array<any>, id, index) {
+    this.receivedLoans = this.receivedLoans.filter((loans) => loans.Id !== id);
+    this.commentControls.user_comments.reset();
+    this.closeModal();
+    //forward loan
+    if (!this.checkTransactionsTable(this.forwardedLoansTo)) return;
+    else {
+      //getloan type
+      //get loan type
+      let typeOfLoan = this.forwardedLoansTo[0];
+      console.log(typeOfLoan);
+      const { Amount } = typeOfLoan;
+      //forward all loans to branch exit
+      this.alertService.success(
+        'Your loan has been forwarded successfully to Branch Exit'
+      );
+    }
+    this.forwardedLoansTo = [];
   }
 }

@@ -430,7 +430,15 @@ legend {
     color: inherit;
     white-space: normal
 }
-
+.branch {
+    background-color: greenyellow;
+}
+.headOffice{
+    background-color: pink;
+}
+.loanAge {
+    background-color: var(--red);
+}
 progress {
     vertical-align: baseline
 }

@@ -97,7 +97,7 @@ export class CreateLoansComponent implements OnInit {
       ),
       amount: this.fb.control(
         '',
-        Validators.compose([Validators.required,  CustomValidator.patternValidator(/\d/, { hasNumber: true }),])
+        Validators.compose([Validators.required,  CustomValidator.patternValidator(/\d/, { hasNumber: true })])
       ),
       tenure: this.fb.control(
         '',

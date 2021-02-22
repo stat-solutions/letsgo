@@ -46,7 +46,7 @@ export class UserTransactionsComponent implements OnInit {
     private router: Router
   ) {}
 
-  ngOnInit() {
+  ngOnInit():void {
     this.userTransactions
       .getSpecificCustomers('Application')
       .subscribe((userData) => {
