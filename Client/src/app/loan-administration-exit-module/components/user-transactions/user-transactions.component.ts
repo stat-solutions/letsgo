@@ -209,5 +209,16 @@ export class UserTransactionsComponent implements OnInit {
     this.forwardSelected(data);
     this.comment.reset();
   }
+  // onDeffer(array: Array<any>, id, index) {
+  //   this.receivedLoans = this.receivedLoans.filter((loans) => loans.Id !== id);
+  //   const level = this.deffer_controls.deffer_to.value;
+  //   this.deffer_controls.deffer_to.reset();
+  //   this.deffer_controls.deffer_reason.reset();
+  //   this.makeLoansDeffered = [];
+  //   this.closeModal();
+  //   this.alertService.success(
+  //     'Your loan has been deferred  successfully to ' + level
+  //   );
+  // }
 }
 
