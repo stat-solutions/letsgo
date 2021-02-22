@@ -1,10 +1,16 @@
-import { FormBuilder, FormGroup, FormArray, Validators, FormControl } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  FormArray,
+  Validators,
+  FormControl,
+} from '@angular/forms';
 import { LoaningService } from '../../../shared/services/loaning.service';
 import { Component, OnInit, OnChanges, TemplateRef } from '@angular/core';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import * as moment from 'moment';
 import { AlertService } from 'ngx-alerts';
-import { TabsetComponent } from 'ngx-bootstrap/tabs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-transactions',
@@ -15,8 +21,12 @@ export class UserTransactionsComponent implements OnInit {
   //arrays to store data
   receivedLoans = [];
   forwardedLoansFrom = [];
-  forwardedLoansTo = [];
   makeLoansReceived = [];
+  makeLoansDeffered = [];
+  makeLoansRejected = [];
+  makeLoansApproved = [];
+  forwardedLoansTo = [];
+  approvedLoans = [];
   //create comments
   comment: FormGroup;
   //create defferedloans
@@ -25,7 +35,6 @@ export class UserTransactionsComponent implements OnInit {
   arrayId: number;
   arrayIndex: number;
   age = moment(new Date()).format('MM/DD/YYYY, h:mm:ss');
-  checkAll: boolean = true;
   receiveGroupLoans: FormGroup;
   //booleans
   enableForwardedFrom: boolean = true;
@@ -39,7 +48,8 @@ export class UserTransactionsComponent implements OnInit {
     private userTransactions: LoaningService,
     private fb: FormBuilder,
     private bsModalService: BsModalService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -59,6 +69,10 @@ export class UserTransactionsComponent implements OnInit {
         this.comment = this.fb.group({
           user_comments: ['', Validators.required],
         });
+        this.defferTo = this.fb.group({
+          deffer_reason: ['', Validators.required],
+          deffer_to: ['', Validators.required],
+        });
       });
   }
   //receivedLoansre
@@ -73,7 +87,10 @@ export class UserTransactionsComponent implements OnInit {
   get commentControls() {
     return this.comment.controls;
   }
-
+  //get deffer controls
+  get deffer_controls() {
+    return this.defferTo.controls;
+  }
   //validate_comments
   validateComments() {
     return {
@@ -88,19 +105,22 @@ export class UserTransactionsComponent implements OnInit {
     };
   }
 
+  //search loan
+  getValue(event) {}
+
   closeModal() {
     this.bsModalRef.hide();
   }
 
-  //search loan
-  getValue(event) {}
+  getWhereToDeffer(event) {
+    this.deffer_controls.deffer_to.setValue(event.target.value);
+  }
 
   checkTransactionsTable(array: Array<any>) {
     return array.length ? true : false;
   }
   //receive//approve all loans
   receiveAllLoans() {
-    console.log('received all');
     this.makeLoansReceived.push(...this.forwardedLoansFrom);
     this.receivedLoans.push(...this.makeLoansReceived);
     this.forwardedLoansFrom = [];
@@ -118,9 +138,33 @@ export class UserTransactionsComponent implements OnInit {
     this.enableForwardedTo = false;
   }
 
+  rejectLoan(template: TemplateRef<any>, id: number, index: number) {
+    this.bsModalRef = this.bsModalService.show(template);
+    this.makeLoansRejected.push(this.receivedLoans[index]);
+    if (this.checkTransactionsTable(this.makeLoansRejected)) {
+      this.arrayId = id;
+      this.arrayIndex = index;
+    }
+    // this.onSubmit()
+  }
+
+  openModal(template: TemplateRef<any>) {
+    this.bsModalRef = this.bsModalService.show(template);
+  }
+
+  defferLoan(template: TemplateRef<any>, id: number, index: number) {
+    this.bsModalRef = this.bsModalService.show(template);
+    this.makeLoansDeffered.push(this.receivedLoans[index]);
+    if (this.checkTransactionsTable(this.makeLoansDeffered)) {
+      this.arrayIndex = index;
+      this.arrayId = id;
+    }
+  }
+
   cancel() {
     this.closeModal();
   }
+
   forwardLoan(template: TemplateRef<any>, id: number, index: number) {
     this.bsModalRef = this.bsModalService.show(template);
     this.forwardedLoansTo.push(this.receivedLoans[index]);
@@ -129,6 +173,26 @@ export class UserTransactionsComponent implements OnInit {
       this.arrayIndex = index;
     }
   }
+
+  onReject(array: Array<any>, id: number, index: number) {
+    this.receivedLoans = this.receivedLoans.filter((loans) => loans.Id !== id);
+    this.commentControls.user_comments.reset();
+    this.makeLoansRejected = [];
+    this.closeModal();
+    this.alertService.danger('Your loan has been rejected!');
+  }
+  onDeffer(array: Array<any>, id, index) {
+    this.receivedLoans = this.receivedLoans.filter((loans) => loans.Id !== id);
+    const level = this.deffer_controls.deffer_to.value;
+    this.deffer_controls.deffer_to.reset();
+    this.deffer_controls.deffer_reason.reset();
+    this.makeLoansDeffered = [];
+    this.closeModal();
+    this.alertService.success(
+      'Your loan has been deferred  successfully to ' + level
+    );
+  }
+
   onForward(array: Array<any>, id, index) {
     this.receivedLoans = this.receivedLoans.filter((loans) => loans.Id !== id);
     this.commentControls.user_comments.reset();
@@ -136,10 +200,16 @@ export class UserTransactionsComponent implements OnInit {
     //forward loan
     if (!this.checkTransactionsTable(this.forwardedLoansTo)) return;
     else {
-      //forward to loan exit
+      //getloan type
+      //get loan type
+      let typeOfLoan = this.forwardedLoansTo[0];
+      console.log(typeOfLoan);
+      const { Amount } = typeOfLoan;
+      //forward all loans to branch exit
       this.alertService.success(
-        'Loan has been forwarded successfully to Loan Exit stage'
+        'Your loan has been forwarded successfully to Loan Exit'
       );
     }
+    this.forwardedLoansTo = [];
   }
 }

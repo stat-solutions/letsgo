@@ -154,6 +154,11 @@ export class UserTransactionsComponent implements OnInit {
   cancel() {
     this.closeModal();
   }
+
+  openModal(template: TemplateRef<any>) {
+    this.bsModalRef = this.bsModalService.show(template);
+  }
+
   forwardLoan(template: TemplateRef<any>, id: number, index: number) {
     this.bsModalRef = this.bsModalService.show(template);
     this.forwardedLoansTo.push(this.receivedLoans[index]);

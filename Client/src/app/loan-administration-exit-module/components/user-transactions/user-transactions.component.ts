@@ -16,6 +16,7 @@ export class UserTransactionsComponent implements OnInit {
   receivedLoans = [];
   forwardedLoansFrom = [];
   forwardedLoansTo = [];
+  makeLoansDeffered = [];
   makeLoansReceived = [];
   //create comments
   comment: FormGroup;
@@ -74,6 +75,11 @@ export class UserTransactionsComponent implements OnInit {
     return this.comment.controls;
   }
 
+  //get deffer controls
+  get deffer_controls() {
+    return this.defferTo.controls;
+  }
+
   //validate_comments
   validateComments() {
     return {
@@ -90,6 +96,10 @@ export class UserTransactionsComponent implements OnInit {
 
   closeModal() {
     this.bsModalRef.hide();
+  }
+
+  getWhereToDeffer(event) {
+    this.deffer_controls.deffer_to.setValue(event.target.value);
   }
 
   //search loan
@@ -121,6 +131,11 @@ export class UserTransactionsComponent implements OnInit {
   cancel() {
     this.closeModal();
   }
+
+  openModal(template: TemplateRef<any>) {
+    this.bsModalRef = this.bsModalService.show(template);
+  }
+
   forwardLoan(template: TemplateRef<any>, id: number, index: number) {
     this.bsModalRef = this.bsModalService.show(template);
     this.forwardedLoansTo.push(this.receivedLoans[index]);
@@ -129,6 +144,16 @@ export class UserTransactionsComponent implements OnInit {
       this.arrayIndex = index;
     }
   }
+
+  defferLoan(template: TemplateRef<any>, id: number, index: number) {
+    this.bsModalRef = this.bsModalService.show(template);
+    this.makeLoansDeffered.push(this.receivedLoans[index]);
+    if (this.checkTransactionsTable(this.makeLoansDeffered)) {
+      this.arrayIndex = index;
+      this.arrayId = id;
+    }
+  }
+
   onForward(array: Array<any>, id, index) {
     this.receivedLoans = this.receivedLoans.filter((loans) => loans.Id !== id);
     this.commentControls.user_comments.reset();
@@ -141,5 +166,16 @@ export class UserTransactionsComponent implements OnInit {
         'Your loan has been forwarded successfully to Disbursement stage'
       );
     }
+  }
+  onDeffer(array: Array<any>, id, index) {
+    this.receivedLoans = this.receivedLoans.filter((loans) => loans.Id !== id);
+    const level = this.deffer_controls.deffer_to.value;
+    this.deffer_controls.deffer_to.reset();
+    this.deffer_controls.deffer_reason.reset();
+    this.makeLoansDeffered = [];
+    this.closeModal();
+    this.alertService.success(
+      'Your loan has been deferred  successfully to ' + level
+    );
   }
 }

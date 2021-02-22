@@ -24,7 +24,8 @@ export class UserTransactionsComponent implements OnInit {
     private userTransactions: LoaningService,
     private fb: FormBuilder,
     private alertService: AlertService,
-    private bsModalService: BsModalService
+    private bsModalService: BsModalService,
+    private modalService: BsModalService,
   ) {}
 
   ngOnInit() {
@@ -73,6 +74,10 @@ export class UserTransactionsComponent implements OnInit {
     return {
       'is-invalid': (contact.touched || contact.dirty) && contact.errors,
     };
+  }
+
+  openModal(template: TemplateRef<any>){
+    this.bsModalRef = this.bsModalService.show(template);
   }
 
   //forwared selected loan

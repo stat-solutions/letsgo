@@ -2,125 +2,1575 @@
   class="container-fluid justify-content-center mt-0 mb-0 pt-1 pt-xl-0 pb-2 pb-md-0 shadow-lg col-xs-12 col-lg-12"
 >
   <div class="jumbotron-fluid mx-0 px-0 mt-1 mt-xl-0 pt-3 pt-xl-0 mb-0 pb-0">
-    <div class="head-container container mt-1 mb-1 mx-auto px-auto pt-0 pb-2 shadow-lg">
-    <div class="row">
-      <div class="col-12">
-        <h3 class="rub-head4 text-info text-center font-weight-bold pt-0 py-1">
-          REPORTS
-        </h3>
-        <hr class="mt-0" />
+    <div
+      class="head-container container mt-1 mb-1 mx-auto px-auto pt-0 pb-2 shadow-lg"
+    >
+      <div class="row">
+        <div class="col-12">
+          <h3
+            class="rub-head4 text-info text-center font-weight-bold pt-0 py-1"
+          >
+            REPORTS
+          </h3>
+          <hr class="mt-0" />
+        </div>
+      </div>
+      <form [formGroup]="userForm" (ngSubmit)="report()">
+        <div class="d-flex my-0 py-1 mx-auto px-auto">
+          <div class="col-12 mx-0 px-3 px-sm-2 px-md-1 px-lg-3">
+            <div class="row">
+              <div class="col-10 col-sm-7 col-md-4 mx-0 px-0">
+                <!--select the kind of report depending on the filter set -->
+                <label for="position">Report Type</label>
+                <div class="input-group mb-0">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">
+                      <i class="fas fa-file text-primary" style="size: 50px">
+                      </i>
+                    </div>
+                  </div>
+                  <select
+                    formControlName="report_type"
+                    class="form-control"
+                    autocomplete="off"
+                    placeholder="Specify Report Type"
+                    (change)="getReport($event)"
+                  >
+                    <option selected>Specify Type</option>
+                    <option
+                      *ngFor="let reports of reportTypes"
+                      [ngValue]="reports.reportType"
+                    >
+                      {{ reports.reportType }}
+                    </option>
+                  </select>
+                </div>
+                <!--input field form control to search reports by set filter-->
+                <div class="col">
+                  <input
+                    id="search_by"
+                    formControlName="search_by"
+                    type="text"
+                    class="form-control mt-2"
+                    autocomplete="off"
+                    placeholder="By Branch"
+                  />
+                </div>
+                <!--/end-->
+              </div>
+              <div class="col-1 mx-2 mx-md-0 px-0">
+                <div class="mx-0 ml-md-2 px-0">
+                  <div ngbDropdown class="d-inline-block mt-4 mx-0 px-0">
+                    <button
+                      class="btn mx-0 px-0"
+                      id="dropdownBasic1"
+                      tooltip="Filter by"
+                      ngbDropdownToggle
+                    >
+                      <i class="fas fa-filter fa-2x text-info"></i>
+                    </button>
+                    <div
+                      ngbDropdownMenu
+                      aria-labelledby="dropdownBasic1"
+                      class="dropdown-menu"
+                    >
+                      <button ngbDropdownItem>Branch</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-6 col-sm-3 mx-0 px-0">
+                <!--rangedate-->
+                <label for="range_date">Select Date </label>
+
+                <div class="input-group mb-0">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">
+                      <i
+                        class="fas fa-calendar-alt text-primary mx-auto"
+                        style="size: 50px"
+                      >
+                      </i>
+                    </div>
+                  </div>
+                  <input
+                    id="range_date"
+                    formControlName="range_date"
+                    type="text"
+                    class="form-control"
+                    placeholder="Select date range"
+                    autocomplete="off"
+                    bsDaterangepicker
+                    [bsConfig]="{
+                      containerClass: 'theme-blue',
+                      dateInputFormat: 'MM/DD/YYYY',
+                      isAnimated: true
+                    }"
+                    placement="bottom"
+                  />
+                </div>
+              </div>
+              <div class="col-2 mx-0 pt-1 px-0">
+                <button
+                  class="btn btn-info mt-4 ml-1 mr-0 py-1 py-sm-2 px-0 px-sm-2"
+                  type="submit"
+                  (click)="fetchReport(userForm.controls.range_date.value)"
+                  [disabled]="!userForm.controls.range_date.valid"
+                >
+                  <i class="fas fa-search"></i> Search
+                </button>
+              </div>
+              <div class="col-2 mx-0 px-md-0 pt-1">
+                <div ngbDropdown class="d-inline-block mt-4 mx-0 px-0">
+                  <button
+                    class="btn btn-primary mx-md-0 py-1 py-sm-2 px-2 px-md-1 px-xl-2"
+                    id="dropdownBasic1"
+                    tooltip="Choose export format"
+                    ngbDropdownToggle
+                  >
+                    <i class="fas fa-file-export"></i> Export
+                  </button>
+                  <div
+                    ngbDropdownMenu
+                    aria-labelledby="dropdownBasic1"
+                    class="dropdown-menu"
+                  >
+                    <button ngbDropdownItem>Excel</button>
+                    <button ngbDropdownItem>Pdf</button>
+                    <button ngbDropdownItem>CSV</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!--Reports-->
+<div class="container">
+
+<!--Running loans-->
+<div class="container mt-3 mb-0 shadow-lg">
+  <div class="row">
+    <div class="col-12">
+      <h5
+        class="rub-head4 text-uppercase text-info text-center font-weight-bold py-1"
+      >
+        Running Loans
+      </h5>
+      <hr class="mt-0 mb-2" />
+    </div>
+  </div>
+</div>
+<div class="col-12 py-2 mb-0 mx-0 px-0">
+  <div class="row mx-auto px-auto mb-2">
+    <div class="col-3 d-flex justify-content-start">
+      <span class="">Area: </span>
+    </div>
+    <div class="col-9 d-flex justify-content-start font-weight-bold">
+      <span class="itemCreated">Eastern </span>
+    </div>
+  </div>
+  <div class="iteration">
+    <div class="item-container-1 mt-1">
+      <div class="list-card-1 card mt-1 pt-2 mb-0 mx-auto px-0 pb-0 shadow-lg">
+        <div class="list-card-body card-body mt-0 pt-0 mb-0 pb-0 mx-0">
+          <div class="row my-0 py-0">
+            <div class="col-12">
+              <div class="row">
+                <div class="col-12 col-md-6 col-xl-4">
+                  <div class="row">
+                    <div class="col-5 d-flex justify-content-start">
+                      <span class="">Date</span>
+                    </div>
+                    <div
+                      class="col-7 d-flex justify-content-start font-weight-bold"
+                    >
+                      <span class="itemCreated"> </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6 col-xl-4">
+                  <div class="row">
+                    <div class="col-5 d-flex justify-content-start">
+                      <span class="">Time</span>
+                    </div>
+                    <div
+                      class="col-7 d-flex justify-content-start font-weight-bold"
+                    >
+                      <span class="itemCreated"> </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6 col-xl-4">
+                  <div class="row">
+                    <div class="col-5 d-flex justify-content-start">
+                      <span class="">Narration 1</span>
+                    </div>
+                    <div
+                      class="col-7 d-flex justify-content-start font-weight-bold"
+                    >
+                      <span class="itemCreated"> </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12 col-md-6 col-xl-4">
+                  <div class="row">
+                    <div class="col-5 d-flex justify-content-start">
+                      <span class="">Narration 2</span>
+                    </div>
+                    <div
+                      class="col-7 d-flex justify-content-start font-weight-bold"
+                    >
+                      <span class="itemCreated"> </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6 col-xl-4">
+                  <div class="row">
+                    <div class="col-5 d-flex justify-content-start">
+                      <span class="">Cash In</span>
+                    </div>
+                    <div
+                      class="col-7 d-flex justify-content-start font-weight-bold"
+                    >
+                      <span class="itemCreated"> </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6 col-xl-4">
+                  <div class="row">
+                    <div class="col-5 d-flex justify-content-start">
+                      <span class="">Cash Out</span>
+                    </div>
+                    <div
+                      class="col-7 d-flex justify-content-start font-weight-bold"
+                    >
+                      <span class="itemCreated"> </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12 col-md-6 col-xl-4">
+                  <div class="row">
+                    <div class="col-5 d-flex justify-content-start">
+                      <span class="">Balance</span>
+                    </div>
+                    <div
+                      class="col-7 d-flex justify-content-start font-weight-bold"
+                    >
+                      <span class="itemCreated"> </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-    <form [formGroup]="userForm" (ngSubmit)="report()">
-      <div class="row">
-
-                    <div class="col-12 col-sm-6 col-md-4 mx-md-0">
-          <!--rangedate-->
-              <label
-                for="range_date"
-                [ngClass]="fval.range_date.valid ? 'text-info' : ''"
-                ><i *ngIf="fval.range_date.valid" class="material-icons"
-                  >check_circle</i
-                >Select Date          </label>
-
-
-              <div class="input-group mb-0">
-                <div class="input-group-prepend">
-                  <div class="input-group-text">
-                    <i
-                      class="fas fa-calendar-alt text-primary mx-auto"
-                      style="size: 50px;"
-                    >
-                    </i>
-                  </div>
-                </div>
-                <input
-                  id="range_date"
-                  formControlName="range_date"
-                  type="text"
-                  class="form-control"
-                  [ngClass]="{
-                    'is-invalid':
-                      (fval.range_date.touched || fval.range_date.dirty) &&
-                      fval.range_date.errors
-                  }"
-                  placeholder="Select date range"
-                  autocomplete="off"
-                  class="form-control"
-                  bsDaterangepicker
-                  [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY', isAnimated: true }"
-                  placement="bottom"
-                />
-              </div>
-              <div
-              class="text-danger col"
-              *ngIf="
-              (fval.range_date.touched || fval.range_date.dirty) &&
-              fval.range_date.errors?.required
-              "
-              >
-              The date range is required!
-            </div>
-
-          <!--rangedate-->
-
-
+    <div class="row mx-auto px-auto py-2 border-bottom">
+      <div class="col-12 col-md-6 col-xl-4">
+        <div class="row">
+          <div class="col-5 d-flex justify-content-start">
+            <span class="font-weight-bold">Total Cash In</span>
           </div>
-
-                    <div class="col-12 col-sm-6 col-md-4 mx-md-0 px-md-1">
-                      <!--reporttype-->
-              <label
-                for="position"
-                [ngClass]="fval.report_type.valid ? 'text-info' : ''"
-                ><i *ngIf="fval.report_type.valid" class="material-icons"
-                  >check_circle</i
-                >Report Type</label
-              >
-              <div class="input-group mb-0">
-                <div class="input-group-prepend">
-                  <div class="input-group-text">
-                    <i class="fas fa-file text-primary mx-auto" style="size: 50px;">
-                    </i>
-                  </div>
-                </div>
-                <select
-                formControlName="report_type"
-                class="form-control"
-                [ngClass]="{
-                  'is-invalid':
-                    (fval.report_type.touched || fval.report_type.dirty) &&
-                    fval.report_type.errors
-                }"
-                autocomplete="off"
-                placeholder="Select report type"
-                (change) ="getReport($event)"
-                required
-              >
-              <option selected disabled>Select Report</option>
-              <option *ngFor="let reports of reportTypes" [ngValue]="reports.reportType">{{reports.reportType}}</option>
-
-              </select>
+          <div class="col-7 d-flex justify-content-start font-weight-bold">
+            <span class="itemCreated"> </span>
           </div>
-              <div
-                class="text-danger col"
-                *ngIf="
-                  (fval.report_type.touched || fval.report_type.dirty) &&
-                  fval.report_type.errors?.required
-                "
-              >
-                The report type is required!
-              </div>
-            </div>
-                    <div class="col-4 col-sm-6 col-md-1 mx-auto pt-2 px-auto mx-md-0 px-md-0">
-            <!--reporttype-->
-          <button class="btn btn-info mt-1 mt-md-4 mx-0" type="submit">Filter</button>
-            </div>
-            <div class="col-8 col-sm-6 col-md-3 col-xl-3 mx-0 pt-2">
-<button class="btn btn-primary mt-1 mt-md-4 ml-4 mx-sm-0 mx-md-0 float-right" tooltip="Export to Excel"><i class="fas fa-file-export"></i>  Export</button>
-</div>
+        </div>
+      </div>
+      <div class="col-12 col-md-6 col-xl-4">
+        <div class="row">
+          <div class="col-5 d-flex justify-content-start">
+            <span class="font-weight-bold">Total Cash Out</span>
+          </div>
+          <div class="col-7 d-flex justify-content-start font-weight-bold">
+            <span class="itemCreated"> </span>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-6 col-xl-4">
+        <div class="row">
+          <div class="col-5 d-flex justify-content-start">
+            <span class="font-weight-bold">Net Balance</span>
+          </div>
+          <div class="col-7 d-flex justify-content-start font-weight-bold">
+            <span class="itemCreated"> </span>
+          </div>
+        </div>
+      </div>
     </div>
-    </form>
-</div>
-</div>
+  </div>
 </div>
 
+<!--Disbursed loans-->
+<div class="container mt-3 mb-0 shadow-lg">
+  <div class="row">
+    <div class="col-12">
+      <h5
+        class="rub-head4 text-uppercase text-info text-center font-weight-bold py-1"
+      >
+        disbursed Loans
+      </h5>
+      <hr class="mt-0 mb-2" />
+    </div>
+  </div>
+</div>
+<div class="col-12 py-2 mb-0 mx-0 px-0">
+  <div class="row mx-auto px-auto mb-2">
+    <div class="col-3 d-flex justify-content-start">
+      <span class="">Area: </span>
+    </div>
+    <div class="col-9 d-flex justify-content-start font-weight-bold">
+      <span class="itemCreated">Eastern </span>
+    </div>
+  </div>
+  <div class="iteration">
+    <div class="item-container-1 mt-1">
+      <div class="list-card-1 card mt-1 pt-2 mb-0 mx-auto px-0 pb-0 shadow-lg">
+        <div class="list-card-body card-body mt-0 pt-0 mb-0 pb-0 mx-0">
+          <div class="row my-0 py-0">
+            <div class="col-12">
+              <div class="row">
+                <div class="col-12 col-md-6 col-xl-4">
+                  <div class="row">
+                    <div class="col-5 d-flex justify-content-start">
+                      <span class="">Date</span>
+                    </div>
+                    <div
+                      class="col-7 d-flex justify-content-start font-weight-bold"
+                    >
+                      <span class="itemCreated"> </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6 col-xl-4">
+                  <div class="row">
+                    <div class="col-5 d-flex justify-content-start">
+                      <span class="">Time</span>
+                    </div>
+                    <div
+                      class="col-7 d-flex justify-content-start font-weight-bold"
+                    >
+                      <span class="itemCreated"> </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6 col-xl-4">
+                  <div class="row">
+                    <div class="col-5 d-flex justify-content-start">
+                      <span class="">Narration 1</span>
+                    </div>
+                    <div
+                      class="col-7 d-flex justify-content-start font-weight-bold"
+                    >
+                      <span class="itemCreated"> </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12 col-md-6 col-xl-4">
+                  <div class="row">
+                    <div class="col-5 d-flex justify-content-start">
+                      <span class="">Narration 2</span>
+                    </div>
+                    <div
+                      class="col-7 d-flex justify-content-start font-weight-bold"
+                    >
+                      <span class="itemCreated"> </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6 col-xl-4">
+                  <div class="row">
+                    <div class="col-5 d-flex justify-content-start">
+                      <span class="">Cash In</span>
+                    </div>
+                    <div
+                      class="col-7 d-flex justify-content-start font-weight-bold"
+                    >
+                      <span class="itemCreated"> </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6 col-xl-4">
+                  <div class="row">
+                    <div class="col-5 d-flex justify-content-start">
+                      <span class="">Cash Out</span>
+                    </div>
+                    <div
+                      class="col-7 d-flex justify-content-start font-weight-bold"
+                    >
+                      <span class="itemCreated"> </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12 col-md-6 col-xl-4">
+                  <div class="row">
+                    <div class="col-5 d-flex justify-content-start">
+                      <span class="">Balance</span>
+                    </div>
+                    <div
+                      class="col-7 d-flex justify-content-start font-weight-bold"
+                    >
+                      <span class="itemCreated"> </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row mx-auto px-auto py-2 border-bottom">
+      <div class="col-12 col-md-6 col-xl-4">
+        <div class="row">
+          <div class="col-5 d-flex justify-content-start">
+            <span class="font-weight-bold">Total Cash In</span>
+          </div>
+          <div class="col-7 d-flex justify-content-start font-weight-bold">
+            <span class="itemCreated"> </span>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-6 col-xl-4">
+        <div class="row">
+          <div class="col-5 d-flex justify-content-start">
+            <span class="font-weight-bold">Total Cash Out</span>
+          </div>
+          <div class="col-7 d-flex justify-content-start font-weight-bold">
+            <span class="itemCreated"> </span>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-6 col-xl-4">
+        <div class="row">
+          <div class="col-5 d-flex justify-content-start">
+            <span class="font-weight-bold">Net Balance</span>
+          </div>
+          <div class="col-7 d-flex justify-content-start font-weight-bold">
+            <span class="itemCreated"> </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--Rejected loans-->
+<div class="container mt-3 mb-0 shadow-lg">
+  <div class="row">
+    <div class="col-12">
+      <h5
+        class="rub-head4 text-uppercase text-info text-center font-weight-bold py-1"
+      >
+        Rejected Loans
+      </h5>
+      <hr class="mt-0 mb-2" />
+    </div>
+  </div>
+</div>
+<div class="col-12 py-2 mb-0 mx-0 px-0">
+  <div class="row mx-auto px-auto mb-2">
+    <div class="col-3 d-flex justify-content-start">
+      <span class="">Area: </span>
+    </div>
+    <div class="col-9 d-flex justify-content-start font-weight-bold">
+      <span class="itemCreated">Eastern </span>
+    </div>
+  </div>
+  <div class="iteration">
+    <div class="item-container-1 mt-1">
+      <div class="list-card-1 card mt-1 pt-2 mb-0 mx-auto px-0 pb-0 shadow-lg">
+        <div class="list-card-body card-body mt-0 pt-0 mb-0 pb-0 mx-0">
+          <div class="row my-0 py-0">
+            <div class="col-12">
+              <div class="row">
+                <div class="col-12 col-md-6 col-xl-4">
+                  <div class="row">
+                    <div class="col-5 d-flex justify-content-start">
+                      <span class="">Date</span>
+                    </div>
+                    <div
+                      class="col-7 d-flex justify-content-start font-weight-bold"
+                    >
+                      <span class="itemCreated"> </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6 col-xl-4">
+                  <div class="row">
+                    <div class="col-5 d-flex justify-content-start">
+                      <span class="">Time</span>
+                    </div>
+                    <div
+                      class="col-7 d-flex justify-content-start font-weight-bold"
+                    >
+                      <span class="itemCreated"> </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6 col-xl-4">
+                  <div class="row">
+                    <div class="col-5 d-flex justify-content-start">
+                      <span class="">Narration 1</span>
+                    </div>
+                    <div
+                      class="col-7 d-flex justify-content-start font-weight-bold"
+                    >
+                      <span class="itemCreated"> </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12 col-md-6 col-xl-4">
+                  <div class="row">
+                    <div class="col-5 d-flex justify-content-start">
+                      <span class="">Narration 2</span>
+                    </div>
+                    <div
+                      class="col-7 d-flex justify-content-start font-weight-bold"
+                    >
+                      <span class="itemCreated"> </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6 col-xl-4">
+                  <div class="row">
+                    <div class="col-5 d-flex justify-content-start">
+                      <span class="">Cash In</span>
+                    </div>
+                    <div
+                      class="col-7 d-flex justify-content-start font-weight-bold"
+                    >
+                      <span class="itemCreated"> </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6 col-xl-4">
+                  <div class="row">
+                    <div class="col-5 d-flex justify-content-start">
+                      <span class="">Cash Out</span>
+                    </div>
+                    <div
+                      class="col-7 d-flex justify-content-start font-weight-bold"
+                    >
+                      <span class="itemCreated"> </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12 col-md-6 col-xl-4">
+                  <div class="row">
+                    <div class="col-5 d-flex justify-content-start">
+                      <span class="">Balance</span>
+                    </div>
+                    <div
+                      class="col-7 d-flex justify-content-start font-weight-bold"
+                    >
+                      <span class="itemCreated"> </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row mx-auto px-auto py-2 border-bottom">
+      <div class="col-12 col-md-6 col-xl-4">
+        <div class="row">
+          <div class="col-5 d-flex justify-content-start">
+            <span class="font-weight-bold">Total Cash In</span>
+          </div>
+          <div class="col-7 d-flex justify-content-start font-weight-bold">
+            <span class="itemCreated"> </span>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-6 col-xl-4">
+        <div class="row">
+          <div class="col-5 d-flex justify-content-start">
+            <span class="font-weight-bold">Total Cash Out</span>
+          </div>
+          <div class="col-7 d-flex justify-content-start font-weight-bold">
+            <span class="itemCreated"> </span>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-6 col-xl-4">
+        <div class="row">
+          <div class="col-5 d-flex justify-content-start">
+            <span class="font-weight-bold">Net Balance</span>
+          </div>
+          <div class="col-7 d-flex justify-content-start font-weight-bold">
+            <span class="itemCreated"> </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--approved loans-->
+<div class="container mt-3 mb-0 shadow-lg">
+  <div class="row">
+    <div class="col-12">
+      <h5
+        class="rub-head4 text-uppercase text-info text-center font-weight-bold py-1"
+      >
+        approved Loans
+      </h5>
+      <hr class="mt-0 mb-2" />
+    </div>
+  </div>
+</div>
+<div class="col-12 py-2 mb-0 mx-0 px-0">
+  <div class="row mx-auto px-auto mb-2">
+    <div class="col-3 d-flex justify-content-start">
+      <span class="">Area: </span>
+    </div>
+    <div class="col-9 d-flex justify-content-start font-weight-bold">
+      <span class="itemCreated">Eastern </span>
+    </div>
+  </div>
+  <div class="iteration">
+    <div class="item-container-1 mt-1">
+      <div class="list-card-1 card mt-1 pt-2 mb-0 mx-auto px-0 pb-0 shadow-lg">
+        <div class="list-card-body card-body mt-0 pt-0 mb-0 pb-0 mx-0">
+          <div class="row my-0 py-0">
+            <div class="col-12">
+              <div class="row">
+                <div class="col-12 col-md-6 col-xl-4">
+                  <div class="row">
+                    <div class="col-5 d-flex justify-content-start">
+                      <span class="">Date</span>
+                    </div>
+                    <div
+                      class="col-7 d-flex justify-content-start font-weight-bold"
+                    >
+                      <span class="itemCreated"> </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6 col-xl-4">
+                  <div class="row">
+                    <div class="col-5 d-flex justify-content-start">
+                      <span class="">Time</span>
+                    </div>
+                    <div
+                      class="col-7 d-flex justify-content-start font-weight-bold"
+                    >
+                      <span class="itemCreated"> </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6 col-xl-4">
+                  <div class="row">
+                    <div class="col-5 d-flex justify-content-start">
+                      <span class="">Narration 1</span>
+                    </div>
+                    <div
+                      class="col-7 d-flex justify-content-start font-weight-bold"
+                    >
+                      <span class="itemCreated"> </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12 col-md-6 col-xl-4">
+                  <div class="row">
+                    <div class="col-5 d-flex justify-content-start">
+                      <span class="">Narration 2</span>
+                    </div>
+                    <div
+                      class="col-7 d-flex justify-content-start font-weight-bold"
+                    >
+                      <span class="itemCreated"> </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6 col-xl-4">
+                  <div class="row">
+                    <div class="col-5 d-flex justify-content-start">
+                      <span class="">Cash In</span>
+                    </div>
+                    <div
+                      class="col-7 d-flex justify-content-start font-weight-bold"
+                    >
+                      <span class="itemCreated"> </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6 col-xl-4">
+                  <div class="row">
+                    <div class="col-5 d-flex justify-content-start">
+                      <span class="">Cash Out</span>
+                    </div>
+                    <div
+                      class="col-7 d-flex justify-content-start font-weight-bold"
+                    >
+                      <span class="itemCreated"> </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12 col-md-6 col-xl-4">
+                  <div class="row">
+                    <div class="col-5 d-flex justify-content-start">
+                      <span class="">Balance</span>
+                    </div>
+                    <div
+                      class="col-7 d-flex justify-content-start font-weight-bold"
+                    >
+                      <span class="itemCreated"> </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row mx-auto px-auto py-2 border-bottom">
+      <div class="col-12 col-md-6 col-xl-4">
+        <div class="row">
+          <div class="col-5 d-flex justify-content-start">
+            <span class="font-weight-bold">Total Cash In</span>
+          </div>
+          <div class="col-7 d-flex justify-content-start font-weight-bold">
+            <span class="itemCreated"> </span>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-6 col-xl-4">
+        <div class="row">
+          <div class="col-5 d-flex justify-content-start">
+            <span class="font-weight-bold">Total Cash Out</span>
+          </div>
+          <div class="col-7 d-flex justify-content-start font-weight-bold">
+            <span class="itemCreated"> </span>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-6 col-xl-4">
+        <div class="row">
+          <div class="col-5 d-flex justify-content-start">
+            <span class="font-weight-bold">Net Balance</span>
+          </div>
+          <div class="col-7 d-flex justify-content-start font-weight-bold">
+            <span class="itemCreated"> </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--forwarded loans-->
+<div class="container mt-3 mb-0 shadow-lg">
+  <div class="row">
+    <div class="col-12">
+      <h5
+        class="rub-head4 text-uppercase text-info text-center font-weight-bold py-1"
+      >
+        forwarded Loans
+      </h5>
+      <hr class="mt-0 mb-2" />
+    </div>
+  </div>
+</div>
+<div class="col-12 py-2 mb-0 mx-0 px-0">
+  <div class="row mx-auto px-auto mb-2">
+    <div class="col-3 d-flex justify-content-start">
+      <span class="">Area: </span>
+    </div>
+    <div class="col-9 d-flex justify-content-start font-weight-bold">
+      <span class="itemCreated">Eastern </span>
+    </div>
+  </div>
+  <div class="iteration">
+    <div class="item-container-1 mt-1">
+      <div class="list-card-1 card mt-1 pt-2 mb-0 mx-auto px-0 pb-0 shadow-lg">
+        <div class="list-card-body card-body mt-0 pt-0 mb-0 pb-0 mx-0">
+          <div class="row my-0 py-0">
+            <div class="col-12">
+              <div class="row">
+                <div class="col-12 col-md-6 col-xl-4">
+                  <div class="row">
+                    <div class="col-5 d-flex justify-content-start">
+                      <span class="">Date</span>
+                    </div>
+                    <div
+                      class="col-7 d-flex justify-content-start font-weight-bold"
+                    >
+                      <span class="itemCreated"> </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6 col-xl-4">
+                  <div class="row">
+                    <div class="col-5 d-flex justify-content-start">
+                      <span class="">Time</span>
+                    </div>
+                    <div
+                      class="col-7 d-flex justify-content-start font-weight-bold"
+                    >
+                      <span class="itemCreated"> </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6 col-xl-4">
+                  <div class="row">
+                    <div class="col-5 d-flex justify-content-start">
+                      <span class="">Narration 1</span>
+                    </div>
+                    <div
+                      class="col-7 d-flex justify-content-start font-weight-bold"
+                    >
+                      <span class="itemCreated"> </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12 col-md-6 col-xl-4">
+                  <div class="row">
+                    <div class="col-5 d-flex justify-content-start">
+                      <span class="">Narration 2</span>
+                    </div>
+                    <div
+                      class="col-7 d-flex justify-content-start font-weight-bold"
+                    >
+                      <span class="itemCreated"> </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6 col-xl-4">
+                  <div class="row">
+                    <div class="col-5 d-flex justify-content-start">
+                      <span class="">Cash In</span>
+                    </div>
+                    <div
+                      class="col-7 d-flex justify-content-start font-weight-bold"
+                    >
+                      <span class="itemCreated"> </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6 col-xl-4">
+                  <div class="row">
+                    <div class="col-5 d-flex justify-content-start">
+                      <span class="">Cash Out</span>
+                    </div>
+                    <div
+                      class="col-7 d-flex justify-content-start font-weight-bold"
+                    >
+                      <span class="itemCreated"> </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12 col-md-6 col-xl-4">
+                  <div class="row">
+                    <div class="col-5 d-flex justify-content-start">
+                      <span class="">Balance</span>
+                    </div>
+                    <div
+                      class="col-7 d-flex justify-content-start font-weight-bold"
+                    >
+                      <span class="itemCreated"> </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row mx-auto px-auto py-2 border-bottom">
+      <div class="col-12 col-md-6 col-xl-4">
+        <div class="row">
+          <div class="col-5 d-flex justify-content-start">
+            <span class="font-weight-bold">Total Cash In</span>
+          </div>
+          <div class="col-7 d-flex justify-content-start font-weight-bold">
+            <span class="itemCreated"> </span>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-6 col-xl-4">
+        <div class="row">
+          <div class="col-5 d-flex justify-content-start">
+            <span class="font-weight-bold">Total Cash Out</span>
+          </div>
+          <div class="col-7 d-flex justify-content-start font-weight-bold">
+            <span class="itemCreated"> </span>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-6 col-xl-4">
+        <div class="row">
+          <div class="col-5 d-flex justify-content-start">
+            <span class="font-weight-bold">Net Balance</span>
+          </div>
+          <div class="col-7 d-flex justify-content-start font-weight-bold">
+            <span class="itemCreated"> </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--Running loans-->
+<div class="container mt-3 mb-0 shadow-lg">
+  <div class="row">
+    <div class="col-12">
+      <h5
+        class="rub-head4 text-uppercase text-info text-center font-weight-bold py-1"
+      >
+        Running Loans
+      </h5>
+      <hr class="mt-0 mb-2" />
+    </div>
+  </div>
+</div>
+<div class="col-12 py-2 mb-0 mx-0 px-0">
+  <div class="row mx-auto px-auto mb-2">
+    <div class="col-3 d-flex justify-content-start">
+      <span class="">Area: </span>
+    </div>
+    <div class="col-9 d-flex justify-content-start font-weight-bold">
+      <span class="itemCreated">Eastern </span>
+    </div>
+  </div>
+  <div class="iteration">
+    <div class="item-container-1 mt-1">
+      <div class="list-card-1 card mt-1 pt-2 mb-0 mx-auto px-0 pb-0 shadow-lg">
+        <div class="list-card-body card-body mt-0 pt-0 mb-0 pb-0 mx-0">
+          <div class="row my-0 py-0">
+            <div class="col-12">
+              <div class="row">
+                <div class="col-12 col-md-6 col-xl-4">
+                  <div class="row">
+                    <div class="col-5 d-flex justify-content-start">
+                      <span class="">Date</span>
+                    </div>
+                    <div
+                      class="col-7 d-flex justify-content-start font-weight-bold"
+                    >
+                      <span class="itemCreated"> </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6 col-xl-4">
+                  <div class="row">
+                    <div class="col-5 d-flex justify-content-start">
+                      <span class="">Time</span>
+                    </div>
+                    <div
+                      class="col-7 d-flex justify-content-start font-weight-bold"
+                    >
+                      <span class="itemCreated"> </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6 col-xl-4">
+                  <div class="row">
+                    <div class="col-5 d-flex justify-content-start">
+                      <span class="">Narration 1</span>
+                    </div>
+                    <div
+                      class="col-7 d-flex justify-content-start font-weight-bold"
+                    >
+                      <span class="itemCreated"> </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12 col-md-6 col-xl-4">
+                  <div class="row">
+                    <div class="col-5 d-flex justify-content-start">
+                      <span class="">Narration 2</span>
+                    </div>
+                    <div
+                      class="col-7 d-flex justify-content-start font-weight-bold"
+                    >
+                      <span class="itemCreated"> </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6 col-xl-4">
+                  <div class="row">
+                    <div class="col-5 d-flex justify-content-start">
+                      <span class="">Cash In</span>
+                    </div>
+                    <div
+                      class="col-7 d-flex justify-content-start font-weight-bold"
+                    >
+                      <span class="itemCreated"> </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6 col-xl-4">
+                  <div class="row">
+                    <div class="col-5 d-flex justify-content-start">
+                      <span class="">Cash Out</span>
+                    </div>
+                    <div
+                      class="col-7 d-flex justify-content-start font-weight-bold"
+                    >
+                      <span class="itemCreated"> </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12 col-md-6 col-xl-4">
+                  <div class="row">
+                    <div class="col-5 d-flex justify-content-start">
+                      <span class="">Balance</span>
+                    </div>
+                    <div
+                      class="col-7 d-flex justify-content-start font-weight-bold"
+                    >
+                      <span class="itemCreated"> </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row mx-auto px-auto py-2 border-bottom">
+      <div class="col-12 col-md-6 col-xl-4">
+        <div class="row">
+          <div class="col-5 d-flex justify-content-start">
+            <span class="font-weight-bold">Total Cash In</span>
+          </div>
+          <div class="col-7 d-flex justify-content-start font-weight-bold">
+            <span class="itemCreated"> </span>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-6 col-xl-4">
+        <div class="row">
+          <div class="col-5 d-flex justify-content-start">
+            <span class="font-weight-bold">Total Cash Out</span>
+          </div>
+          <div class="col-7 d-flex justify-content-start font-weight-bold">
+            <span class="itemCreated"> </span>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-6 col-xl-4">
+        <div class="row">
+          <div class="col-5 d-flex justify-content-start">
+            <span class="font-weight-bold">Net Balance</span>
+          </div>
+          <div class="col-7 d-flex justify-content-start font-weight-bold">
+            <span class="itemCreated"> </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--Received loans-->
+<div class="container mt-3 mb-0 shadow-lg">
+  <div class="row">
+    <div class="col-12">
+      <h5
+        class="rub-head4 text-uppercase text-info text-center font-weight-bold py-1"
+      >
+        Received Loans
+      </h5>
+      <hr class="mt-0 mb-2" />
+    </div>
+  </div>
+</div>
+<div class="col-12 py-2 mb-0 mx-0 px-0">
+  <div class="row mx-auto px-auto mb-2">
+    <div class="col-3 d-flex justify-content-start">
+      <span class="">Area: </span>
+    </div>
+    <div class="col-9 d-flex justify-content-start font-weight-bold">
+      <span class="itemCreated">Eastern </span>
+    </div>
+  </div>
+  <div class="iteration">
+    <div class="item-container-1 mt-1">
+      <div class="list-card-1 card mt-1 pt-2 mb-0 mx-auto px-0 pb-0 shadow-lg">
+        <div class="list-card-body card-body mt-0 pt-0 mb-0 pb-0 mx-0">
+          <div class="row my-0 py-0">
+            <div class="col-12">
+              <div class="row">
+                <div class="col-12 col-md-6 col-xl-4">
+                  <div class="row">
+                    <div class="col-5 d-flex justify-content-start">
+                      <span class="">Date</span>
+                    </div>
+                    <div
+                      class="col-7 d-flex justify-content-start font-weight-bold"
+                    >
+                      <span class="itemCreated"> </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6 col-xl-4">
+                  <div class="row">
+                    <div class="col-5 d-flex justify-content-start">
+                      <span class="">Time</span>
+                    </div>
+                    <div
+                      class="col-7 d-flex justify-content-start font-weight-bold"
+                    >
+                      <span class="itemCreated"> </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6 col-xl-4">
+                  <div class="row">
+                    <div class="col-5 d-flex justify-content-start">
+                      <span class="">Narration 1</span>
+                    </div>
+                    <div
+                      class="col-7 d-flex justify-content-start font-weight-bold"
+                    >
+                      <span class="itemCreated"> </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12 col-md-6 col-xl-4">
+                  <div class="row">
+                    <div class="col-5 d-flex justify-content-start">
+                      <span class="">Narration 2</span>
+                    </div>
+                    <div
+                      class="col-7 d-flex justify-content-start font-weight-bold"
+                    >
+                      <span class="itemCreated"> </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6 col-xl-4">
+                  <div class="row">
+                    <div class="col-5 d-flex justify-content-start">
+                      <span class="">Cash In</span>
+                    </div>
+                    <div
+                      class="col-7 d-flex justify-content-start font-weight-bold"
+                    >
+                      <span class="itemCreated"> </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6 col-xl-4">
+                  <div class="row">
+                    <div class="col-5 d-flex justify-content-start">
+                      <span class="">Cash Out</span>
+                    </div>
+                    <div
+                      class="col-7 d-flex justify-content-start font-weight-bold"
+                    >
+                      <span class="itemCreated"> </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12 col-md-6 col-xl-4">
+                  <div class="row">
+                    <div class="col-5 d-flex justify-content-start">
+                      <span class="">Balance</span>
+                    </div>
+                    <div
+                      class="col-7 d-flex justify-content-start font-weight-bold"
+                    >
+                      <span class="itemCreated"> </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row mx-auto px-auto py-2 border-bottom">
+      <div class="col-12 col-md-6 col-xl-4">
+        <div class="row">
+          <div class="col-5 d-flex justify-content-start">
+            <span class="font-weight-bold">Total Cash In</span>
+          </div>
+          <div class="col-7 d-flex justify-content-start font-weight-bold">
+            <span class="itemCreated"> </span>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-6 col-xl-4">
+        <div class="row">
+          <div class="col-5 d-flex justify-content-start">
+            <span class="font-weight-bold">Total Cash Out</span>
+          </div>
+          <div class="col-7 d-flex justify-content-start font-weight-bold">
+            <span class="itemCreated"> </span>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-6 col-xl-4">
+        <div class="row">
+          <div class="col-5 d-flex justify-content-start">
+            <span class="font-weight-bold">Net Balance</span>
+          </div>
+          <div class="col-7 d-flex justify-content-start font-weight-bold">
+            <span class="itemCreated"> </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--deferred loans-->
+<div class="container mt-3 mb-0 shadow-lg">
+  <div class="row">
+    <div class="col-12">
+      <h5
+        class="rub-head4 text-uppercase text-info text-center font-weight-bold py-1"
+      >
+        deferred Loans
+      </h5>
+      <hr class="mt-0 mb-2" />
+    </div>
+  </div>
+</div>
+<div class="col-12 py-2 mb-0 mx-0 px-0">
+  <div class="row mx-auto px-auto mb-2">
+    <div class="col-3 d-flex justify-content-start">
+      <span class="">Area: </span>
+    </div>
+    <div class="col-9 d-flex justify-content-start font-weight-bold">
+      <span class="itemCreated">Eastern </span>
+    </div>
+  </div>
+  <div class="iteration">
+    <div class="item-container-1 mt-1">
+      <div class="list-card-1 card mt-1 pt-2 mb-0 mx-auto px-0 pb-0 shadow-lg">
+        <div class="list-card-body card-body mt-0 pt-0 mb-0 pb-0 mx-0">
+          <div class="row my-0 py-0">
+            <div class="col-12">
+              <div class="row">
+                <div class="col-12 col-md-6 col-xl-4">
+                  <div class="row">
+                    <div class="col-5 d-flex justify-content-start">
+                      <span class="">Date</span>
+                    </div>
+                    <div
+                      class="col-7 d-flex justify-content-start font-weight-bold"
+                    >
+                      <span class="itemCreated"> </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6 col-xl-4">
+                  <div class="row">
+                    <div class="col-5 d-flex justify-content-start">
+                      <span class="">Time</span>
+                    </div>
+                    <div
+                      class="col-7 d-flex justify-content-start font-weight-bold"
+                    >
+                      <span class="itemCreated"> </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6 col-xl-4">
+                  <div class="row">
+                    <div class="col-5 d-flex justify-content-start">
+                      <span class="">Narration 1</span>
+                    </div>
+                    <div
+                      class="col-7 d-flex justify-content-start font-weight-bold"
+                    >
+                      <span class="itemCreated"> </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12 col-md-6 col-xl-4">
+                  <div class="row">
+                    <div class="col-5 d-flex justify-content-start">
+                      <span class="">Narration 2</span>
+                    </div>
+                    <div
+                      class="col-7 d-flex justify-content-start font-weight-bold"
+                    >
+                      <span class="itemCreated"> </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6 col-xl-4">
+                  <div class="row">
+                    <div class="col-5 d-flex justify-content-start">
+                      <span class="">Cash In</span>
+                    </div>
+                    <div
+                      class="col-7 d-flex justify-content-start font-weight-bold"
+                    >
+                      <span class="itemCreated"> </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6 col-xl-4">
+                  <div class="row">
+                    <div class="col-5 d-flex justify-content-start">
+                      <span class="">Cash Out</span>
+                    </div>
+                    <div
+                      class="col-7 d-flex justify-content-start font-weight-bold"
+                    >
+                      <span class="itemCreated"> </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12 col-md-6 col-xl-4">
+                  <div class="row">
+                    <div class="col-5 d-flex justify-content-start">
+                      <span class="">Balance</span>
+                    </div>
+                    <div
+                      class="col-7 d-flex justify-content-start font-weight-bold"
+                    >
+                      <span class="itemCreated"> </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row mx-auto px-auto py-2 border-bottom">
+      <div class="col-12 col-md-6 col-xl-4">
+        <div class="row">
+          <div class="col-5 d-flex justify-content-start">
+            <span class="font-weight-bold">Total Cash In</span>
+          </div>
+          <div class="col-7 d-flex justify-content-start font-weight-bold">
+            <span class="itemCreated"> </span>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-6 col-xl-4">
+        <div class="row">
+          <div class="col-5 d-flex justify-content-start">
+            <span class="font-weight-bold">Total Cash Out</span>
+          </div>
+          <div class="col-7 d-flex justify-content-start font-weight-bold">
+            <span class="itemCreated"> </span>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-6 col-xl-4">
+        <div class="row">
+          <div class="col-5 d-flex justify-content-start">
+            <span class="font-weight-bold">Net Balance</span>
+          </div>
+          <div class="col-7 d-flex justify-content-start font-weight-bold">
+            <span class="itemCreated"> </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--comprehensive report-->
+<div class="container mt-3 mb-0 shadow-lg">
+  <div class="row">
+    <div class="col-12">
+      <h5
+        class="rub-head4 text-uppercase text-info text-center font-weight-bold py-1"
+      >
+        comprehensive report
+      </h5>
+      <hr class="mt-0 mb-2" />
+    </div>
+  </div>
+</div>
+<div class="col-12 py-2 mb-0 mx-0 px-0">
+  <div class="row mx-auto px-auto mb-2">
+    <div class="col-3 d-flex justify-content-start">
+      <span class="">Area: </span>
+    </div>
+    <div class="col-9 d-flex justify-content-start font-weight-bold">
+      <span class="itemCreated">Eastern </span>
+    </div>
+  </div>
+  <div class="iteration">
+    <div class="item-container-1 mt-1">
+      <div class="list-card-1 card mt-1 pt-2 mb-0 mx-auto px-0 pb-0 shadow-lg">
+        <div class="list-card-body card-body mt-0 pt-0 mb-0 pb-0 mx-0">
+          <div class="row my-0 py-0">
+            <div class="col-12">
+              <div class="row">
+                <div class="col-12 col-md-6 col-xl-4">
+                  <div class="row">
+                    <div class="col-5 d-flex justify-content-start">
+                      <span class="">Date</span>
+                    </div>
+                    <div
+                      class="col-7 d-flex justify-content-start font-weight-bold"
+                    >
+                      <span class="itemCreated"> </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6 col-xl-4">
+                  <div class="row">
+                    <div class="col-5 d-flex justify-content-start">
+                      <span class="">Time</span>
+                    </div>
+                    <div
+                      class="col-7 d-flex justify-content-start font-weight-bold"
+                    >
+                      <span class="itemCreated"> </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6 col-xl-4">
+                  <div class="row">
+                    <div class="col-5 d-flex justify-content-start">
+                      <span class="">Narration 1</span>
+                    </div>
+                    <div
+                      class="col-7 d-flex justify-content-start font-weight-bold"
+                    >
+                      <span class="itemCreated"> </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12 col-md-6 col-xl-4">
+                  <div class="row">
+                    <div class="col-5 d-flex justify-content-start">
+                      <span class="">Narration 2</span>
+                    </div>
+                    <div
+                      class="col-7 d-flex justify-content-start font-weight-bold"
+                    >
+                      <span class="itemCreated"> </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6 col-xl-4">
+                  <div class="row">
+                    <div class="col-5 d-flex justify-content-start">
+                      <span class="">Cash In</span>
+                    </div>
+                    <div
+                      class="col-7 d-flex justify-content-start font-weight-bold"
+                    >
+                      <span class="itemCreated"> </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6 col-xl-4">
+                  <div class="row">
+                    <div class="col-5 d-flex justify-content-start">
+                      <span class="">Cash Out</span>
+                    </div>
+                    <div
+                      class="col-7 d-flex justify-content-start font-weight-bold"
+                    >
+                      <span class="itemCreated"> </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12 col-md-6 col-xl-4">
+                  <div class="row">
+                    <div class="col-5 d-flex justify-content-start">
+                      <span class="">Balance</span>
+                    </div>
+                    <div
+                      class="col-7 d-flex justify-content-start font-weight-bold"
+                    >
+                      <span class="itemCreated"> </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row mx-auto px-auto py-2 border-bottom">
+      <div class="col-12 col-md-6 col-xl-4">
+        <div class="row">
+          <div class="col-5 d-flex justify-content-start">
+            <span class="font-weight-bold">Total Cash In</span>
+          </div>
+          <div class="col-7 d-flex justify-content-start font-weight-bold">
+            <span class="itemCreated"> </span>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-6 col-xl-4">
+        <div class="row">
+          <div class="col-5 d-flex justify-content-start">
+            <span class="font-weight-bold">Total Cash Out</span>
+          </div>
+          <div class="col-7 d-flex justify-content-start font-weight-bold">
+            <span class="itemCreated"> </span>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-6 col-xl-4">
+        <div class="row">
+          <div class="col-5 d-flex justify-content-start">
+            <span class="font-weight-bold">Net Balance</span>
+          </div>
+          <div class="col-7 d-flex justify-content-start font-weight-bold">
+            <span class="itemCreated"> </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>

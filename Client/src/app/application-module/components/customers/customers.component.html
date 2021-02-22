@@ -1,5 +1,5 @@
 <div
-  class="container-fluid justify-content-center my-0 pt-1 pt-xl-0 pb-2 pb-md-0 shadow-lg col-xs-12 col-lg-12"
+  class="container-fluid justify-content-center mt-xl-0 mb-0 pt-1 pt-xl-0 pb-2 pb-md-0 shadow-lg col-xs-12"
 >
   <div class="jumbotron-fluid mx-0 px-0 mt-1 mt-xl-0 pt-3 pt-xl-0 mb-0 pb-0">
     <div
@@ -14,40 +14,32 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-12 col-sm-8 col-md-6 col-lg-4">
-          <div class="mt-0 pt-xl-0 mb-1 mb-md-2 mx-0 pl-0 pl-xl-2">
+        <div class="col-12 col-md-6 col-lg-4">
+          <div class="mt-1 mt-xl-0 pt-xl-0 mb-2 mx-0 pl-0 pl-xl-2 pr-0">
+            <!-- the search section -->
             <input
               type="text"
-              name=""
-              id="search"
-              class="form-control col-12"
               (input)="getValue($event)"
+              class="form-control col-12"
+              name=""
+              id="customer"
               placeholder="Search by Customer name"
               autocomplete="on"
             />
           </div>
         </div>
-        <div
-          class="col-12 col-md-6 col-lg-8 mx-0 pt-1 px-0 px-sm-5 px-md-0 pl-lg-4 d-flex justify-content-end"
-        >
+        <div class="col-12 col-md-6 col-lg-8 d-flex justify-content-end">
           <button
-            class="btn btn-primary my-2 ml-1 ml-sm-5 mx-md-1 ml-xl-5"
+            class="btn btn-primary my-2 ml-sm-4 ml-md-5 ml-xl-1 px-2"
             tooltip="Export to Excel"
             (click)="exportToExcel()"
           >
             <i class="fas fa-file-export"></i> Export
           </button>
-          <button
-            class="btn btn-info my-2 ml-1 ml-sm-5 mx-md-1"
-            tooltip="Create customer"
-            routerLink="/application/createcustomer"
-          >
-            <i class="fas fa-plus"></i> Customer
-          </button>
         </div>
       </div>
     </div>
-    <div class="row">
+    <div class="row my-0 py-0">
       <div class="col-12">
               <!--record container-->
         <div
@@ -76,13 +68,12 @@
             <img
               class="img-circle mx-auto mt-2 mt-md-0 mt-xl-1 mb-1 pb-0"
               [src]="customer.customerPhotoUrl"
-              
+              (click)="openModal(template, customer.customerPhotoUrl)"
             />
-            <!-- (click)="openModal(template, customer.customerPhotoUrl)" -->
           </div>
                     <div class="col-10 col-md-11 mx-md-0 px-md-0">
                       <div class="row mx-md-0 px-md-0">
-                        <div class="col-12 col-md-6 col-xl-3 mx-xl-0 px-xl-0">
+                        <div class="col-12 col-md-6 col-xl-4 mx-md-0 px-md-0">
                           <div class="row">
                             <div
                               class="col-5 col-md-3 d-flex justify-content-start mx-md-0 px-md-0"
@@ -96,15 +87,15 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-12 col-md-6 col-xl-5 mx-xl-0 px-xl-0">
+                        <div class="col-12 col-md-6 col-xl-4 mx-xl-0 px-xl-0">
                           <div class="row">
                             <div
-                              class="col-5 col-md-3 d-flex justify-content-start mx-md-0 px-md-0"
+                              class="col-5 col-md-3 col-xl-2 d-flex justify-content-start mx-md-0 px-md-0"
                             >
-                              <span class="">Customer</span>
+                              <span class="">Name</span>
                             </div>
                             <div
-                              class="col-7 col-md-9 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
+                              class="col-7 col-md-9 col-xl-10 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
                             >
                               <span class="itemCreated">
                                 {{ customer.customerName }}
@@ -112,7 +103,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-12 col-md-6 col-xl-4 mx-xl-0 px-xl-0">
+                        <div class="col-12 col-md-6 col-xl-4 mx-md-0 px-md-0">
                           <div class="row">
                             <div
                               class="col-5 col-md-3 d-flex justify-content-start mx-md-0 px-md-0"
@@ -224,9 +215,8 @@
       type="button"
       class="close pull-right"
       aria-label="Close"
-      
+      (click)="modalRef.hide()"
     >
-    <!-- (click)="modalRef.hide()" -->
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
@@ -237,9 +227,8 @@
           <div class="col-12 d-flex justify-content-center">
             <img
               class="img-circle-1 mx-auto mt-2 mt-md-0 mt-xl-1 mb-1 pb-0"
-              
+              [src]="imageUrl"
             />
-            <!-- [src]="imageUrl" -->
           </div>
         </div>
       </div>

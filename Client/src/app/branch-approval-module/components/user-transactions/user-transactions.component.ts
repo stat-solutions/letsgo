@@ -141,6 +141,11 @@ export class UserTransactionsComponent implements OnInit {
     }
     // this.onSubmit()
   }
+
+  openModal(template: TemplateRef<any>){
+    this.bsModalRef = this.bsModalService.show(template);
+  }
+
   defferLoan(template: TemplateRef<any>, id: number, index: number) {
     this.bsModalRef = this.bsModalService.show(template);
     this.makeLoansDeffered.push(this.receivedLoans[index]);
@@ -153,6 +158,7 @@ export class UserTransactionsComponent implements OnInit {
   cancel() {
     this.closeModal();
   }
+  
   forwardLoan(template: TemplateRef<any>, id: number, index: number) {
     this.bsModalRef = this.bsModalService.show(template);
     this.forwardedLoansTo.push(this.receivedLoans[index]);
