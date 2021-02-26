@@ -71,7 +71,7 @@ export class UserTransactionsComponent implements OnInit {
   getForwadedLoans(): any {
     this.filteredLoans = [];
     this.loanTable = [];
-    this.userTransactions.getForwardedHeadOfficeEntryLoans(this.User.branchId).subscribe((userData) => {
+    this.userTransactions.getForwardedLoanAdministrationExitLoans(this.User.branchId).subscribe((userData) => {
       this.loanTable = userData.map((eachUser) => {
         const oldDate = eachUser.CreatedAt;
         const diffInDates = moment(this.age).diff(moment(oldDate));
@@ -87,7 +87,7 @@ export class UserTransactionsComponent implements OnInit {
   getReceivedLoans(): any {
     this.filteredLoans = [];
     this.loanTable = [];
-    this.userTransactions.getReceivedHeadOfficeEntryLoans(this.User.branchId).subscribe((userData) => {
+    this.userTransactions.getReceivedLoanAdministrationExitLoans(this.User.branchId).subscribe((userData) => {
       this.loanTable = userData.map((eachUser) => {
         const oldDate = eachUser.CreatedAt;
         const diffInDates = moment(this.age).diff(moment(oldDate));
@@ -141,7 +141,7 @@ export class UserTransactionsComponent implements OnInit {
       userId: this.User.userId,
       loanComment: this.commentControls.comments.value.toUpperCase()
     };
-    this.userTransactions.forwardHeadOfficeEntryLoans(data).subscribe(
+    this.userTransactions.forwardLoanAdministrationExitLoans(data).subscribe(
       res => {
         this.posted = true;
         this.getReceivedLoans();
@@ -179,13 +179,13 @@ export class UserTransactionsComponent implements OnInit {
         });
       });
     }
-    this.userTransactions.receiveForwardedHeadOfficeEntryLoans(data).subscribe(
+    this.userTransactions.receiveForwardedLoanAdministrationExitLoans(data).subscribe(
       res => {
         this.getForwadedLoans();
         this.posted = true;
         this.spinner.hide();
         this.alertService.success({
-          html: '<b> There was a problem </b>',
+          html: '<b> Loan received successfully </b>',
         });
         this.spinner.hide();
       },
@@ -209,16 +209,4 @@ export class UserTransactionsComponent implements OnInit {
     this.forwardSelected(data);
     this.comment.reset();
   }
-  // onDeffer(array: Array<any>, id, index) {
-  //   this.receivedLoans = this.receivedLoans.filter((loans) => loans.Id !== id);
-  //   const level = this.deffer_controls.deffer_to.value;
-  //   this.deffer_controls.deffer_to.reset();
-  //   this.deffer_controls.deffer_reason.reset();
-  //   this.makeLoansDeffered = [];
-  //   this.closeModal();
-  //   this.alertService.success(
-  //     'Your loan has been deferred  successfully to ' + level
-  //   );
-  // }
 }
-

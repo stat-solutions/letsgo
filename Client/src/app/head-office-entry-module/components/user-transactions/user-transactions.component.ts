@@ -185,7 +185,7 @@ export class UserTransactionsComponent implements OnInit {
         this.posted = true;
         this.spinner.hide();
         this.alertService.success({
-          html: '<b> There was a problem </b>',
+          html: '<b> Loan received successfully</b>',
         });
         this.spinner.hide();
       },
