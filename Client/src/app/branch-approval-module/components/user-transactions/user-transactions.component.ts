@@ -141,9 +141,9 @@ export class UserTransactionsComponent implements OnInit {
         this.commentControls.comments.setValue('Please rectify this loan');
         break;
       case 'Reject':
-        this.commentControls.comments.setValue('Please rectify this loan');
+        this.commentControls.comments.setValue('This loan has been rejected');
         break;
-      case 'Forwad Approved':
+      case 'Forward Approved':
         this.commentControls.comments.setValue('Please receive this loan');
         break;
     }
@@ -209,7 +209,7 @@ export class UserTransactionsComponent implements OnInit {
       case 'Reject':
         this.rejectLoan(data);
         break;
-      case 'Forwad Approved':
+      case 'Forward Approved':
         this.forwadLoan(data);
         break;
     }

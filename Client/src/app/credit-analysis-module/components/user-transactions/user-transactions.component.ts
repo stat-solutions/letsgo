@@ -218,7 +218,7 @@ export class UserTransactionsComponent implements OnInit {
     this.actionLoan = loan;
     switch (this.actionType) {
       case 'Reject':
-        this.commentControls.comments.setValue('Please rectify this loan');
+        this.commentControls.comments.setValue('This loan has been rejected');
         break;
       case 'Forwad Approved':
         this.commentControls.comments.setValue('Please receive this loan');
@@ -235,7 +235,7 @@ export class UserTransactionsComponent implements OnInit {
       case 'Regional':
         this.commentControls.comments.setValue('Please rectify this loan');
         break;
-      case 'Forwad Approved':
+      case 'Forward Approved':
         this.commentControls.comments.setValue('Please receive this loan');
         break;
     }
@@ -310,7 +310,7 @@ export class UserTransactionsComponent implements OnInit {
         });
       });
     }
-    if (type === 'Forwaded') {
+    if (type === 'Forwarded') {
       this.receiveForwaded(data);
     } else {
       this.receiveDefered(data);
@@ -357,7 +357,7 @@ export class UserTransactionsComponent implements OnInit {
         deferData.movementStageId = 400;
         this.deferLoan(deferData);
         break;
-      case 'Forwad Approved':
+      case 'Forward Approved':
         this.forwadApprovedLoan(data);
         break;
     }
