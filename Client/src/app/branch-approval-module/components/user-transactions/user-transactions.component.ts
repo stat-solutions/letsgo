@@ -136,6 +136,17 @@ export class UserTransactionsComponent implements OnInit {
   openComment(loan: any, template: TemplateRef<any>, type: string): any {
     this.actionType = type;
     this.actionLoan = loan;
+    switch (this.actionType) {
+      case 'Defer':
+        this.commentControls.comments.setValue('Please rectify this loan');
+        break;
+      case 'Reject':
+        this.commentControls.comments.setValue('Please rectify this loan');
+        break;
+      case 'Forwad Approved':
+        this.commentControls.comments.setValue('Please receive this loan');
+        break;
+    }
     this.bsModalService.show(template);
   }
 
@@ -232,7 +243,7 @@ export class UserTransactionsComponent implements OnInit {
         this.getReceivedLoans();
         this.spinner.hide();
         this.alertService.success({
-          html: '<b>Operation was successful</b>',
+          html: '<b>' + res[0].theResponseStage.toUppercase() + '</b>',
         });
       },
       err => {
@@ -272,7 +283,7 @@ export class UserTransactionsComponent implements OnInit {
         this.getReceivedLoans();
         this.spinner.hide();
         this.alertService.success({
-          html: '<b>Operation was successful</b>',
+          html: '<b>' + res[0].theResponseStage.toUpperCase() + '</b>',
         });
       },
       err => {

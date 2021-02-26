@@ -66,7 +66,7 @@ export class UserTransactionsComponent implements OnInit {
   commentForm(): any {
     return new FormGroup({
         comments: this.fb.control(
-          '',
+          'Please rectify this loan',
           Validators.compose([Validators.required])
         ),
     });
@@ -217,6 +217,23 @@ export class UserTransactionsComponent implements OnInit {
   openComment(loan: any, template: TemplateRef<any>, type: string): any {
     this.actionType = type;
     this.actionLoan = loan;
+    switch (this.actionType) {
+      case 'Reject':
+        this.commentControls.comments.setValue('Please rectify this loan');
+        break;
+      case 'Rectified':
+        this.commentControls.comments.setValue('Please receive this loan');
+        break;
+      case 'Application':
+        this.commentControls.comments.setValue('Please rectify this loan');
+        break;
+      case 'Branch':
+        this.commentControls.comments.setValue('Please rectify this loan');
+        break;
+      case 'Forwad Approved':
+        this.commentControls.comments.setValue('Please receive this loan');
+        break;
+    }
     if (this.actionType !== 'Rectified'){
       const { customerName, loanThresholdType, loanTenure, loanAmount } = loan;
       this.setMaxtenureAndAmount(loanThresholdType);
@@ -387,7 +404,7 @@ export class UserTransactionsComponent implements OnInit {
         this.getRectifiedDefferredLoans();
         this.spinner.hide();
         this.alertService.success({
-          html: '<b>Operation was successful</b>',
+          html: '<b>' + res[0].theResponseStage.toUppercase() + '</b>',
         });
       },
       err => {
@@ -407,7 +424,7 @@ export class UserTransactionsComponent implements OnInit {
         this.getApprovedLoans();
         this.spinner.hide();
         this.alertService.success({
-          html: '<b>Operation was successful</b>',
+          html: '<b>' + res[0].theResponseStage.toUppercase() + '</b>',
         });
       },
       err => {
@@ -467,7 +484,7 @@ export class UserTransactionsComponent implements OnInit {
         this.getReceivedLoans();
         this.spinner.hide();
         this.alertService.success({
-          html: '<b>Operation was successful</b>',
+          html: '<b>' + res[0].theResponseStage.toUppercase() + '</b>',
         });
       },
       er => {

@@ -264,7 +264,7 @@ export class LoaningService {
     return this.http.get<any>(`${this.API_URL}/api/creditAnlysisUser/getReceivedCreditAnlysisDefferredLoans/?branchId=${id}`);
   }
   getRectifiedCreditAnlysisDefferredLoans(id: number): Observable<any> {
-    return this.http.get<any>(`${this.API_URL}/api/creditAnlysisUser/getRectifiedCreditAnlysisDefferredLoans/?branchId==${id}`);
+    return this.http.get<any>(`${this.API_URL}/api/creditAnlysisUser/getRectifiedCreditAnlysisDefferredLoans/?branchId=${id}`);
   }
   receiveForwardedCreditAnlysisLoans(postData: any): Observable<any> {
     return this.http.post<any>(`${this.API_URL}/api/creditAnlysisUser/receiveForwardedCreditAnlysisLoans`, postData);

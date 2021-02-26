@@ -183,6 +183,11 @@ export class UserTransactionsComponent implements OnInit {
   openComment(loan: any, template: TemplateRef<any>, type: string): any {
     this.actionType = type;
     this.actionLoan = loan;
+    switch (this.actionType) {
+      case 'Rectified':
+        this.commentControls.comments.setValue('Please receive this loan');
+        break;
+    }
     if (this.actionType !== 'Rectified'){
       const { customerName, loanThresholdType, loanTenure, loanAmount } = loan;
       this.setMaxtenureAndAmount(loanThresholdType);
@@ -216,7 +221,7 @@ export class UserTransactionsComponent implements OnInit {
       res => {
         this.posted = true;
         this.alertService.success({
-          html: '<b> Operation was successful</b>',
+          html: '<b>' + res[0].theResponseStage.toUppercase() + '</b>',
         });
         this.getCreatedLoans();
       }
