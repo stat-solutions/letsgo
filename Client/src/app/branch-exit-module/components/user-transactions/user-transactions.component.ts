@@ -53,11 +53,6 @@ export class UserTransactionsComponent implements OnInit {
     this.User = this.authService.loggedInUserInfo();
     this.getForwadedLoans();
     this.comment = this.commentForm();
-    this.errored = true;
-    this.spinner.hide();
-    this.alertService.danger({
-      html: '<b> There was a problem </b>',
-    });
   }
   pageChanged(event): any{
     this.currentPage = event;
@@ -65,7 +60,7 @@ export class UserTransactionsComponent implements OnInit {
   commentForm(): any {
     return new FormGroup({
         comments: this.fb.control(
-          '',
+          'Please receive this loan',
           Validators.compose([Validators.required])
         ),
     });
@@ -145,7 +140,7 @@ export class UserTransactionsComponent implements OnInit {
     const data = {
       loanId: loan.loanId,
       userId: this.User.userId,
-      loanComment: "Please receive this customer"
+      loanComment: this.commentControls.comments.value.toUpperCase()
     };
     this.userTransactions.forwardBranchExitLoans(data).subscribe(
       res => {
@@ -153,7 +148,7 @@ export class UserTransactionsComponent implements OnInit {
         this.getReceivedLoans();
         this.spinner.hide();
         this.alertService.success({
-          html: '<b> Operation was successful</b>',
+          html: '<b>' + res[0].theResponseStage.toUpperCase() + '</b>',
         });
       },
       err => {

@@ -15,18 +15,19 @@ export class DashboardComponent implements OnInit {
   public modalRef: BsModalRef;
   loanTable = [];
   filteredLoans = [];
-  specificLoanTable = []
-  search_customer:string;
-  totalItems:number;
-  id:string;
-  currentPage:number = 1;
+  specificLoanTable = [];
+  searchCustomer: string;
+  totalItems: number;
+  id: string;
+  currentPage = 1;
   pageSize = 10;
   age: number;
-  key:any = "Id"
+  key = "Id";
   csvTable = [];
-   @ViewChild('exportTable')exportExcel:ElementRef
-//excel sheet name
-fileName = "loanInfo.xlsx";
+   @ViewChild('exportTable')exportExcel: ElementRef;
+// excel sheet name
+  fileName = "loanInfo.xlsx";
+  reverse = false;
 
   constructor(
     private modalService: BsModalService,
@@ -34,50 +35,47 @@ fileName = "loanInfo.xlsx";
     private spinner: NgxSpinnerService,
     private fb: FormBuilder,
     private router: Router,
-    private activatedRouter:ActivatedRoute
+    private activatedRouter: ActivatedRoute
   ) {}
 
-  ngOnInit() {
-    setTimeout(() => {
-      this.landingPage.getAllLoanDetails().subscribe((userData) => {
-        this.loanTable = userData.map((eachUser) => {
-          const oldDate = eachUser.CreatedAt;
-          const diffInDates = moment(this.age).diff(moment(oldDate));
-          const timeInMonths = moment(diffInDates).format(
-            'MM [months] DD [days]'
-          );
-          return { ...eachUser, TotalAge: timeInMonths };
-        });
-        this.filteredLoans = this.loanTable;
-        this.totalItems = this.filteredLoans.length;
+  ngOnInit(): void {
+    this.landingPage.getAllLoanDetails().subscribe((userData) => {
+      this.loanTable = userData.map((eachUser) => {
+        const oldDate = eachUser.CreatedAt;
+        const diffInDates = moment(this.age).diff(moment(oldDate));
+        const timeInMonths = moment(diffInDates).format(
+          'MM [months] DD [days]'
+        );
+        return { ...eachUser, TotalAge: timeInMonths };
       });
-    },0)
+      this.filteredLoans = this.loanTable;
+      this.totalItems = this.filteredLoans.length;
+    });
   }
 
 
-  checkTable(array: Array<any>) {
+  checkTable(array: Array<any>): any {
     return array.length ? true : false;
   }
 
-  checkLoanStatus(array: Array<any>, loanStatus: string) {
+  checkLoanStatus(array: Array<any>, loanStatus: string): any {
     return array.filter((userData) => userData.LoanStatus === loanStatus)
       .length;
   }
 
-  getValue(event) {
+  getValue(event): any {
     console.log(event.target.value);
-    this.search_customer = event.target.value;
+    this.searchCustomer = event.target.value;
     if (event.target.value === '') {
       this.filteredLoans = this.loanTable;
       this.totalItems = this.filteredLoans.length;
     } else {
-      this.filteredLoans = this.filterCustomer(this.search_customer);
+      this.filteredLoans = this.filterCustomer(this.searchCustomer);
       this.totalItems = this.filteredLoans.length;
-
     }
   }
-  filterCustomer(searchTerm: string) {
-    if (searchTerm)
+  filterCustomer(searchTerm: string): any {
+    if (searchTerm) {
       return this.filteredLoans.filter(
         (loan) =>
           loan.Customer.toLowerCase().indexOf(searchTerm.toLowerCase()) !==
@@ -88,51 +86,49 @@ fileName = "loanInfo.xlsx";
             -1 ||
           loan.LoanType.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1
       );
+    }
   }
 
 
-  clickOnCustomer(id:number){
-        this.router.navigate(['admin/customerdetails', id], )
+  clickOnCustomer(id: number): any{
+        this.router.navigate(['admin/customerdetails', id], );
   }
-   pageChanged(event){
-     this.currentPage = event
-     console.log(this.filteredLoans.length)
-     //get
-     //if(currentPage )
+   pageChanged(event): any{
+     this.currentPage = event;
+     console.log(this.filteredLoans.length);
+     // get
+     // if(currentPage )
 
    }
 
-  public openModal(template: TemplateRef<any>, id:number, index:number) {
-    console.log(id, index)
-  this.landingPage.getLoanDetails(id).subscribe(details=>{
-    console.log(details)
-    this.specificLoanTable.push(details)
-  })
-  console.log(this.specificLoanTable)
-  if(this.checkTable(this.specificLoanTable)){
+  public openModal(template: TemplateRef<any>, id: number, index: number): any {
+    console.log(id, index);
+    this.landingPage.getLoanDetails(id).subscribe(details => {
+    console.log(details);
+    this.specificLoanTable.push(details);
+  });
+    console.log(this.specificLoanTable);
+    if (this.checkTable(this.specificLoanTable)){
        this.modalRef = this.modalService.show(
       template,
-      Object.assign({}, { class: 'white modal-lg modal-dialog-center' })
+      Object.assign({}, { class: 'modal-lg modal-dialog-center' })
     );
   }
   }
-  //exportto excel
-  exportToExcel(){
+  // exportto excel
+  exportToExcel(): any{
     const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(this.exportExcel.nativeElement);
 
-    //create a workbook and add work sheet
-    const wb:XLSX.WorkBook = XLSX.utils.book_new()
+    // create a workbook and add work sheet
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'Sheet 1');
 
-    //save fileName
-    XLSX.writeFile(wb, this.fileName)
+    // save fileName
+    XLSX.writeFile(wb, this.fileName);
   }
 
-
-
-   reverse:boolean = false;
-  sort(item:string){
+  sort(item: string): any{
     this.key = item;
-    this.reverse = !this.reverse
+    this.reverse = !this.reverse;
   }
 }

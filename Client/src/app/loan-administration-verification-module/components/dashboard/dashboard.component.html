@@ -183,7 +183,6 @@
     </div>
     <div class="row">
       <div class="col-12">
-
         <!--record container-->
         <div
           class="invest-card card mt-1 py-2 mb-2 mx-auto px-2 shadow-lg"
@@ -196,6 +195,7 @@
             <div class="item-container-1 mt-1">
               <div
                 class="list-card card mt-1 pt-2 mb-0 mx-auto px-0 pb-1 shadow-lg"
+                [ngClass]="(loans.ageSinceCreation)"
                 *ngFor="
                   let loans of filteredLoans
                     | orderBy: key:reverse
@@ -408,7 +408,10 @@
                               class="col-7 col-md-8 col-lg-9 d-flex justify-content-start font-weight-bold"
                             >
                               <span class="itemCreated">
-                                {{ loans.movementStatus }}
+                                {{ loans.movementStatus === 1 ? 'CREATED' : 
+                                loans.movementStatus === 2 ? 'FOWARDED' : 
+                                loans.movementStatus === 3 ? 'RECEIVED' : 
+                                loans.movementStatus === 4 ? 'DISBURSED' : 'DEFFERED' }}
                               </span>
                             </div>
                           </div>

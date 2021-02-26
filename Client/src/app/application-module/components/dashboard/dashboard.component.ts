@@ -54,7 +54,7 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  
+
   checkTable(array: Array<any>): any {
     return array.length ? true : false;
   }

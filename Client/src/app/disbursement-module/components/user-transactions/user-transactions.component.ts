@@ -59,7 +59,7 @@ export class UserTransactionsComponent implements OnInit {
   commentForm(): any {
     return new FormGroup({
         comments: this.fb.control(
-          '',
+          'Please rectify this loan',
           Validators.compose([Validators.required])
         ),
     });
@@ -134,6 +134,14 @@ export class UserTransactionsComponent implements OnInit {
   openComment(loan: any, template: TemplateRef<any>, type: string): any {
     this.actionType = type;
     this.actionLoan = loan;
+    switch (this.actionType) {
+      case 'Defer':
+        this.commentControls.comments.setValue('Please rectify this loan');
+        break;
+      case 'Forwad Approved':
+        this.commentControls.comments.setValue('Please receive this loan');
+        break;
+    }
     this.bsModalService.show(template);
   }
 
@@ -185,24 +193,13 @@ export class UserTransactionsComponent implements OnInit {
       userId: this.User.userId,
       loanComment: comment.toUpperCase()
     };
-    const deferData = {
-      loanId: this.actionLoan.loanId,
-      userId: this.User.userId,
-      loanComment: comment.toUpperCase(),
-      movementStageId: null
-    };
     this.closeModal();
     switch (this.actionType) {
       case 'Approve':
         this.approveLoan(data);
         break;
-      case 'Application':
-        deferData.movementStageId = 100;
-        this.deferLoan(deferData);
-        break;
-      case 'Branch':
-        deferData.movementStageId = 200;
-        this.deferLoan(deferData);
+      case 'Defer':
+        this.deferLoan(data);
         break;
       case 'Forwad Approved':
         this.disburseLoan(data);
@@ -238,7 +235,7 @@ export class UserTransactionsComponent implements OnInit {
         this.getReceivedLoans();
         this.spinner.hide();
         this.alertService.success({
-          html: '<b>Operation was successful</b>',
+          html: '<b>' + res[0].theResponseStage.toUpperCase() + '</b>',
         });
       },
       err => {
