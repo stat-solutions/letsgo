@@ -1,4 +1,10 @@
-import { FormBuilder, FormGroup, FormArray, Validators, FormControl } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  FormArray,
+  Validators,
+  FormControl,
+} from '@angular/forms';
 import { LoaningService } from '../../../shared/services/loaning.service';
 import { Component, OnInit, OnChanges, TemplateRef } from '@angular/core';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
