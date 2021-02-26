@@ -177,8 +177,8 @@ export class CreateLoansComponent implements OnInit {
     setTimeout(() => {
       const security = {
         securityTypeCode: null,
-        loanSecurityName: this.securityForm.controls.securityName.value,
-        loanSecurityLocation: this.securityForm.controls.securityLocation.value,
+        loanSecurityName: this.securityForm.controls.securityName.value.toUpperCase(),
+        loanSecurityLocation: this.securityForm.controls.securityLocation.value.toUpperCase(),
         loanSecurityPhotoUrl: this.securityPhotoUrl
       };
       this.securities.forEach( sec => {
@@ -208,8 +208,8 @@ export class CreateLoansComponent implements OnInit {
     setTimeout(() => {
       const security = {
         securityTypeCode: null,
-        loanSecurityName: this.securityForm.controls.securityName.value,
-        loanSecurityLocation: this.securityForm.controls.securityLocation.value,
+        loanSecurityName: this.securityForm.controls.securityName.value.toUpperCase(),
+        loanSecurityLocation: this.securityForm.controls.securityLocation.value.toUpperCase(),
         loanSecurityPhotoUrl: this.securityPhotoUrl
       };
       this.securities.forEach( sec => {
@@ -299,7 +299,7 @@ export class CreateLoansComponent implements OnInit {
       loanThresholdId: this.loanThresholdId,
       loanAmount: parseInt(this.fval.amount.value.replace(/[\D\s\._\-]+/g, ''), 10 ),
       loanTenure: this.fval.tenure.value,
-      comment: this.fval.comment.value,
+      comment: this.fval.comment.value.toUpperCase(),
       userId: this.User.userId,
       branchId: this.User.branchId
     });

@@ -61,7 +61,7 @@ export class ApproveUsersComponent implements OnInit {
       (res) => {
         this.roles = res;
         // tslint:disable-next-line: only-arrow-functions
-        this.roles = this.roles.map(function (role: any): any {
+        this.roles = this.roles.map(function(role: any): any {
           return {
             roleId: role.roleId,
             roleName: role.roleName.replace(/_/g, ' ').toUpperCase(),
@@ -75,10 +75,12 @@ export class ApproveUsersComponent implements OnInit {
   goToUsers(): any {
     this.router.navigate(['admin/users']);
   }
-
+  openModal(template: TemplateRef<any>, imageUrl: string): any {
+    // this.bsModalService.show(template);
+  }
   // closemodal popup
   closeModal(): any {
-    this.bsModalRef.hide();
+    this.bsModalService.hide();
   }
 
   // getrole FormControl
