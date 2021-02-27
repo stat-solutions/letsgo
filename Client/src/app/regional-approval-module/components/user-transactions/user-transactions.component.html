@@ -54,7 +54,7 @@
       </div>
       <div class="col-12 mx-0 px-3 py-2">
         <tabset >
-          <tab heading="Forwaded Loans" (selectTab)="getForwadedLoans()">
+          <tab heading="Forwarded Loans" (selectTab)="getForwadedLoans()">
             <div>
               <!--record container-->
               <div
@@ -62,7 +62,7 @@
               *ngIf="!filteredLoans.length"
             >
                 <div class="col-12 my-5 py-5 justify-content-between">
-                  <h4 class="text-center text-info">No Forwaded Loans yet</h4>
+                  <h4 class="text-center text-info">No Forwarded Loans yet</h4>
                 </div>
               </div>
             <div
@@ -102,7 +102,7 @@
                       >
                         <button
                           class="btn btn-info mx-md-0 px-0 py-1"
-                          (click)="receive(loans, 'One', 'Forwaded')"
+                          (click)="receive(loans, 'One', 'Forwarded')"
                         >
                           Receive
                         </button>
@@ -128,7 +128,7 @@
                               </div>
                             </div>
                             <div
-                              class="col-12 col-md-6 col-xl-6 mx-md-0 px-md-0"
+                              class="col-12 col-md-6 col-xl-5 mx-md-0 px-md-0"
                             >
                               <div class="row">
                                 <div
@@ -146,7 +146,7 @@
                               </div>
                             </div>
                             <div
-                              class="col-12 col-md-6 col-xl-3 mx-md-0 px-md-0"
+                              class="col-12 col-md-6 col-xl-4 mx-md-0 px-md-0"
                             >
                               <div class="row">
                                 <div
@@ -430,14 +430,14 @@
                                 <a
                                 class="dropdown-item text-primo-1 pointerCursor"
                                 (click)="openComment(loans, template, 'Application')"
-                                ><i class="fas fa-check"></i>
+                                >
 
                                   Application
                                 </a>
                                 <a
                                   class="dropdown-item text-primo-1 pointerCursor"
                                   (click)="openComment(loans, template, 'Branch')"
-                                  ><i class="fas fa-check"></i>
+                                  >
 
                                   Branch Approval
                                 </a>
@@ -446,16 +446,16 @@
                               class="dropdown-item text-primo-1 pointerCursor"
                               (click)="openComment(loans, template, 'Reject')"
                               [hidden]="loans.transactionStatus === 1"
-                              ><i class="fas fa-check"></i>
+                              ><i class="fas fa-times"></i>
 
                               Reject
                             </a>
                             <a
                               class="dropdown-item text-primo-1 pointerCursor"
-                              (click)="openComment(loans, template, 'Forwad Approved')"
+                              (click)="openComment(loans, template, 'Forward Approved')"
                               [hidden]="loans.transactionStatus !== 1"
-                              ><i class="fas fa-check"></i>
-                                Forwad
+                              ><i class="fas fa-chevron-right"></i>
+                                Forward
                             </a>
                           </div>
                         </div>
@@ -481,7 +481,7 @@
                               </div>
                             </div>
                             <div
-                              class="col-12 col-md-6 col-xl-6 mx-md-0 px-md-0"
+                              class="col-12 col-md-6 col-xl-5 mx-md-0 px-md-0"
                             >
                               <div class="row">
                                 <div
@@ -499,7 +499,7 @@
                               </div>
                             </div>
                             <div
-                              class="col-12 col-md-6 col-xl-3 mx-md-0 px-md-0"
+                              class="col-12 col-md-6 col-xl-4 mx-md-0 px-md-0"
                             >
                               <div class="row">
                                 <div
@@ -725,7 +725,7 @@
               *ngIf="!filteredLoans.length"
             >
                 <div class="col-12 my-5 py-5 justify-content-between">
-                  <h4 class="text-center text-info">No Deffered Loans yet</h4>
+                  <h4 class="text-center text-info">No Deferred Loans yet</h4>
                 </div>
               </div>
             <div
@@ -735,7 +735,7 @@
             <div class="col-12">
               <button
                 class="btn btn-primary my-2"
-                (click)="receive('None', 'All', 'Deffered')"
+                (click)="receive('None', 'All', 'Deferred')"
               >
                 Receive All
               </button>
@@ -765,7 +765,7 @@
                       >
                         <button
                           class="btn btn-info mx-md-0 px-0 py-1"
-                          (click)="receive(loans, 'One', 'Deffered')"
+                          (click)="receive(loans, 'One', 'Deferred')"
                         >
                           Receive
                         </button>
@@ -791,7 +791,7 @@
                               </div>
                             </div>
                             <div
-                              class="col-12 col-md-6 col-xl-6 mx-md-0 px-md-0"
+                              class="col-12 col-md-6 col-xl-5 mx-md-0 px-md-0"
                             >
                               <div class="row">
                                 <div
@@ -809,7 +809,7 @@
                               </div>
                             </div>
                             <div
-                              class="col-12 col-md-6 col-xl-3 mx-md-0 px-md-0"
+                              class="col-12 col-md-6 col-xl-4 mx-md-0 px-md-0"
                             >
                               <div class="row">
                                 <div
@@ -1032,7 +1032,7 @@
               *ngIf="!filteredLoans.length"
             >
                 <div class="col-12 my-5 py-5 justify-content-between">
-                  <h4 class="text-center text-info">No Received Defered Loans yet</h4>
+                  <h4 class="text-center text-info">No Deferred Loans Received yet</h4>
                 </div>
               </div>
              <div
@@ -1091,7 +1091,7 @@
                                 class="dropdown-item pointerCursor text-primo"
                                 (click)="openComment(loans, template, 'Rectified')"
                                 [hidden]="loans.transactionStatus !== 4"
-                              ><i class="fas fa-check"></i>
+                              ><i class="fas fa-chevron-right"></i>
                                 Forward
                             </a>
                           </div>
@@ -1455,7 +1455,7 @@
               editControls.customerName.errors?.required
             "
           >
-            The customer name is required!
+            The customer name is required
           </div>
           <div
             class="text-danger"
@@ -1465,7 +1465,7 @@
               editControls.customerName.errors?.minlength
             "
           >
-            At least four characters are required!
+            At least four characters are required
           </div>
         </div>
 
@@ -1514,7 +1514,7 @@
               editControls.loanType.errors?.required
             "
           >
-            The loan type is required!
+            The loan type is required
           </div>
           <div
             class="text-danger"
@@ -1523,7 +1523,7 @@
               editControls.loanType.errors?.required
             "
           >
-            Please enter valid loan type!
+            Please enter valid loan type
           </div>
         </div>
         <div class="form-group text-primary">
@@ -1563,7 +1563,7 @@
               editControls.tenure.errors?.required
             "
           >
-            The loan tenure is required!
+            The loan tenure is required
           </div>
         </div>
         <!--amount--->
@@ -1602,7 +1602,7 @@
               editControls.amount.errors?.required
             "
           >
-            The loan amount is required!
+            The loan amount is required
           </div>
           <div
           class="text-danger col"
@@ -1611,7 +1611,7 @@
             editControls.amount.errors?.hasNumber
           "
         >
-          Please enter valid amount to borrow!
+          Please enter valid amount to borrow
         </div>
         </div>
         <div class="d-flex my-2 py-2 mx-auto">
