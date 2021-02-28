@@ -282,9 +282,19 @@ export class UserTransactionsComponent implements OnInit {
     }
     this.userTransactions.receiveApplicationDefferedLoans(data).subscribe(
       res => {
-        console.log(res);
+        this.posted = true;
         this.getdefferedLoans();
         this.spinner.hide();
+        this.alertService.success({
+          html: '<b>received successfully</b>',
+        });
+      },
+      err => {
+        this.errored = true;
+        this.spinner.hide();
+        this.alertService.danger({
+          html: '<b> There was a problem </b>',
+        });
       }
     );
   }
@@ -316,7 +326,7 @@ export class UserTransactionsComponent implements OnInit {
         this.getRectifiedDefferredLoans();
         this.spinner.hide();
         this.alertService.success({
-          html: '<b>Operation was successful</b>',
+          html: '<b>' + res[0].theResponseStage.toUpperCase() + '</b>',
         });
       },
       err => {
@@ -336,7 +346,7 @@ export class UserTransactionsComponent implements OnInit {
         this.getReceivedDefferedLoans();
         this.spinner.hide();
         this.alertService.success({
-          html: '<b>Operation was successful</b>',
+          html: '<b>Loan was rectified successfully</b>',
         });
       },
       er => {

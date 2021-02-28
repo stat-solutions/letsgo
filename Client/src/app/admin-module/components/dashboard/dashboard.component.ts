@@ -22,16 +22,16 @@ export class DashboardComponent implements OnInit {
   currentPage = 1;
   pageSize = 10;
   age: number;
-  key = 'Id';
-  imageUrl: string;
+  key = "Id";
   csvTable = [];
-  @ViewChild('exportTable') exportExcel: ElementRef;
-  // excel sheet name
-  fileName = 'loanInfo.xlsx';
+   @ViewChild('exportTable')exportExcel: ElementRef;
+// excel sheet name
+  fileName = "loanInfo.xlsx";
+  reverse = false;
 
   constructor(
     private modalService: BsModalService,
-    private loaning: LoaningService,
+    private landingPage: LoaningService,
     private spinner: NgxSpinnerService,
     private fb: FormBuilder,
     private router: Router,
@@ -39,7 +39,7 @@ export class DashboardComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.loaning.getAllLoanDetails().subscribe((userData) => {
+    this.landingPage.getAllLoanDetails().subscribe((userData) => {
       this.loanTable = userData.map((eachUser) => {
         const oldDate = eachUser.CreatedAt;
         const diffInDates = moment(this.age).diff(moment(oldDate));
@@ -53,6 +53,7 @@ export class DashboardComponent implements OnInit {
     });
   }
 
+
   checkTable(array: Array<any>): any {
     return array.length ? true : false;
   }
@@ -63,7 +64,6 @@ export class DashboardComponent implements OnInit {
   }
 
   getValue(event): any {
-    console.log(event.target.value);
     this.searchCustomer = event.target.value;
     if (event.target.value === '') {
       this.filteredLoans = this.loanTable;
@@ -77,36 +77,48 @@ export class DashboardComponent implements OnInit {
     if (searchTerm) {
       return this.filteredLoans.filter(
         (loan) =>
-          loan.Customer.toLowerCase().indexOf(searchTerm.toLowerCase()) !==
+          loan.customerIdNumber.indexOf(searchTerm.toLowerCase()) !==
             -1 ||
-          loan.Stage.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1 ||
-          loan.Status.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1 ||
-          loan.LoanProduct.toLowerCase().indexOf(searchTerm.toLowerCase()) !==
+          loan.customerIdType.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1 ||
+          loan.customerName.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1 ||
+          loan.loanThresholdType.toLowerCase().indexOf(searchTerm.toLowerCase()) !==
             -1 ||
-          loan.LoanType.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1
+          loan.loanThresholdProduct.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1
+          || loan.loanOriginatingBranch.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1
+          || loan.movementStage.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1
       );
     }
   }
-  pageChanged(event): any {
-    this.currentPage = event;
-    console.log(this.filteredLoans.length);
-    // get
-    // if(currentPage )
-  }
 
-  public openModal(template: TemplateRef<any>, photoUrl: string): any {
-    this.imageUrl = photoUrl;
-    this.modalRef = this.modalService.show(
+
+  clickOnCustomer(id: number): any{
+        this.router.navigate(['admin/customerdetails', id], );
+  }
+   pageChanged(event): any{
+     this.currentPage = event;
+     console.log(this.filteredLoans.length);
+     // get
+     // if(currentPage )
+
+   }
+
+  public openModal(template: TemplateRef<any>, id: number, index: number): any {
+    console.log(id, index);
+    this.landingPage.getLoanDetails(id).subscribe(details => {
+    console.log(details);
+    this.specificLoanTable.push(details);
+  });
+    console.log(this.specificLoanTable);
+    if (this.checkTable(this.specificLoanTable)){
+       this.modalRef = this.modalService.show(
       template,
       Object.assign({}, { class: 'modal-lg modal-dialog-center' })
     );
   }
-
-  // export to excel
-  exportToExcel(): any {
-    const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(
-      this.exportExcel.nativeElement
-    );
+  }
+  // exportto excel
+  exportToExcel(): any{
+    const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(this.exportExcel.nativeElement);
 
     // create a workbook and add work sheet
     const wb: XLSX.WorkBook = XLSX.utils.book_new();
@@ -116,9 +128,11 @@ export class DashboardComponent implements OnInit {
     XLSX.writeFile(wb, this.fileName);
   }
 
-  reverse: boolean = false;
-  sort(item: string) {
+  sort(item: string): any{
     this.key = item;
     this.reverse = !this.reverse;
+  }
+  Number(val: string): any{
+    return Number(val);
   }
 }

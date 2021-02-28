@@ -195,7 +195,12 @@
             <div class="item-container-1 mt-1">
               <div
                 class="list-card card mt-1 pt-2 mb-0 mx-auto px-0 pb-1 shadow-lg"
-                [ngClass]="(loans.ageSinceCreation)"
+                (click)="openModal(template, loans.loanId)"
+                [ngClass]="{
+                  branch: (loans.theBranchTypeNow === 'BRANCH' && Number(loans.ageSinceCreation) < loans.loanThresholdTime), 
+                  headOffice: (loans.theBranchTypeNow === 'HEADOFFICE' && Number(loans.ageSinceCreation) < loans.loanThresholdTime ),
+                  loanAge: (Number(loans.ageSinceCreation) > loans.loanThresholdTime)
+                }"
                 *ngFor="
                   let loans of filteredLoans
                     | orderBy: key:reverse
@@ -216,7 +221,7 @@
                         <img
                           class="img-circle mx-auto mt-2 mt-md-0 mt-xl-1 mb-1 pb-0 d-flex justify-content-center"
                           [src]="loans.customerPhotoUrl"
-                          (click)="openModal(template, loans.customerPhotoUrl)"
+                          (click)="openModal(template, loans.loanId)"
                         />
                         <span class="d-flex justify-content-center"
                           >Customer</span
@@ -227,7 +232,7 @@
                           class="img-circle mx-auto mt-2 mt-md-0 mt-xl-1 mb-1 pb-0 d-flex justify-content-center"
                           [src]="loans.customerIdPhotoUrl"
                           (click)="
-                            openModal(template, loans.customerIdPhotoUrl)
+                            openModal(template, loans.loanId)
                           "
                         />
                         <span class="d-flex justify-content-center"
@@ -397,25 +402,48 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-12 col-md-6 col-xl-4 mx-md-0 px-md-0">
-                          <div class="row">
-                            <div
-                              class="col-5 col-md-4 col-lg-3 d-flex justify-content-start mx-md-0 px-md-0"
-                            >
-                              <span class="">Mov't Status:</span>
-                            </div>
-                            <div
-                              class="col-7 col-md-8 col-lg-9 d-flex justify-content-start font-weight-bold"
-                            >
-                              <span class="itemCreated">
-                                {{ loans.movementStatus === 1 ? 'CREATED' : 
-                                loans.movementStatus === 2 ? 'FOWARDED' : 
-                                loans.movementStatus === 3 ? 'RECEIVED' : 
-                                loans.movementStatus === 4 ? 'DISBURSED' : 'DEFFERED' }}
-                              </span>
+                        <div
+                            class="col-12 col-md-6 col-xl-4 mx-md-0 px-md-0"
+                          >
+                            <div class="row">
+                              <div
+                                class="col-5 col-md-4 col-lg-3 d-flex justify-content-start mx-md-0 px-md-0"
+                              >
+                                <span class="">Mov't Status:</span>
+                              </div>
+                              <div
+                                class="col-7 col-md-8 col-lg-9 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
+                              >
+                                <span class="itemCreated">
+                                  {{ loans.movementStatus === 1 ? 'CREATED' :
+                                  loans.movementStatus === 2 ? 'FOWARDED' :
+                                  loans.movementStatus === 3 ? 'RECEIVED' :
+                                  loans.movementStatus === 4 ? 'DISBURSED' : 'DEFFERED' }}
+                                </span>
+                              </div>
                             </div>
                           </div>
-                        </div>
+                          <div
+                              class="col-12 col-md-6 col-xl-4 mx-md-0 px-md-0"
+                            >
+                              <div class="row">
+                                <div
+                                  class="col-5 col-md-4 col-lg-3 d-flex justify-content-start mx-md-0 px-md-0"
+                                >
+                                  <span class="">Trasaction Status:</span>
+                                </div>
+                                <div
+                                  class="col-7 col-md-8 col-lg-9 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
+                                >
+                                  <span class="itemCreated">
+                                    {{ loans.transactionStatus === 0 ? 'NONE' :
+                                    loans.transactionStatus === 1 ? 'APPROVED' :
+                                    loans.transactionStatus === 2 ? 'DEFERED' :
+                                    loans.transactionStatus === 3 ? 'REJECETED' : 'RECTIFIED' }}
+                                  </span>
+                                </div>
+                              </div>
+                            </div>
                         <div class="col-12 col-md-6 col-xl-4 mx-md-0 px-md-0">
                           <div class="row">
                             <div

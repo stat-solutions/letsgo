@@ -59,7 +59,7 @@ export class UserTransactionsComponent implements OnInit {
   commentForm(): any {
     return new FormGroup({
         comments: this.fb.control(
-          'Please rectify this loan',
+          '',
           Validators.compose([Validators.required])
         ),
     });
@@ -175,7 +175,7 @@ export class UserTransactionsComponent implements OnInit {
         this.getForwadedLoans();
         this.spinner.hide();
         this.alertService.success({
-          html: '<b> Operation was successful</b>',
+          html: '<b> received successfully</b>',
         });
       },
       err => {
@@ -215,7 +215,7 @@ export class UserTransactionsComponent implements OnInit {
         this.getReceivedLoans();
         this.spinner.hide();
         this.alertService.success({
-          html: '<b>Operation was successful</b>',
+          html: '<b>Loan was approved successfully</b>',
         });
       },
       err => {
@@ -255,7 +255,7 @@ export class UserTransactionsComponent implements OnInit {
         this.getReceivedLoans();
         this.spinner.hide();
         this.alertService.success({
-          html: '<b>Operation was successful</b>',
+          html: '<b>Loan was disbursed successfully</b>',
         });
       },
       err => {

@@ -65,13 +65,10 @@ export class ViewLoggedinUsersComponent implements OnInit {
   filterCustomer(searchTerm: string): any {
     if (searchTerm) {
       return this.filteredUsers.filter(
-        (user) =>
-          user.name.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1 ||
-          user.status.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1 ||
-          user.branch.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1 ||
-          user.email.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1
-      );
-    }
+        user => user.userName.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1
+        || user.userEmail.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1
+        );
+      }
   }
 
   pageChanged(event): any {

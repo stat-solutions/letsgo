@@ -8,7 +8,7 @@
 }
 hr{
   width: 1%;
-  min-width: 3.0rem !important;
+  min-width: 1.5rem !important;
   border: 2px solid #bbb212b2;
 }
 
@@ -21,6 +21,42 @@ hr{
 .list-card:hover{
   border-left: 3px solid #114888ce;
 }
+.sm-card-1 {
+  background-image: linear-gradient(215deg, #114888ce, rgba(182, 188, 190, 0.7));
+  border: 0rem;
+}
+
+.sm-card-2 {
+  background-image: linear-gradient(215deg, #bbb212b7, rgba(182, 188, 190, 0.7));
+  border: 0rem;
+}
+
+.sm-card-3 {
+  background-image: linear-gradient(215deg, #114888ce, rgba(182, 188, 190, 0.7));
+  border: 0rem;
+}
+
+.sm-card-4 {
+  background-image: linear-gradient(215deg, #bbb212b7, rgba(182, 188, 190, 0.7));
+  border: 0rem;
+}
+
+.img-circle{
+  width: 60px;
+  height: 60px;
+}
+.branch {
+  background-color: rgb(29, 139, 29);
+  color:  white;
+}
+.headOffice{
+  background-color: rgb(182, 34, 137);
+  color:  white;
+}
+.loanAge {
+  background-color: var(--red);
+}
+
 
 
 
@@ -32,6 +68,52 @@ hr{
   }
 }
 
+@media (min-width: 360px) {
+  .sm-card-2 {
+      padding-left: 0px !important;
+      padding-right: 0px !important;
+  }
+  .sm-card-title-2 {
+      font-size: 11px !important;
+      margin-left: 0px !important;
+      padding-left: 2px !important;
+      padding-right: 0px !important;
+  }
+  .sm-card-3 {
+      padding-left: 0px !important;
+      padding-right: 0px !important;
+  }
+  .sm-card-title-3 {
+      font-size: 11px !important;
+      margin-left: 0px !important;
+      padding-left: 2px !important;
+      padding-right: 0px !important;
+  }
+  .sm-card-4 {
+      padding-left: 0px !important;
+      padding-right: 0px !important;
+  }
+  .sm-card-title-4 {
+      font-size: 11px !important;
+      margin-left: 0px !important;
+      padding-left: 3px !important;
+      padding-right: 3px !important;
+  }
+}
+
+@media (min-width: 568px) {
+  .jumbotron-fluid {
+    padding-top: 0px !important;
+  }
+}
+
+@media (min-width: 640px) {
+  .container {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
 @media (min-width: 768px) {
   .container {
     margin-left: 0px !important;
@@ -40,6 +122,18 @@ hr{
   .jumbotron-fluid {
     padding-top: .65rem !important;
     padding-bottom: 1.8rem !important;
+  }
+  .sm-card-1 {
+      min-width: 120px;
+  }
+  .sm-card-2 {
+      min-width: 120px;
+  }
+  .sm-card-3 {
+      min-width: 120px;
+  }
+  .sm-card-4 {
+      min-width: 125px;
   }
 }
 
@@ -59,9 +153,32 @@ hr{
     padding-top: .6rem !important;
     padding-bottom: 1.8rem !important;
   }
+ .stat-row .fas {
+      font-size: 17px !important;
+  }
+  .sm-card-1 {
+      min-width: 140px;
+  }
+  .sm-card-2 {
+      min-width: 140px;
+  }
+  .sm-card-3 {
+      min-width: 140px;
+  }
+  .sm-card-4 {
+      min-width: 140px;
+  }
+.img-circle{
+  width: 55px;
+  height: 55px;
+}
 }
 
 @media (min-width: 1100px) {
+.img-circle{
+  width: 35px;
+  height: 35px;
+}
 }
 
 @media (min-width: 1280px) {
@@ -73,6 +190,36 @@ hr{
     margin-top: 0px !important;
     padding-top: 0px !important;
     padding-bottom: 0rem !important;
+  }
+  .sm-card-1 {
+      min-width: 160px;
+      padding-left: 6px !important;
+      padding-right: 3px !important;
+  }
+  .sm-card-2 {
+      min-width: 160px;
+      padding-left: 8px !important;
+      padding-right: 3px !important;
+  }
+    .sm-card-3 {
+        min-width: 160px;
+    padding-left: 8px !important;
+      padding-right: 3px !important;
+  }
+    .sm-card-4 {
+      min-width: 160px;
+      padding-left: 8px !important;
+      padding-right: 3px !important;
+  }
+
+  .sm-card-title-2 {
+      font-size: 14px !important;
+  }
+  .sm-card-title-3 {
+      font-size: 14px !important;
+  }
+  .sm-card-title-4 {
+      font-size: 14px !important;
   }
 }
 
