@@ -65,7 +65,6 @@ export class DashboardComponent implements OnInit {
   }
 
   getValue(event): any {
-    console.log(event.target.value);
     this.searchCustomer = event.target.value;
     if (event.target.value === '') {
       this.filteredLoans = this.loanTable;
@@ -79,13 +78,15 @@ export class DashboardComponent implements OnInit {
     if (searchTerm) {
       return this.filteredLoans.filter(
         (loan) =>
-          loan.Customer.toLowerCase().indexOf(searchTerm.toLowerCase()) !==
+          loan.customerIdNumber.indexOf(searchTerm.toLowerCase()) !==
             -1 ||
-          loan.Stage.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1 ||
-          loan.Status.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1 ||
-          loan.LoanProduct.toLowerCase().indexOf(searchTerm.toLowerCase()) !==
+          loan.customerIdType.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1 ||
+          loan.customerName.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1 ||
+          loan.loanThresholdType.toLowerCase().indexOf(searchTerm.toLowerCase()) !==
             -1 ||
-          loan.LoanType.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1
+          loan.loanThresholdProduct.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1
+          || loan.loanOriginatingBranch.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1
+          || loan.movementStage.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1
       );
     }
   }
@@ -131,5 +132,8 @@ export class DashboardComponent implements OnInit {
   sort(item: string): any{
     this.key = item;
     this.reverse = !this.reverse;
+  }
+  Number(val: string): any{
+    return Number(val);
   }
 }

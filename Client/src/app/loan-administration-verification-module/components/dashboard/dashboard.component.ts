@@ -24,10 +24,10 @@ export class DashboardComponent implements OnInit {
   age: number;
   key = "Id";
   csvTable = [];
-  reverse = false;
    @ViewChild('exportTable')exportExcel: ElementRef;
 // excel sheet name
-fileName = "loanInfo.xlsx";
+  fileName = "loanInfo.xlsx";
+  reverse = false;
 
   constructor(
     private modalService: BsModalService,
@@ -39,20 +39,18 @@ fileName = "loanInfo.xlsx";
   ) {}
 
   ngOnInit(): void {
-    setTimeout(() => {
-      this.landingPage.getAllLoanDetails().subscribe((userData) => {
-        this.loanTable = userData.map((eachUser) => {
-          const oldDate = eachUser.CreatedAt;
-          const diffInDates = moment(this.age).diff(moment(oldDate));
-          const timeInMonths = moment(diffInDates).format(
-            'MM [months] DD [days]'
-          );
-          return { ...eachUser, TotalAge: timeInMonths };
-        });
-        this.filteredLoans = this.loanTable;
-        this.totalItems = this.filteredLoans.length;
+    this.landingPage.getAllLoanDetails().subscribe((userData) => {
+      this.loanTable = userData.map((eachUser) => {
+        const oldDate = eachUser.CreatedAt;
+        const diffInDates = moment(this.age).diff(moment(oldDate));
+        const timeInMonths = moment(diffInDates).format(
+          'MM [months] DD [days]'
+        );
+        return { ...eachUser, TotalAge: timeInMonths };
       });
-    }, 0);
+      this.filteredLoans = this.loanTable;
+      this.totalItems = this.filteredLoans.length;
+    });
   }
 
 
@@ -66,13 +64,12 @@ fileName = "loanInfo.xlsx";
   }
 
   getValue(event): any {
-    console.log(event.target.value);
-    this.  searchCustomer = event.target.value;
+    this.searchCustomer = event.target.value;
     if (event.target.value === '') {
       this.filteredLoans = this.loanTable;
       this.totalItems = this.filteredLoans.length;
     } else {
-      this.filteredLoans = this.filterCustomer(this.  searchCustomer);
+      this.filteredLoans = this.filterCustomer(this.searchCustomer);
       this.totalItems = this.filteredLoans.length;
     }
   }
@@ -80,20 +77,22 @@ fileName = "loanInfo.xlsx";
     if (searchTerm) {
       return this.filteredLoans.filter(
         (loan) =>
-          loan.Customer.toLowerCase().indexOf(searchTerm.toLowerCase()) !==
+          loan.customerIdNumber.indexOf(searchTerm.toLowerCase()) !==
             -1 ||
-          loan.Stage.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1 ||
-          loan.Status.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1 ||
-          loan.LoanProduct.toLowerCase().indexOf(searchTerm.toLowerCase()) !==
+          loan.customerIdType.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1 ||
+          loan.customerName.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1 ||
+          loan.loanThresholdType.toLowerCase().indexOf(searchTerm.toLowerCase()) !==
             -1 ||
-          loan.LoanType.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1
+          loan.loanThresholdProduct.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1
+          || loan.loanOriginatingBranch.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1
+          || loan.movementStage.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1
       );
     }
   }
 
 
   clickOnCustomer(id: number): any{
-        this.router.navigate(['loanverifn/customerdetails', id]);
+        this.router.navigate(['admin/customerdetails', id], );
   }
    pageChanged(event): any{
      this.currentPage = event;
@@ -113,7 +112,7 @@ fileName = "loanInfo.xlsx";
     if (this.checkTable(this.specificLoanTable)){
        this.modalRef = this.modalService.show(
       template,
-      Object.assign({}, { class: 'white modal-lg modal-dialog-center' })
+      Object.assign({}, { class: 'modal-lg modal-dialog-center' })
     );
   }
   }
@@ -132,5 +131,8 @@ fileName = "loanInfo.xlsx";
   sort(item: string): any{
     this.key = item;
     this.reverse = !this.reverse;
+  }
+  Number(val: string): any{
+    return Number(val);
   }
 }

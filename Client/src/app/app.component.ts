@@ -1,17 +1,13 @@
 import { Component } from '@angular/core';
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-
   constructor(){ }
   title = 'LoanLead';
-
-  updateME(){
-
-    this.title="Code 11 class";
+  updateME(): any{
+    this.title = "Code 11 class";
   }
 }

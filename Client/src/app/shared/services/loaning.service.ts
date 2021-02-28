@@ -13,98 +13,6 @@ export class LoaningService {
   private createdAt = momemt(1577826000000).format('MM/DD/YYYY, h:mm:ss ');
   private myCreatedAt = momemt(1588280400000).format('MM/DD/YYYY, h:mm:ss ');
   API_URL = environment.apiUrl;
-  private loanData = [
-    {
-      Id: 1,
-      Customer: 'Nicolas',
-      LoanType: 'Group',
-      LoanProduct: 'product 1',
-      Tenure: 9,
-      Amount: 500000,
-      Stage: 'Application',
-      Status: 'Notforwaded',
-      LoanMovedBy: 'Branch office',
-      StageAt: this.createdAt,
-      HowLong: 4,
-      CreatedAt: this.createdAt,
-      LoanStatus: 'running',
-      comment: 'loan created',
-      Branch: 'Application',
-      userName: 'Katende Nicholas',
-    },
-    {
-      Id: 5,
-      Customer: 'Henry',
-      LoanType: 'Group',
-      LoanProduct: 'product 1',
-      Tenure: 3,
-      Amount: 500000,
-      Stage: 'Branch',
-      Status: 'forwaded',
-      LoanMovedBy: 'Branch office',
-      StageAt: this.myCreatedAt,
-      HowLong: 1,
-      LoanStatus: 'rejected',
-      CreatedAt: this.myCreatedAt,
-      comment: 'loan forwarded',
-      Branch: 'BranchApproval',
-      userName: 'Katende Nicholas',
-    },
-    {
-      Id: 6,
-      Customer: 'Henry',
-      LoanType: 'Group',
-      LoanProduct: 'product 1',
-      Tenure: 3,
-      Amount: 500000,
-      Stage: 'Branch',
-      Status: 'forwaded',
-      LoanMovedBy: 'Branch office',
-      StageAt: this.myCreatedAt,
-      HowLong: 1,
-      LoanStatus: 'approved',
-      CreatedAt: this.myCreatedAt,
-      comment: 'loan forwarded',
-      Branch: 'BranchApproval',
-      userName: 'Katende Nicholas',
-    },
-    {
-      Id: 7,
-      Customer: 'Henry',
-      LoanType: 'Group',
-      LoanProduct: 'product 1',
-      Tenure: 3,
-      Amount: 500000,
-      Stage: 'Branch',
-      Status: 'forwaded',
-      LoanMovedBy: 'Branch office',
-      StageAt: this.myCreatedAt,
-      HowLong: 1,
-      LoanStatus: 'approved',
-      CreatedAt: this.myCreatedAt,
-      comment: 'loan created',
-      Branch: 'Application',
-      userName: 'Katende Nicholas',
-    },
-    {
-      Id: 8,
-      Customer: 'Henry',
-      LoanType: 'Group',
-      LoanProduct: 'product 1',
-      Tenure: 3,
-      Amount: 500000,
-      Stage: 'Branch',
-      Status: 'forwaded',
-      LoanMovedBy: 'Branch office',
-      StageAt: this.myCreatedAt,
-      HowLong: 1,
-      LoanStatus: 'approved',
-      CreatedAt: this.myCreatedAt,
-      comment: 'loan forwarded',
-      Branch: 'BranchApproval',
-      userName: 'Katende Nicholas',
-    }
-  ];
 
   constructor(private http: HttpClient) {}
   postCreateLoanThreshold(postData: any): any {
@@ -425,11 +333,7 @@ export class LoaningService {
     return this.http.post<any>(`${this.API_URL}/api/loanDisbursementUser/disburseLoanDisbursementLoans`, postData);
   }
 
-
-  getSpecificCustomers(stage: string): any {
-    return of(this.loanData.filter((loans) => loans.Stage === stage));
-  }
   getLoanDetails(id: number): any {
-    return of(this.loanData.find((loans) => loans.Id === id));
+    return this.http.get<any>(`${this.API_URL}/api/loan/getLoanMovementDetails/?loanId=${id}`);
   }
 }

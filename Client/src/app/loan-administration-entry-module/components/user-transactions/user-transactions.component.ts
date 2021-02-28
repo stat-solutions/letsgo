@@ -58,7 +58,7 @@ export class UserTransactionsComponent implements OnInit {
   commentForm(): any {
     return new FormGroup({
         comments: this.fb.control(
-          'Please receive this loan',
+          '',
           Validators.compose([Validators.required])
         ),
     });
@@ -184,7 +184,7 @@ export class UserTransactionsComponent implements OnInit {
         this.posted = true;
         this.spinner.hide();
         this.alertService.success({
-          html: '<b> Loan received successfully </b>',
+          html: '<b>received successfully </b>',
         });
         this.spinner.hide();
       },

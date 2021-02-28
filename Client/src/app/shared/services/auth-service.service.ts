@@ -119,8 +119,8 @@ export class AuthServiceService {
         userId: tk.userId,
         userPhone: tk.userPhone1,
         roleId: tk.roleId,
-        // branchId: tk.branchId,
-        branchId: 558,
+        branchId: tk.branchId,
+        // branchId: 554,
       };
   //     "userId": 10000009,
   // "userName": "Bazirake Augustine",
