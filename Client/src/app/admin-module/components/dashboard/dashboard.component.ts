@@ -4,8 +4,9 @@ import {FormControl, FormGroup, FormBuilder} from '@angular/forms';
 import {Router, ActivatedRoute} from '@angular/router';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
-import * as XLSX from 'xlsx';
 import { LoaningService } from 'src/app/shared/services/loaning.service';
+import { ExportService } from 'src/app/shared/services/export.service';
+
 @Component({
   selector: 'app-admin',
   templateUrl: './dashboard.component.html',
@@ -24,9 +25,6 @@ export class DashboardComponent implements OnInit {
   age: number;
   key = "Id";
   csvTable = [];
-   @ViewChild('exportTable')exportExcel: ElementRef;
-// excel sheet name
-  fileName = "loanInfo.xlsx";
   reverse = false;
 
   constructor(
@@ -35,7 +33,8 @@ export class DashboardComponent implements OnInit {
     private spinner: NgxSpinnerService,
     private fb: FormBuilder,
     private router: Router,
-    private activatedRouter: ActivatedRoute
+    private activatedRouter: ActivatedRoute,
+    private exportService: ExportService
   ) {}
 
   ngOnInit(): void {
@@ -118,14 +117,7 @@ export class DashboardComponent implements OnInit {
   }
   // exportto excel
   exportToExcel(): any{
-    const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(this.exportExcel.nativeElement);
-
-    // create a workbook and add work sheet
-    const wb: XLSX.WorkBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, 'Sheet 1');
-
-    // save fileName
-    XLSX.writeFile(wb, this.fileName);
+    this.exportService.exportExcel(this.filteredLoans, 'Loans');
   }
 
   sort(item: string): any{
