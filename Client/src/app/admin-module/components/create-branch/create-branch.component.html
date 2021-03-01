@@ -16,9 +16,9 @@ class="container-fluid d-flex flex-row justify-content-center mb-0 mt-1 pt-0 pt-
         <label
           for="branchName"
           [ngClass]="fval.branchName.valid ? 'text-info' : ''"
-          ><i *ngIf="fval.branchName.valid" class="material-icons"
+          >Branch Name<i *ngIf="fval.branchName.valid" class="material-icons"
             >check_circle</i
-          >Branch Name</label
+          ></label
         >
         <div class="input-group mb-0">
           <div class="input-group-prepend">
@@ -49,7 +49,7 @@ class="container-fluid d-flex flex-row justify-content-center mb-0 mt-1 pt-0 pt-
             fval.branchName.errors?.required
           "
         >
-          The branch name is required!
+          The branch name is required
         </div>
         <div
         class="text-danger col"
@@ -58,7 +58,7 @@ class="container-fluid d-flex flex-row justify-content-center mb-0 mt-1 pt-0 pt-
           fval.branchName.errors?.minlength
         "
       >
-        At least two characters required!
+        At least two characters required
       </div>
 
       </div>
@@ -67,9 +67,9 @@ class="container-fluid d-flex flex-row justify-content-center mb-0 mt-1 pt-0 pt-
         <label
           for="position"
           [ngClass]="fval.branchType.valid ? 'text-info' : ''"
-          ><i *ngIf="fval.branchType.valid" class="material-icons"
+          >Branch Type<i *ngIf="fval.branchType.valid" class="material-icons"
             >check_circle</i
-          >Branch Type</label
+          ></label
         >
         <div class="input-group mb-0">
           <div class="input-group-prepend">
@@ -102,7 +102,7 @@ class="container-fluid d-flex flex-row justify-content-center mb-0 mt-1 pt-0 pt-
             fval.branchType.errors?.required
           "
         >
-          The Branch Type is required!
+          The Branch Type is required
         </div>
       </div>
       <!--entity-name-->
@@ -110,7 +110,7 @@ class="container-fluid d-flex flex-row justify-content-center mb-0 mt-1 pt-0 pt-
           class="text-danger col"
           *ngIf="invalid"
         >
-          All fields are required!
+          All fields are required
         </div>
       <div class="d-flex my-2 py-2 mx-auto">
         <button
@@ -120,7 +120,7 @@ class="container-fluid d-flex flex-row justify-content-center mb-0 mt-1 pt-0 pt-
           Create
         </button>
         <ngx-spinner class="bg-info" size="medium" type="ball-scale-multiple">
-          <p class="text-light">Please wait...</p>
+          <p class="text-info">Please wait...</p>
         </ngx-spinner>
         <ngx-alerts></ngx-alerts>
         <label class="col" *ngIf="posted" class="text-info">

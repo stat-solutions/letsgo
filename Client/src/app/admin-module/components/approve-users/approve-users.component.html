@@ -57,36 +57,36 @@
                   </div>
             <div class="col-10 col-md-11 mx-lg-0 px-lg-0">
                 <div class="row mx-0 px-0">
-                  <div class="col-12 col-md-6">
+                  <div class="col-12 col-md-4 col-lg-2 mx-lg-0 px-lg-0">
                     <div class="row">
-                      <div class="col-3 col-xl-2 d-flex justify-content-start mx-md-0 px-md-0">
-                      <span class="">User ID</span>
+                      <div class="col-5 col-md-3 col-lg-4 d-flex justify-content-start mx-md-0 px-md-0">
+                      <span class="">User ID:</span>
                     </div>
                       <div
-                        class="col-9 col-xl-10 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
+                        class="col-7 col-md-9 col-lg-8 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
                       >
                       <span class="itemCreated">
                         {{ user.userId }}</span>
                     </div>
                   </div>
                 </div>
-                <div class="col-12 col-md-6 ">
+                <div class="col-12 col-md-8 col-lg-4 mx-lg-0 px-lg-0">
                   <div class="row">
-                      <div class="col-3 col-xl-2 d-flex justify-content-start mx-md-0 px-md-0">
-                      <span class="">User Name</span>
+                      <div class="col-6 col-md-3 d-flex justify-content-start mx-md-0 px-md-0">
+                      <span class="">User Name:</span>
                     </div>
                       <div
-                        class="col-9 col-xl-10 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
+                        class="col-6 col-md-9 d-flex justify-content-start font-weight-bold mx-0 px-0"
                       >
                       <span class="itemCreated">
                       {{ user.userName.toUpperCase() }}</span>
                     </div>
                   </div>
                 </div>
-                <div class="col-12 col-md-6">
+                <div class="col-12 col-md-8 col-lg-4 mx-lg-0 px-lg-0">
                   <div class="row">
                       <div class="col-3 col-xl-2 d-flex justify-content-start mx-md-0 px-md-0">
-                      <span class="">Email</span>
+                      <span class="">Email:</span>
                     </div>
                       <div
                         class="col-9 col-xl-10 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
@@ -95,21 +95,16 @@
                         {{ user.userEmail}}</span>
                     </div>
                   </div>
-                </div> <div class="col-12 col-md-6">
-                  <div class="row">
-                      <div
-                        class="col-9 col-xl-10 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
-                      >
+                </div>
+                 <div class="col-12 col-md-4 col-lg-2 mt-1 mt-md-0 mx-lg-0 px-lg-0">
                       <button
                         type="button"
                         class="btn btn-info"
                         tooltip="Assign user role"
                         (click)="approveUser(template, user, i)"
                       >
-                        Assign Role
+                        AssignRole
                       </button>
-                    </div>
-                  </div>
                 </div>
               </div>
             </div>
@@ -137,13 +132,13 @@
                 </div>
                 <div class="modal-body">
                   <div class="form-group" [formGroup]="userRole">
-                    <label for="c">AssignRoleTo</label>
+                    <label for="c">Assign Role To</label>
                     <div>
                       <select
                         placeholder="assign role"
                         (change)="assignRole($event)"
                       >
-                        <option selected disabled>AssignRole</option>
+                        <option selected disabled>Assigned Role</option>
                         <option [ngValue]="role" *ngFor="let role of roles">
                           {{ role.roleName }}
                         </option>
