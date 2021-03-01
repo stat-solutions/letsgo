@@ -42,15 +42,20 @@ hr{
 }
 
 .img-circle{
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+.img-circle-2{
   width: 60px;
-  height: 60px;
+  height: 45px;
 }
 .branch {
-  background-color: rgb(29, 139, 29);
+  background-color: rgb(39, 117, 39);
   color:  white;
 }
 .headOffice{
-  background-color: rgb(182, 34, 137);
+  background-color: rgb(133, 37, 104);
   color:  white;
 }
 .loanAge {
@@ -171,6 +176,10 @@ hr{
 .img-circle{
   width: 55px;
   height: 55px;
+}
+.img-circle-2{
+  width: 65px;
+  height: 50px;
 }
 }
 
