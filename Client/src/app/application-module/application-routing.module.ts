@@ -14,7 +14,7 @@ import { ApplicationGuard } from '../shared/services/route-guards/application-gu
 const routes: Routes = [
   {
     path: 'application',
-    canActivateChild: [ApplicationGuard],
+    // canActivateChild: [ApplicationGuard],
     component: PagesCoreAdminComponent,
     children: [
       {
