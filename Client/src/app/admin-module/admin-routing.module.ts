@@ -21,7 +21,7 @@ const routes: Routes = [
   {
     path: 'admin',
     component: PagesCoreAdminComponent,
-    // canActivateChild: [AdminGuard],
+    canActivateChild: [AdminGuard],
     children: [
       {
         path: '',
@@ -71,7 +71,7 @@ const routes: Routes = [
         component: CreateBranchComponent,
       },
       {
-        path: 'editbranch/:branch',
+        path: 'editbranch',
         component: EditBranchComponent,
       },
       {

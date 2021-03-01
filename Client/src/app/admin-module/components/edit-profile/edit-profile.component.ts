@@ -41,15 +41,14 @@ export class EditProfileComponent implements OnInit {
     private spinner: NgxSpinnerService,
     private bsModalService: BsModalService
   ) {}
-  ngOnInit() {
-    this.userData = this.EditUser.getSpecificUser('katznicho@gmail.com');
+  ngOnInit(): void {
     this.myDateValue = new Date();
     this.userForm = this.createFormGroup();
     this.disableForm();
   }
 
-  //here
-  createFormGroup() {
+  // here
+  createFormGroup(): any {
     return this.fb.group(
       {
         full_name: new FormControl(''),
@@ -150,44 +149,36 @@ export class EditProfileComponent implements OnInit {
     );
   }
 
-  revert() {
+  revert(): any {
     this.userForm.reset();
   }
 
-  get fval() {
+  get fval(): any {
     return this.userForm.controls;
   }
-  disableForm() {
+  disableForm(): any {
     return this.userForm.disable();
   }
-  getBranch(event) {}
+  getBranch(event): any {}
 
-  enableEdit() {
-    this.fval.full_name.setValue(this.userData.userName);
-    this.fval.email2.setValue(this.userData.userEmail);
-    this.fval.user_contact_number1.setValue(this.userData.userNumber);
-    this.fval.branches.setValue(this.userData.userBranch);
+  enableEdit(): any {
     return this.userForm.enable();
   }
 
-  //toggle visibility of password field
-  toggleFieldType() {
+  // toggle visibility of password field
+  toggleFieldType(): any {
     this.fieldType = !this.fieldType;
   }
-  returnHome() {
+  returnHome(): any {
     this.spinner.hide();
     this.revert();
-
-    // setTimeout(() => {
-    //   this.router.navigate(['authpage/loginpage']);
-    // }, 2000);
   }
-  cancel() {
+  cancel(): any {
     this.userForm.reset();
     return this.userForm.disable();
   }
 
-  setProfileValues() {}
+  setProfileValues(): any {}
   update(template: TemplateRef<any>) {
     this.bsModalRef = this.bsModalService.show(template);
   }

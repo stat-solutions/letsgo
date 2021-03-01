@@ -14,9 +14,9 @@ import { ContentSectionAdminComponent } from './content-section/content-section-
 import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import {CustomersComponent} from './components/customers/customers.component';
-import  {EditProfileComponent} from './components/edit-profile/edit-profile.component';
+import {EditProfileComponent} from './components/edit-profile/edit-profile.component';
 import {ReportsComponent} from './components/reports/reports.component' ;
-import  {UserTransactionsComponent} from './components/user-transactions/user-transactions.component';
+import {UserTransactionsComponent} from './components/user-transactions/user-transactions.component';
 import {ModalModule} from 'ngx-bootstrap/modal';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { OrderModule } from 'ngx-order-pipe';

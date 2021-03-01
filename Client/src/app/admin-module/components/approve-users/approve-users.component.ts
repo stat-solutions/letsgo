@@ -6,6 +6,9 @@ import { Router } from '@angular/router';
 import { UsersService } from 'src/app/shared/services/users.service';
 import * as XLSX from 'xlsx';
 import { AuthServiceService } from 'src/app/shared/services/auth-service.service';
+import { ExportService } from 'src/app/shared/services/export.service';
+import { AlertService } from 'ngx-alerts';
+
 @Component({
   selector: 'app-approve-users',
   templateUrl: './approve-users.component.html',
@@ -17,6 +20,8 @@ export class ApproveUsersComponent implements OnInit {
   fileName = 'users.xlsx';
   reverse = false;
   approvedUsers: any;
+  posted: boolean;
+  errored: boolean;
   roles: any;
   bsModalRef: BsModalRef;
   userName: string;
@@ -37,6 +42,8 @@ export class ApproveUsersComponent implements OnInit {
     private spinner: NgxSpinnerService,
     private fb: FormBuilder,
     private bsModalService: BsModalService,
+    private alertService: AlertService,
+    private exportService: ExportService,
     private router: Router
   ) {}
   ngOnInit(): void {
@@ -118,17 +125,8 @@ export class ApproveUsersComponent implements OnInit {
     this.disableButton = false;
   }
 
-  exportToExcel(): any {
-    // pass the table to worksheet
-    // const element =  document.getElementById('export-table');
-    const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(this.element);
-
-    // create a workbook and add work sheet
-    const wb: XLSX.WorkBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, 'Sheet 1');
-
-    // save fileName
-    XLSX.writeFile(wb, this.fileName);
+  exportToExcel(): any{
+    this.exportService.exportExcel(this.filteredUsers, 'registeredusers');
   }
 
   approveUser(template: TemplateRef<any>, id: number, index: number): any {
@@ -147,15 +145,21 @@ export class ApproveUsersComponent implements OnInit {
     };
     // console.log(data);
     this.userService.rejectUser(data).subscribe(
-      (res) => {},
-      (err) => console.log(err.error.error.message)
+      (res) => {
+        this.posted = true;
+        this.alertService.success({
+            html: '<b> Approved successfully<b>',
+          });
+      },
+      (err) =>{
+        this.errored = true;
+        this.alertService.danger({
+            html: '<b> There was a problem<b>',
+        });
+      }
     );
     this.fval.role.reset();
     this.closeModal();
-    setTimeout(() => {
-      // this.spinner.hide();
-      location.reload();
-    }, 1000);
   }
 
   approvedUser(userInfo: any, id, index): any {
@@ -174,14 +178,22 @@ export class ApproveUsersComponent implements OnInit {
     });
     // console.log(data);
     this.userService.approveUser(data).subscribe(
-      (res) => {},
-      (err) => console.log(err.error.error.message)
+      (res) => {
+        this.posted = true;
+        this.getUserToApproval();
+        this.alertService.success({
+            html: '<b> Approved successfully<b>',
+          });
+      },
+      (err) =>{
+        this.errored = true;
+        this.getUserToApproval();
+        this.alertService.danger({
+            html: '<b> There was a problem<b>',
+        });
+      }
     );
     this.fval.role.reset();
     this.closeModal();
-    setTimeout(() => {
-      // this.spinner.hide();
-      location.reload();
-    }, 1000);
   }
 }

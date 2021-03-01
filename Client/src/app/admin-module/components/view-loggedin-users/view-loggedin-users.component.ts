@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { UsersService } from 'src/app/shared/services/users.service';
 import { AuthServiceService } from 'src/app/shared/services/auth-service.service';
+import { ExportService } from 'src/app/shared/services/export.service';
+import { AlertService } from 'ngx-alerts';
 
 @Component({
   selector: 'app-view-loggedin-users',
@@ -25,6 +27,8 @@ export class ViewLoggedinUsersComponent implements OnInit {
   key = 'userId';
   reverse = false;
   imageUrl: string;
+  posted: boolean;
+  errored: boolean;
   @ViewChild('exportTable') element: ElementRef;
   User = this.authService.loggedInUserInfo();
 
@@ -32,10 +36,15 @@ export class ViewLoggedinUsersComponent implements OnInit {
     private authService: AuthServiceService,
     private userService: UsersService,
     private modalService: BsModalService,
+    private exportService: ExportService,
+    private alertService: AlertService,
     private router: Router
   ) {}
 
   ngOnInit(): any {
+    this.getLoggedInUsers();
+  }
+  getLoggedInUsers(): any{
     this.userService.getLoggedInUsers().subscribe((loggedIn) => {
       if (loggedIn.length > 0) {
         this.loggedInUsers = loggedIn.filter(itm =>  itm.loggedInUsersId === this.User.userId );
@@ -65,8 +74,9 @@ export class ViewLoggedinUsersComponent implements OnInit {
   filterCustomer(searchTerm: string): any {
     if (searchTerm) {
       return this.filteredUsers.filter(
-        user => user.userName.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1
-        || user.userEmail.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1
+        user =>  user.userName.toLowerCase().indexOf(searchTerm.toLowerCase()) !==
+            -1 ||
+          user.userEmail.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1
         );
       }
   }
@@ -88,50 +98,29 @@ export class ViewLoggedinUsersComponent implements OnInit {
       Object.assign({}, { class: 'modal-dialog-center' })
     );
   }
-  exportToExcel(): any {
-    // pass the table to worksheet
-    // const element =  document.getElementById('export-table');
-    const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(this.element);
-
-    // create a workbook and add work sheet
-    const wb: XLSX.WorkBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, 'Sheet 1');
-
-    // save fileName
-    XLSX.writeFile(wb, this.fileName);
+  exportToExcel(): any{
+    this.exportService.exportExcel(this.filteredUsers, 'loggenInUsers');
   }
-  // exportAsCSV(){
-  //    var options = {
-  //   fieldSeparator: ',',
-  //   headers: ['userId', 'userName', 'LoanType', 'LoanProduct', 'Tenure', 'Amount', 'Stage',
-  //   'Status','LoanMovedBy', 'StageAt', 'Age', 'CreatedAt', 'TotalAge']
-  // };
-  //   //new ngxCsv(this.filteredCustomerData, ‘CustomerData’)
-  //   new ngxCsv(this.filteredUsers ,'userData', options)
-
-  // }
   logOut(id: number): any {
-    // this.loggedInUser.logOutUser(id, email, i);
-    // get the user details send them to service
-    this.userService.userLogOut(id).subscribe((loggedIn) => {
-      this.loggedInUsers = loggedIn;
-      this.filteredUsers = this.loggedInUsers;
-      this.totalItems = this.loggedInUsers.length;
-    });
+    this.userService.userLogOut(id).subscribe(
+    (res) => {
+      this.posted = true;
+      this.getLoggedInUsers();
+      this.alertService.success({
+        html: '<b> User was logged out successfully<b>',
+      });
+    },
+    (error) => {
+      this.errored = true;
+      this.alertService.danger({
+        html: '<b> There was a problem<b>',
+      });
+    }
+    );
   }
 
   approveUsers(): any {
     this.router.navigate(['admin/approveusers']);
   }
-
-  // exportAsCSV(){
-  //    var options = {
-  //   fieldSeparator: ',',
-  //   headers: ['userId', 'userName', 'LoanType', 'LoanProduct', 'Tenure', 'Amount', 'Stage',
-  //   'Status','LoanMovedBy', 'StageAt', 'Age', 'CreatedAt', 'TotalAge']
-  // };
-  //   //new ngxCsv(this.filteredCustomerData, ‘CustomerData’)
-  //   new ngxCsv(this.filteredUsers ,'userData', options)
-
-  // }
 }
+

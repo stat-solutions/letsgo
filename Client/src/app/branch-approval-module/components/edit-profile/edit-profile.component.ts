@@ -1,20 +1,25 @@
 import { UsersService } from './../../../shared/services/users.service';
-import { Component, OnInit, TemplateRef,ElementRef } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { CustomValidator } from 'src/app/validators/custom-validator';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
-import {Registration} from 'src/app/shared/models/registration-interface';
-import {BsModalService, BsModalRef} from 'ngx-bootstrap/modal';
+import { Registration } from 'src/app/shared/models/registration-interface';
 import { AlertService } from 'ngx-alerts';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 
 @Component({
-  selector: 'app-edit-user-profile',
+  selector: 'app-edit-profile',
   templateUrl: './edit-profile.component.html',
   styleUrls: ['./edit-profile.component.scss'],
 })
-export class EditProfileComponent implements OnInit{
-  userData:Registration
+export class EditProfileComponent implements OnInit {
+  userData: Registration;
   registered = false;
   submitted = false;
   userForm: FormGroup;
@@ -24,23 +29,26 @@ export class EditProfileComponent implements OnInit{
   mySubscription: any;
   myDateValue: Date;
   positionValue: string;
-  branch = ["branch 1", "branch 2", "branch 3"];
-  bsModalRef:BsModalRef;
-  fileInfo = {name:"", size:0}
+  branch = ['branch 1', 'branch 2', 'branch 3'];
+  bsModalRef: BsModalRef;
+  fileInfo = { name: '', size: 0 };
   disableButton = true;
-  constructor(private EditUser:UsersService, private fb:FormBuilder,
-    private alertService:AlertService,
-    private router: Router, private spinner: NgxSpinnerService,
-    private bsModalService:BsModalService) { }
-  ngOnInit() {
-    this.userData = this.EditUser.getSpecificUser('katznicho@gmail.com');
+  constructor(
+    private EditUser: UsersService,
+    private fb: FormBuilder,
+    private alertService: AlertService,
+    private router: Router,
+    private spinner: NgxSpinnerService,
+    private bsModalService: BsModalService
+  ) {}
+  ngOnInit(): void {
     this.myDateValue = new Date();
     this.userForm = this.createFormGroup();
     this.disableForm();
   }
 
-  //here
-  createFormGroup() {
+  // here
+  createFormGroup(): any {
     return this.fb.group(
       {
         full_name: new FormControl(''),
@@ -141,90 +149,75 @@ export class EditProfileComponent implements OnInit{
     );
   }
 
-  revert() {
+  revert(): any {
     this.userForm.reset();
   }
 
-  get fval() {
+  get fval(): any {
     return this.userForm.controls;
   }
-  disableForm() {
+  disableForm(): any {
     return this.userForm.disable();
   }
-  getBranch(event) {}
+  getBranch(event): any {}
 
-  enableEdit() {
-    this.fval.full_name.setValue(this.userData.userName)
-    this.fval.email2.setValue(this.userData.userEmail)
-    this.fval.user_contact_number1.setValue(this.userData.userNumber)
-    this.fval.branches.setValue(this.userData.userBranch)
-    return this.userForm.enable()
+  enableEdit(): any {
+    return this.userForm.enable();
   }
 
-  //toggle visibility of password field
-  toggleFieldType() {
+  // toggle visibility of password field
+  toggleFieldType(): any {
     this.fieldType = !this.fieldType;
   }
-  returnHome() {
+  returnHome(): any {
     this.spinner.hide();
     this.revert();
-
-    // setTimeout(() => {
-    //   this.router.navigate(['authpage/loginpage']);
-    // }, 2000);
   }
-  cancel(){
-    this.userForm.reset()
-    return this.userForm.disable()
+  cancel(): any {
+    this.userForm.reset();
+    return this.userForm.disable();
   }
 
-  setProfileValues () {
-
+  setProfileValues(): any {}
+  update(template: TemplateRef<any>) {
+    this.bsModalRef = this.bsModalService.show(template);
   }
-  update(template:TemplateRef<any>){
-     this.bsModalRef =  this.bsModalService.show(template)
-  }
-  closeModal(){
-    this.bsModalRef.hide()
+  closeModal() {
+    this.bsModalRef.hide();
   }
   //update photo
   onFileChange(event) {
-    const file = event.target.files[0]
-    console.log(typeof(file))
-    const {name, size} = file
-    this.fileInfo = {name:name, size:size}
-    this.disableButton = false
+    const file = event.target.files[0];
+    console.log(typeof file);
+    const { name, size } = file;
+    this.fileInfo = { name: name, size: size };
+    this.disableButton = false;
     //console.log(this.fileInfo)
-
   }
 
-  updateProfile(){
-    console.log(this.fileInfo)
-      let extsAllowed = ['jpg', 'jpeg', 'png'];
-      const {name, size} = this.fileInfo
-      let exts  = name.split(".")[1]
-      console.log(exts)
-      let findExt = extsAllowed.find(ext=>ext.toLowerCase()===exts.toLowerCase())
-      if(findExt){
-         if(size <10000000){
-           this.alertService.success('Photo updated successfully')
-         }
-         else{
-           this.alertService.danger({
-            html:"<h4>Invalid File size too big!</h4>"
-           })
-         }
-      }
-      else{
+  updateProfile() {
+    console.log(this.fileInfo);
+    let extsAllowed = ['jpg', 'jpeg', 'png'];
+    const { name, size } = this.fileInfo;
+    let exts = name.split('.')[1];
+    console.log(exts);
+    let findExt = extsAllowed.find(
+      (ext) => ext.toLowerCase() === exts.toLowerCase()
+    );
+    if (findExt) {
+      if (size < 10000000) {
+        this.alertService.success('Photo updated successfully');
+      } else {
         this.alertService.danger({
-            html:"<h4>Invalid File extension!</h4>"
-         })
-
+          html: '<h4>Invalid File size too big!</h4>',
+        });
       }
-    this.closeModal()
-
+    } else {
+      this.alertService.danger({
+        html: '<h4>Invalid File extension!</h4>',
+      });
+    }
+    this.closeModal();
   }
   save() {}
-
-  //here
 }

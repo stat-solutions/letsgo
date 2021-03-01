@@ -9,10 +9,12 @@ import { Routes, RouterModule } from '@angular/router';
 import { PagesCoreAdminComponent } from './pages-core/pages-core-admin.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import {CustomerDetailsComponent} from './components/customer-details/customer-details.component';
+import { ApplicationGuard } from '../shared/services/route-guards/application-guard.service';
 
 const routes: Routes = [
   {
     path: 'application',
+    canActivateChild: [ApplicationGuard],
     component: PagesCoreAdminComponent,
     children: [
       {

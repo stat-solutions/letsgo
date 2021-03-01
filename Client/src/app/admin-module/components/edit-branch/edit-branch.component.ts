@@ -41,11 +41,10 @@ export class EditBranchComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe(params => {
-      // tslint:disable-next-line: no-string-literal
-      this.branch = JSON.parse(params['branch']);
-    });
+    this.branch = this.branchService.getEditBranch();
     this.userForm = this.createFormGroup();
+    this.fval.branchName.setValue(this.branch.branchName);
+    this.fval.branchType.setValue(this.branch.branchTypeName);
   }
   createFormGroup(): any {
     return new FormGroup({
@@ -72,14 +71,14 @@ export class EditBranchComponent implements OnInit {
     this.revert();
   }
 
-  createBranch(): any {
+  updateBranch(): any {
     this.submitted = true;
     this.spinner.show();
     if (this.userForm.invalid === true) {
       return (this.invalid = true);
     } else {
       const data = {
-        branchId: 507,
+        branchId: this.branch.branchId,
         branchName: this.fval.branchName.value.toUpperCase(),
         branchTypeCode: this.fval.branchType.value === 'BRANCH' ? 1200 : 1100,
       };
@@ -88,9 +87,11 @@ export class EditBranchComponent implements OnInit {
           this.spinner.hide();
           this.posted = true;
           this.alertService.success({
-            html: '<b> Operation was Successful<b>',
+            html: '<b> Branch was edited successfully<b>',
           });
-          this.revert();
+          setTimeout(() => {
+            this.router.navigate(['admin/branch']);
+          }, 3000);
         },
         (error) => {
           this.spinner.hide();

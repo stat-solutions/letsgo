@@ -9,10 +9,12 @@ import {CustomerDetailsComponent} from './components/customer-details/customer-d
 
 import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
 import { UserTransactionsComponent } from './components/user-transactions/user-transactions.component';
+import { LoanAdminEntryGuard } from '../shared/services/route-guards/loan-admin-entry-guard.service';
 
 const routes: Routes = [
   {
     path: 'loanentry',
+    canActivateChild: [LoanAdminEntryGuard],
     component: PagesCoreAdminComponent,
     children: [
       {

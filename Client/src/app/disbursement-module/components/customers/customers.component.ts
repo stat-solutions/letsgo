@@ -4,12 +4,13 @@ import {Router} from '@angular/router';
 import * as XLSX from 'xlsx';
 import { ngxCsv } from 'ngx-csv/ngx-csv';
 import {CustomerModel} from 'src/app/shared/models/customer-model';
-import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { ExportService } from 'src/app/shared/services/export.service';
 
 @Component({
   selector: 'app-customers',
   templateUrl: './customers.component.html',
-  styleUrls: ['./customers.component.scss']
+  styleUrls: ['./customers.component.scss'],
 })
 export class CustomersComponent implements OnInit {
   public modalRef: BsModalRef;
@@ -26,17 +27,18 @@ export class CustomersComponent implements OnInit {
   imageUrl: string;
   @ViewChild('exportTable') element: ElementRef;
   constructor(
-    private customer: CustomerService,
-    private modalService: BsModalService,
-    private router: Router
-  ) {}
+      private customer: CustomerService,
+      private modalService: BsModalService,
+      private exportService: ExportService,
+      private router: Router
+      ) {}
   ngOnInit(): any {
     setTimeout(() => {
-      this.customer.getAllCustomers().subscribe((data) => {
-        this.customerTable = data;
-        this.filterCustomers = this.customerTable;
-        this.totalItems = this.customerTable.length;
-      });
+      this.customer.getAllCustomers().subscribe(data => {
+      this.customerTable = data;
+      this.filterCustomers = this.customerTable;
+      this.totalItems = this.customerTable.length;
+    });
     }, 0);
   }
   checkTable(array: Array<any>): any {
@@ -58,11 +60,9 @@ export class CustomersComponent implements OnInit {
     if (searchTerm) {
       return this.filterCustomers.filter(
         (customer) =>
-          customer.customerName
-            .toLowerCase()
-            .indexOf(searchTerm.toLowerCase()) !== -1
-        // || customer.userName.toLowerCase().indexOf(searchTerm.toLowerCase()) !==-1 ||
-        // customer.documentType.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1
+          customer.customerName.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1
+          // || customer.userName.toLowerCase().indexOf(searchTerm.toLowerCase()) !==-1 ||
+          // customer.documentType.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1
       );
     }
   }
@@ -72,37 +72,17 @@ export class CustomersComponent implements OnInit {
 
   // modal method
   public openModal(template: TemplateRef<any>, imageUrl: string): any {
-    this.imageUrl = imageUrl;
-    this.modalRef = this.modalService.show(
-      template,
-      Object.assign({}, { class: 'modal-dialog-center' })
-    );
-  }
+      this.imageUrl = imageUrl;
+      this.modalRef = this.modalService.show(
+        template,
+        Object.assign({}, { class: 'modal-dialog-center' })
+      );
+    }
 
   // export to excel
-  exportToExcel(): any {
-    // pass the table to worksheet
-    // const element =  document.getElementById('export-table');
-    const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(
-      this.element.nativeElement
-    );
-
-    // create a workbook and add work sheet
-    const wb: XLSX.WorkBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, 'Sheet 1');
-
-    // save fileName
-    XLSX.writeFile(wb, this.fileName);
+  exportToExcel(): any{
+    this.exportService.exportExcel(this.filterCustomers, 'customers');
   }
-  // exportAsCSV(){
-  //    var options = {
-  //   fieldSeparator: ',',
-  //   headers: ['UserId', 'UserName', 'Branch', 'Email', 'Status', 'Logout']
-  // };
-  //   //new ngxCsv(this.filteredCustomerData, ‘CustomerData’)
-  //   new ngxCsv(this.filterCustomers ,'CustomerData', options)
-
-  // }
 
   sort(item: string): any {
     this.key = item;

@@ -11,7 +11,7 @@ class="container-fluid d-flex flex-row justify-content-center mb-0 mt-1 pt-0 pt-
       </div>
     </div>
   <div class="card-body mt-2 pt-3 mt-xl-1 mb-0 mx-auto pb-4 shadow-lg">
-    <form [formGroup]="userForm" (ngSubmit)="createBranch()">
+    <form [formGroup]="userForm" (ngSubmit)="updateBranch()">
       <div class="form-group text-primary">
         <label
           for="branchName"
@@ -117,7 +117,7 @@ class="container-fluid d-flex flex-row justify-content-center mb-0 mt-1 pt-0 pt-
           type="submit"
           class="btn btn-info col-5 mx-auto"
         >
-          Create
+          Update
         </button>
         <ngx-spinner class="bg-info" size="medium" type="ball-scale-multiple">
           <p class="text-light">Please wait...</p>

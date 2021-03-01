@@ -11,11 +11,13 @@ import {CustomerDetailsComponent} from './components/customer-details/customer-d
 
 import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
 import { UserTransactionsComponent } from './components/user-transactions/user-transactions.component';
+import { BranchExitGuard } from '../shared/services/route-guards/branch-exit-guard.service';
 
 
 const routes: Routes = [
   {
     path: 'branchexit',
+    canActivateChild: [BranchExitGuard],
     component: PagesCoreAdminComponent,
     children: [
       {

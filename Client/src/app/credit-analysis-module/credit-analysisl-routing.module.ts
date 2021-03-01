@@ -7,12 +7,14 @@ import { ReportsComponent } from './components/reports/reports.component';
 import {CustomerDetailsComponent} from './components/customer-details/customer-details.component';
 import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
 import { UserTransactionsComponent } from './components/user-transactions/user-transactions.component';
+import { CreditAnalysisGuard } from '../shared/services/route-guards/credit-analysis-guard.service';
 
 
 
 const routes: Routes = [
   {
     path: 'creditanalysis',
+    canActivateChild: [CreditAnalysisGuard],
     component: PagesCoreAdminComponent,
     children: [
       {

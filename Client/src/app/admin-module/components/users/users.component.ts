@@ -8,6 +8,7 @@ import { ngxCsv } from 'ngx-csv/ngx-csv';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { BranchesService } from 'src/app/shared/services/branches.service';
+import { ExportService } from 'src/app/shared/services/export.service';
 
 @Component({
   selector: 'app-users',
@@ -41,6 +42,7 @@ export class UsersComponent implements OnInit {
     private spinner: NgxSpinnerService,
     private router: Router,
     private modalService: BsModalService,
+    private exportService: ExportService,
     private branchService: BranchesService
   ) {}
 
@@ -62,10 +64,6 @@ export class UsersComponent implements OnInit {
           '',
           Validators.compose([Validators.required])
         ),
-        // branch: this.fb.control(
-        //   '',
-        //   Validators.compose([Validators.required, Validators.minLength(2)])
-        // ),
         role: this.fb.control(
           '',
           Validators.compose([Validators.required])
@@ -123,24 +121,14 @@ export class UsersComponent implements OnInit {
   filterCustomer(searchTerm: string): any{
     if (searchTerm) {
     return this.filteredUsers.filter(
-      user => user.userName.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1
-      || user.userEmail.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1
+      user => user.userName.toLowerCase().indexOf(searchTerm.toLowerCase()) !==
+            -1 ||
+          user.userEmail.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1
       );
     }
   }
   checkArrayLength(array: Array<any>): any{
     return array.length ? true : false;
-  }
-
-  deleteUser(id, name): any{
-    const bool = confirm(`Are you sure you want to delete ${name}?`);
-    if (bool){
-      this.userService.deleteUser(id);
-      alert(`${name} deleted successfully`);
-    }
-    else{
-      return;
-    }
   }
 
   approveUsers(): any{
@@ -153,26 +141,8 @@ export class UsersComponent implements OnInit {
    }
   // exportto excel
   exportToExcel(): any{
-    // pass the table to worksheet
-    //  const element =  document.getElementById('export-table');
-    const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(this.element.nativeElement);
-
-    //  create a workbook and add work sheet
-    const wb: XLSX.WorkBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, 'Sheet 1');
-
-    //  save fileName
-    XLSX.writeFile(wb, this.fileName);
+    this.exportService.exportExcel(this.filteredUsers, 'users');
   }
-  // exportAsCSV(){
-  //    var options = {
-  //   fieldSeparator: ',',
-  //   headers: ['BranchId', 'BranchName', 'EntityName', 'District','Town', 'CreatedAt']
-  // };
-  //   //new ngxCsv(this.filteredCustomerData, ‘CustomerData’)
-  //   new ngxCsv(this.filteredUsers,'BranchData', options)
-
-  // }
   updateUserRole(template: any): any {
     const data = {
       userId: this.user.userIid,

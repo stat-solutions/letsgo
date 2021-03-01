@@ -27,9 +27,9 @@
                   <div class="row">
                     <div class="col-auto">
                       <div class="text-gray font-weight-bold h5 mb-0 pb-0">
-                        <span class="pl-3 pb-0">{{
-                          checkLoanStatus(loanTable, "running")
-                        }}</span>
+                        <span class="pl-3 pb-0">
+                          {{running}}
+                        </span>
                       </div>
                     </div>
                   </div>
@@ -57,9 +57,9 @@
                   <div class="row">
                     <div class="col-auto">
                       <div class="text-dark font-weight-bold h5 mb-0 pb-0">
-                        <span class="pl-3 pb-0">{{
-                          checkLoanStatus(loanTable, "approved")
-                        }}</span>
+                        <span class="pl-3 pb-0">
+                          {{approved}}
+                        </span>
                       </div>
                     </div>
                   </div>
@@ -84,9 +84,9 @@
                   <div class="row">
                     <div class="col-auto">
                       <div class="text-gray font-weight-bold h5 mb-0 pb-0">
-                        <span class="pl-3 pb-0">{{
-                          checkLoanStatus(loanTable, "deferred")
-                        }}</span>
+                        <span class="pl-3 pb-0">
+                          {{deferred}}
+                        </span>
                       </div>
                     </div>
                   </div>
@@ -113,9 +113,9 @@
                   <div class="row">
                     <div class="col-auto">
                       <div class="text-dark font-weight-bold h5 mb-0 pb-0">
-                        <span class="pl-3 pb-0">{{
-                          checkLoanStatus(loanTable, "disbursed")
-                        }}</span>
+                        <span class="pl-3 pb-0">
+                          {{disbursed}}
+                        </span>
                       </div>
                     </div>
                   </div>
@@ -140,9 +140,9 @@
                   <div class="row">
                     <div class="col-auto">
                       <div class="text-gray font-weight-bold h5 mb-0 pb-0">
-                        <span class="pl-3 pb-0">{{
-                          checkLoanStatus(loanTable, "rejected")
-                        }}</span>
+                        <span class="pl-3 pb-0">
+                          {{rejected}}
+                        </span>
                       </div>
                     </div>
                   </div>
@@ -567,7 +567,7 @@
                               class="col-7 col-md-8 col-lg-9 d-flex justify-content-start font-weight-bold"
                             >
                               <span class="itemCreated">
-                                {{ loans.ageSinceCreation }}
+                                {{ loans.ageSinceCreation }} Days
                               </span>
                             </div>
                           </div>

@@ -10,10 +10,12 @@ import {CustomerDetailsComponent} from './components/customer-details/customer-d
 
 import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
 import { UserTransactionsComponent } from './components/user-transactions/user-transactions.component';
+import { LegalReviewGuard } from '../shared/services/route-guards/legal-review-guard.service';
 
 const routes: Routes = [
   {
     path: 'legalreview',
+    canActivateChild: [LegalReviewGuard],
     component: PagesCoreAdminComponent,
     children: [
       {

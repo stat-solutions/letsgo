@@ -11,10 +11,12 @@ import {CustomerDetailsComponent} from './components/customer-details/customer-d
 
 import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
 import { UserTransactionsComponent } from './components/user-transactions/user-transactions.component';
+import { LoanAdminExitGuard } from '../shared/services/route-guards/loan-admin-exit-guard.service';
 
 const routes: Routes = [
   {
     path: 'loanexit',
+    canActivateChild: [LoanAdminExitGuard],
     component: PagesCoreAdminComponent,
     children: [
       {

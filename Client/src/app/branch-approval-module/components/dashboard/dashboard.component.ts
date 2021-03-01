@@ -4,8 +4,11 @@ import {FormControl, FormGroup, FormBuilder} from '@angular/forms';
 import {Router, ActivatedRoute} from '@angular/router';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
-import * as XLSX from 'xlsx';
 import { LoaningService } from 'src/app/shared/services/loaning.service';
+import { ExportService } from 'src/app/shared/services/export.service';
+import { AuthServiceService } from 'src/app/shared/services/auth-service.service';
+import { ReportService } from 'src/app/shared/services/report.service';
+
 @Component({
   selector: 'app-admin',
   templateUrl: './dashboard.component.html',
@@ -24,21 +27,41 @@ export class DashboardComponent implements OnInit {
   age: number;
   key = "Id";
   csvTable = [];
-   @ViewChild('exportTable')exportExcel: ElementRef;
-// excel sheet name
-  fileName = "loanInfo.xlsx";
   reverse = false;
-
+  running: number;
+  approved: number;
+  deferred: number;
+  disbursed: number;
+  rejected: number;
+  User = this.authService.loggedInUserInfo();
   constructor(
     private modalService: BsModalService,
+    private authService: AuthServiceService,
     private landingPage: LoaningService,
     private spinner: NgxSpinnerService,
     private fb: FormBuilder,
     private router: Router,
-    private activatedRouter: ActivatedRoute
+    private activatedRouter: ActivatedRoute,
+    private reports: ReportService,
+    private exportService: ExportService
   ) {}
 
   ngOnInit(): void {
+    this.User = this.authService.loggedInUserInfo();
+    if (this.User.branchType === 'BRANCH'){
+      const branchId = this.User.branchId;
+      this.reports.getTotalNumberOfRunningLoansByBranch(branchId).subscribe(res => this.running = res);
+      this.reports.getTotalNumberOfApprovedLoansByBranch(branchId).subscribe(res => this.approved = res);
+      this.reports.getTotalNumberOfDefferedLoansByBranch(branchId).subscribe(res => this.deferred = res);
+      this.reports.getTotalNumberOfDisbursedLoansByBranch(branchId).subscribe(res => this.disbursed = res);
+      this.reports.getTotalNumberOfRejectedLoansByBranch(branchId).subscribe(res => this.rejected = res);
+    } else {
+      this.reports.getTotalNumberOfRunningLoans().subscribe(res => this.running = res);
+      this.reports.getTotalNumberOfApprovedLoans().subscribe(res => this.approved = res);
+      this.reports.getTotalNumberOfDefferedLoans().subscribe(res => this.deferred = res);
+      this.reports.getTotalNumberOfDisbursedLoans().subscribe(res => this.disbursed = res);
+      this.reports.getTotalNumberOfRejectedLoans().subscribe(res => this.rejected = res);
+    }
     this.landingPage.getAllLoanDetails().subscribe((userData) => {
       this.loanTable = userData.map((eachUser) => {
         const oldDate = eachUser.CreatedAt;
@@ -118,14 +141,7 @@ export class DashboardComponent implements OnInit {
   }
   // exportto excel
   exportToExcel(): any{
-    const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(this.exportExcel.nativeElement);
-
-    // create a workbook and add work sheet
-    const wb: XLSX.WorkBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, 'Sheet 1');
-
-    // save fileName
-    XLSX.writeFile(wb, this.fileName);
+    this.exportService.exportExcel(this.filteredLoans, 'Loans');
   }
 
   sort(item: string): any{

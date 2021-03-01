@@ -120,6 +120,7 @@ export class AuthServiceService {
         userPhone: tk.userPhone1,
         roleId: tk.roleId,
         branchId: tk.branchId,
+        branchType: tk.branchType,
         // branchId: 554,
       };
   //     "userId": 10000009,

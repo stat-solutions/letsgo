@@ -5,6 +5,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { Router } from '@angular/router';
 import { LoaningService } from 'src/app/shared/services/loaning.service';
 import { AlertService } from 'ngx-alerts';
+import { ExportService } from 'src/app/shared/services/export.service';
 
 @Component({
   selector: 'app-constants-table',
@@ -25,6 +26,7 @@ export class ConstantsTableComponent implements OnInit {
     private alertService: AlertService,
     private spinner: NgxSpinnerService,
     private router: Router,
+    private exportService: ExportService,
     private loan: LoaningService
   ) { }
 
@@ -51,21 +53,14 @@ export class ConstantsTableComponent implements OnInit {
   filterConstants(searchTerm: string): any{
     if (searchTerm){
         return this.filteredConstants.filter(
-        constant => constant.loanType.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1
-        || constant.loanproduct.toLowerCase().indexOf(searchTerm.toLowerCase()) !==  -1
+        constant => constant.loanThresholdProduct.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1
+        || constant.loanThresholdType.toLowerCase().indexOf(searchTerm.toLowerCase()) !==  -1
       );
     }
   }
   // exportto excel
   exportToExcel(): any{
-    // pass the table to worksheet
-    const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(this.element.nativeElement);
-    // create a workbook and add work sheet
-    const wb: XLSX.WorkBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, 'Sheet 1');
-
-    // save fileName
-    XLSX.writeFile(wb, this.fileName);
+    this.exportService.exportExcel(this.filteredConstants, 'constants');
   }
 
   // sort

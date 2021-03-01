@@ -12,11 +12,13 @@ import { ReportsComponent } from './components/reports/reports.component';
 
 import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
 import { UserTransactionsComponent } from './components/user-transactions/user-transactions.component';
+import { HeadOfficeApprovalGuard } from '../shared/services/route-guards/head-office-approval-guard.service';
 
 
 const routes: Routes = [
   {
     path: 'headofficeapproval',
+    canActivateChild: [HeadOfficeApprovalGuard],
     component: PagesCoreAdminComponent,
     children: [
       {

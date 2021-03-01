@@ -5,6 +5,7 @@ import * as XLSX from 'xlsx';
 import { ngxCsv } from 'ngx-csv/ngx-csv';
 import {CustomerModel} from 'src/app/shared/models/customer-model';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { ExportService } from 'src/app/shared/services/export.service';
 
 @Component({
   selector: 'app-customers',
@@ -28,6 +29,7 @@ export class CustomersComponent implements OnInit {
   constructor(
       private customer: CustomerService,
       private modalService: BsModalService,
+      private exportService: ExportService,
       private router: Router
       ) {}
   ngOnInit(): any {
@@ -78,29 +80,9 @@ export class CustomersComponent implements OnInit {
     }
 
   // export to excel
-  exportToExcel(): any {
-    // pass the table to worksheet
-    // const element =  document.getElementById('export-table');
-    const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(
-      this.element.nativeElement
-    );
-
-    // create a workbook and add work sheet
-    const wb: XLSX.WorkBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, 'Sheet 1');
-
-    // save fileName
-    XLSX.writeFile(wb, this.fileName);
+  exportToExcel(): any{
+    this.exportService.exportExcel(this.filterCustomers, 'customers');
   }
-  // exportAsCSV(){
-  //    var options = {
-  //   fieldSeparator: ',',
-  //   headers: ['UserId', 'UserName', 'Branch', 'Email', 'Status', 'Logout']
-  // };
-  //   //new ngxCsv(this.filteredCustomerData, ‘CustomerData’)
-  //   new ngxCsv(this.filterCustomers ,'CustomerData', options)
-
-  // }
 
   sort(item: string): any {
     this.key = item;

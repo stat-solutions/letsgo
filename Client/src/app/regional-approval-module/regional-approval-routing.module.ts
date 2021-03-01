@@ -10,10 +10,12 @@ import { UserTransactionsComponent } from './components/user-transactions/user-t
 import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
 import {ReportsComponent} from './components/reports/reports.component';
 import {CustomerDetailsComponent} from './components/customer-details/customer-details.component';
+import { RegionalGuard } from '../shared/services/route-guards/regional-approval-guard.service';
 
 const routes: Routes = [
   {
     path: 'regional',
+    canActivateChild: [RegionalGuard],
     component: PagesCoreAdminComponent,
     children: [
       {

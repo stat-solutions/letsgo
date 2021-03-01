@@ -160,6 +160,18 @@
                   >
                     Approve
                   </button>
+                  <ngx-spinner class="bg-info" size="medium" type="ball-scale-multiple">
+          <p class="text-light">Please wait...</p>
+        </ngx-spinner>
+        <ngx-alerts></ngx-alerts>
+        <label class="col" *ngIf="posted" class="text-info">
+          <!-- <i class="material-icons">check_circle</i> -->
+          <ngx-alerts></ngx-alerts>
+        </label>
+        <label class="col" *ngIf="errored" class="text-info">
+          <!-- <i class="material-icons">check_circle</i> -->
+          <ngx-alerts></ngx-alerts>
+        </label>
                   <button
                     type="submit"
                     (click)="rejectUser(makeUserApproved, userId, userIndex)"

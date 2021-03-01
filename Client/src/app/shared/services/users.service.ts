@@ -15,44 +15,6 @@ import { JwtHelperService } from '@auth0/angular-jwt';
   providedIn: 'root',
 })
 export class UsersService {
-  private users  = [
-    {
-      userId: 1,
-      userName: 'katende',
-      userEmail: 'katznicho@gmail.com',
-      userPassword: 'Kat2',
-      userBranch: 'Application',
-      userNumber: '0759983853',
-      status: 'Approved',
-      userRole: 'Application',
-      photo: 'assets/img/default.jpg',
-      isLogged: true,
-    },
-    {
-      userId: 2,
-      userName: 'katende',
-      userEmail: 'katznicho@gmail.com',
-      userPassword: '1234',
-      userBranch: 'Application',
-      userNumber: '0759983853',
-      status: 'notApproved',
-      isLogged: false,
-      userRole: 'BranchApproval',
-      photo: 'assets/img/default.jpg',
-    },
-    {
-      userId: 3,
-      userName: 'katende',
-      userEmail: 'katznicho@gmail.com',
-      userPassword: '23445',
-      userBranch: 'Application',
-      userNumber: '0759983853',
-      status: 'Approved',
-      isLogged: true,
-      userRole: 'BranchApproval',
-      photo: 'assets/img/default.jpg',
-    },
-  ];
   private API_URL = environment.apiUrl;
 
   constructor(private http: HttpClient, private router: Router) {}
@@ -102,42 +64,5 @@ export class UsersService {
   }
   userLogOut(userId: number): any {
     return this.http.get<any>(`${this.API_URL}/api/user/logOutUser?userId=${userId}`);
-    // {
-    //   "startDate":"2020-01-01",
-    //   "endDate":"2021-02-28"
-    //   }
-  }
-  viewLoggedIn(): any {
-    // let users: any;
-    // this.getUsers().subscribe(
-    //   res => users = res,
-    //   err => console.log(err.error.message)
-    // );
-    return of(this.users.filter((user) => user.isLogged === true));
-  }
-  logOutUser(id: number, email: string, i: number): any {
-    const user = this.users.find(
-      usr  => usr.userId === id && usr.userEmail === email
-    );
-    this.users.slice(i, 1);
-    user.isLogged = false;
-    this.users.push(user);
-    return this.users;
-  }
-  getSpecificUser(email: string): any {
-    //  console.log(this.users.find(user=>user.userEmail===email))
-    return this.users.find((user) => user.userEmail === email);
-  }
-  deleteUser(id: number): any {
-    return of(this.users.filter((users) => users.userId !== id));
-  }
-  // tslint:disable-next-line: variable-name
-  loginUser(user_email: string, password: string): any {
-    return of(
-      this.users.find(
-        (user) =>
-          user.userEmail === user_email && user.userPassword === password
-      )
-    );
   }
 }

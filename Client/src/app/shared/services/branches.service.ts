@@ -29,4 +29,10 @@ export class BranchesService {
   putUpdateBranch(postData: any): any {
     return this.http.post<any>(`${this.API_URL}/api/adminUser/putUpdateBranch`, postData);
   }
+  setEditBranch(branch: any): any {
+    localStorage.setItem('editBranch', JSON.stringify(branch));
+  }
+  getEditBranch(): any {
+    return JSON.parse(localStorage.getItem('editBranch'));
+  }
 }

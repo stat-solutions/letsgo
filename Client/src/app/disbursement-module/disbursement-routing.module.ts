@@ -12,11 +12,13 @@ import {CustomerDetailsComponent} from './components/customer-details/customer-d
 import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
 
 import { UserTransactionsComponent } from './components/user-transactions/user-transactions.component';
+import { DisbursementGuard } from '../shared/services/route-guards/disbursment-guard.service';
 
 
 const routes: Routes = [
   {
     path: 'disbursement',
+    canActivateChild: [DisbursementGuard],
     component: PagesCoreAdminComponent,
     children: [
       {
