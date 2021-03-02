@@ -60,7 +60,7 @@ export class ViewLoggedinUsersComponent implements OnInit {
     return array.length ? true : false;
   }
   getValue(event): any {
-    console.log(event.target.value);
+    // console.log(event.target.value);
     this.searchUser = event.target.value;
     if (event.target.value === '') {
       this.filteredUsers = this.loggedInUsers;

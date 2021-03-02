@@ -18,7 +18,7 @@ export class DashboardComponent implements OnInit {
   public modalRef: BsModalRef;
   loanTable = [];
   filteredLoans = [];
-  specificLoanTable = [];
+  specificLoanTable: any;
   searchCustomer: string;
   totalItems: number;
   id: string;
@@ -126,18 +126,14 @@ export class DashboardComponent implements OnInit {
    }
 
   public openModal(template: TemplateRef<any>, id: number, index: number): any {
-    console.log(id, index);
     this.landingPage.getLoanDetails(id).subscribe(details => {
-    console.log(details);
-    this.specificLoanTable.push(details);
-  });
-    console.log(this.specificLoanTable);
-    if (this.checkTable(this.specificLoanTable)){
-       this.modalRef = this.modalService.show(
-      template,
-      Object.assign({}, { class: 'modal-lg modal-dialog-center' })
-    );
-  }
+    this.specificLoanTable = details;
+    if (this.specificLoanTable.length){
+      this.modalRef = this.modalService.show(
+       template,
+     Object.assign({}, { class: 'modal-lg modal-dialog-center' }));
+    }
+    });
   }
   // exportto excel
   exportToExcel(): any{

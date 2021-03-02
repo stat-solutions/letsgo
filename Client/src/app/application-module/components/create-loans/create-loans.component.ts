@@ -204,7 +204,7 @@ export class CreateLoansComponent implements OnInit {
     }, 3000);
   }
   finishSecurity(): any{
-    this.spinner.hide();
+    this.spinner.show();
     setTimeout(() => {
       const security = {
         securityTypeCode: null,
@@ -311,9 +311,10 @@ export class CreateLoansComponent implements OnInit {
       res => {
         if (res) {
           this.posted = true;
+          this.userForm.reset();
           this.spinner.hide();
           this.alertService.success({
-            html: '<b>Operation was successfully<b>'
+            html: '<b>Loan was created successfully<b>'
           });
         }
       },

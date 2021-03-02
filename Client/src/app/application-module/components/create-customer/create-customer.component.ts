@@ -249,7 +249,7 @@ export class CreateCustomerComponent implements OnInit {
           this.spinner.hide();
           this.posted = true;
           this.alertService.success({
-            html: '<b> Operation was Successful<b>'
+            html: '<b> Customer was created successfully<b>'
           });
           setTimeout(() => {
             this.router.navigate(['application/customers']);

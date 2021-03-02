@@ -90,6 +90,7 @@ export class EditBranchComponent implements OnInit {
             html: '<b> Branch was edited successfully<b>',
           });
           setTimeout(() => {
+            this.branchService.deleteEditBranch();
             this.router.navigate(['admin/branch']);
           }, 3000);
         },

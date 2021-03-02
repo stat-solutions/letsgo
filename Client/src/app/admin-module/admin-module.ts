@@ -31,6 +31,7 @@ import { OrderModule } from 'ngx-order-pipe';
 import { ConstantsTableComponent } from './components/constants-table/constants-table.component';
 import {CustomersComponent} from './components/customers/customers.component';
 import { EditBranchComponent } from './components/edit-branch/edit-branch.component';
+import { EditConstantsComponent } from './components/edit-constants/edit-constants.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { EditBranchComponent } from './components/edit-branch/edit-branch.compon
     ApproveUsersComponent,
     ViewLoggedinUsersComponent,
     ReportsComponent,
+    EditConstantsComponent,
     BranchesComponent,
     CreateBranchComponent,
     EditProfileComponent,

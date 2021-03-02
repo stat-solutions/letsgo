@@ -220,14 +220,14 @@ export class EntitiesComponent implements OnInit {
         companyPhoneContact2: this.fval.companyPhoneContact2.value,
         userId: this.User.userId,
       };
-      console.log(companyDetails);
+      // console.log(companyDetails);
       this.entities.createCompany(companyDetails).subscribe(
         () => {
           this.posted = true;
           this.spinner.hide();
 
           this.alertService.success({
-            html: '<b>User Company setup was Successful</b>' + '</br>',
+            html: '<b>Operation was Successful</b>' + '</br>',
           });
           setTimeout(() => {
             this.router.navigate(['admin/dashboard']);

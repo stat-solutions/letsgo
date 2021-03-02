@@ -50,6 +50,10 @@ export class ConstantsTableComponent implements OnInit {
     }
 
   }
+  editConstant(constant: any): any {
+    this.loan.setEditConstant(constant);
+    this.router.navigate(['admin/editconstant']);
+  }
   filterConstants(searchTerm: string): any{
     if (searchTerm){
         return this.filteredConstants.filter(

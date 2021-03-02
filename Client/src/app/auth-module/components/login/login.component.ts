@@ -261,7 +261,7 @@ export class LoginComponent implements OnInit {
         this.loginStatus = error;
         if (this.loginStatus.status === 412) {
           this.alertService.danger({
-            html: '<b>' + this.fval.userEmail.value + ' recquires approval first' + '<br/>'
+            html: '<b>' + this.fval.userEmail.value + ' recquires verification first' + '<br/>'
           });
           this.passwordFailed = true;
           this.spinner.hide();

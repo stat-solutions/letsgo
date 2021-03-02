@@ -35,4 +35,7 @@ export class BranchesService {
   getEditBranch(): any {
     return JSON.parse(localStorage.getItem('editBranch'));
   }
+  deleteEditBranch(): any {
+    localStorage.removeItem('editBranch');
+  }
 }

@@ -176,15 +176,6 @@
         </h5>
         <hr class="mt-0 mb-2" />
       </div>
-      <div class="col-12">
-         <pagination-controls
-          id="my_pages"
-          (pageChange)="pageChanged($event)"
-          (pageBoundsCorrection)="pageChanged($event)"
-          directionLinks="true"
-        >
-        </pagination-controls>
-      </div>
     </div>
   </div>
 
@@ -519,7 +510,7 @@
                               class="col-7 col-md-8 col-lg-9 d-flex justify-content-start font-weight-bold"
                             >
                               <span class="itemCreated">
-                                {{ loans.ageSinceMovement }}
+                                {{ loans.ageSinceMovement }} HOURS
                               </span>
                             </div>
                           </div>
@@ -567,7 +558,7 @@
                               class="col-7 col-md-8 col-lg-9 d-flex justify-content-start font-weight-bold"
                             >
                               <span class="itemCreated">
-                                {{ loans.ageSinceCreation }} Days
+                                {{ loans.ageSinceCreation }} DAYS
                               </span>
                             </div>
                           </div>
@@ -579,6 +570,13 @@
               </div>
             </div>
           </div>
+           <pagination-controls
+          id="my_pages"
+          (pageChange)="pageChanged($event)"
+          (pageBoundsCorrection)="pageChanged($event)"
+          directionLinks="true"
+        >
+        </pagination-controls>
         </div>
         <!--/ end of record container-->
   </div>

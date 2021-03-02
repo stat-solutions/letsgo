@@ -93,10 +93,12 @@ export class AuthServiceService {
 
     doLogoutUser(): any {
       this.loggedInUser = null;
+      this.removeTokens();
+      this.router.navigate(['/authpage/login']);
       if (!this.getPleaseLogin()) {
         this.userService.userLogOut(this.loggedInUserInfo().userId).subscribe(
           res => {
-            this.removeTokens();
+            // logout at the backend
           },
           err => console.log(err)
         );

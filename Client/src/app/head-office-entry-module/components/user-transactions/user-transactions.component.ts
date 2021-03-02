@@ -32,6 +32,7 @@ export class UserTransactionsComponent implements OnInit {
   numberValue: number;
   values: any;
   maxAmount: number;
+  searchCustomer: any;
   maxTenure: number;
   loanThresholdId: number;
   loanTypes: any;
@@ -101,7 +102,32 @@ export class UserTransactionsComponent implements OnInit {
     });
   }
   // search 0726099610 loan
-  getValue(event): any {}
+  getValue(event): any {
+    this.searchCustomer = event.target.value;
+    if (event.target.value === '') {
+      this.filteredLoans = this.loanTable;
+      this.totalItems = this.filteredLoans.length;
+    } else {
+      this.filteredLoans = this.filterCustomer(this.searchCustomer);
+      this.totalItems = this.filteredLoans.length;
+    }
+  }
+  filterCustomer(searchTerm: string): any {
+    if (searchTerm) {
+      return this.filteredLoans.filter(
+        (loan) =>
+          loan.customerIdNumber.indexOf(searchTerm.toLowerCase()) !==
+            -1 ||
+          loan.customerIdType.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1 ||
+          loan.customerName.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1 ||
+          loan.loanThresholdType.toLowerCase().indexOf(searchTerm.toLowerCase()) !==
+            -1 ||
+          loan.loanThresholdProduct.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1
+          || loan.loanOriginatingBranch.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1
+          || loan.movementStage.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1
+      );
+    }
+  }
 
   get editControls(): any {
     return this.editLoanForm.controls;

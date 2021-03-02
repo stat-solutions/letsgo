@@ -12,6 +12,9 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { Registration } from 'src/app/shared/models/registration-interface';
 import { AlertService } from 'ngx-alerts';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { finalize } from 'rxjs/operators';
+import { AngularFireStorage } from '@angular/fire/storage';
+import { AuthServiceService } from 'src/app/shared/services/auth-service.service';
 
 @Component({
   selector: 'app-edit-profile',
@@ -21,6 +24,8 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 export class EditProfileComponent implements OnInit {
   userData: Registration;
   registered = false;
+  posted: boolean;
+  errored: boolean;
   submitted = false;
   userForm: FormGroup;
   serviceErrors: any = {};
@@ -33,8 +38,12 @@ export class EditProfileComponent implements OnInit {
   bsModalRef: BsModalRef;
   fileInfo = { name: '', size: 0 };
   disableButton = true;
+  userPhotoUrl: string;
+  User = this.authService.loggedInUserInfo();
   constructor(
     private EditUser: UsersService,
+    private authService: AuthServiceService,
+    private storage: AngularFireStorage,
     private fb: FormBuilder,
     private alertService: AlertService,
     private router: Router,
@@ -44,6 +53,7 @@ export class EditProfileComponent implements OnInit {
   ngOnInit(): void {
     this.myDateValue = new Date();
     this.userForm = this.createFormGroup();
+    this.initializeForm();
     this.disableForm();
   }
 
@@ -52,10 +62,11 @@ export class EditProfileComponent implements OnInit {
     return this.fb.group(
       {
         full_name: new FormControl(''),
-        branches: new FormControl(''),
-
-        email2: new FormControl(''),
-
+        email2: new FormControl('',
+        Validators.compose([
+          Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')
+        ])
+        ),
         user_contact_number1: new FormControl(
           '',
           Validators.compose([
@@ -74,81 +85,19 @@ export class EditProfileComponent implements OnInit {
             ),
           ])
         ),
-        currentPassword: new FormControl(
-          '',
-          Validators.compose([
-            // 1. Password Field is Required
-            // 2. check whether the entered password has a number
-            CustomValidator.patternValidator(
-              /^(([0-9])([0-9])([0-9])([0-9]))$/,
-              {
-                hasNumber: true,
-              }
-            ),
-            // 3. check whether the entered password has upper case letter
-            // CustomValidatorInitialCompanySetup.patternValidator(/[A-Z]/, { hasCapitalCase: true }),
-            // 4. check whether the entered password has a lower-case letter
-            // CustomValidatorInitialCompanySetup.patternValidator(/[a-z]/, { hasSmallCase: true }),
-            // 5. check whether the entered password has a special character
-            // CustomValidatorInitialCompanySetup.
-            //   patternValidator(/[!@#$%^&*_+-=;':"|,.<>/?/<mailto:!@#$%^&*_+-=;':"|,.<>/?]/, { hasSpecialCharacters: true }),
-
-            // 6. Has a length of exactly 4 digits
-            Validators.minLength(4),
-            Validators.maxLength(4),
-          ])
-        ),
-        password: new FormControl(
-          '',
-          Validators.compose([
-            // 1. Password Field is Required
-
-            Validators.required,
-
-            // 2. check whether the entered password has a number
-            CustomValidator.patternValidator(
-              /^(([0-9])([0-9])([0-9])([0-9]))$/,
-              {
-                hasNumber: true,
-              }
-            ),
-            // 3. check whether the entered password has upper case letter
-            // CustomValidatorInitialCompanySetup.patternValidator(/[A-Z]/, { hasCapitalCase: true }),
-            // 4. check whether the entered password has a lower-case letter
-            // CustomValidatorInitialCompanySetup.patternValidator(/[a-z]/, { hasSmallCase: true }),
-            // 5. check whether the entered password has a special character
-            // CustomValidatorInitialCompanySetup.
-            //   patternValidator(/[!@#$%^&*_+-=;':"|,.<>/?/<mailto:!@#$%^&*_+-=;':"|,.<>/?]/, { hasSpecialCharacters: true }),
-
-            // 6. Has a length of exactly 4 digits
-            Validators.minLength(4),
-            Validators.maxLength(4),
-          ])
-        ),
-        confirmPassword: new FormControl(
-          '',
-          Validators.compose([
-            // 1. Password Field is Required
-
-            Validators.required,
-
-            // 2. check whether the entered password has a number
-            CustomValidator.patternValidator(
-              /^(([0-9])([0-9])([0-9])([0-9]))$/,
-              {
-                hasNumber: true,
-              }
-            ),
-            // 6. Has a length of exactly 4 digits
-            Validators.minLength(4),
-            Validators.maxLength(4),
-          ])
-        ),
       },
-      { validator: CustomValidator.passwordMatchValidator }
     );
   }
-
+  initializeForm(): any{
+    this.EditUser.getUser(this.User.userId).subscribe( res => {
+      const user = res[0];
+      this.fval.full_name.setValue(user.userName);
+      this.fval.email2.setValue(user.userEmail);
+      this.fval.user_contact_number1.setValue(user.userPhone1);
+      this.fval.user_contact_number2.setValue(user.userPhone2);
+      this.userPhotoUrl = user.userPhotoUrl;
+    });
+  }
   revert(): any {
     this.userForm.reset();
   }
@@ -164,7 +113,44 @@ export class EditProfileComponent implements OnInit {
   enableEdit(): any {
     return this.userForm.enable();
   }
-
+  onFileSelected(event): any {
+    let folder: string;
+    switch (event.target.id) {
+      case 'resetFile':
+        folder = 'users/profiles';
+        this.upload(event.target.id, event.target.files[0], folder);
+        break;
+    }
+  }
+  upload(inputType: string, getfile: any, path: any): any {
+    const n = Date.now();
+    const file = getfile;
+    const filePath = `${path}/${n}`;
+    // file ? console.log('true') : console.log('false');
+    const fileRef = this.storage.ref(filePath);
+    const task = this.storage.upload(filePath, file);
+    const result = task
+      .snapshotChanges()
+      .pipe(
+        finalize(() => {
+          const downloadURL = fileRef.getDownloadURL();
+          downloadURL.subscribe(url => {
+            if (url) {
+              switch (inputType) {
+                case 'resetFile':
+                  this.userPhotoUrl = url;
+                  break;
+              }
+            }
+          });
+        })
+      )
+      .subscribe(url => {
+        if (url) {
+          // console.log(url);
+        }
+      });
+  }
   // toggle visibility of password field
   toggleFieldType(): any {
     this.fieldType = !this.fieldType;
@@ -174,50 +160,86 @@ export class EditProfileComponent implements OnInit {
     this.revert();
   }
   cancel(): any {
-    this.userForm.reset();
+    this.initializeForm();
     return this.userForm.disable();
   }
 
-  setProfileValues(): any {}
-  update(template: TemplateRef<any>) {
+  update(template: TemplateRef<any>): any {
     this.bsModalRef = this.bsModalService.show(template);
   }
-  closeModal() {
+  closeModal(): any {
     this.bsModalRef.hide();
   }
-  //update photo
-  onFileChange(event) {
-    const file = event.target.files[0];
-    console.log(typeof file);
-    const { name, size } = file;
-    this.fileInfo = { name: name, size: size };
-    this.disableButton = false;
-    //console.log(this.fileInfo)
-  }
 
-  updateProfile() {
-    console.log(this.fileInfo);
-    let extsAllowed = ['jpg', 'jpeg', 'png'];
-    const { name, size } = this.fileInfo;
-    let exts = name.split('.')[1];
-    console.log(exts);
-    let findExt = extsAllowed.find(
-      (ext) => ext.toLowerCase() === exts.toLowerCase()
-    );
-    if (findExt) {
-      if (size < 10000000) {
-        this.alertService.success('Photo updated successfully');
-      } else {
+  updateProfile(): any {
+    setTimeout(() => {
+      const data = {
+        userId: this.User.userId,
+        userPhotoUrl: this.userPhotoUrl
+      };
+      this.EditUser.putEditUserPhotoUrl(data).subscribe(
+        (res) => {
+          this.posted = true;
+          this.alertService.success({
+              html: '<b> Profile photo edited successfully<b>',
+            });
+        },
+        (err) => {
+          this.errored = true;
+          this.alertService.danger({
+              html: '<b> There was a problem<b>',
+          });
+        }
+      );
+      this.closeModal();
+    }, 3000);
+  }
+  save(): any {
+    const data = {
+      userId: this.User.userId,
+      userName: this.fval.full_name.value.toUpperCase(),
+      userPhone1: this.fval.user_contact_number1.value.toUpperCase(),
+      userPhone2: this.fval.user_contact_number2.value.toUpperCase()
+    };
+    this.EditUser.putEditUser(data).subscribe(
+      (res) => {
+        this.posted = true;
+        if (this.fval.email2.value !== '') {
+            const dataEmal = {
+              userId: this.User.userId,
+              userEmail: this.fval.full_name.value
+            };
+            this.EditUser.putEditUserEmail(dataEmal).subscribe(
+              (rs) => {
+                this.posted = true;
+                this.alertService.success({
+                    html: '<b> Email was edited successfully, please check your email to verify your account<b>',
+                  });
+              },
+              (err) => {
+                this.errored = true;
+                this.alertService.danger({
+                    html: '<b> There was a problem editing user email<b>',
+                });
+              }
+            );
+            setTimeout(() => {
+              this.initializeForm();
+              this.disableForm();
+              this.alertService.success({
+                html: '<b> Other details were edited successfully<b>',
+              });
+            }, 3000);
+          }
+      },
+      (err) => {
+        this.errored = true;
+        this.initializeForm();
+        this.disableForm();
         this.alertService.danger({
-          html: '<h4>Invalid File size too big!</h4>',
+            html: '<b> There was a problem editingg other details<b>',
         });
       }
-    } else {
-      this.alertService.danger({
-        html: '<h4>Invalid File extension!</h4>',
-      });
-    }
-    this.closeModal();
+    );
   }
-  save() {}
 }
