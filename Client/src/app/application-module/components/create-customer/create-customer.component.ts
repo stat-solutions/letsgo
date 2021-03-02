@@ -80,9 +80,9 @@ export class CreateCustomerComponent implements OnInit {
         Validators.compose([Validators.required])
       ),
       document_id_number: this.fb.control(
-        {value: "", disabled: false},
+        '',
         Validators.compose([
-          Validators.required,
+          Validators.required
           // CustomValidator.patternValidator(
           //    /^(([0-9])([0-9])([0-9])([0-0])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9]))$/,
           //   { nationalIdCheck: true }
@@ -202,7 +202,7 @@ export class CreateCustomerComponent implements OnInit {
         this.fval.document_id_number.setValue('');
         this.fval.document_id_number.setValidators([
           Validators.required,
-          Validators.minLength(9),
+          Validators.minLength(3),
           Validators.maxLength(9)
         ]);
         break;
@@ -210,8 +210,8 @@ export class CreateCustomerComponent implements OnInit {
         this.fval.document_id_number.setValue('');
         this.fval.document_id_number.setValidators([
           Validators.required,
-          Validators.minLength(20),
-          Validators.maxLength(20)
+          Validators.minLength(9),
+          Validators.maxLength(12)
         ]);
         break;
       case 'DRIVING PERMIT':

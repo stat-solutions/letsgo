@@ -13,16 +13,16 @@ class="container-fluid d-flex flex-row justify-content-center mb-0 mt-md-1 mt-1 
   <div class="card-body mt-2 pt-3 mt-xl-1 mb-3 mb-xl-0 mx-auto pb-4 shadow-lg">
     <form [formGroup]="userForm" (ngSubmit)="register()">
              <!--create a customer modal-->
-               
+
              <!--create a customer modal-->
       <div class="form-group text-primary">
 
         <label
           for="full_name"
           [ngClass]="fval.full_name.valid ? 'text-info' : ''"
-          ><i *ngIf="fval.full_name.valid" class="material-icons"
+          >Full Name<i *ngIf="fval.full_name.valid" class="material-icons"
             >check_circle</i
-          >Full Name</label
+          ></label
         >
         <div class="input-group mb-0">
           <div class="input-group-prepend">
@@ -42,18 +42,18 @@ class="container-fluid d-flex flex-row justify-content-center mb-0 mt-md-1 mt-1 
                 (fval.full_name.touched || fval.full_name.dirty) &&
                 fval.full_name.errors
             }"
-            placeholder="Customer full name"
+            placeholder="Customer's full name"
             autocomplete="off"
           />
         </div>
         <div
-          class="text-danger col click"
+          class="text-danger col"
           *ngIf="
             (fval.full_name.touched || fval.full_name.dirty) &&
             fval.full_name.errors?.required
           "
         >
-          The full name is required!
+          The full name is required
         </div>
         <div
         class="text-danger col"
@@ -62,7 +62,7 @@ class="container-fluid d-flex flex-row justify-content-center mb-0 mt-md-1 mt-1 
           fval.full_name.errors?.minlength
         "
       >
-        At least four characterS required!
+        At least four characters required
       </div>
 
       </div>
@@ -71,9 +71,9 @@ class="container-fluid d-flex flex-row justify-content-center mb-0 mt-md-1 mt-1 
         <label
           for="document_type"
           [ngClass]="fval.document_type.valid ? 'text-info' : ''"
-          ><i *ngIf="fval.document_type.valid" class="material-icons"
+          >Document Type<i *ngIf="fval.document_type.valid" class="material-icons"
             >check_circle</i
-          >Document Type</label
+          ></label
         >
         <div class="input-group mb-0">
           <div class="input-group-prepend">
@@ -107,7 +107,7 @@ class="container-fluid d-flex flex-row justify-content-center mb-0 mt-md-1 mt-1 
             fval.document_type.errors?.required
           "
         >
-          The document type is required!
+          The document type is required
         </div>
       </div>
 
@@ -117,7 +117,7 @@ class="container-fluid d-flex flex-row justify-content-center mb-0 mt-md-1 mt-1 
         <label
           for="document_id_number"
           [ngClass]="fval.document_id_number.valid ? 'text-info' : ''"
-          >{{defaultLabel}}<i
+          >ID Number<i
             *ngIf="fval.document_id_number.valid"
             class="material-icons"
             >check_circle</i
@@ -142,7 +142,7 @@ class="container-fluid d-flex flex-row justify-content-center mb-0 mt-md-1 mt-1 
                 (fval.document_id_number.touched || fval.document_id_number.dirty) &&
                 fval.document_id_number.errors
             }"
-            [placeholder]="defaultLabel"
+            placeholder="Enter ID number"
             autocomplete="off"
           />
         </div>
@@ -153,7 +153,7 @@ class="container-fluid d-flex flex-row justify-content-center mb-0 mt-md-1 mt-1 
             fval.document_id_number.errors?.required
           "
         >
-          The {{defaultLabel}} is required!
+          The ID number is required
         </div>
         <!-- <div
           class="text-danger col"
@@ -256,7 +256,7 @@ class="container-fluid d-flex flex-row justify-content-center mb-0 mt-md-1 mt-1 
             fval.clientPhotoUrl.errors?.required
           "
         >
-          Please upload a passport-size photo of the client!
+          Please upload a passport-size photo of the client
         </div>
       </div>
 
@@ -304,7 +304,7 @@ class="container-fluid d-flex flex-row justify-content-center mb-0 mt-md-1 mt-1 
             fval.user_contact_number.errors?.required
           "
         >
-          The phone number is required!
+          The phone number is required
         </div>
         <div
           class="text-danger col"
@@ -314,7 +314,7 @@ class="container-fluid d-flex flex-row justify-content-center mb-0 mt-md-1 mt-1 
             fval.user_contact_number.errors?.hasNumber
           "
         >
-          The phone number should be equal to 10 "digits"!
+          The phone number should be equal to 10 "digits"
         </div>
 
         <div
@@ -325,7 +325,7 @@ class="container-fluid d-flex flex-row justify-content-center mb-0 mt-md-1 mt-1 
               checkPhoneNumberMatch()
           "
         >
-          Phone numbers should be unique!
+          Phone numbers should be unique
         </div>
       </div>
       <!--two-->
@@ -368,7 +368,7 @@ class="container-fluid d-flex flex-row justify-content-center mb-0 mt-md-1 mt-1 
           fval.user_contact_two.errors?.hasNumber
         "
       >
-        The phone number should be equal to 10 "digits"!
+        The phone number should be equal to 10 "digits"
       </div>
       <div
           class="text-danger col"
@@ -378,7 +378,7 @@ class="container-fluid d-flex flex-row justify-content-center mb-0 mt-md-1 mt-1 
               checkPhoneNumberMatch()
           "
         >
-          Phone numbers should be unique!
+          Phone numbers should be unique
         </div>
 
     </div>
@@ -388,7 +388,7 @@ class="container-fluid d-flex flex-row justify-content-center mb-0 mt-md-1 mt-1 
           class="text-danger col"
           *ngIf="invalid"
         >
-          All fields are required!
+          All fields are required
         </div>
       <div class="d-flex my-2 py-2 mx-auto">
         <button
@@ -408,7 +408,7 @@ class="container-fluid d-flex flex-row justify-content-center mb-0 mt-md-1 mt-1 
           Cancel
         </button>
         <ngx-spinner class="bg-info" size="medium" type="ball-scale-multiple">
-          <p class="text-light">Please wait...</p>
+          <!-- <p class="text-light">Please wait...</p> -->
         </ngx-spinner>
 
         <label class="col" *ngIf="errored" class="text-danger">
