@@ -107,7 +107,7 @@ export class ApproveUsersComponent implements OnInit {
 
   filterUser(searchTerm: string): any {
     if (searchTerm) {
-      console.log(searchTerm);
+      // console.log(searchTerm);
       return this.filteredUsers.filter(
         (user) =>
           user.userName.toLowerCase().indexOf(searchTerm.toLowerCase()) !==

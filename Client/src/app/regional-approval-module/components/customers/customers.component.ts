@@ -46,7 +46,7 @@ export class CustomersComponent implements OnInit {
   }
 
   getValue(event): any {
-    console.log(event.target.value);
+    // console.log(event.target.value);
     if (event.target.value === '') {
       this.filterCustomers = this.customerTable;
       this.totalItems = this.filterCustomers.length;

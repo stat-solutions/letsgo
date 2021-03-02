@@ -9,6 +9,8 @@ import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { BranchesService } from 'src/app/shared/services/branches.service';
 import { ExportService } from 'src/app/shared/services/export.service';
+import { AlertService } from 'ngx-alerts';
+import { AuthServiceService } from 'src/app/shared/services/auth-service.service';
 
 @Component({
   selector: 'app-users',
@@ -34,24 +36,23 @@ export class UsersComponent implements OnInit {
   roles: any;
   imageUrl: string;
   branches: any;
+  User = this.authService.loggedInUserInfo();
   @ViewChild('exportTable') element: ElementRef;
 
   constructor(
     private userService: UsersService,
+    private authService: AuthServiceService,
     private fb: FormBuilder,
     private spinner: NgxSpinnerService,
     private router: Router,
     private modalService: BsModalService,
     private exportService: ExportService,
+    private alertService: AlertService,
     private branchService: BranchesService
   ) {}
 
   ngOnInit(): void {
-    this.userService.getUsers().subscribe(res => {
-      this.user = res;
-      this.filteredUsers = this.user;
-      this.totalItems = this.user.length;
-    });
+    this.getUsers();
     this.branchService.getAllBranches().subscribe((branches) => {
       this.branches = branches;
     });
@@ -68,6 +69,13 @@ export class UsersComponent implements OnInit {
           '',
           Validators.compose([Validators.required])
         ),
+      });
+    }
+    getUsers(): any{
+      this.userService.getUsers().subscribe(res => {
+        this.user = res;
+        this.filteredUsers = this.user;
+        this.totalItems = this.user.length;
       });
     }
     getRoles(): any {
@@ -145,15 +153,31 @@ export class UsersComponent implements OnInit {
   }
   updateUserRole(template: any): any {
     const data = {
-      userId: this.user.userIid,
-      roleId: null
+      userId: this.user.userId,
+      userStatus: 2,
+      roleId: null,
+      userIdApprover: this.User.userId,
     };
     this.roles.forEach(role => {
       if (this.userForm.controls.role.value === role.roleName) {
         data.roleId = role.roleId;
       }
     });
-    console.log(data);
+    this.userService.approveUser(data).subscribe(
+      (res) => {
+        this.posted = true;
+        this.getUsers();
+        this.alertService.success({
+            html: '<b> Role Edited successfully<b>',
+          });
+      },
+      (err) => {
+        this.errored = true;
+        this.alertService.danger({
+            html: '<b> There was a problem<b>',
+        });
+      }
+    );
     this.modalService.hide(template);
   }
   sort(item: string): any{

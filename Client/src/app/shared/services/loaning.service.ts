@@ -24,6 +24,15 @@ export class LoaningService {
   getAllLoanThresholds(): Observable<any> {
     return this.http.get<any>(`${this.API_URL}/api/adminUser/getAllLoanThresholds`);
   }
+  setEditConstant(constant: any): any {
+    localStorage.setItem('editConstant', JSON.stringify(constant));
+  }
+  getEditConstant(): any {
+    return JSON.parse(localStorage.getItem('editConstant'));
+  }
+  deleteEditConstant(): any {
+    localStorage.removeItem('editConstant');
+  }
   getOneLoanThresholds(loanThresholdId: number): Observable<any> {
     return this.http.get<any>(`${this.API_URL}/api/adminUser/getOneLoanThresholds/?loanThresholdId=${loanThresholdId}`);
   }

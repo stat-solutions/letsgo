@@ -42,6 +42,19 @@ export class UsersService {
   getUsers(): any {
     return this.http.get<any>(`${this.API_URL}/api/user/getAllUsers`);
   }
+  getUser(id: number): any {
+    return this.http.get<any>(`${this.API_URL}/api/user/getUser/?id=${id}`);
+  }
+  putEditUser(postData: any): any {
+    return this.http.post<any>(`${this.API_URL}/api/user/putEditUser`, postData);
+  }
+  putEditUserPhotoUrl(postData: any): any {
+    return this.http.post<any>(`${this.API_URL}/api/user/putEditUserPhotoUrl`, postData);
+  }
+  putEditUserEmail(postData: any): any {
+    // console.log(object);
+    return this.http.post<any>(`${this.API_URL}/api/user/putEditUserEmail`, postData);
+  }
   getUserRoles(): any {
     return this.http.get<any>(`${this.API_URL}/api/auth/userRoles`);
   }

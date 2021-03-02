@@ -8,6 +8,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { PagesCoreAdminComponent } from './pages-core/pages-core-admin.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import {ConstantsComponent } from './components/constants/constants.component';
+import {EditConstantsComponent } from './components/edit-constants/edit-constants.component';
 import {CreateBranchComponent} from './components//create-branch/create-branch.component';
 import {CustomerDetailsComponent} from './components/customer-details/customer-details.component';
 import {UsersComponent} from './components/users/users.component';
@@ -53,6 +54,10 @@ const routes: Routes = [
       {
         path: 'constants',
         component: ConstantsComponent,
+      },
+      {
+        path: 'editconstants',
+        component: EditConstantsComponent,
       },
       {
         path: 'editprofile',
