@@ -40,8 +40,9 @@ hr{
   border-left: 3px solid #114888ce;
 }
 .img-circle{
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
 }
 
 
@@ -110,6 +111,9 @@ hr{
     .card-body {
       margin-bottom: 6rem !important;
     }
+    .list-card-body {
+      margin-bottom: 0rem !important;
+    }
     .jumbotron-fluid {
       padding-bottom: 11rem !important;
     }
@@ -126,6 +130,9 @@ hr{
     .jumbotron-fluid {
       padding-top: 0rem !important;
       padding-bottom: 0rem !important;
+    }
+    .list-card-body {
+      margin-bottom: 0rem !important;
     }
 }
 
@@ -144,9 +151,12 @@ hr{
     .jumbotron-fluid {
       padding-bottom: 18rem !important;
     }
+    .list-card-body {
+      margin-bottom: 0rem !important;
+    }
 .img-circle{
-  width: 55px;
-  height: 55px;
+  width: 35px;
+  height: 35px;
 }
 }
 
@@ -157,10 +167,9 @@ hr{
     .jumbotron-fluid {
       padding-bottom: .5rem !important;
     }
-.img-circle{
-  width: 35px;
-  height: 35px;
-}
+    .list-card-body {
+      margin-bottom: 0rem !important;
+    }
 }
 
 @media (min-width: 1280px) {

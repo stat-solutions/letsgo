@@ -12,7 +12,7 @@ import { AuthServiceService } from 'src/app/shared/services/auth-service.service
 @Component({
   selector: 'app-create-loans',
   templateUrl: './create-loans.component.html',
-  styleUrls: ['./create-loans.component.scss']
+  styleUrls: ['./create-loans.component.scss'],
 })
 export class CreateLoansComponent implements OnInit {
   submitted = false;
@@ -36,7 +36,7 @@ export class CreateLoansComponent implements OnInit {
   currentPage = 1;
   totalItems: number;
   pageSize = 12;
-  key = "documentId";
+  key = 'documentId';
   customerData = [];
   filteredCustomers = [];
   searchCustomer: string;
@@ -59,20 +59,21 @@ export class CreateLoansComponent implements OnInit {
     private storage: AngularFireStorage,
     private alertService: AlertService,
     private authService: AuthServiceService,
-    private spinner: NgxSpinnerService) { }
+    private spinner: NgxSpinnerService
+  ) {}
 
   ngOnInit(): any {
     this.userForm = this.createFormGroup();
     this.securityForm = this.createSecurityFormGroup();
-    this.customer.getAllCustomers().subscribe(customers => {
+    this.customer.getAllCustomers().subscribe((customers) => {
       this.customerData = customers;
       this.filteredCustomers = this.customerData;
       this.totalItems = this.customerData.length;
     });
-    this.loaning.getAllLoanThresholds().subscribe(thresholds => {
+    this.loaning.getAllLoanThresholds().subscribe((thresholds) => {
       this.loanTypes = thresholds;
     });
-    this.loaning.getLoanSecurityType().subscribe(res => {
+    this.loaning.getLoanSecurityType().subscribe((res) => {
       for (const i of res) {
         // console.log(i);
         this.securityNames.push(i.securityTypeName.toUpperCase());
@@ -84,32 +85,27 @@ export class CreateLoansComponent implements OnInit {
   createFormGroup(): any {
     return new FormGroup({
       full_name: this.fb.control(
-        {value: '', disabled: true},
+        { value: '', disabled: true },
         Validators.compose([Validators.required, Validators.minLength(2)])
       ),
-      loan_type: this.fb.control(
-        '',
-        Validators.compose([Validators.required])
-      ),
+      loan_type: this.fb.control('', Validators.compose([Validators.required])),
       comment: this.fb.control(
         '',
         Validators.compose([Validators.required, Validators.maxLength(30)])
       ),
       amount: this.fb.control(
         '',
-        Validators.compose([Validators.required,  CustomValidator.patternValidator(/\d/, { hasNumber: true })])
+        Validators.compose([
+          Validators.required,
+          CustomValidator.patternValidator(/\d/, { hasNumber: true }),
+        ])
       ),
-      tenure: this.fb.control(
-        '',
-        Validators.compose([Validators.required])
-      ),
+      tenure: this.fb.control('', Validators.compose([Validators.required])),
     });
   }
   createSecurityFormGroup(): any {
     return new FormGroup({
-      securityType: this.fb.control(
-        Validators.compose([Validators.required])
-      ),
+      securityType: this.fb.control(Validators.compose([Validators.required])),
       securityName: this.fb.control(
         '',
         Validators.compose([Validators.required])
@@ -121,7 +117,7 @@ export class CreateLoansComponent implements OnInit {
       securityPhotoUrl: this.fb.control(
         '',
         Validators.compose([Validators.required])
-      )
+      ),
     });
   }
   onFileSelected(event): any {
@@ -145,7 +141,7 @@ export class CreateLoansComponent implements OnInit {
       .pipe(
         finalize(() => {
           const downloadURL = fileRef.getDownloadURL();
-          downloadURL.subscribe(url => {
+          downloadURL.subscribe((url) => {
             if (url) {
               switch (inputType) {
                 case 'securityPhotoUrl':
@@ -156,7 +152,7 @@ export class CreateLoansComponent implements OnInit {
           });
         })
       )
-      .subscribe(url => {
+      .subscribe((url) => {
         if (url) {
           // console.log(url);
         }
@@ -169,75 +165,82 @@ export class CreateLoansComponent implements OnInit {
     this.numberValue = this.values ? parseInt(this.values, 10) : 0;
 
     // tslint:disable-next-line:no-unused-expression
-    this.values = this.numberValue === 0 ? '' : this.numberValue.toLocaleString('en-US');
+    this.values =
+      this.numberValue === 0 ? '' : this.numberValue.toLocaleString('en-US');
     this.fval.amount.setValue(this.values);
   }
-  addSecurity(): any{
+  addSecurity(): any {
     this.spinner.show();
     setTimeout(() => {
       const security = {
         securityTypeCode: null,
         loanSecurityName: this.securityForm.controls.securityName.value.toUpperCase(),
         loanSecurityLocation: this.securityForm.controls.securityLocation.value.toUpperCase(),
-        loanSecurityPhotoUrl: this.securityPhotoUrl
+        loanSecurityPhotoUrl: this.securityPhotoUrl,
       };
-      this.securities.forEach( sec => {
-        if (sec.securityTypeName.toUpperCase() === this.securityForm.controls.securityType.value) {
+      this.securities.forEach((sec) => {
+        if (
+          sec.securityTypeName.toUpperCase() ===
+          this.securityForm.controls.securityType.value
+        ) {
           security.securityTypeCode = sec.securityTypeCode;
         }
       });
-      if (security.securityTypeCode  != null) {
+      if (security.securityTypeCode != null) {
         this.securityDetails.push(security);
         this.securityForm.reset();
         this.posted = true;
         this.spinner.hide();
         this.alertService.success({
-          html: '<b>Security added successfully<b>'
+          html: '<b>Security added successfully<b>',
         });
       } else {
         this.errored = true;
         this.spinner.hide();
         this.alertService.danger({
-          html: '<b>Security Type selected is not correct<b>'
+          html: '<b>Security Type selected is not correct<b>',
         });
       }
     }, 3000);
   }
-  finishSecurity(): any{
+  finishSecurity(): any {
     this.spinner.show();
     setTimeout(() => {
       const security = {
         securityTypeCode: null,
         loanSecurityName: this.securityForm.controls.securityName.value.toUpperCase(),
         loanSecurityLocation: this.securityForm.controls.securityLocation.value.toUpperCase(),
-        loanSecurityPhotoUrl: this.securityPhotoUrl
+        loanSecurityPhotoUrl: this.securityPhotoUrl,
       };
-      this.securities.forEach( sec => {
-        if (sec.securityTypeName.toUpperCase() === this.securityForm.controls.securityType.value) {
+      this.securities.forEach((sec) => {
+        if (
+          sec.securityTypeName.toUpperCase() ===
+          this.securityForm.controls.securityType.value
+        ) {
           security.securityTypeCode = sec.securityTypeCode;
         }
       });
-      if (security.securityTypeCode  != null) {
+      if (security.securityTypeCode != null) {
         this.securityDetails.push(security);
         this.securityForm.reset();
         this.closeModal();
         this.posted = true;
         this.spinner.hide();
         this.alertService.success({
-          html: '<b>Security added successfully<b>'
+          html: '<b>Security added successfully<b>',
         });
       } else {
         this.errored = true;
         this.spinner.hide();
         this.alertService.danger({
-          html: '<b>Security Type selected is not correct<b>'
+          html: '<b>Security Type selected is not correct<b>',
         });
       }
     }, 3000);
   }
-  setMaxtenureAndAmount(val: any): any{
+  setMaxtenureAndAmount(val: any): any {
     // console.log(val);
-    this.loanTypes.forEach(type => {
+    this.loanTypes.forEach((type) => {
       if (type.loanThresholdType === val) {
         // console.log(type);
         this.maxTenure = type.loanThresholdMaxTenure;
@@ -248,21 +251,25 @@ export class CreateLoansComponent implements OnInit {
       }
     });
   }
-  checkTenureAndAmount(event: any): any{
+  checkTenureAndAmount(event: any): any {
     // tslint:disable-next-line: radix
     // console.log(parseInt(event.target.value.replace(/[\D\s\._\-]+/g, '')));
     if (event.target.id === 'tenure' && event.target.value > this.maxTenure) {
       this.errored = true;
       this.alertService.danger({
-        html: '<b>Tenure should not be greater than ' + this.maxTenure + '<b>'
+        html: '<b>Tenure should not be greater than ' + this.maxTenure + '<b>',
       });
       this.fval.tenure.setValue('');
     } else if (event.target.id === 'amount') {
-      const amount = parseInt(event.target.value.replace(/[\D\s\._\-]+/g, ''), 10 );
-      if ( amount > this.maxAmount) {
+      const amount = parseInt(
+        event.target.value.replace(/[\D\s\._\-]+/g, ''),
+        10
+      );
+      if (amount > this.maxAmount) {
         this.errored = true;
         this.alertService.danger({
-          html: '<b>Amount should not be greater than ' + this.maxAmount + '<b>'
+          html:
+            '<b>Amount should not be greater than ' + this.maxAmount + '<b>',
         });
         this.fval.amount.setValue('');
       } else {
@@ -277,13 +284,13 @@ export class CreateLoansComponent implements OnInit {
   get fval(): any {
     return this.userForm.controls;
   }
-  checkCustomer(customer: any): any{
+  checkCustomer(customer: any): any {
     this.currentCustomer = customer;
     this.fval.full_name.setValue(this.currentCustomer.customerName);
     this.searchTerm = '';
     this.closeModal();
   }
-  closeModal(): any{
+  closeModal(): any {
     this.bsModal.hide();
   }
 
@@ -297,89 +304,97 @@ export class CreateLoansComponent implements OnInit {
     data.push({
       customerId: this.currentCustomer.customerId,
       loanThresholdId: this.loanThresholdId,
-      loanAmount: parseInt(this.fval.amount.value.replace(/[\D\s\._\-]+/g, ''), 10 ),
+      loanAmount: parseInt(
+        this.fval.amount.value.replace(/[\D\s\._\-]+/g, ''),
+        10
+      ),
       loanTenure: this.fval.tenure.value,
       comment: this.fval.comment.value.toUpperCase(),
       userId: this.User.userId,
-      branchId: this.User.branchId
+      branchId: this.User.branchId,
     });
     if (this.securityDetails.length > 0) {
       data.push(this.securityDetails);
     }
     // console.log(data);
     this.loaning.postCreateLoan(data).subscribe(
-      res => {
+      (res) => {
         if (res) {
           this.posted = true;
           this.userForm.reset();
           this.spinner.hide();
           this.alertService.success({
-            html: '<b>Loan was created successfully<b>'
+            html: '<b>Loan was created successfully<b>',
           });
         }
       },
-      err => {
+      (err) => {
         this.spinner.hide();
         this.alertService.success({
-          html: '<b>There was a problem<b>'
+          html: '<b>There was a problem<b>',
         });
       }
     );
   }
   // sort in ascending order
 
-  sort(item: string): any{
+  sort(item: string): any {
     this.key = item;
     this.reverse = !this.reverse;
   }
 
-  openModal(template: TemplateRef<any>): any{
-     this.bsModal = this.bsModalService.show(
-       template,
-       Object.assign({}, { class: 'modal-xl modal-dialog-center' })
-     );
-   }
+  openModal(template: TemplateRef<any>): any {
+    this.bsModal = this.bsModalService.show(
+      template,
+      Object.assign({}, { class: 'modal-xl modal-dialog-center' })
+    );
+  }
+  openModal2(template: TemplateRef<any>): any {
+    this.bsModal = this.bsModalService.show(
+      template,
+      Object.assign({}, { class: 'modal-dialog-center' })
+    );
+  }
 
-   checkTable(array: Array<any>): any{
-     return array.length ? true : false;
-   }
+  checkTable(array: Array<any>): any {
+    return array.length ? true : false;
+  }
 
-   // searching
-    getValue(event): any {
+  // searching
+  getValue(event): any {
     console.log(event.target.value);
     this.searchCustomer = event.target.value;
-    if (event.target.value === ''){
+    if (event.target.value === '') {
       this.filteredCustomers = this.customerData;
       this.totalItems = this.filteredCustomers.length;
-
-
-    }
-    else{
-          this.filteredCustomers =  this.filterCustomer(this.searchCustomer);
-          this.totalItems = this.filteredCustomers.length;
-
+    } else {
+      this.filteredCustomers = this.filterCustomer(this.searchCustomer);
+      this.totalItems = this.filteredCustomers.length;
     }
   }
-  filterCustomer(searchTerm: string): any{
+  filterCustomer(searchTerm: string): any {
     if (searchTerm) {
-
-    return this.filteredCustomers.filter(
-      customer => customer.customerName.toLowerCase().indexOf(searchTerm.toLowerCase()) !==   -1
+      return this.filteredCustomers.filter(
+        (customer) =>
+          customer.customerName
+            .toLowerCase()
+            .indexOf(searchTerm.toLowerCase()) !== -1
       );
     }
-
   }
-   // searching
-   getCustomerName(id: number): any{
-     const customerNames = this.customerData.find(customer => customer.customerId === id);
-     const {customerName} = customerNames;
-     this.fval.full_name.setValue(customerName);
-     this.searchTerm = '';
-     this.filteredCustomers = this.customerData;
-     this.totalItems = this.filteredCustomers.length;
-     this.closeModal();
-   }
-   pageChanged(event): any{
-     this.currentPage = event;
-   }
+  // searching
+  getCustomerName(id: number): any {
+    const customerNames = this.customerData.find(
+      (customer) => customer.customerId === id
+    );
+    const { customerName } = customerNames;
+    this.fval.full_name.setValue(customerName);
+    this.searchTerm = '';
+    this.filteredCustomers = this.customerData;
+    this.totalItems = this.filteredCustomers.length;
+    this.closeModal();
+  }
+  pageChanged(event): any {
+    this.currentPage = event;
+  }
 }
