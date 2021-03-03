@@ -16,6 +16,9 @@ hr{
   min-width: 2rem !important;
   border: 2px solid #bbb212b2;
 }
+.img-rounded{
+  border-radius: 50%;
+}
 
 
 
@@ -79,10 +82,6 @@ hr{
     .jumbotron-fluid {
       padding-bottom: 0rem !important;
     }
-img{
-  width: 100%;
-height: 100%;
-}
   .update-img {
     margin-left: 10.8rem !important;
     margin-right: 10.8rem !important;
