@@ -17,19 +17,15 @@ import { AlertService } from 'ngx-alerts';
       ) { }
     canActivateChild(): boolean {
       if (this.authService.isLoggedIn()) {
-          if (this.jwtHelper.isTokenExpired(this.authService.getJwtToken())){
-              this.authService.refreshToken();
-            } else {
-              if (this.jwtHelper.decodeToken(this.authService.getJwtToken()).roleId === 100){
-                  return true;
-              } else {
-                  this.router.navigate(['/authpage/login']);
-                  this.alert.danger({
-                      html: '<strong>User unauthorised</strong>'
-                  });
-                  return false;
-              }
-          }
+        if (this.jwtHelper.decodeToken(this.authService.getJwtToken()).roleId === 100){
+            return true;
+        } else {
+            this.router.navigate(['/authpage/login']);
+            this.alert.danger({
+                html: '<strong>User unauthorised</strong>'
+            });
+            return false;
+        }
       }
       else {
         this.router.navigate(['/authpage/login']);

@@ -167,18 +167,19 @@ export class UsersComponent implements OnInit {
       (res) => {
         this.posted = true;
         this.getUsers();
+        this.modalService.hide();
         this.alertService.success({
             html: '<b> Role Edited successfully<b>',
           });
       },
       (err) => {
         this.errored = true;
+        this.modalService.hide();
         this.alertService.danger({
             html: '<b> There was a problem<b>',
         });
       }
     );
-    this.modalService.hide(template);
   }
   sort(item: string): any{
     this.key = item;

@@ -139,7 +139,7 @@
                         (change)="assignRole($event)"
                       >
                         <option selected disabled>Assigned Role</option>
-                        <option [ngValue]="role" *ngFor="let role of roles">
+                        <option [ngValue]="role.roleName" *ngFor="let role of roles">
                           {{ role.roleName }}
                         </option>
                       </select>

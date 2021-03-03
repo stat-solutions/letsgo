@@ -58,6 +58,19 @@
     </div>
     <div class="row">
       <div class="col-12">
+        <ngx-spinner class="bg-success" size="medium" type="line-spin-fade">
+          <p class="text-light">Please Wait...</p>
+        </ngx-spinner>
+
+        <label class="col" *ngIf="errored" class="text-danger">
+          <!-- <i class="material-icons">cancel</i> -->
+          <ngx-alerts></ngx-alerts>
+        </label>
+
+        <label class="col" *ngIf="posted" class="text-info">
+          <!-- <i class="material-icons">check_circle</i> -->
+          <ngx-alerts></ngx-alerts>
+        </label>
         <!--record container-->
         <div
           class="invest-card card mt-1 py-2 mb-2 mx-auto px-2 shadow-lg"
@@ -136,7 +149,20 @@
                             class="col-8 col-md-9 col-xl-6 d-flex justify-content-start font-weight-bold mx-0 px-0"
                           >
                             <span class="itemCreated">
-                              {{ user.fkRoleIdUser }}
+                              {{ 
+                                user.fkRoleIdUser === 100 ? 'APPLICATION' :
+                                user.fkRoleIdUser === 200 ? 'BRANCH APPROVAL' :
+                                user.fkRoleIdUser === 300 ? 'BRANCH EXIT' :
+                                user.fkRoleIdUser === 400 ? 'REGIONAL APPROVAL' :
+                                user.fkRoleIdUser === 500 ? 'HEAD OFFICE ENTRY' :
+                                user.fkRoleIdUser === 600 ? 'LEGAL REVIEW' :
+                                user.fkRoleIdUser === 700 ? 'CREDIT ANALYSIS' :
+                                user.fkRoleIdUser === 800 ? 'HEAD OFFICE APPROVAL' :
+                                user.fkRoleIdUser === 900 ? 'LOAN ADMIN ENTRY' :
+                                user.fkRoleIdUser === 1000 ? 'LOAN ADMIN VERIFICATION' :
+                                user.fkRoleIdUser === 1100 ? 'LOAN ADMIN EXIT' :
+                                user.fkRoleIdUser === 1200 ? 'DISBURSEMENT' : 'ADMIN'
+                              }}
                             </span>
                           </div>
                         </div>
@@ -280,7 +306,20 @@
                             class="col-7 col-md-9 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
                           >
                             <span class="itemCreated">
-                              {{ user.fkRoleIdUser }}
+                              {{ 
+                                user.fkRoleIdUser === 100 ? 'APPLICATION' :
+                                user.fkRoleIdUser === 200 ? 'BRANCH APPROVAL' :
+                                user.fkRoleIdUser === 300 ? 'BRANCH EXIT' :
+                                user.fkRoleIdUser === 400 ? 'REGIONAL APPROVAL' :
+                                user.fkRoleIdUser === 500 ? 'HEAD OFFICE ENTRY' :
+                                user.fkRoleIdUser === 600 ? 'LEGAL REVIEW' :
+                                user.fkRoleIdUser === 700 ? 'CREDIT ANALYSIS' :
+                                user.fkRoleIdUser === 800 ? 'HEAD OFFICE APPROVAL' :
+                                user.fkRoleIdUser === 900 ? 'LOAN ADMIN ENTRY' :
+                                user.fkRoleIdUser === 1000 ? 'LOAN ADMIN VERIFICATION' :
+                                user.fkRoleIdUser === 1100 ? 'LOAN ADMIN EXIT' :
+                                user.fkRoleIdUser === 1200 ? 'DISBURSEMENT' : 'ADMIN'
+                              }}
                             </span>
                           </div>
                         </div>
@@ -404,7 +443,7 @@
               formControlName="role"
             >
               <option selected disabled>AssignRole</option>
-              <option [ngValue]="role" *ngFor="let role of roles">
+              <option [ngValue]="role.roleName" *ngFor="let role of roles">
                 {{ role.roleName }}
               </option>
             </select>
@@ -481,19 +520,7 @@
             Cancel
           </button>
           <!-- <ngx-alerts></ngx-alerts> -->
-          <ngx-spinner class="bg-success" size="medium" type="line-spin-fade">
-            <p class="text-light">Please Wait...</p>
-          </ngx-spinner>
-
-          <label class="col" *ngIf="errored" class="text-danger">
-            <i class="material-icons">cancel</i>
-            <!-- <ngx-alerts></ngx-alerts> -->
-          </label>
-
-          <label class="col" *ngIf="posted" class="text-info">
-            <i class="material-icons">check_circle</i>
-            <!-- <ngx-alerts></ngx-alerts> -->
-          </label>
+          
         </div>
       </form>
     </div>

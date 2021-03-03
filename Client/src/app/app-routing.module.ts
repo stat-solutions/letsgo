@@ -39,11 +39,11 @@ const routes: Routes = [
   { path: 'loanverification', loadChildren: () => import('./loan-administration-verification-module/loan-administration-verification.module').then(m => m.LoanAdministrationVerificationModule) },
   // tslint:disable-next-line: max-line-length
   { path: 'regional', loadChildren: () => import('./regional-approval-module/regional-approval.module').then(m => m.RegionalApprovalModule) },
-  {
-    path: '**',
-    redirectTo: '/authpage/login',
-    pathMatch: 'full',
-  },
+  // {
+  //   path: '**',
+  //   redirectTo: '/authpage/login',
+  //   pathMatch: 'full',
+  // },
 ];
 
 @NgModule({

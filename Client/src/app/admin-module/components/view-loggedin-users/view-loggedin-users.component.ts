@@ -47,7 +47,7 @@ export class ViewLoggedinUsersComponent implements OnInit {
   getLoggedInUsers(): any{
     this.userService.getLoggedInUsers().subscribe((loggedIn) => {
       if (loggedIn.length > 0) {
-        this.loggedInUsers = loggedIn.filter(itm =>  itm.loggedInUsersId === this.User.userId );
+        this.loggedInUsers = loggedIn;
         this.filteredUsers = this.loggedInUsers;
         this.totalItems = this.loggedInUsers.length;
       }

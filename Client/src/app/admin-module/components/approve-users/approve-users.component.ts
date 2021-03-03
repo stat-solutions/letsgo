@@ -151,7 +151,7 @@ export class ApproveUsersComponent implements OnInit {
             html: '<b> Approved successfully<b>',
           });
       },
-      (err) =>{
+      (err) => {
         this.errored = true;
         this.alertService.danger({
             html: '<b> There was a problem<b>',
@@ -185,7 +185,7 @@ export class ApproveUsersComponent implements OnInit {
             html: '<b> Approved successfully<b>',
           });
       },
-      (err) =>{
+      (err) => {
         this.errored = true;
         this.getUserToApproval();
         this.alertService.danger({

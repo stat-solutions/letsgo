@@ -93,16 +93,18 @@ export class AuthServiceService {
 
     doLogoutUser(): any {
       this.loggedInUser = null;
-      this.removeTokens();
       this.router.navigate(['/authpage/login']);
-      if (!this.getPleaseLogin()) {
+      if (this.getPleaseLogin() === false) {
         this.userService.userLogOut(this.loggedInUserInfo().userId).subscribe(
           res => {
             // logout at the backend
           },
-          err => console.log(err)
+          err => {
+            console.log(err);
+          }
         );
       }
+      this.removeTokens();
     }
 
     private removeTokens(): any {
@@ -115,16 +117,18 @@ export class AuthServiceService {
     }
     loggedInUserInfo(): any {
       // console.log(this.jwtHelper.decodeToken(this.getJwtToken()));
-      const tk = this.jwtHelper.decodeToken(this.getJwtToken());
-      return {
-        userName: tk.userName,
-        userId: tk.userId,
-        userPhone: tk.userPhone1,
-        roleId: tk.roleId,
-        branchId: tk.branchId,
-        branchType: tk.branchType,
-        // branchId: 554,
-      };
+      if (this.isLoggedIn()){
+        const tk = this.jwtHelper.decodeToken(this.getJwtToken());
+        return {
+          userName: tk.userName,
+          userId: tk.userId,
+          userPhone: tk.userPhone1,
+          roleId: tk.roleId,
+          branchId: tk.branchId,
+          branchType: tk.branchType,
+          // branchId: 554,
+        };
+      }
   //     "userId": 10000009,
   // "userName": "Bazirake Augustine",
   // "userEmail": "augbazi@gmail.com",
@@ -151,7 +155,16 @@ export class AuthServiceService {
           refreshToken: this.getRefreshToken()
         }).pipe(tap((tokens: Tokens) => {
           this.storeTokens(tokens);
-        }));
+        }),
+        catchError(error => {
+          if (error instanceof HttpErrorResponse && error.status === 401){
+            this.setPleaseLogin(true);
+            this.doLogoutUser();
+            this.router.navigate(['/authpage/login']);
+          } else {
+            return throwError(error);
+          }})
+        );
       } else {
         this.setPleaseLogin(true);
         this.doLogoutUser();
