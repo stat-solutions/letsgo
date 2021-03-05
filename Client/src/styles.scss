@@ -6061,6 +6061,12 @@ a.close.disabled {
     }
 }
 
+@media (min-width: 768px) {
+    .modal-xl {
+        max-width: 720px
+    }
+}
+
 @media (min-width:992px) {
     .modal-lg,
     .modal-xl {

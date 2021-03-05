@@ -131,7 +131,7 @@ export class DashboardComponent implements OnInit {
     if (this.specificLoanTable.length){
       this.modalRef = this.modalService.show(
        template,
-     Object.assign({}, { class: 'modal-lg modal-dialog-center' }));
+     Object.assign({}, { class: 'modal-xl modal-dialog-center' }));
     }
     });
   }

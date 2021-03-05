@@ -30,9 +30,9 @@
         <label
           for="loan_type"
           [ngClass]="fval.loan_type.valid ? 'text-info' : ''"
-          ><i *ngIf="fval.loan_type.valid" class="material-icons"
+          >Loan Type<i *ngIf="fval.loan_type.valid" class="material-icons"
             >check_circle</i
-          >Loan Type</label
+          ></label
         >
         <div class="input-group mb-0">
           <input
@@ -57,7 +57,7 @@
             fval.loan_type.errors?.required
           "
         >
-          The loan type is required!
+          The loan type is required
         </div>
         <div
         class="text-danger col"
@@ -66,7 +66,7 @@
           fval.loan_type.errors?.minlength
         "
       >
-        At least two characters required!
+        At least two characters required
       </div>
 
       </div>
@@ -76,9 +76,9 @@
         <label
           for="loan_product"
           [ngClass]="fval.loan_product.valid ? 'text-info' : ''"
-          ><i *ngIf="fval.loan_product.valid" class="material-icons"
+          >Loan Product<i *ngIf="fval.loan_product.valid" class="material-icons"
             >check_circle</i
-          >Loan Product</label
+          ></label
         >
         <div class="input-group mb-0">
           <input
@@ -103,14 +103,14 @@
             fval.loan_product.errors?.required
           "
         >
-          The loan product is required!
+          The loan product is required
         </div>
 
       </div>
 
 <div class="form-group text-primary">
         <label for="threshold" [ngClass]="fval.threshold.valid ? 'text-info' : ''"
-          >TimeThreshold(Days)<i *ngIf="fval.threshold.valid" class="material-icons"
+          >Time Threshold(Days)<i *ngIf="fval.threshold.valid" class="material-icons"
             >check_circle</i
           ></label
         >
@@ -136,7 +136,7 @@
             fval.threshold.errors?.required
           "
         >
-          The threshold  is required!
+          The time threshold is required
         </div>
       </div>
 
@@ -176,7 +176,7 @@
             fval.maximum_amount.errors?.required
           "
         >
-          Maximum loan amount is required!
+          Maximum loan amount is required
         </div>
       </div>
 
@@ -210,7 +210,7 @@
             fval.tenure.errors?.required
           "
         >
-          The loan tenure required!
+          The loan tenure required
         </div>
 
       </div>
@@ -218,7 +218,7 @@
           class="text-danger col"
           *ngIf="invalid"
         >
-          All fields are required!
+          All fields are required
         </div>
       <div class="d-flex my-2 py-2 mx-auto">
         <button
@@ -229,7 +229,7 @@
           Save
         </button>
         <ngx-spinner class="bg-info" size="medium" type="ball-scale-multiple">
-          <p class="text-light">Please wait...</p>
+          <!-- <p class="text-light">Please wait...</p> -->
         </ngx-spinner>
         <ngx-alerts></ngx-alerts>
         <label class="col" *ngIf="posted" class="text-info">
@@ -243,7 +243,7 @@
         <button
           type="button"
           class="btn btn-info col-5 mx-auto"
-          routerLink = '/admin/admindashboard'
+          routerLink = '/admin/constants'
         >
           Cancel
         </button>

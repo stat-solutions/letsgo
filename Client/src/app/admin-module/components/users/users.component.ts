@@ -59,59 +59,52 @@ export class UsersComponent implements OnInit {
     this.getRoles();
     this.userForm = this.createFormGroup();
   }
-    createFormGroup(): any {
-      return new FormGroup({
-        userName: this.fb.control(
-          '',
-          Validators.compose([Validators.required])
-        ),
-        role: this.fb.control(
-          '',
-          Validators.compose([Validators.required])
-        ),
-      });
-    }
-    getUsers(): any{
-      this.userService.getUsers().subscribe(res => {
-        this.user = res;
-        this.filteredUsers = this.user;
-        this.totalItems = this.user.length;
-      });
-    }
-    getRoles(): any {
-      this.userService.getUserRoles().subscribe(
-        res => {
-          this.roles = res;
-          // tslint:disable-next-line: only-arrow-functions
-          this.roles = this.roles.map(function(role: any): any {
-            return {
-              roleId: role.roleId,
-              roleName: role.roleName.replace(/_/g, ' ').toUpperCase()
-            };
+  createFormGroup(): any {
+    return new FormGroup({
+      userName: this.fb.control('', Validators.compose([Validators.required])),
+      role: this.fb.control('', Validators.compose([Validators.required])),
+    });
+  }
+  getUsers(): any {
+    this.userService.getUsers().subscribe((res) => {
+      this.user = res;
+      this.filteredUsers = this.user;
+      this.totalItems = this.user.length;
+    });
+  }
+  getRoles(): any {
+    this.userService.getUserRoles().subscribe(
+      (res) => {
+        this.roles = res;
+        // tslint:disable-next-line: only-arrow-functions
+        this.roles = this.roles.map(function (role: any): any {
+          return {
+            roleId: role.roleId,
+            roleName: role.roleName.replace(/_/g, ' ').toUpperCase(),
+          };
         });
-          // console.log(this.roles);
-        },
-        err => console.log(err.error.error.message)
-      );
-    }
-    getValue(event): any {
+        // console.log(this.roles);
+      },
+      (err) => console.log(err.error.error.message)
+    );
+  }
+  getValue(event): any {
     // console.log(event.target.value);
     this.searchTerm = event.target.value;
-    if (event.target.value === ''){
-       this.filteredUsers = this.user;
-       this.totalItems = this.filteredUsers.length;
-
-    }
-    else{
-          this.filteredUsers =  this.filterCustomer(this.searchTerm);
-          this.totalItems = this.filteredUsers.length;
+    if (event.target.value === '') {
+      this.filteredUsers = this.user;
+      this.totalItems = this.filteredUsers.length;
+    } else {
+      this.filteredUsers = this.filterCustomer(this.searchTerm);
+      this.totalItems = this.filteredUsers.length;
     }
   }
-  public openModal(template: TemplateRef<any>, user: any): any {
-    this.user = user;
+  // modal method
+  public openModal(template: TemplateRef<any>, imageUrl: string): any {
+    this.imageUrl = imageUrl;
     this.modalRef = this.modalService.show(
       template,
-      Object.assign({}, { class: 'white modal-lg modal-dialog-center' })
+      Object.assign({}, { class: 'modal-dialog-center' })
     );
   }
 
@@ -126,29 +119,28 @@ export class UsersComponent implements OnInit {
     );
   }
 
-  filterCustomer(searchTerm: string): any{
+  filterCustomer(searchTerm: string): any {
     if (searchTerm) {
-    return this.filteredUsers.filter(
-      user => user.userName.toLowerCase().indexOf(searchTerm.toLowerCase()) !==
+      return this.filteredUsers.filter(
+        (user) =>
+          user.userName.toLowerCase().indexOf(searchTerm.toLowerCase()) !==
             -1 ||
           user.userEmail.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1
       );
     }
   }
-  checkArrayLength(array: Array<any>): any{
+  checkArrayLength(array: Array<any>): any {
     return array.length ? true : false;
   }
 
-  approveUsers(): any{
+  approveUsers(): any {
     this.router.navigate(['admin/approveusers']);
-
   }
-  pageChanged(event): any{
-     this.currentPage = event;
-
-   }
+  pageChanged(event): any {
+    this.currentPage = event;
+  }
   // exportto excel
-  exportToExcel(): any{
+  exportToExcel(): any {
     this.exportService.exportExcel(this.filteredUsers, 'users');
   }
   updateUserRole(template: any): any {
@@ -158,7 +150,7 @@ export class UsersComponent implements OnInit {
       roleId: null,
       userIdApprover: this.User.userId,
     };
-    this.roles.forEach(role => {
+    this.roles.forEach((role) => {
       if (this.userForm.controls.role.value === role.roleName) {
         data.roleId = role.roleId;
       }
@@ -169,23 +161,23 @@ export class UsersComponent implements OnInit {
         this.getUsers();
         this.modalService.hide();
         this.alertService.success({
-            html: '<b> Role Edited successfully<b>',
-          });
+          html: '<b> Role Edited successfully<b>',
+        });
       },
       (err) => {
         this.errored = true;
         this.modalService.hide();
         this.alertService.danger({
-            html: '<b> There was a problem<b>',
+          html: '<b> There was a problem<b>',
         });
       }
     );
   }
-  sort(item: string): any{
+  sort(item: string): any {
     this.key = item;
     this.reverse = !this.reverse;
   }
-  loggedInUsers(): any{
+  loggedInUsers(): any {
     this.router.navigate(['admin/loggedin']);
   }
 }
