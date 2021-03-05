@@ -197,9 +197,9 @@
                 class="list-card card mt-1 pt-2 mb-0 mx-auto px-0 pb-1 shadow-lg"
                 (click)="openModal(template, loans.loanId)"
                 [ngClass]="{
-                  branch: (loans.theBranchTypeNow === 'BRANCH' && Number(loans.ageSinceCreation) < loans.loanThresholdTime),
-                  headOffice: (loans.theBranchTypeNow === 'HEADOFFICE' && Number(loans.ageSinceCreation) < loans.loanThresholdTime ),
-                  loanAge: (Number(loans.ageSinceCreation) > loans.loanThresholdTime)
+                  branch: (loans.theBranchTypeNow === 'BRANCH' && Number(loans.ageSinceCreation) <= loans.loanThresholdTime ),
+                  headOffice: (loans.theBranchTypeNow === 'HEADOFFICE' && Number(loans.ageSinceCreation) <= loans.loanThresholdTime ),
+                  loanAge: Number(loans.ageSinceCreation) > loans.loanThresholdTime
                 }"
                 *ngFor="
                   let loans of filteredLoans

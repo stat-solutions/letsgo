@@ -308,7 +308,7 @@
                                   class="col-7 col-md-8 col-lg-9 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
                                 >
                                   <span class="itemCreated">
-                                    {{ loans.ageSinceMovement }}
+                                    {{ loans.ageSinceMovement }} Hours
                                   </span>
                                 </div>
                               </div>
@@ -344,7 +344,7 @@
                                   class="col-7 col-md-8 col-lg-9 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
                                 >
                                   <span class="itemCreated">
-                                    {{ loans.ageSinceCreation }}
+                                    {{ loans.ageSinceCreation }} Days
                                   </span>
                                 </div>
                               </div>
@@ -382,6 +382,7 @@
                 <div class="item-container-1 mt-1">
                   <div
                     class="list-card card mt-1 pt-2 mb-0 mx-auto px-0 pb-0 shadow-lg"
+                    [ngClass]="{approved: loans.transactionStatus === 1}"
                     *ngFor="
                       let loans of filteredLoans
                       | paginate
@@ -661,7 +662,7 @@
                                   class="col-7 col-md-8 col-lg-9 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
                                 >
                                   <span class="itemCreated">
-                                    {{ loans.ageSinceMovement }}
+                                    {{ loans.ageSinceMovement }} Hours
                                   </span>
                                 </div>
                               </div>
@@ -697,7 +698,7 @@
                                   class="col-7 col-md-8 col-lg-9 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
                                 >
                                   <span class="itemCreated">
-                                    {{ loans.ageSinceCreation }}
+                                    {{ loans.ageSinceCreation }} Days
                                   </span>
                                 </div>
                               </div>
@@ -971,7 +972,7 @@
                                   class="col-7 col-md-8 col-lg-9 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
                                 >
                                   <span class="itemCreated">
-                                    {{ loans.ageSinceMovement }}
+                                    {{ loans.ageSinceMovement }} Hours
                                   </span>
                                 </div>
                               </div>
@@ -1007,7 +1008,7 @@
                                   class="col-7 col-md-8 col-lg-9 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
                                 >
                                   <span class="itemCreated">
-                                    {{ loans.ageSinceCreation }}
+                                    {{ loans.ageSinceCreation }} Days
                                   </span>
                                 </div>
                               </div>
@@ -1081,18 +1082,27 @@
                           >
                             <a
                               class="dropdown-item text-primo-1 pointerCursor"
-                              (click)="openComment(loans, edit, 'Rectify')"
-                              [hidden]="loans.transactionStatus === 4"
+                              (click)="openComment(loans, template, 'Rectify')"
                               ><i class="fas fa-check"></i>
 
                               Rectify
                             </a>
-                            <a
-                                class="dropdown-item pointerCursor text-primo"
-                                (click)="openComment(loans, template, 'Rectified')"
-                                [hidden]="loans.transactionStatus !== 4"
-                              ><i class="fas fa-chevron-right"></i>
-                                Forward
+                            <a class="dropdown-item dropdown-submenu"
+                            >Defer To
+                                <a
+                                class="dropdown-item text-primo-1 pointerCursor"
+                                (click)="openComment(loans, template, 'Application')"
+                                >
+
+                                  Application
+                                </a>
+                                <a
+                                  class="dropdown-item text-primo-1 pointerCursor"
+                                  (click)="openComment(loans, template, 'Branch')"
+                                  >
+
+                                  Branch Approval
+                                </a>
                             </a>
                           </div>
                         </div>
@@ -1298,7 +1308,7 @@
                                   class="col-7 col-md-8 col-lg-9 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
                                 >
                                   <span class="itemCreated">
-                                    {{ loans.ageSinceMovement }}
+                                    {{ loans.ageSinceMovement }} Hours
                                   </span>
                                 </div>
                               </div>
@@ -1334,7 +1344,7 @@
                                   class="col-7 col-md-8 col-lg-9 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
                                 >
                                   <span class="itemCreated">
-                                    {{ loans.ageSinceCreation }}
+                                    {{ loans.ageSinceCreation }} Days
                                   </span>
                                 </div>
                               </div>
@@ -1612,7 +1622,7 @@
                                   class="col-7 col-md-8 col-lg-9 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
                                 >
                                   <span class="itemCreated">
-                                    {{ loans.ageSinceMovement }}
+                                    {{ loans.ageSinceMovement }} Hours
                                   </span>
                                 </div>
                               </div>
@@ -1648,7 +1658,7 @@
                                   class="col-7 col-md-8 col-lg-9 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
                                 >
                                   <span class="itemCreated">
-                                    {{ loans.ageSinceCreation }}
+                                    {{ loans.ageSinceCreation }} Days
                                   </span>
                                 </div>
                               </div>
@@ -1708,247 +1718,5 @@
     <button type="submit" class="btn btn-info" (click)="closeModal()">
       Cancel
     </button>
-  </div>
-</ng-template>
-
-<!---edit loan-->
-<ng-template #edit>
-  <div class="modal-header bg-info modal-lg">
-    <h4 class="modal-title text-white-75">{{actionType}} Loan</h4>
-    <button
-      type="button"
-      class="close pull-right"
-      aria-label="Close"
-      (click)="closeModal()"
-    >
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <!--edit form-->
-  <div class="modal-body">
-    <div class="card-body mt-2 pt-3 mt-xl-1 mb-1 mx-auto pb-4 shadow-lg">
-      <form [formGroup]="editLoanForm">
-        <!--create a customer modal-->
-        <div class="form-group text-primary">
-          <label
-            for="customerName"
-            [ngClass]="editControls.customerName.valid ? 'text-info' : ''"
-            ><i *ngIf="editControls.customerName.valid" class="material-icons"
-              >check_circle</i
-            >Customer name</label
-          >
-          <div class="input-group mb-0">
-            <div class="input-group-prepend">
-              <div class="input-group-text">
-                <i class="fas fa-user text-primary mx-auto" style="size: 50px">
-                </i>
-              </div>
-            </div>
-            <input
-              id="customerName"
-              formControlName="customerName"
-              type="text"
-              required
-              class="form-control"
-              [ngClass]="{
-                'is-invalid':
-                  (editControls.customerName.touched ||
-                    editControls.customerName.dirty) &&
-                  editControls.customerName.errors
-              }"
-              placeholder="Edit Customer name"
-              autocomplete="off"
-            />
-          </div>
-          <div
-            class="text-danger"
-            *ngIf="
-              (editControls.customerName.touched ||
-                editControls.customerName.dirty) &&
-              editControls.customerName.errors?.required
-            "
-          >
-            The customer name is required
-          </div>
-          <div
-            class="text-danger"
-            *ngIf="
-              (editControls.customerName.touched ||
-                editControls.customerName.dirty) &&
-              editControls.customerName.errors?.minlength
-            "
-          >
-            At least four characters are required
-          </div>
-        </div>
-
-        <div class="form-group text-primary">
-          <label
-            for="loanType"
-            [ngClass]="editControls.loanType.valid ? 'text-info' : ''"
-            >Loan Type<i
-              *ngIf="editControls.loanType.valid"
-              class="material-icons"
-              >check_circle</i
-            ></label
-          >
-          <div class="input-group mb-0">
-            <div class="input-group-prepend">
-              <div class="input-group-text">
-                <i
-                  class="fas fa-anchor text-primary mx-auto"
-                  style="size: 50px"
-                >
-                </i>
-              </div>
-            </div>
-            <select
-            formControlName="loanType"
-            class="form-control"
-            [ngClass]="{
-              'is-invalid':
-              (editControls.loanType.touched ||
-              editControls.loanType.dirty) &&
-            editControls.loanType.errors?.required
-            }"
-            autocomplete="off"
-            placeholder="Select a loan"
-            required
-            (change)='setMaxtenureAndAmount(editControls.loanType.value)'
-          >
-          <option value="" selected disabled>Select Loan Threshold</option>
-          <option *ngFor="let loan_type of loanTypes">{{loan_type.loanThresholdType}}</option>
-          </select>
-          </div>
-          <div
-            class="text-danger"
-            *ngIf="
-              (editControls.loanType.touched || editControls.loanType.dirty) &&
-              editControls.loanType.errors?.required
-            "
-          >
-            The loan type is required
-          </div>
-          <div
-            class="text-danger"
-            *ngIf="
-              (editControls.loanType.touched || editControls.loanType.dirty) &&
-              editControls.loanType.errors?.required
-            "
-          >
-            Please enter valid loan type
-          </div>
-        </div>
-        <div class="form-group text-primary">
-          <label
-            for="tenure"
-            [ngClass]="editControls.tenure.valid ? 'text-info' : ''"
-            >Tenure<i *ngIf="editControls.tenure.valid" class="material-icons"
-              >check_circle</i
-            ></label
-          >
-          <div class="input-group mb-0">
-            <div class="input-group-prepend">
-              <div class="input-group-text">
-                <i
-                  class="fas fa-anchor text-primary mx-auto"
-                  style="size: 50px"
-                >
-                </i>
-              </div>
-            </div>
-            <input
-              id="tenure"
-              formControlName="tenure"
-              type="number"
-              required
-              class="form-control"
-              (blur)="checkTenureAndAmount($event)"
-              [ngClass]="setClassInvalid(editControls.tenure)"
-              placeholder="Enter loan tenure"
-              autocomplete="off"
-            />
-          </div>
-          <div
-            class="text-danger"
-            *ngIf="
-              (editControls.tenure.touched || editControls.tenure.dirty) &&
-              editControls.tenure.errors?.required
-            "
-          >
-            The loan tenure is required
-          </div>
-        </div>
-        <!--amount--->
-
-        <div class="form-group text-primary">
-          <label
-            for="amount"
-            [ngClass]="editControls.amount.valid ? 'text-info' : ''"
-            >Amount<i *ngIf="editControls.amount.valid" class="material-icons"
-              >check_circle</i
-            ></label
-          >
-          <div class="input-group mb-0">
-            <input
-              id="amount"
-              formControlName="amount"
-              type="text"
-              required
-              class="form-control"
-              (keyup)="onKey($event)"
-              (blur)="checkTenureAndAmount($event)"
-              [ngClass]="{
-                'is-invalid':
-                  (editControls.amount.touched || editControls.amount.dirty) &&
-                  editControls.amount.errors
-              }"
-              [ngClass]="setClassInvalid(editControls.amount)"
-              placeholder="Enter loan amount"
-              autocomplete="off"
-            />
-          </div>
-          <div
-            class="text-danger"
-            *ngIf="
-              (editControls.amount.touched || editControls.amount.dirty) &&
-              editControls.amount.errors?.required
-            "
-          >
-            The loan amount is required
-          </div>
-          <div
-          class="text-danger col"
-          *ngIf="
-            (editControls.amount.touched || editControls.amount.dirty) &&
-            editControls.amount.errors?.hasNumber
-          "
-        >
-          Please enter valid amount to borrow
-        </div>
-        </div>
-        <div class="d-flex my-2 py-2 mx-auto">
-          <button
-            type="submit"
-            class="btn btn-info col-5 mx-auto"
-            (click)="editOrRectify(template, edit)"
-            [disabled]="!editLoanForm.valid"
-          >
-            OK
-          </button>
-
-          <button
-            type="button"
-            class="btn btn-info col-5 mx-auto"
-            (click)="closeModal()"
-          >
-            Cancel
-          </button>
-          <ngx-spinner class="bg-info" size="medium" type="ball-scale-multiple">
-            <p class="text-light">Please wait...</p>
-          </ngx-spinner>
-        </div>
-      </form>
-    </div>
   </div>
 </ng-template>

@@ -41,7 +41,7 @@ export class UserTransactionsComponent implements OnInit {
   currentPage = 1;
   pageSize = 10;
   searchCustomer: any;
-
+  rectifyData: any;
   constructor(
     private userTransactions: LoaningService,
     private authService: AuthServiceService,
@@ -120,7 +120,54 @@ export class UserTransactionsComponent implements OnInit {
       this.totalItems = this.filteredLoans.length;
     });
   }
-
+  getDefferedLoans(): any {
+    this.filteredLoans = [];
+    this.loanTable = [];
+    this.userTransactions.getBranchApprovalDefferredLoans(this.User.branchId).subscribe((userData) => {
+      this.loanTable = userData.map((eachUser) => {
+        const oldDate = eachUser.CreatedAt;
+        const diffInDates = moment(this.age).diff(moment(oldDate));
+        const timeInMonths = moment(diffInDates).format(
+          'MM [months] DD [days]'
+        );
+        return { ...eachUser, TotalAge: timeInMonths };
+      });
+      this.filteredLoans = this.loanTable;
+      this.totalItems = this.filteredLoans.length;
+    });
+  }
+  getReceivedDefferedLoans(): any {
+    this.filteredLoans = [];
+    this.loanTable = [];
+    this.userTransactions.getReceivedBranchApprovalDefferredLoans(this.User.branchId).subscribe((userData) => {
+      this.loanTable = userData.map((eachUser) => {
+        const oldDate = eachUser.CreatedAt;
+        const diffInDates = moment(this.age).diff(moment(oldDate));
+        const timeInMonths = moment(diffInDates).format(
+          'MM [months] DD [days]'
+        );
+        return { ...eachUser, TotalAge: timeInMonths };
+      });
+      this.filteredLoans = this.loanTable;
+      this.totalItems = this.filteredLoans.length;
+    });
+  }
+  getRectifiedDefferredLoans(): any {
+    this.filteredLoans = [];
+    this.loanTable = [];
+    this.userTransactions.getRectifiedBranchApprovalDefferredLoans(this.User.branchId).subscribe((userData) => {
+      this.loanTable = userData.map((eachUser) => {
+        const oldDate = eachUser.CreatedAt;
+        const diffInDates = moment(this.age).diff(moment(oldDate));
+        const timeInMonths = moment(diffInDates).format(
+          'MM [months] DD [days]'
+        );
+        return { ...eachUser, TotalAge: timeInMonths };
+      });
+      this.filteredLoans = this.loanTable;
+      this.totalItems = this.filteredLoans.length;
+    });
+  }
   // search 0726099610 loan
   getValue(event): any {
     this.searchCustomer = event.target.value;
@@ -172,6 +219,12 @@ export class UserTransactionsComponent implements OnInit {
       case 'Forward Approved':
         this.commentControls.comments.setValue('Please receive this loan');
         break;
+      case 'Rectified':
+        this.commentControls.comments.setValue('Please receive this loan');
+        break;
+      case 'Rectify':
+        this.commentControls.comments.setValue('This loan was rectified');
+        break;
     }
     this.bsModalService.show(template);
   }
@@ -182,7 +235,7 @@ export class UserTransactionsComponent implements OnInit {
   }
 
   // receive defered
-  receive(loan: any, category: string): any{
+  receive(loan: any, category: string, type: string): any{
     const data = [];
     this.spinner.show();
     if (category === 'One') {
@@ -200,24 +253,12 @@ export class UserTransactionsComponent implements OnInit {
         });
       });
     }
-    this.userTransactions.receiveBranchApprovalForwardedLoans(data).subscribe(
-      res => {
-        this.posted = true;
-        this.getForwadedLoans();
-        this.spinner.hide();
-        this.alertService.success({
-          html: '<b> received successfully</b>',
-        });
-      },
-      err => {
-        this.errored = true;
-        this.alertService.danger({
-          html: '<b> There was a problem </b>',
-        });
-      }
-    );
+    if (type === 'Forwarded') {
+      this.receiveForwaded(data);
+    } else {
+      this.receiveDefered(data);
+    }
   }
-
   finalizeAction(comment: string): any {
     const data = {
       loanId: this.actionLoan.loanId,
@@ -236,10 +277,56 @@ export class UserTransactionsComponent implements OnInit {
         this.rejectLoan(data);
         break;
       case 'Forward Approved':
-        this.forwadLoan(data);
+        this.forwadApprovedLoan(data);
+        break;
+      case 'Rectified':
+        this.forwadRectified(data);
+        break;
+      case 'Rectify':
+        this.rectifyLoan(data);
         break;
     }
     this.comment.reset();
+  }
+  receiveForwaded(data: any): any {
+    this.spinner.show();
+    this.userTransactions.receiveBranchApprovalForwardedLoans(data).subscribe(
+      res => {
+        this.posted = true;
+        this.getForwadedLoans();
+        this.spinner.hide();
+        this.alertService.success({
+          html: '<b>received successfully</b>',
+        });
+      },
+      err => {
+        this.errored = true;
+        this.spinner.hide();
+        this.alertService.danger({
+          html: '<b> There was a problem </b>',
+        });
+      }
+    );
+  }
+  receiveDefered(data: any): any {
+    this.spinner.show();
+    this.userTransactions.receiveBranchApprovalDefferedLoans(data).subscribe(
+      res => {
+        this.posted = true;
+        this.getDefferedLoans();
+        this.spinner.hide();
+        this.alertService.success({
+          html: '<b>received successfully</b>',
+        });
+      },
+      err => {
+        this.errored = true;
+        this.spinner.hide();
+        this.alertService.danger({
+          html: '<b> There was a problem </b>',
+        });
+      }
+    );
   }
   approveLoan(data: any): any {
     this.spinner.show();
@@ -301,12 +388,52 @@ export class UserTransactionsComponent implements OnInit {
       }
     );
   }
-  forwadLoan(data: any): any {
+  forwadApprovedLoan(data: any): any {
     this.spinner.show();
     this.userTransactions.forwardBranchApprovalLoans(data).subscribe(
       res => {
         this.posted = true;
         this.getReceivedLoans();
+        this.spinner.hide();
+        this.alertService.success({
+          html: '<b>' + res[0].theResponseStage.toUpperCase() + '</b>',
+        });
+      },
+      err => {
+        this.errored = true;
+        this.spinner.hide();
+        this.alertService.danger({
+          html: '<b> There was a problem </b>',
+        });
+      }
+    );
+  }
+  rectifyLoan(rectifyData: any): any {
+    this.spinner.show();
+    this.userTransactions.rectifyBranchApprovalDefferedLoans(rectifyData).subscribe(
+      res => {
+        this.posted = true;
+        this.getReceivedDefferedLoans();
+        this.spinner.hide();
+        this.alertService.success({
+          html: '<b>Loan was rectified successfully</b>',
+        });
+      },
+      er => {
+        this.errored = true;
+        this.spinner.hide();
+        this.alertService.danger({
+          html: '<b> There was a problem </b>',
+        });
+      }
+    );
+  }
+  forwadRectified(data: any): any {
+    this.spinner.show();
+    this.userTransactions.forwardRectifiedBranchApprovalDefferedLoans(data).subscribe(
+      res => {
+        this.posted = true;
+        this.getRectifiedDefferredLoans();
         this.spinner.hide();
         this.alertService.success({
           html: '<b>' + res[0].theResponseStage.toUpperCase() + '</b>',
