@@ -90,8 +90,23 @@ export class LoaningService {
   getApprovedBranchApprovalLoans(id: number): Observable<any> {
     return this.http.get<any>(`${this.API_URL}/api/branchApprovalUser/getApprovedBranchApprovalLoans/?branchId=${id}`);
   }
+  getBranchApprovalDefferredLoans(id: number): Observable<any> {
+    return this.http.get<any>(`${this.API_URL}/api/branchApprovalUser/getBranchApprovalDefferredLoans/?branchId=${id}`);
+  }
+  getReceivedBranchApprovalDefferredLoans(id: number): Observable<any> {
+    return this.http.get<any>(`${this.API_URL}/api/branchApprovalUser/getReceivedBranchApprovalDefferredLoans/?branchId=${id}`);
+  }
+  getRectifiedBranchApprovalDefferredLoans(id: number): Observable<any> {
+    return this.http.get<any>(`${this.API_URL}/api/branchApprovalUser/getRectifiedBranchApprovalDefferredLoans/?branchId=${id}`);
+  }
   receiveBranchApprovalForwardedLoans(postData: any): Observable<any> {
     return this.http.post<any>(`${this.API_URL}/api/branchApprovalUser/receiveBranchApprovalForwardedLoans`, postData);
+  }
+  receiveBranchApprovalDefferedLoans(postData: any): Observable<any> {
+    return this.http.post<any>(`${this.API_URL}/api/branchApprovalUser/receiveBranchApprovalDefferedLoans`, postData);
+  }
+  rectifyBranchApprovalDefferedLoans(postData: any): Observable<any> {
+    return this.http.post<any>(`${this.API_URL}/api/branchApprovalUser/rectifyBranchApprovalDefferedLoans`, postData);
   }
   approveBranchApprovalLoans(postData: any): Observable<any> {
     return this.http.post<any>(`${this.API_URL}/api/branchApprovalUser/approveBranchApprovalLoans`, postData);
@@ -104,6 +119,9 @@ export class LoaningService {
   }
   forwardBranchApprovalLoans(postData: any): Observable<any> {
     return this.http.post<any>(`${this.API_URL}/api/branchApprovalUser/forwardBranchApprovalLoans`, postData);
+  }
+  forwardRectifiedBranchApprovalDefferedLoans(postData: any): Observable<any> {
+    return this.http.post<any>(`${this.API_URL}/api/branchApprovalUser/forwardRectifiedBranchApprovalDefferedLoans`, postData);
   }
 
   // BranchExit

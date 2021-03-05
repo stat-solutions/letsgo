@@ -309,7 +309,7 @@
                                   class="col-7 col-md-8 col-lg-9 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
                                 >
                                   <span class="itemCreated">
-                                    {{ loans.ageSinceMovement }}
+                                    {{ loans.ageSinceMovement }} Hours
                                   </span>
                                 </div>
                               </div>
@@ -345,7 +345,7 @@
                                   class="col-7 col-md-8 col-lg-9 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
                                 >
                                   <span class="itemCreated">
-                                    {{ loans.ageSinceCreation }}
+                                    {{ loans.ageSinceCreation }} Days
                                   </span>
                                 </div>
                               </div>
@@ -382,6 +382,7 @@
                   <div class="item-container-1 mt-1">
                     <div
                       class="list-card card mt-1 pt-2 mb-0 mx-auto px-0 pb-1 shadow-lg"
+                      [ngClass]="{approved: loans.transactionStatus === 1}"
                       *ngFor="
                       let loans of filteredLoans
                       | paginate
@@ -658,7 +659,7 @@
                                     class="col-7 col-md-8 col-lg-9 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
                                   >
                                     <span class="itemCreated">
-                                      {{ loans.ageSinceMovement }}
+                                      {{ loans.ageSinceMovement }} Hours
                                     </span>
                                   </div>
                                 </div>
@@ -694,7 +695,7 @@
                                     class="col-7 col-md-8 col-lg-9 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
                                   >
                                     <span class="itemCreated">
-                                      {{ loans.ageSinceCreation }}
+                                      {{ loans.ageSinceCreation }} Days
                                     </span>
                                   </div>
                                 </div>

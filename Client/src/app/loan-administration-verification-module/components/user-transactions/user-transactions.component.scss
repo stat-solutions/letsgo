@@ -23,7 +23,10 @@ hr{
 }
 
 
-
+.approved {
+  background-color: rgb(39, 117, 39);
+  color:  white;
+}
 //media queries
 @media (min-width: 320px) {
   .jumbotron-fluid {

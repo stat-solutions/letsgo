@@ -56,7 +56,6 @@ export class UserTransactionsComponent implements OnInit {
     this.userTransactions.getAllLoanThresholds().subscribe(thresholds => {
       this.loanTypes = thresholds;
     });
-    this.editLoanForm = this.createLoanForm();
     this.comment = this.commentForm();
     this.posted = true;
   }
@@ -171,26 +170,6 @@ export class UserTransactionsComponent implements OnInit {
       this.totalItems = this.filteredLoans.length;
     });
   }
-  createLoanForm(): any {
-    return new FormGroup({
-      customerName: this.fb.control(
-        {value: ''},
-        Validators.compose([Validators.required])
-      ),
-      loanType: this.fb.control(
-        '',
-        Validators.compose([Validators.required])
-      ),
-      amount: this.fb.control(
-        '',
-        Validators.compose([Validators.required,  CustomValidator.patternValidator(/\d/, { hasNumber: true })])
-      ),
-      tenure: this.fb.control(
-        '',
-        Validators.compose([Validators.required])
-      ),
-    });
-  }
   // search 0726099610 loan
   getValue(event): any {
     this.searchCustomer = event.target.value;
@@ -259,17 +238,15 @@ export class UserTransactionsComponent implements OnInit {
         this.commentControls.comments.setValue('Please receive this loan');
         break;
     }
-    if (this.actionType !== 'Rectified'){
-      const { customerName, loanThresholdType, loanTenure, loanAmount } = loan;
-      this.setMaxtenureAndAmount(loanThresholdType);
-      this.editControls.customerName.setValue(customerName);
-      this.editControls.customerName.disable();
-      this.editControls.loanType.setValue(loanThresholdType);
-      this.editControls.tenure.setValue(loanTenure);
-      this.numberValue = loanAmount ? parseInt(loanAmount, 10) : 0;
-      // tslint:disable-next-line:no-unused-expression
-      this.values = this.numberValue === 0 ? '' : this.numberValue.toLocaleString('en-US');
-      this.editControls.amount.setValue(this.values);
+    if (this.actionType !== 'Rectified') {
+      this.rectifyData = {
+        loanId: this.actionLoan.loanId,
+        userId: this.User.userId,
+        loanComment: '',
+        loanThresholdId: loan.loanThresholdId,
+        loanAmount: loan.loanAmount,
+        loanTenure: loan.loanTenure
+      };
       this.bsModalService.show(template);
     } else {
       this.bsModalService.show(template);
@@ -278,38 +255,6 @@ export class UserTransactionsComponent implements OnInit {
 
   closeModal(): any {
     this.bsModalService.hide();
-  }
-
-  setMaxtenureAndAmount(val: any): any{
-    this.loanTypes.forEach(type => {
-      if (type.loanThresholdType === val) {
-        this.maxTenure = type.loanThresholdMaxTenure;
-        this.maxAmount = type.loanThresholdMaxAmount;
-        this.loanThresholdId = type.loanThresholdId;
-        this.editControls.tenure.setValue('');
-        this.editControls.amount.setValue('');
-      }
-    });
-  }
-  checkTenureAndAmount(event: any): any{
-    if (event.target.id === 'tenure' && event.target.value > this.maxTenure) {
-      this.errored = true;
-      this.alertService.danger({
-        html: '<b>Tenure should not be greater than ' + this.maxTenure + '<b>'
-      });
-      this.editControls.tenure.setValue('');
-    } else if (event.target.id === 'amount') {
-      const amount = parseInt(event.target.value.replace(/[\D\s\._\-]+/g, ''), 10 );
-      if ( amount > this.maxAmount) {
-        this.errored = true;
-        this.alertService.danger({
-          html: '<b>Amount should not be greater than ' + this.maxAmount + '<b>'
-        });
-        this.editControls.amount.setValue('');
-      } else {
-        return;
-      }
-    }
   }
   // receive defered
   receive(loan: any, category: string, type: string): any{
@@ -540,20 +485,5 @@ export class UserTransactionsComponent implements OnInit {
         });
       }
     );
-  }
-  editOrRectify(template: TemplateRef<any>): any{
-    if (this.actionType === 'Edit') {
-      //
-    } else if (this.actionType === 'Rectify'){
-      this.bsModalService.show(template);
-      this.rectifyData = {
-        loanId: this.actionLoan.loanId,
-        userId: this.User.userId,
-        loanComment: '',
-        loanThresholdId: this.loanThresholdId,
-        loanAmount: parseInt(this.editControls.amount.value.replace(/[\D\s\._\-]+/g, ''), 10 ),
-        loanTenure: this.editControls.tenure.value
-      };
-    }
   }
 }

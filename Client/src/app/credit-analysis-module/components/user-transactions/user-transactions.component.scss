@@ -19,7 +19,10 @@ hr{
   height: 100%;
 }
 
-
+.approved {
+  background-color: rgb(39, 117, 39);
+  color:  white;
+}
 
 //media queries
 @media (min-width: 320px) {
