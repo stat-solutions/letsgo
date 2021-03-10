@@ -149,23 +149,23 @@ export class AuthServiceService {
 
     refreshToken(): any {
       // console.log('am refreshing');
-      const bool = this.jwtHelper.isTokenExpired(this.getRefreshToken());
-      if (!bool) {
+      const exp = this.jwtHelper.decodeToken(this.getRefreshToken()).exp;
+      // console.log(exp*1000);
+      // console.log(Date.now());
+      const bool = Date.now() >= exp * 1000  ? false : true;
+      if (bool === true) {
         return this.http.post<any>(`${this.API_URL}/api/user/userRefreshToken`, {
           refreshToken: this.getRefreshToken()
         }).pipe(tap((tokens: Tokens) => {
           this.storeTokens(tokens);
         }),
         catchError(error => {
-          if (error instanceof HttpErrorResponse && error.status === 401){
+          if (error instanceof HttpErrorResponse){
             this.setPleaseLogin(true);
-            this.doLogoutUser();
-            this.router.navigate(['/authpage/login']);
-          } else {
-            return throwError(error);
-          }})
-        );
-      } else {
+            return this.doLogoutUser();
+          }
+        }));
+      } else if (bool === false) {
         this.setPleaseLogin(true);
         this.doLogoutUser();
         this.router.navigate(['/authpage/login']);

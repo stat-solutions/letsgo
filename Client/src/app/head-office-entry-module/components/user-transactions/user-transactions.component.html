@@ -692,6 +692,7 @@
       class="btn btn-info"
       (click)="finalizeAction(commentControls.comments.value)"
       [disabled]="!comment.valid"
+      (keyup.enter)="finalizeAction(commentControls.comments.value)"
     >
       OK
     </button>

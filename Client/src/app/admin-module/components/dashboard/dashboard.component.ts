@@ -100,7 +100,11 @@ export class DashboardComponent implements OnInit {
     if (searchTerm) {
       return this.filteredLoans.filter(
         (loan) =>
-          loan.customerIdNumber.indexOf(searchTerm.toLowerCase()) !==
+          loan.loanId.toString().indexOf(searchTerm) !==
+            -1 ||
+          loan.loanAmount.toString().indexOf(searchTerm) !==
+            -1 ||
+          loan.customerIdNumber.indexOf(searchTerm) !==
             -1 ||
           loan.customerIdType.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1 ||
           loan.customerName.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1 ||
@@ -112,7 +116,6 @@ export class DashboardComponent implements OnInit {
       );
     }
   }
-
 
   clickOnCustomer(id: number): any{
         this.router.navigate(['admin/customerdetails', id], );

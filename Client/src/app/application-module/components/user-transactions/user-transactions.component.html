@@ -1714,6 +1714,7 @@
             class="btn btn-info col-5 mx-auto"
             (click)="editOrRectify(template, edit)"
             [disabled]="!editLoanForm.valid"
+            (keyup.enter)="finalizeAction(commentControls.comments.value)"
           >
             OK
           </button>

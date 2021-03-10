@@ -77,6 +77,7 @@ export class UserTransactionsComponent implements OnInit {
   getForwadedLoans(): any {
     this.filteredLoans = [];
     this.loanTable = [];
+    this.spinner.show();
     this.userTransactions.getForwardedCreditAnlysisLoans(this.User.branchId).subscribe((userData) => {
       this.loanTable = userData.map((eachUser) => {
         const oldDate = eachUser.CreatedAt;
@@ -88,11 +89,13 @@ export class UserTransactionsComponent implements OnInit {
       });
       this.filteredLoans = this.loanTable;
       this.totalItems = this.filteredLoans.length;
+      this.spinner.hide();
     });
   }
   getReceivedLoans(): any {
     this.filteredLoans = [];
     this.loanTable = [];
+    this.spinner.show();
     this.userTransactions.getReceivedCreditAnlysisLoans(this.User.branchId).subscribe((userData) => {
       this.loanTable = userData.map((eachUser) => {
         const oldDate = eachUser.CreatedAt;
@@ -104,11 +107,13 @@ export class UserTransactionsComponent implements OnInit {
       });
       this.filteredLoans = this.loanTable;
       this.totalItems = this.filteredLoans.length;
+      this.spinner.hide();
     });
   }
   getApprovedLoans(): any {
     this.filteredLoans = [];
     this.loanTable = [];
+    this.spinner.show();
     this.userTransactions.getApprovedCreditAnlysisLoans(this.User.branchId).subscribe((userData) => {
       this.loanTable = userData.map((eachUser) => {
         const oldDate = eachUser.CreatedAt;
@@ -120,11 +125,13 @@ export class UserTransactionsComponent implements OnInit {
       });
       this.filteredLoans = this.loanTable;
       this.totalItems = this.filteredLoans.length;
+      this.spinner.hide();
     });
   }
   getDefferedLoans(): any {
     this.filteredLoans = [];
     this.loanTable = [];
+    this.spinner.show();
     this.userTransactions.getCreditAnlysisDefferredLoans(this.User.branchId).subscribe((userData) => {
       this.loanTable = userData.map((eachUser) => {
         const oldDate = eachUser.CreatedAt;
@@ -136,11 +143,13 @@ export class UserTransactionsComponent implements OnInit {
       });
       this.filteredLoans = this.loanTable;
       this.totalItems = this.filteredLoans.length;
+      this.spinner.hide();
     });
   }
   getReceivedDefferedLoans(): any {
     this.filteredLoans = [];
     this.loanTable = [];
+    this.spinner.show();
     this.userTransactions.getReceivedCreditAnlysisDefferredLoans(this.User.branchId).subscribe((userData) => {
       this.loanTable = userData.map((eachUser) => {
         const oldDate = eachUser.CreatedAt;
@@ -152,11 +161,13 @@ export class UserTransactionsComponent implements OnInit {
       });
       this.filteredLoans = this.loanTable;
       this.totalItems = this.filteredLoans.length;
+      this.spinner.hide();
     });
   }
   getRectifiedDefferredLoans(): any {
     this.filteredLoans = [];
     this.loanTable = [];
+    this.spinner.show();
     this.userTransactions.getRectifiedCreditAnlysisDefferredLoans(this.User.branchId).subscribe((userData) => {
       this.loanTable = userData.map((eachUser) => {
         const oldDate = eachUser.CreatedAt;
@@ -168,6 +179,7 @@ export class UserTransactionsComponent implements OnInit {
       });
       this.filteredLoans = this.loanTable;
       this.totalItems = this.filteredLoans.length;
+      this.spinner.hide();
     });
   }
   // search 0726099610 loan
@@ -185,7 +197,11 @@ export class UserTransactionsComponent implements OnInit {
     if (searchTerm) {
       return this.filteredLoans.filter(
         (loan) =>
-          loan.customerIdNumber.indexOf(searchTerm.toLowerCase()) !==
+          loan.loanId.toString().indexOf(searchTerm) !==
+            -1 ||
+          loan.loanAmount.toString().indexOf(searchTerm) !==
+            -1 ||
+          loan.customerIdNumber.indexOf(searchTerm) !==
             -1 ||
           loan.customerIdType.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1 ||
           loan.customerName.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1 ||
@@ -197,6 +213,7 @@ export class UserTransactionsComponent implements OnInit {
       );
     }
   }
+
 
   get editControls(): any {
     return this.editLoanForm.controls;

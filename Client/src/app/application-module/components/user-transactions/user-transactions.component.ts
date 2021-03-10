@@ -77,6 +77,7 @@ export class UserTransactionsComponent implements OnInit {
   getCreatedLoans(): any {
     this.filteredLoans = [];
     this.loanTable = [];
+    this.spinner.show();
     this.userTransactions.getCreatedLoans(this.User.branchId).subscribe((userData) => {
       this.loanTable = userData.map((eachUser) => {
         const oldDate = eachUser.CreatedAt;
@@ -88,11 +89,13 @@ export class UserTransactionsComponent implements OnInit {
       });
       this.filteredLoans = this.loanTable;
       this.totalItems = this.filteredLoans.length;
+      this.spinner.hide();
     });
   }
   getdefferedLoans(): any {
     this.filteredLoans = [];
     this.loanTable = [];
+    this.spinner.show();
     this.userTransactions.getApplicationDefferredLoans(this.User.branchId).subscribe((userData) => {
       this.loanTable = userData.map((eachUser) => {
         const oldDate = eachUser.CreatedAt;
@@ -104,11 +107,13 @@ export class UserTransactionsComponent implements OnInit {
       });
       this.filteredLoans = this.loanTable;
       this.totalItems = this.filteredLoans.length;
+      this.spinner.hide();
     });
   }
   getReceivedDefferedLoans(): any {
     this.filteredLoans = [];
     this.loanTable = [];
+    this.spinner.show();
     this.userTransactions.getApplicationReceivedDefferredLoans(this.User.branchId).subscribe((userData) => {
       this.loanTable = userData.map((eachUser) => {
         const oldDate = eachUser.CreatedAt;
@@ -120,11 +125,13 @@ export class UserTransactionsComponent implements OnInit {
       });
       this.filteredLoans = this.loanTable;
       this.totalItems = this.filteredLoans.length;
+      this.spinner.hide();
     });
   }
   getRectifiedDefferredLoans(): any {
     this.filteredLoans = [];
     this.loanTable = [];
+    this.spinner.show();
     this.userTransactions.getApplicationRectifiedDefferredLoans(this.User.branchId).subscribe((userData) => {
       this.loanTable = userData.map((eachUser) => {
         const oldDate = eachUser.CreatedAt;
@@ -136,6 +143,7 @@ export class UserTransactionsComponent implements OnInit {
       });
       this.filteredLoans = this.loanTable;
       this.totalItems = this.filteredLoans.length;
+      this.spinner.hide();
     });
   }
   createLoanForm(): any {
@@ -173,7 +181,11 @@ export class UserTransactionsComponent implements OnInit {
     if (searchTerm) {
       return this.filteredLoans.filter(
         (loan) =>
-          loan.customerIdNumber.indexOf(searchTerm.toLowerCase()) !==
+          loan.loanId.toString().indexOf(searchTerm) !==
+            -1 ||
+          loan.loanAmount.toString().indexOf(searchTerm) !==
+            -1 ||
+          loan.customerIdNumber.indexOf(searchTerm) !==
             -1 ||
           loan.customerIdType.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1 ||
           loan.customerName.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1 ||
@@ -185,6 +197,7 @@ export class UserTransactionsComponent implements OnInit {
       );
     }
   }
+
 
   get editControls(): any {
     return this.editLoanForm.controls;

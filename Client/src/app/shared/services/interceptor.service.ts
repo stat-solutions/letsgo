@@ -46,10 +46,12 @@ export class InterceptorService  implements HttpInterceptor {
     if (!this.isRefreshing) {
       this.isRefreshing = true;
       this.refreshTokenSubject.next(null);
+      // console.log('going to refresh');
       if (this.authService.getRefreshToken()){
         return this.authService.refreshToken().pipe(
           switchMap((token: any) => {
             this.isRefreshing = false;
+            // console.log('going to refresh');
             this.refreshTokenSubject.next(token.accessToken);
             return next.handle(this.addToken(request, token.accessToken));
           }));

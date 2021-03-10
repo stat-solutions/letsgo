@@ -71,6 +71,7 @@ export class UserTransactionsComponent implements OnInit {
   getForwadedLoans(): any {
     this.filteredLoans = [];
     this.loanTable = [];
+    this.spinner.show();
     this.userTransactions.getForwardedLoanAdministrationEntryLoans(this.User.branchId).subscribe((userData) => {
       this.loanTable = userData.map((eachUser) => {
         const oldDate = eachUser.CreatedAt;
@@ -82,11 +83,13 @@ export class UserTransactionsComponent implements OnInit {
       });
       this.filteredLoans = this.loanTable;
       this.totalItems = this.filteredLoans.length;
+      this.spinner.hide();
     });
   }
   getReceivedLoans(): any {
     this.filteredLoans = [];
     this.loanTable = [];
+    this.spinner.show();
     this.userTransactions.getReceivedLoanAdministrationEntryLoans(this.User.branchId).subscribe((userData) => {
       this.loanTable = userData.map((eachUser) => {
         const oldDate = eachUser.CreatedAt;
@@ -98,6 +101,7 @@ export class UserTransactionsComponent implements OnInit {
       });
       this.filteredLoans = this.loanTable;
       this.totalItems = this.filteredLoans.length;
+      this.spinner.hide();
     });
   }
   // search 0726099610 loan
@@ -115,7 +119,11 @@ export class UserTransactionsComponent implements OnInit {
     if (searchTerm) {
       return this.filteredLoans.filter(
         (loan) =>
-          loan.customerIdNumber.indexOf(searchTerm.toLowerCase()) !==
+          loan.loanId.toString().indexOf(searchTerm) !==
+            -1 ||
+          loan.loanAmount.toString().indexOf(searchTerm) !==
+            -1 ||
+          loan.customerIdNumber.indexOf(searchTerm) !==
             -1 ||
           loan.customerIdType.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1 ||
           loan.customerName.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1 ||
