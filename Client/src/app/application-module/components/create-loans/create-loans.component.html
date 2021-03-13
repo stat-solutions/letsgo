@@ -145,7 +145,8 @@ class="container-fluid d-flex flex-row justify-content-center mb-0 mt-1 pt-0 pt-
                           <div
                             class="col-4 d-flex justify-content-start mx-md-0 px-md-0"
                           >
-                            <class class="">Phone 2:</class>
+
+                          <span class="">Phone 2:</span>
                           </div>
                           <div
                             class="col-8 d-flex justify-content-start font-weight-bold mx-0 px-0"
@@ -222,10 +223,10 @@ class="container-fluid d-flex flex-row justify-content-center mb-0 mt-1 pt-0 pt-
                 securityForm.controls.securityType.errors
             }"
             autocomplete="off"
-            placeholder="Select security type"
             required
           >
-            <option value="security">Select Security Type</option>
+            <option value="" selected disabled>Select Security Type</option>
+            <!-- <option value="" selected>Select Loan Threshold</option> -->
             <option *ngFor="let name of securityNames">{{name}}</option>
           </select>
       </div>
@@ -404,6 +405,7 @@ class="container-fluid d-flex flex-row justify-content-center mb-0 mt-1 pt-0 pt-
             class="form-control"
             placeholder="Click button to select name"
             autocomplete="off"
+            readonly
           />
         </div>
       </div>

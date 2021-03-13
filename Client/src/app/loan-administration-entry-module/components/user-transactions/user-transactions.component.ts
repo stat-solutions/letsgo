@@ -59,7 +59,7 @@ export class UserTransactionsComponent implements OnInit {
   commentForm(): any {
     return new FormGroup({
         comments: this.fb.control(
-          '',
+          'Missing comment',
           Validators.compose([Validators.required])
         ),
     });
@@ -172,7 +172,7 @@ export class UserTransactionsComponent implements OnInit {
     const data = {
       loanId: loan.loanId,
       userId: this.User.userId,
-      loanComment: this.commentControls.comments.value.toUpperCase()
+      loanComment: this.commentControls.comments.value.replace(/\n/g, '').toUpperCase()
     };
     this.userTransactions.forwardLoanAdministrationEntryLoans(data).subscribe(
       res => {
@@ -237,9 +237,9 @@ export class UserTransactionsComponent implements OnInit {
     const data = {
       loanId: this.actionLoan.loanId,
       userId: this.User.userId,
-      loanComment: comment.toUpperCase()
+      loanComment: comment.replace(/\n/g, '').toUpperCase()
     };
     this.forwardSelected(data);
-    this.comment.reset();
+    this.comment.controls.comments.setValue('Missing comment');
   }
 }

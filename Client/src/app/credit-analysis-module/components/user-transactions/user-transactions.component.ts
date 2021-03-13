@@ -65,7 +65,7 @@ export class UserTransactionsComponent implements OnInit {
   commentForm(): any {
     return new FormGroup({
         comments: this.fb.control(
-          'Please rectify this loan',
+          'Missing comment',
           Validators.compose([Validators.required])
         ),
     });
@@ -227,26 +227,6 @@ export class UserTransactionsComponent implements OnInit {
   openComment(loan: any, template: TemplateRef<any>, type: string): any {
     this.actionType = type;
     this.actionLoan = loan;
-    switch (this.actionType) {
-      case 'Reject':
-        this.commentControls.comments.setValue('This loan has been rejected');
-        break;
-      case 'Rectified':
-        this.commentControls.comments.setValue('Please receive this loan');
-        break;
-      case 'Application':
-        this.commentControls.comments.setValue('Please rectify this loan');
-        break;
-      case 'Branch':
-        this.commentControls.comments.setValue('Please rectify this loan');
-        break;
-      case 'Regional':
-        this.commentControls.comments.setValue('Please rectify this loan');
-        break;
-      case 'Forward Approved':
-        this.commentControls.comments.setValue('Please receive this loan');
-        break;
-    }
     if (this.actionType !== 'Rectified') {
       this.rectifyData = {
         loanId: this.actionLoan.loanId,
@@ -297,12 +277,12 @@ export class UserTransactionsComponent implements OnInit {
     const data = {
       loanId: this.actionLoan.loanId,
       userId: this.User.userId,
-      loanComment: comment.toUpperCase()
+      loanComment: comment.replace(/\n/g, '').toUpperCase()
     };
     const deferData = {
       loanId: this.actionLoan.loanId,
       userId: this.User.userId,
-      loanComment: comment.toUpperCase(),
+      loanComment: comment.replace(/\n/g, '').toUpperCase(),
       movementStageId: null
     };
     switch (this.actionType) {
@@ -335,7 +315,7 @@ export class UserTransactionsComponent implements OnInit {
         this.forwadApprovedLoan(data);
         break;
     }
-    this.comment.reset();
+    this.comment.controls.comments.setValue('Missing comment');
     this.spinner.hide();
   }
 

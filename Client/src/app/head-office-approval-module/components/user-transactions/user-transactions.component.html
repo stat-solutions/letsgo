@@ -720,6 +720,7 @@
         class="form-control"
         rows="5"
         placeholder="Comment"
+        (keyup.enter)="finalizeAction(commentControls.comments.value)"
       ></textarea>
     </div>
   </div>
@@ -729,11 +730,10 @@
       class="btn btn-info"
       (click)="finalizeAction(commentControls.comments.value)"
       [disabled]="!comment.valid"
-      (keyup.enter)="finalizeAction(commentControls.comments.value)"
     >
       OK
     </button>
-    <button type="submit" class="btn btn-info" (click)="closeModal()">
+    <button  class="btn btn-info" (click)="closeModal()">
       Cancel
     </button>
   </div>

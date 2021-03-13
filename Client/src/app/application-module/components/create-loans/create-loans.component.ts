@@ -65,6 +65,7 @@ export class CreateLoansComponent implements OnInit {
   ngOnInit(): any {
     this.userForm = this.createFormGroup();
     this.securityForm = this.createSecurityFormGroup();
+    this.fval.full_name.setValue('');
     this.customer.getAllCustomers().subscribe((customers) => {
       this.customerData = customers;
       this.filteredCustomers = this.customerData;
@@ -85,8 +86,8 @@ export class CreateLoansComponent implements OnInit {
   createFormGroup(): any {
     return new FormGroup({
       full_name: this.fb.control(
-        { value: '', disabled: true },
-        Validators.compose([Validators.required, Validators.minLength(2)])
+        { value: ''},
+        Validators.compose([Validators.required])
       ),
       loan_type: this.fb.control('', Validators.compose([Validators.required])),
       comment: this.fb.control(
@@ -105,7 +106,7 @@ export class CreateLoansComponent implements OnInit {
   }
   createSecurityFormGroup(): any {
     return new FormGroup({
-      securityType: this.fb.control(Validators.compose([Validators.required])),
+      securityType: this.fb.control('', Validators.compose([Validators.required])),
       securityName: this.fb.control(
         '',
         Validators.compose([Validators.required])
@@ -203,6 +204,11 @@ export class CreateLoansComponent implements OnInit {
       }
     }, 3000);
   }
+  checkSecurityType(val: string): any{
+    if (val === 'Select Loan Type'){
+      // this.securityForm.controls.securityType.invalid = true;
+    }
+  }
   finishSecurity(): any {
     this.spinner.show();
     setTimeout(() => {
@@ -287,6 +293,7 @@ export class CreateLoansComponent implements OnInit {
   checkCustomer(customer: any): any {
     this.currentCustomer = customer;
     this.fval.full_name.setValue(this.currentCustomer.customerName);
+    this.fval.full_name.disable();
     this.searchTerm = '';
     this.closeModal();
   }

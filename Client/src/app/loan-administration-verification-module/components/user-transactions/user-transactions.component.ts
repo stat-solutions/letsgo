@@ -65,7 +65,7 @@ export class UserTransactionsComponent implements OnInit {
   commentForm(): any {
     return new FormGroup({
         comments: this.fb.control(
-          '',
+          'Missing comment',
           Validators.compose([Validators.required])
         ),
     });
@@ -175,14 +175,6 @@ export class UserTransactionsComponent implements OnInit {
   openComment(loan: any, template: TemplateRef<any>, type: string): any {
     this.actionType = type;
     this.actionLoan = loan;
-    switch (this.actionType) {
-      case 'Defer':
-        this.commentControls.comments.setValue('Please rectify this loan');
-        break;
-      case 'Forward Approved':
-        this.commentControls.comments.setValue('Please receive this loan');
-        break;
-    }
     this.bsModalService.show(template);
   }
 
@@ -232,7 +224,7 @@ export class UserTransactionsComponent implements OnInit {
     const data = {
       loanId: this.actionLoan.loanId,
       userId: this.User.userId,
-      loanComment: comment.toUpperCase()
+      loanComment: comment.replace(/\n/g, '').toUpperCase()
     };
     this.closeModal();
     switch (this.actionType) {
@@ -246,7 +238,7 @@ export class UserTransactionsComponent implements OnInit {
         this.forwadLoan(data);
         break;
     }
-    this.comment.reset();
+    this.comment.controls.comments.setValue('Missing comment');
   }
   approveLoan(data: any): any {
     this.spinner.show();

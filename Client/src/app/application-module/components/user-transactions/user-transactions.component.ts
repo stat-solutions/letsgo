@@ -65,7 +65,7 @@ export class UserTransactionsComponent implements OnInit {
   commentForm(): any {
     return new FormGroup({
         comments: this.fb.control(
-          '',
+          'Missing comment',
           Validators.compose([Validators.required])
         ),
     });
@@ -222,11 +222,6 @@ export class UserTransactionsComponent implements OnInit {
   openComment(loan: any, template: TemplateRef<any>, type: string): any {
     this.actionType = type;
     this.actionLoan = loan;
-    switch (this.actionType) {
-      case 'Rectified':
-        this.commentControls.comments.setValue('Please receive this loan');
-        break;
-    }
     if (this.actionType !== 'Rectified'){
       const { customerName, loanThresholdType, loanTenure, loanAmount } = loan;
       this.setMaxtenureAndAmount(loanThresholdType);
@@ -250,12 +245,7 @@ export class UserTransactionsComponent implements OnInit {
 
 
   // forwared selected loan
-  forwardSelected(loan: any): any {
-    const data = {
-      loanId: loan.loanId,
-      userId: this.User.userId,
-      loanComment: "Please receive this customer"
-    };
+  forwardSelected(data: any): any {
     this.userTransactions.forwardApplicationLoans(data).subscribe(
       res => {
         this.posted = true;
@@ -343,9 +333,12 @@ export class UserTransactionsComponent implements OnInit {
     const data = {
       loanId: this.actionLoan.loanId,
       userId: this.User.userId,
-      loanComment: comment.toUpperCase()
+      loanComment: comment.replace(/\n/g, '').toUpperCase()
     };
     switch (this.actionType) {
+      case 'Forward':
+        this.forwardSelected(data);
+        break;
       case 'Rectified':
         this.forwadRectified(data);
         break;
@@ -354,7 +347,7 @@ export class UserTransactionsComponent implements OnInit {
         this.rectifyLoan(this.rectifyData);
         break;
     }
-    this.comment.reset();
+    this.comment.controls.comments.setValue('Missing comment');
   }
 
   forwadRectified(data: any): any {

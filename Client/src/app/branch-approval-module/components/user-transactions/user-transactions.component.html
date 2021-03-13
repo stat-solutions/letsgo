@@ -1694,6 +1694,7 @@
         class="form-control"
         rows="5"
         placeholder="Comment"
+        (keyup.enter)="finalizeAction(commentControls.comments.value)"
       ></textarea>
     </div>
   </div>
@@ -1706,7 +1707,7 @@
     >
       OK
     </button>
-    <button type="submit" class="btn btn-info" (click)="closeModal()">
+    <button  class="btn btn-info" (click)="closeModal()">
       Cancel
     </button>
   </div>
