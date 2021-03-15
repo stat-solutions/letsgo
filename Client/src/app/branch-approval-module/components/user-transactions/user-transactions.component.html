@@ -42,17 +42,6 @@
     </div>
     <div class="row">
       <div class="col-12 mx-0 px-3 py-2">
-        <pagination-controls
-        id="my_pages"
-        (pageChange)="pageChanged($event)"
-        (pageBoundsCorrection)="pageChanged($event)"
-        directionLinks="true"
-        autoHide="true"
-        responsive="true"
-      >
-      </pagination-controls>
-      </div>
-      <div class="col-12 mx-0 px-3 py-2">
         <tabset>
           <!-- (click)="branchApprovalForwardedLoans()" -->
           <tab heading="Forwarded Loans" (selectTab)="getForwadedLoans()">
@@ -131,15 +120,15 @@
                             <div
                               class="col-12 col-md-6 col-xl-5 mx-md-0 px-md-0"
                             >
-                              <div class="row">
-                                <div
-                                  class="col-5 col-md-4 col-lg-3 d-flex justify-content-start mx-md-0 px-md-0"
-                                >
-                                  <span class="">Customer:</span>
-                                </div>
-                                <div
-                                  class="col-7 col-md-8 col-lg-9 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
-                                >
+                                <div class="row">
+                                  <div
+                                    class="col-4 col-md-3 col-xl-2 d-flex justify-content-start mx-md-0 px-md-0"
+                                  >
+                                    <span class="">Customer:</span>
+                                  </div>
+                                  <div
+                                    class="col-8 col-md-9 col-xl-10 d-flex justify-content-start font-weight-bold mx-0 px-0"
+                                  >
                                   <span class="itemCreated">
                                     {{ loans.customerName }}
                                   </span>
@@ -151,12 +140,12 @@
                             >
                               <div class="row">
                                 <div
-                                  class="col-5 col-md-4 col-lg-3 d-flex justify-content-start mx-md-0 px-md-0"
+                                  class="col-5 col-md-4 col-lg-3 col-xl-4 d-flex justify-content-start mx-md-0 px-md-0"
                                 >
                                   <span class="">Loan Type:</span>
                                 </div>
                                 <div
-                                  class="col-7 col-md-8 col-lg-9 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
+                                  class="col-7 col-md-8 col-lg-9 col-xl-8 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
                                 >
                                   <span class="itemCreated">
                                     {{ loans.loanThresholdType }}
@@ -204,14 +193,14 @@
                               class="col-12 col-md-6 col-xl-4 mx-md-0 px-md-0"
                             >
                               <div class="row">
-                                <div
-                                  class="col-5 col-md-4 col-lg-3 d-flex justify-content-start mx-md-0 px-md-0"
-                                >
-                                  <span class="">Amount:</span>
-                                </div>
-                                <div
-                                  class="col-7 col-md-8 col-lg-9 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
-                                >
+                                  <div
+                                    class="col-5 col-md-4 col-lg-3 col-xl-4 d-flex justify-content-start mx-md-0 px-md-0"
+                                  >
+                                    <span class="">Amount:</span>
+                                  </div>
+                                  <div
+                                    class="col-7 col-md-8 col-lg-9 col-xl-8 d-flex justify-content-start font-weight-bold mx-0 px-0"
+                                  >
                                   <span class="itemCreated">
                                     {{ loans.loanAmount | number }}
                                   </span>
@@ -222,14 +211,14 @@
                               class="col-12 col-md-6 col-xl-4 mx-md-0 px-md-0"
                             >
                               <div class="row">
-                                <div
-                                  class="col-5 col-md-4 col-lg-3 d-flex justify-content-start mx-md-0 px-md-0"
-                                >
-                                  <span class="">Stage:</span>
-                                </div>
-                                <div
-                                  class="col-7 col-md-8 col-lg-9 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
-                                >
+                                  <div
+                                    class="col-4 col-lg-3 d-flex justify-content-start mx-md-0 px-md-0"
+                                  >
+                                    <span class="">Stage:</span>
+                                  </div>
+                                  <div
+                                    class="col-8 col-lg-9 d-flex justify-content-start font-weight-bold mx-0 px-0"
+                                  >
                                   <span class="itemCreated">
                                     {{ loans.movementStage }}
                                   </span>
@@ -261,14 +250,14 @@
                               class="col-12 col-md-6 col-xl-4 mx-md-0 px-md-0"
                             >
                               <div class="row">
-                                <div
-                                  class="col-5 col-md-4 col-lg-3 d-flex justify-content-start mx-md-0 px-md-0"
-                                >
-                                  <span class="">Trasaction Status:</span>
-                                </div>
-                                <div
-                                  class="col-7 col-md-8 col-lg-9 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
-                                >
+                                  <div
+                                    class="col-5 col-md-4 col-lg-3 col-xl-4 d-flex justify-content-start mx-md-0 px-md-0"
+                                  >
+                                    <span class="">TransactionStatus:</span>
+                                  </div>
+                                  <div
+                                    class="col-7 col-md-8 col-lg-9 col-xl-8 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
+                                  >
                                   <span class="itemCreated">
                                     {{ loans.transactionStatus === 0 ? 'NONE' :
                                     loans.transactionStatus === 1 ? 'APPROVED' :
@@ -282,14 +271,14 @@
                               class="col-12 col-md-6 col-xl-4 mx-md-0 px-md-0"
                             >
                               <div class="row">
-                                <div
-                                  class="col-5 col-md-4 col-lg-3 d-flex justify-content-start mx-md-0 px-md-0"
-                                >
-                                  <span class="">Moved by:</span>
-                                </div>
-                                <div
-                                  class="col-7 col-md-8 col-lg-9 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
-                                >
+                                  <div
+                                    class="col-4 col-lg-3 d-flex justify-content-start mx-md-0 px-md-0"
+                                  >
+                                    <span class="">Moved by:</span>
+                                  </div>
+                                  <div
+                                    class="col-8 col-lg-9 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
+                                  >
                                   <span class="itemCreated">
                                     {{ !loans.movedBy ? "NONE" : loans.movedBy }}
                                   </span>
@@ -319,12 +308,12 @@
                             >
                               <div class="row">
                                 <div
-                                  class="col-5 col-md-4 col-lg-3 d-flex justify-content-start mx-md-0 px-md-0"
+                                  class="col-5 col-md-4 col-lg-3 col-xl-4 d-flex justify-content-start mx-md-0 px-md-0"
                                 >
                                   <span class="">Created At:</span>
                                 </div>
                                 <div
-                                  class="col-7 col-md-8 col-lg-9 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
+                                  class="col-7 col-md-8 col-lg-9 col-xl-8 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
                                 >
                                   <span class="itemCreated">
                                     {{ loans.loanCreationDate }}
@@ -439,7 +428,7 @@
                                   Reject
                                 </a>
                                 <a
-                                  class="dropdown-item text-primo-2 pointerCursor"
+                                  class="dropdown-item text-primo-1 pointerCursor"
                                   (click)="openComment(loans, template, 'Forward Approved')"
                                   [hidden]="loans.transactionStatus !== 1"
                                   ><i class="fas fa-chevron-right"></i>
@@ -448,7 +437,7 @@
                               </div>
                             </div>
                           </div>
-                          <div class="col-10 col-md-11 mx-lg-0 px-lg-0">
+                          <div class="break-text col-10 col-md-11 mx-lg-0 px-lg-0">
                             <div class="row mx-md-0 px-md-0">
                               <div
                                 class="col-12 col-md-6 col-xl-3 mx-md-0 px-md-0"
@@ -473,12 +462,12 @@
                               >
                                 <div class="row">
                                   <div
-                                    class="col-4 col-md-3 col-lg-3 d-flex justify-content-start mx-md-0 px-md-0"
+                                    class="col-4 col-md-3 col-lg-3 col-xl-2 d-flex justify-content-start mx-md-0 px-md-0"
                                   >
                                     <span class="">Customer:</span>
                                   </div>
                                   <div
-                                    class="col-8 col-md-9 col-lg-9 d-flex justify-content-start font-weight-bold mx-0 px-0"
+                                    class="col-8 col-md-9 col-lg-9 col-xl-10 d-flex justify-content-start font-weight-bold mx-0 px-0"
                                   >
                                     <span class="itemCreated">
                                       {{ loans.customerName }}
@@ -491,12 +480,12 @@
                               >
                                 <div class="row">
                                   <div
-                                    class="col-5 col-md-4 col-lg-3 d-flex justify-content-start mx-md-0 px-md-0"
+                                    class="col-5 col-md-4 col-lg-3 col-xl-4 d-flex justify-content-start mx-md-0 px-md-0"
                                   >
                                     <span class="">Loan Type:</span>
                                   </div>
                                   <div
-                                    class="col-7 col-md-8 col-lg-9 d-flex justify-content-start font-weight-bold mx-0 px-0"
+                                    class="col-7 col-md-8 col-lg-9 col-xl-8 d-flex justify-content-start font-weight-bold mx-0 px-0"
                                   >
                                     <span class="itemCreated">
                                       {{ loans.loanThresholdType }}
@@ -1669,6 +1658,17 @@
                </div>
              </tab>
         </tabset>
+      <div class="col-12 pt-2">
+        <pagination-controls
+        id="my_pages"
+        (pageChange)="pageChanged($event)"
+        (pageBoundsCorrection)="pageChanged($event)"
+        directionLinks="true"
+        autoHide="true"
+        responsive="true"
+      >
+      </pagination-controls>
+      </div>
       </div>
     </div>
   </div>

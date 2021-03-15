@@ -161,7 +161,7 @@ export class UsersComponent implements OnInit {
         this.getUsers();
         this.modalService.hide();
         this.alertService.success({
-          html: '<b> Role Edited successfully<b>',
+          html: '<b> Role edited successfully<b>',
         });
       },
       (err) => {
