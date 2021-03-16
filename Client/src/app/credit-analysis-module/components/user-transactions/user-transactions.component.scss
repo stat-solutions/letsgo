@@ -15,14 +15,19 @@ hr{
 .head-container{
   border-radius: 7px !important;
 }
-.state-table {
-  height: 100%;
-}
 
+.list-card{
+  border-left: 3px solid #84868ace;
+}
+.list-card:hover{
+  border-left: 3px solid #114888ce;
+}
 .approved {
   background-color: rgb(39, 117, 39);
   color:  white;
 }
+
+
 
 //media queries
 @media (min-width: 320px) {
@@ -62,17 +67,17 @@ hr{
 }
 
 @media (min-width: 1100px) {
+  .jumbotron-fluid {
+    margin-top: 0px !important;
+    padding-top: 0px !important;
+    padding-bottom: 0rem !important;
+  }
 }
 
 @media (min-width: 1280px) {
   .container {
     margin-left: auto !important;
     margin-right: auto !important;
-  }
-  .jumbotron-fluid {
-    margin-top: 0px !important;
-    padding-top: 0px !important;
-    padding-bottom: 0rem !important;
   }
 }
 

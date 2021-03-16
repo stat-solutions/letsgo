@@ -327,7 +327,7 @@ export class UserTransactionsComponent implements OnInit {
         this.getForwadedLoans();
         this.spinner.hide();
         this.alertService.success({
-          html: '<b>received successfully</b>',
+          html: '<b>Received successfully</b>',
         });
       },
       err => {
@@ -347,7 +347,7 @@ export class UserTransactionsComponent implements OnInit {
         this.getDefferedLoans();
         this.spinner.hide();
         this.alertService.success({
-          html: '<b>received successfully</b>',
+          html: '<b>Received successfully</b>',
         });
       },
       err => {
@@ -467,7 +467,7 @@ export class UserTransactionsComponent implements OnInit {
         this.getReceivedLoans();
         this.spinner.hide();
         this.alertService.success({
-          html: '<b>Loan was rejected successful</b>',
+          html: '<b>Loan was rejected successfully</b>',
         });
       },
       er => {

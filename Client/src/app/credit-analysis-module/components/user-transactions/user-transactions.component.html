@@ -42,17 +42,6 @@
     </div>
     <div class="row">
       <div class="col-12 mx-0 px-3 py-2">
-        <pagination-controls
-        id="my_pages"
-        (pageChange)="pageChanged($event)"
-        (pageBoundsCorrection)="pageChanged($event)"
-        directionLinks="true"
-        autoHide="true"
-        responsive="true"
-      >
-      </pagination-controls>
-      </div>
-      <div class="col-12 mx-0 px-3 py-2">
         <tabset >
           <tab heading="Forwarded Loans" (selectTab)="getForwadedLoans()">
             <div>
@@ -429,21 +418,21 @@
                             [hidden]="loans.transactionStatus === 1"
                             >Defer To
                                 <a
-                                class="dropdown-item text-primo-1 pointerCursor"
+                                class="dropdown-item text-primo pointerCursor"
                                 (click)="openComment(loans, template, 'Application')"
                                 >
 
                                   Application
                                 </a>
                                 <a
-                                  class="dropdown-item text-primo-1 pointerCursor"
+                                  class="dropdown-item text-primo pointerCursor"
                                   (click)="openComment(loans, template, 'Branch')"
                                   >
 
                                   Branch Approval
                                 </a>
                                 <a
-                                  class="dropdown-item text-primo-1 pointerCursor"
+                                  class="dropdown-item text-primo pointerCursor"
                                   (click)="openComment(loans, template, 'Regional')"
                                   >
 
@@ -468,7 +457,7 @@
                           </div>
                         </div>
                       </div>
-                        <div class="break-text col-9 col-sm-10 col-lg-11 mx-md-0">
+                        <div class="break-text col-10 col-lg-11 mx-md-0">
                         <div class="row mx-md-0 px-md-0">
                           <div
                             class="col-12 col-md-6 col-xl-3 mx-md-0 px-md-0"
@@ -1088,7 +1077,7 @@
                             aria-labelledby="dropdownMenuButton"
                           >
                             <a
-                              class="dropdown-item text-primo-1 pointerCursor"
+                              class="dropdown-item text-primo pointerCursor"
                               (click)="openComment(loans, template, 'Rectify')"
                               ><i class="fas fa-check"></i>
 
@@ -1097,21 +1086,21 @@
                             <a class="dropdown-item dropdown-submenu"
                             >Defer To
                                 <a
-                                class="dropdown-item text-primo-1 pointerCursor"
+                                class="dropdown-item text-primo pointerCursor"
                                 (click)="openComment(loans, template, 'Application')"
                                 >
 
                                   Application
                                 </a>
                                 <a
-                                  class="dropdown-item text-primo-1 pointerCursor"
+                                  class="dropdown-item text-primo pointerCursor"
                                   (click)="openComment(loans, template, 'Branch')"
                                   >
 
                                   Branch Approval
                                 </a>
                                 <a
-                                  class="dropdown-item text-primo-1 pointerCursor"
+                                  class="dropdown-item text-primo pointerCursor"
                                   (click)="openComment(loans, template, 'Regional')"
                                   >
 
@@ -1121,7 +1110,7 @@
                           </div>
                         </div>
                       </div>
-                        <div class="break-text col-9 col-sm-10 col-lg-11 mx-md-0">
+                        <div class="break-text col-10 col-lg-11 mx-md-0">
                         <div class="row mx-md-0 px-md-0">
                           <div
                             class="col-12 col-md-6 col-xl-3 mx-md-0 px-md-0"
@@ -1429,13 +1418,13 @@
                                 <a
                                   class="dropdown-item pointerCursor text-primo-1"
                                   (click)="openComment(loans, template, 'Rectified')"
-                                >
+                                ><i class="fas fa-chevron-right"></i>
                                   Forward
                                 </a>
                               </div>
                             </div>
                         </div>
-                        <div class="break-text col-9 col-sm-10 col-lg-11 mx-md-0">
+                        <div class="break-text col-10 col-lg-11 mx-md-0">
                         <div class="row mx-md-0 px-md-0">
                           <div
                             class="col-12 col-md-6 col-xl-3 mx-md-0 px-md-0"
@@ -1688,7 +1677,7 @@
               <!--/ end of record container-->
             </tab>
             </tabset>
-        <pagination-controls
+        <!-- <pagination-controls
         id="my_pages"
         (pageChange)="pageChanged($event)"
         (pageBoundsCorrection)="pageChanged($event)"
@@ -1696,7 +1685,7 @@
         autoHide="true"
         responsive="true"
       >
-      </pagination-controls>
+      </pagination-controls> -->
             </div>
           </tab>
         </tabset>
