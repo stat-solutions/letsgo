@@ -164,6 +164,10 @@ p {
     margin-bottom: 1rem
 }
 
+.break-text{
+    word-break: break-word;
+}
+
 abbr[data-original-title],
 abbr[title] {
     text-decoration: underline;
