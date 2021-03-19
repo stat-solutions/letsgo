@@ -1,7 +1,7 @@
 
 export const environment = {
    production: 'false',
-   apiUrl: 'https://statbackend.com:3056',
+   apiUrl: 'https://statbackend.com:3057',
     firebaseConfig : {
      apiKey: 'AIzaSyCn1OSOztKsShvq8Yjgo9h8WtWFubgMMaQ',
      authDomain: 'letshego-2a9f2.firebaseapp.com',
