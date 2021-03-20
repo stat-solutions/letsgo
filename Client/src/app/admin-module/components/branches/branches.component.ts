@@ -5,6 +5,7 @@ import {Router} from '@angular/router';
 import * as XLSX from 'xlsx';
 import { ngxCsv } from 'ngx-csv/ngx-csv';
 import { ExportService } from 'src/app/shared/services/export.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 @Component({
   selector: 'app-branches',
   templateUrl: './branches.component.html',
@@ -23,13 +24,15 @@ export class BranchesComponent implements OnInit {
   key: any = 'branchNumber';
   reverse = false;
   @ViewChild('exportTable') element: ElementRef;
-  constructor(private branchService: BranchesService, private router: Router, private exportService: ExportService) {}
+    constructor(private spinner: NgxSpinnerService, private branchService: BranchesService, private router: Router, private exportService: ExportService) {}
 
   ngOnInit(): void {
+    this.spinner.show();
     this.branchService.getAllBranches().subscribe((branches) => {
       this.AllBranches = branches;
       this.totalItems = this.AllBranches.length;
       this.filteredBranches = this.AllBranches;
+      this.spinner.hide();
       // console.log(this.filteredBranches);
       // console.log(this.searchText);
     });

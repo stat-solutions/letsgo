@@ -23,7 +23,7 @@ export class HeaderAdminComponent implements OnInit {
   @Input() headerHeight: number;
   @Input() collapsedLeftHeader: boolean;
 
-  user = '/../../../assets/img/man.svg';
+  user = this.authService.getUserPhotoUrl();
   userName: string;
   serviceErrors: any;
   constructor(private layoutService: LayoutService,
@@ -33,20 +33,20 @@ export class HeaderAdminComponent implements OnInit {
               // private toastr: ToastrService
               ) {}
 
-  ngOnInit() {}
+  ngOnInit(): void {}
 
-  changeTheToggleStatus() {
+  changeTheToggleStatus(): any {
     this.layoutService.getToggleStatus();
   }
 
-  showDanger() {
+  showDanger(): any {
 
     // this.toastr.warning(this.serviceErrors, 'Logout Successfully!!', {timeOut: 6000, positionClass: 'toast-bottom-left'});
   }
 
 
 
-  logoutUser() {
+  logoutUser(): any {
     this.serviceErrors = 'Bye bye!';
     this.showDanger();
     setTimeout(() => {

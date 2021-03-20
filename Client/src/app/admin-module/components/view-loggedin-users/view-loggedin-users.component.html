@@ -39,6 +39,9 @@
     <div class="row">
       <div class="col-12">
               <!-- records container-->
+              <ngx-spinner class="bg-success" size="medium" type="line-spin-fade">
+                <p class="text-light">Please Wait...</p>
+              </ngx-spinner>
         <div
         class="invest-card card mt-1 py-2 mb-2 mx-auto px-2 shadow-lg" *ngIf="checkLoggedInUsers(filteredUsers); else noCustomer"
 >
@@ -139,7 +142,7 @@
                   <div class="row" *ngIf="User.userName !== logged.userName">
                       <div class="col d-flex justify-content-end">
                       <button class="btn btn-info"
-                      (click)="logOut(logged.loggedInUsersId)"
+                      (click)="logOut(logged.userId)"
                       >Logout</button>
                     </div>
                   </div>

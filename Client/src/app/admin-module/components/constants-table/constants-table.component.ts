@@ -31,9 +31,11 @@ export class ConstantsTableComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.spinner.show();
     this.loan.getAllLoanThresholds().subscribe( constants => {
       this.constantsTable = constants;
       this.filteredConstants = this.constantsTable;
+      this.spinner.hide();
     });
   }
   checkTable(array: Array<any>): any{

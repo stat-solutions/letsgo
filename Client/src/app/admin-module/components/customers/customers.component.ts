@@ -6,6 +6,7 @@ import { ngxCsv } from 'ngx-csv/ngx-csv';
 import {CustomerModel} from 'src/app/shared/models/customer-model';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { ExportService } from 'src/app/shared/services/export.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-customers',
@@ -30,14 +31,17 @@ export class CustomersComponent implements OnInit {
       private customer: CustomerService,
       private modalService: BsModalService,
       private exportService: ExportService,
-      private router: Router
+      private router: Router,
+      private spinner: NgxSpinnerService,
       ) {}
   ngOnInit(): any {
     setTimeout(() => {
+      this.spinner.show();
       this.customer.getAllCustomers().subscribe(data => {
       this.customerTable = data;
       this.filterCustomers = this.customerTable;
       this.totalItems = this.customerTable.length;
+      this.spinner.hide();
     });
     }, 0);
   }

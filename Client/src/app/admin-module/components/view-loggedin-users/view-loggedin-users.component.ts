@@ -7,6 +7,7 @@ import { UsersService } from 'src/app/shared/services/users.service';
 import { AuthServiceService } from 'src/app/shared/services/auth-service.service';
 import { ExportService } from 'src/app/shared/services/export.service';
 import { AlertService } from 'ngx-alerts';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-view-loggedin-users',
@@ -36,6 +37,7 @@ export class ViewLoggedinUsersComponent implements OnInit {
     private authService: AuthServiceService,
     private userService: UsersService,
     private modalService: BsModalService,
+    private spinner: NgxSpinnerService,
     private exportService: ExportService,
     private alertService: AlertService,
     private router: Router
@@ -45,11 +47,13 @@ export class ViewLoggedinUsersComponent implements OnInit {
     this.getLoggedInUsers();
   }
   getLoggedInUsers(): any{
+    this.spinner.show();
     this.userService.getLoggedInUsers().subscribe((loggedIn) => {
       if (loggedIn.length > 0) {
         this.loggedInUsers = loggedIn;
         this.filteredUsers = this.loggedInUsers;
         this.totalItems = this.loggedInUsers.length;
+        this.spinner.hide();
       }
     });
   }

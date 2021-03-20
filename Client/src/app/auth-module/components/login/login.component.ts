@@ -94,6 +94,7 @@ export class LoginComponent implements OnInit {
           // this.posted = true;
           if (this.jwtHelper.decodeToken(this.authService.getJwtToken()).userStatus === 2) {
             // console.log(this.jwtHelper.decodeToken(this.authService.getJwtToken()).roleId);
+            this.authService.setUserPhotoUrl();
             switch (this.jwtHelper.decodeToken(this.authService.getJwtToken()).roleId){
               case 99:
                 this.alertService.danger({
@@ -261,13 +262,13 @@ export class LoginComponent implements OnInit {
         this.loginStatus = error;
         if (this.loginStatus.status === 412) {
           this.alertService.danger({
-            html: '<b>' + this.fval.userEmail.value + ' recquires verification first' + '<br/>'
+            html: '<b>User with specified email does not exist<br/>'
           });
           this.passwordFailed = true;
           this.spinner.hide();
         } else {
           this.alertService.danger({
-            html: '<b>' + this.loginStatus.error.error.message + '<br/>'
+            html: '<b> There was a problem<br/>'
           });
         }
         this.spinner.hide();

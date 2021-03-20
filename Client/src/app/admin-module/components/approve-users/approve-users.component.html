@@ -7,6 +7,7 @@
     >
       <div class="row">
         <div class="col-12">
+          
           <h3 class="rub-head4 text-info text-center font-weight-bold py-1">
             APPROVE USERS
           </h3>
@@ -36,6 +37,9 @@
     </div>
     <div class="row">
       <div class="col-12">
+        <!-- <ngx-spinner class="bg-success" size="medium" type="line-spin-fade">
+          <p class="text-light">Please Wait...</p>
+        </ngx-spinner> -->
               <!-- records container-->
         <div
         class="invest-card card mt-1 py-2 mb-2 mx-auto px-2 shadow-lg" *ngIf="users else noUsers" #exportTable
@@ -159,9 +163,6 @@
                   >
                     Approve
                   </button>
-                  <ngx-spinner class="bg-info" size="medium" type="ball-scale-multiple">
-          <p class="text-light">Please wait...</p>
-        </ngx-spinner>
         <ngx-alerts></ngx-alerts>
         <label class="col" *ngIf="posted" class="text-info">
           <!-- <i class="material-icons">check_circle</i> -->
@@ -180,7 +181,7 @@
                   </button>
                 </div>
               </ng-template>
-              <ngx-spinner></ngx-spinner>
+              <!-- <ngx-spinner></ngx-spinner> -->
               <ngx-spinner
                 class="bg-warning bg-info"
                 size="small"

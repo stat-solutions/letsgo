@@ -183,6 +183,13 @@
     </div>
     <div class="row">
       <div class="col-12">
+        <pagination-controls
+          id="my_pages"
+          (pageChange)="pageChanged($event)"
+          (pageBoundsCorrection)="pageChanged($event)"
+          directionLinks="true"
+        >
+        </pagination-controls>
         <!--record container-->
         <div
           class="invest-card card mt-1 py-2 mb-2 mx-auto px-2 shadow-lg"

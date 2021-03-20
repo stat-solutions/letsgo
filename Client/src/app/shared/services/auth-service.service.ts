@@ -35,7 +35,8 @@ export class AuthServiceService {
       private userService: UsersService,
       private http: HttpClient,
       private router: Router,
-      private jwtHelper: JwtHelperService
+      private jwtHelper: JwtHelperService,
+      private EditUser: UsersService,
       ) { }
 
     loginNormalUser(postData: any): any {
@@ -143,6 +144,17 @@ export class AuthServiceService {
   // "iss": "::ffff:127.0.0.1"
     }
 
+    setUserPhotoUrl(): any {
+      let userPhotoUrl = '/../../../assets/img/man.svg';
+      this.EditUser.getUser(this.loggedInUserInfo().userId).subscribe( res => {
+        const user = res[0];
+        userPhotoUrl = user.userPhotoUrl === 'MissingPhotoUrl.com' ? userPhotoUrl : user.userPhotoUrl;
+        localStorage.setItem('userPhotoUrl', userPhotoUrl);
+      });
+    }
+    getUserPhotoUrl(): any{
+      return localStorage.getItem('userPhotoUrl');
+    }
     getJwtToken(): any {
       return localStorage.getItem(this.ACCESS_TOKEN);
     }

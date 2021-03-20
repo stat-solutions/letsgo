@@ -327,6 +327,15 @@
         >
           Password should contain a number and an uppercase letter!
         </div>
+        <div
+        class="text-danger col"
+        *ngIf="
+          (fval.userPassword.touched || fval.userPassword.dirty) &&
+          fval.userPassword.errors?.minlength
+        "
+      >
+        At least eight characters required!
+      </div>
       </div>
       <div class="form-group text-primary">
         <label for="confirm" [ngClass]="fval.confirm.valid ? 'text-info' : ''"
@@ -399,6 +408,7 @@
         <button
           type="submit"
           class="btn btn-info col-5 mx-auto"
+          [disabled]="!userForm.valid"
         >
           Register
         </button>

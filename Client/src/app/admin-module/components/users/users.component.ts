@@ -66,10 +66,12 @@ export class UsersComponent implements OnInit {
     });
   }
   getUsers(): any {
+    this.spinner.show();
     this.userService.getUsers().subscribe((res) => {
       this.user = res;
       this.filteredUsers = this.user;
       this.totalItems = this.user.length;
+      this.spinner.hide();
     });
   }
   getRoles(): any {
@@ -77,7 +79,7 @@ export class UsersComponent implements OnInit {
       (res) => {
         this.roles = res;
         // tslint:disable-next-line: only-arrow-functions
-        this.roles = this.roles.map(function (role: any): any {
+        this.roles = this.roles.map(function(role: any): any {
           return {
             roleId: role.roleId,
             roleName: role.roleName.replace(/_/g, ' ').toUpperCase(),
@@ -150,6 +152,7 @@ export class UsersComponent implements OnInit {
       roleId: null,
       userIdApprover: this.User.userId,
     };
+    this.spinner.show();
     this.roles.forEach((role) => {
       if (this.userForm.controls.role.value === role.roleName) {
         data.roleId = role.roleId;
@@ -160,6 +163,7 @@ export class UsersComponent implements OnInit {
         this.posted = true;
         this.getUsers();
         this.modalService.hide();
+        this.spinner.hide();
         this.alertService.success({
           html: '<b> Role edited successfully<b>',
         });
@@ -167,6 +171,7 @@ export class UsersComponent implements OnInit {
       (err) => {
         this.errored = true;
         this.modalService.hide();
+        this.spinner.hide();
         this.alertService.danger({
           html: '<b> There was a problem<b>',
         });

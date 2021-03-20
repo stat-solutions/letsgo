@@ -58,6 +58,7 @@ export class RegistrationComponent implements OnInit {
         '',
         Validators.compose([
           Validators.required,
+          Validators.minLength(8),
           CustomValidator.patternValidator(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$/, { hasNumber: true })
       ])
       ),

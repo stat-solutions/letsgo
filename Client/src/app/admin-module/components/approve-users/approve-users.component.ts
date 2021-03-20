@@ -54,13 +54,18 @@ export class ApproveUsersComponent implements OnInit {
     });
   }
   getUserToApproval(): any {
+    this.spinner.show();
     this.userService.getUserForApproval().subscribe(
       (res) => {
         this.users = res;
         this.filteredUsers = this.users;
         // console.log(this.filteredUsers);
+        this.spinner.hide();
       },
-      (err) => console.log(err.error.error.message)
+      (err) => {
+        console.log(err.error.error.message);
+        this.spinner.hide();
+      }
     );
   }
   getRoles(): any {
@@ -139,6 +144,7 @@ export class ApproveUsersComponent implements OnInit {
 
   rejectUser(userInfo: any, id, index): any {
     // console.log(this.fval.role.value);
+    this.spinner.show();
     this.disableButton = !this.disableButton;
     const data = {
       userId: userInfo[0].userId,
@@ -147,12 +153,14 @@ export class ApproveUsersComponent implements OnInit {
     this.userService.rejectUser(data).subscribe(
       (res) => {
         this.posted = true;
+        this.spinner.hide();
         this.alertService.success({
             html: '<b> Approved successfully<b>',
           });
       },
       (err) => {
         this.errored = true;
+        this.spinner.hide();
         this.alertService.danger({
             html: '<b> There was a problem<b>',
         });
@@ -164,6 +172,7 @@ export class ApproveUsersComponent implements OnInit {
 
   approvedUser(userInfo: any, id, index): any {
     // console.log(this.fval.role.value);
+    this.spinner.show();
     this.disableButton = !this.disableButton;
     const data = {
       userId: userInfo[0].userId,
@@ -180,6 +189,7 @@ export class ApproveUsersComponent implements OnInit {
     this.userService.approveUser(data).subscribe(
       (res) => {
         this.posted = true;
+        this.spinner.hide();
         this.getUserToApproval();
         this.alertService.success({
             html: '<b> Approved successfully<b>',
@@ -188,6 +198,7 @@ export class ApproveUsersComponent implements OnInit {
       (err) => {
         this.errored = true;
         this.getUserToApproval();
+        this.spinner.hide();
         this.alertService.danger({
             html: '<b> There was a problem<b>',
         });

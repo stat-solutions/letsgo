@@ -63,15 +63,8 @@ export class DashboardComponent implements OnInit {
       this.reports.getTotalNumberOfRejectedLoans().subscribe(res => this.rejected = res);
     }
     this.landingPage.getAllLoanDetails().subscribe((userData) => {
-      this.loanTable = userData.map((eachUser) => {
-        const oldDate = eachUser.CreatedAt;
-        const diffInDates = moment(this.age).diff(moment(oldDate));
-        const timeInMonths = moment(diffInDates).format(
-          'MM [months] DD [days]'
-        );
-        return { ...eachUser, TotalAge: timeInMonths };
-      });
-      this.filteredLoans = this.loanTable;
+      this.loanTable = userData;
+      this.filteredLoans = userData;
       this.totalItems = this.filteredLoans.length;
     });
   }
@@ -100,11 +93,11 @@ export class DashboardComponent implements OnInit {
     if (searchTerm) {
       return this.filteredLoans.filter(
         (loan) =>
-          loan.loanId.indexOf(searchTerm) !==
+          loan.loanId.toString().indexOf(searchTerm) !==
             -1 ||
           loan.loanAmount.toString().indexOf(searchTerm) !==
             -1 ||
-          loan.customerIdNumber.toString().indexOf(searchTerm) !==
+          loan.customerIdNumber.indexOf(searchTerm) !==
             -1 ||
           loan.customerIdType.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1 ||
           loan.customerName.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1 ||
@@ -116,7 +109,6 @@ export class DashboardComponent implements OnInit {
       );
     }
   }
-
 
   clickOnCustomer(id: number): any{
         this.router.navigate(['admin/customerdetails', id], );

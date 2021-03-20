@@ -63,15 +63,8 @@ export class DashboardComponent implements OnInit {
       this.reports.getTotalNumberOfRejectedLoans().subscribe(res => this.rejected = res);
     }
     this.landingPage.getAllLoanDetails().subscribe((userData) => {
-      this.loanTable = userData.map((eachUser) => {
-        const oldDate = eachUser.CreatedAt;
-        const diffInDates = moment(this.age).diff(moment(oldDate));
-        const timeInMonths = moment(diffInDates).format(
-          'MM [months] DD [days]'
-        );
-        return { ...eachUser, TotalAge: timeInMonths };
-      });
-      this.filteredLoans = this.loanTable;
+      this.loanTable = userData;
+      this.filteredLoans = userData;
       this.totalItems = this.filteredLoans.length;
     });
   }

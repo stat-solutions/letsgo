@@ -39,6 +39,7 @@ export class EditUserProfileComponent implements OnInit {
   fileInfo = { name: '', size: 0 };
   disableButton = true;
   userPhotoUrl: string;
+  userEmail: any;
   User = this.authService.loggedInUserInfo();
   constructor(
     private EditUser: UsersService,
@@ -93,6 +94,7 @@ export class EditUserProfileComponent implements OnInit {
       const user = res[0];
       this.fval.full_name.setValue(user.userName);
       this.fval.email2.setValue(user.userEmail);
+      this.userEmail = user.userEmail;
       this.fval.user_contact_number1.setValue(user.userPhone1);
       this.fval.user_contact_number2.setValue(user.userPhone2);
       this.userPhotoUrl = user.userPhotoUrl;
@@ -180,6 +182,7 @@ export class EditUserProfileComponent implements OnInit {
       this.EditUser.putEditUserPhotoUrl(data).subscribe(
         (res) => {
           this.posted = true;
+          this.authService.setUserPhotoUrl();
           this.alertService.success({
               html: '<b> Profile photo edited successfully<b>',
             });
@@ -204,7 +207,7 @@ export class EditUserProfileComponent implements OnInit {
     this.EditUser.putEditUser(data).subscribe(
       (res) => {
         this.posted = true;
-        if (this.fval.email2.value !== '') {
+        if (this.fval.email2.value !== '' && this.fval.email2.value !== this.userEmail) {
             const dataEmal = {
               userId: this.User.userId,
               userEmail: this.fval.email2.value
@@ -223,14 +226,14 @@ export class EditUserProfileComponent implements OnInit {
                 });
               }
             );
-            setTimeout(() => {
-              this.initializeForm();
-              this.disableForm();
-              this.alertService.success({
-                html: '<b> Other details were edited successfully<b>',
-              });
-            }, 3000);
           }
+        setTimeout(() => {
+          this.initializeForm();
+          this.disableForm();
+          this.alertService.success({
+            html: '<b> Other details were edited successfully<b>',
+          });
+        }, 3000);
       },
       (err) => {
         this.errored = true;

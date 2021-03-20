@@ -74,14 +74,7 @@ export class UserTransactionsComponent implements OnInit {
     this.loanTable = [];
     this.spinner.show();
     this.userTransactions.getForwardedHeadOfficeApprovalLoans(this.User.branchId).subscribe((userData) => {
-      this.loanTable = userData.map((eachUser) => {
-        const oldDate = eachUser.CreatedAt;
-        const diffInDates = moment(this.age).diff(moment(oldDate));
-        const timeInMonths = moment(diffInDates).format(
-          'MM [months] DD [days]'
-        );
-        return { ...eachUser, TotalAge: timeInMonths };
-      });
+      this.loanTable = userData;
       this.filteredLoans = this.loanTable;
       this.totalItems = this.filteredLoans.length;
       this.spinner.hide();
@@ -92,14 +85,7 @@ export class UserTransactionsComponent implements OnInit {
     this.loanTable = [];
     this.spinner.show();
     this.userTransactions.getReceivedHeadOfficeApprovalLoans(this.User.branchId).subscribe((userData) => {
-      this.loanTable = userData.map((eachUser) => {
-        const oldDate = eachUser.CreatedAt;
-        const diffInDates = moment(this.age).diff(moment(oldDate));
-        const timeInMonths = moment(diffInDates).format(
-          'MM [months] DD [days]'
-        );
-        return { ...eachUser, TotalAge: timeInMonths };
-      });
+      this.loanTable = userData;
       this.filteredLoans = this.loanTable;
       this.totalItems = this.filteredLoans.length;
       this.spinner.hide();
@@ -110,14 +96,7 @@ export class UserTransactionsComponent implements OnInit {
     this.loanTable = [];
     this.spinner.show();
     this.userTransactions.getApprovedHeadOfficeApprovalLoans(this.User.branchId).subscribe((userData) => {
-      this.loanTable = userData.map((eachUser) => {
-        const oldDate = eachUser.CreatedAt;
-        const diffInDates = moment(this.age).diff(moment(oldDate));
-        const timeInMonths = moment(diffInDates).format(
-          'MM [months] DD [days]'
-        );
-        return { ...eachUser, TotalAge: timeInMonths };
-      });
+      this.loanTable = userData;
       this.filteredLoans = this.loanTable;
       this.totalItems = this.filteredLoans.length;
       this.spinner.hide();

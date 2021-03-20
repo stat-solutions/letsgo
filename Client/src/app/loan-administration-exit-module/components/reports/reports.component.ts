@@ -123,15 +123,8 @@ export class ReportsComponent implements OnInit {
     this.filteredLoans = [];
     this.totalItems = 0;
     this.reports.getComprehensiveReport(data).subscribe((userData) => {
-      this.loanTable = userData.map((eachUser) => {
-        const oldDate = eachUser.CreatedAt;
-        const diffInDates = moment(this.age).diff(moment(oldDate));
-        const timeInMonths = moment(diffInDates).format(
-          'MM [months] DD [days]'
-        );
-        return { ...eachUser, TotalAge: timeInMonths };
-      });
-      this.filteredLoans = this.loanTable;
+      this.loanTable = userData;
+      this.filteredLoans = userData;
       !this.filteredLoans.length ? this.loading = false : this.loading = true;
       this.totalItems = this.filteredLoans.length;
     });
@@ -141,15 +134,8 @@ export class ReportsComponent implements OnInit {
     this.filteredLoans = [];
     this.totalItems = 0;
     this.reports.getRunningLoansReport(data).subscribe((userData) => {
-      this.loanTable = userData.map((eachUser) => {
-        const oldDate = eachUser.CreatedAt;
-        const diffInDates = moment(this.age).diff(moment(oldDate));
-        const timeInMonths = moment(diffInDates).format(
-          'MM [months] DD [days]'
-        );
-        return { ...eachUser, TotalAge: timeInMonths };
-      });
-      this.filteredLoans = this.loanTable;
+      this.loanTable = userData;
+      this.filteredLoans = userData;
       !this.filteredLoans.length ? this.loading = false : this.loading = true;
       this.totalItems = this.filteredLoans.length;
     });
@@ -159,15 +145,8 @@ export class ReportsComponent implements OnInit {
     this.filteredLoans = [];
     this.totalItems = 0;
     this.reports.getDisbursedLoansReport(data).subscribe((userData) => {
-      this.loanTable = userData.map((eachUser) => {
-        const oldDate = eachUser.CreatedAt;
-        const diffInDates = moment(this.age).diff(moment(oldDate));
-        const timeInMonths = moment(diffInDates).format(
-          'MM [months] DD [days]'
-        );
-        return { ...eachUser, TotalAge: timeInMonths };
-      });
-      this.filteredLoans = this.loanTable;
+      this.loanTable = userData;
+      this.filteredLoans = userData;
       !this.filteredLoans.length ? this.loading = false : this.loading = true;
       this.totalItems = this.filteredLoans.length;
     });
@@ -177,15 +156,8 @@ export class ReportsComponent implements OnInit {
     this.filteredLoans = [];
     this.totalItems = 0;
     this.reports.getRejectedLoansReport(data).subscribe((userData) => {
-      this.loanTable = userData.map((eachUser) => {
-        const oldDate = eachUser.CreatedAt;
-        const diffInDates = moment(this.age).diff(moment(oldDate));
-        const timeInMonths = moment(diffInDates).format(
-          'MM [months] DD [days]'
-        );
-        return { ...eachUser, TotalAge: timeInMonths };
-      });
-      this.filteredLoans = this.loanTable;
+      this.loanTable = userData;
+      this.filteredLoans = userData;
       !this.filteredLoans.length ? this.loading = false : this.loading = true;
       this.totalItems = this.filteredLoans.length;
     });
@@ -195,15 +167,8 @@ export class ReportsComponent implements OnInit {
     this.filteredLoans = [];
     this.totalItems = 0;
     this.reports.getApproveddLoansReport(data).subscribe((userData) => {
-      this.loanTable = userData.map((eachUser) => {
-        const oldDate = eachUser.CreatedAt;
-        const diffInDates = moment(this.age).diff(moment(oldDate));
-        const timeInMonths = moment(diffInDates).format(
-          'MM [months] DD [days]'
-        );
-        return { ...eachUser, TotalAge: timeInMonths };
-      });
-      this.filteredLoans = this.loanTable;
+      this.loanTable = userData;
+      this.filteredLoans = userData;
       !this.filteredLoans.length ? this.loading = false : this.loading = true;
       this.totalItems = this.filteredLoans.length;
     });
@@ -213,15 +178,8 @@ export class ReportsComponent implements OnInit {
     this.filteredLoans = [];
     this.totalItems = 0;
     this.reports.getReceivedLoansReport(data).subscribe((userData) => {
-      this.loanTable = userData.map((eachUser) => {
-        const oldDate = eachUser.CreatedAt;
-        const diffInDates = moment(this.age).diff(moment(oldDate));
-        const timeInMonths = moment(diffInDates).format(
-          'MM [months] DD [days]'
-        );
-        return { ...eachUser, TotalAge: timeInMonths };
-      });
-      this.filteredLoans = this.loanTable;
+      this.loanTable = userData;
+      this.filteredLoans = userData;
       !this.filteredLoans.length ? this.loading = false : this.loading = true;
       this.totalItems = this.filteredLoans.length;
     });
@@ -231,15 +189,8 @@ export class ReportsComponent implements OnInit {
     this.filteredLoans = [];
     this.totalItems = 0;
     this.reports.getForwardedLoansReport(data).subscribe((userData) => {
-      this.loanTable = userData.map((eachUser) => {
-        const oldDate = eachUser.CreatedAt;
-        const diffInDates = moment(this.age).diff(moment(oldDate));
-        const timeInMonths = moment(diffInDates).format(
-          'MM [months] DD [days]'
-        );
-        return { ...eachUser, TotalAge: timeInMonths };
-      });
-      this.filteredLoans = this.loanTable;
+      this.loanTable = userData;
+      this.filteredLoans = userData;
       !this.filteredLoans.length ? this.loading = false : this.loading = true;
       this.totalItems = this.filteredLoans.length;
     });
@@ -249,15 +200,8 @@ export class ReportsComponent implements OnInit {
     this.filteredLoans = [];
     this.totalItems = 0;
     this.reports.getDefferedLoansReport(data).subscribe((userData) => {
-      this.loanTable = userData.map((eachUser) => {
-        const oldDate = eachUser.CreatedAt;
-        const diffInDates = moment(this.age).diff(moment(oldDate));
-        const timeInMonths = moment(diffInDates).format(
-          'MM [months] DD [days]'
-        );
-        return { ...eachUser, TotalAge: timeInMonths };
-      });
-      this.filteredLoans = this.loanTable;
+      this.loanTable = userData;
+      this.filteredLoans = userData;
       !this.filteredLoans.length ? this.loading = false : this.loading = true;
       this.totalItems = this.filteredLoans.length;
     });
@@ -267,15 +211,8 @@ export class ReportsComponent implements OnInit {
     this.filteredLoans = [];
     this.totalItems = 0;
     this.reports.getRunningLoansByBranchReport(data).subscribe((userData) => {
-      this.loanTable = userData.map((eachUser) => {
-        const oldDate = eachUser.CreatedAt;
-        const diffInDates = moment(this.age).diff(moment(oldDate));
-        const timeInMonths = moment(diffInDates).format(
-          'MM [months] DD [days]'
-        );
-        return { ...eachUser, TotalAge: timeInMonths };
-      });
-      this.filteredLoans = this.loanTable;
+      this.loanTable = userData;
+      this.filteredLoans = userData;
       !this.filteredLoans.length ? this.loading = false : this.loading = true;
       this.totalItems = this.filteredLoans.length;
     });
@@ -285,15 +222,8 @@ export class ReportsComponent implements OnInit {
     this.filteredLoans = [];
     this.totalItems = 0;
     this.reports.getRunningLoansByMovementStageReport(data).subscribe((userData) => {
-      this.loanTable = userData.map((eachUser) => {
-        const oldDate = eachUser.CreatedAt;
-        const diffInDates = moment(this.age).diff(moment(oldDate));
-        const timeInMonths = moment(diffInDates).format(
-          'MM [months] DD [days]'
-        );
-        return { ...eachUser, TotalAge: timeInMonths };
-      });
-      this.filteredLoans = this.loanTable;
+      this.loanTable = userData;
+      this.filteredLoans = userData;
       !this.filteredLoans.length ? this.loading = false : this.loading = true;
       this.totalItems = this.filteredLoans.length;
     });
@@ -303,15 +233,8 @@ export class ReportsComponent implements OnInit {
     this.filteredLoans = [];
     this.totalItems = 0;
     this.reports.getRunningLoansByUserReport(data).subscribe((userData) => {
-      this.loanTable = userData.map((eachUser) => {
-        const oldDate = eachUser.CreatedAt;
-        const diffInDates = moment(this.age).diff(moment(oldDate));
-        const timeInMonths = moment(diffInDates).format(
-          'MM [months] DD [days]'
-        );
-        return { ...eachUser, TotalAge: timeInMonths };
-      });
-      this.filteredLoans = this.loanTable;
+      this.loanTable = userData;
+      this.filteredLoans = userData;
       !this.filteredLoans.length ? this.loading = false : this.loading = true;
       this.totalItems = this.filteredLoans.length;
     });
@@ -361,7 +284,8 @@ export class ReportsComponent implements OnInit {
     const data = {
       startDate: dates[0],
       endDate: dates[1],
-    }
+    };
+    this.spinner.show();
     switch (typeOfReport){
       case 'Comprehensive report':
         this.getComprehensive(data);
@@ -392,7 +316,7 @@ export class ReportsComponent implements OnInit {
             startDate: dates[0],
             endDate: dates[1],
             branchId: this.branchId
-          }
+          };
         this.getRunningLoansByBranchReport(dataBranch);
         break;
       case 'Running By Movement stage':
@@ -400,7 +324,7 @@ export class ReportsComponent implements OnInit {
             startDate: dates[0],
             endDate: dates[1],
             roleId: this.roleId
-          }
+          };
         this.getRunningLoansByMovementStageReport(dataRole);
         break;
       case 'Running By User':
@@ -408,10 +332,11 @@ export class ReportsComponent implements OnInit {
             startDate: dates[0],
             endDate: dates[1],
             userId: this.userId
-          }
+          };
         this.getRunningLoansByUserReport(dataUser);
         break;
     }
+    this.spinner.hide();
   }
   revert(): any {
     this.userForm.reset();
@@ -426,7 +351,7 @@ export class ReportsComponent implements OnInit {
     this.filteredLoans = [];
     this.totalItems = 0;
     this.loading = true;
-    switch(this.type) {
+    switch (this.type) {
       case 'Running By Branch':
         this.userForm.controls.branch.setValidators([
           Validators.required,

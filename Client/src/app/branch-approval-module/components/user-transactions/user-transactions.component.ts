@@ -77,15 +77,8 @@ export class UserTransactionsComponent implements OnInit {
     this.loanTable = [];
     this.spinner.show();
     this.userTransactions.getBranchApprovalForwardedLoans(this.User.branchId).subscribe((userData) => {
-      this.loanTable = userData.map((eachUser) => {
-        const oldDate = eachUser.CreatedAt;
-        const diffInDates = moment(this.age).diff(moment(oldDate));
-        const timeInMonths = moment(diffInDates).format(
-          'MM [months] DD [days]'
-        );
-        return { ...eachUser, TotalAge: timeInMonths };
-      });
-      this.filteredLoans = this.loanTable;
+      this.loanTable = userData;
+      this.filteredLoans = userData;
       this.totalItems = this.filteredLoans.length;
       this.spinner.hide();
     });
@@ -95,15 +88,8 @@ export class UserTransactionsComponent implements OnInit {
     this.loanTable = [];
     this.spinner.show();
     this.userTransactions.getReceivedBranchApprovalLoans(this.User.branchId).subscribe((userData) => {
-      this.loanTable = userData.map((eachUser) => {
-        const oldDate = eachUser.CreatedAt;
-        const diffInDates = moment(this.age).diff(moment(oldDate));
-        const timeInMonths = moment(diffInDates).format(
-          'MM [months] DD [days]'
-        );
-        return { ...eachUser, TotalAge: timeInMonths };
-      });
-      this.filteredLoans = this.loanTable;
+      this.loanTable = userData;
+      this.filteredLoans = userData;
       this.totalItems = this.filteredLoans.length;
       this.spinner.hide();
     });
@@ -113,15 +99,8 @@ export class UserTransactionsComponent implements OnInit {
     this.loanTable = [];
     this.spinner.show();
     this.userTransactions.getApprovedBranchApprovalLoans(this.User.branchId).subscribe((userData) => {
-      this.loanTable = userData.map((eachUser) => {
-        const oldDate = eachUser.CreatedAt;
-        const diffInDates = moment(this.age).diff(moment(oldDate));
-        const timeInMonths = moment(diffInDates).format(
-          'MM [months] DD [days]'
-        );
-        return { ...eachUser, TotalAge: timeInMonths };
-      });
-      this.filteredLoans = this.loanTable;
+      this.loanTable = userData;
+      this.filteredLoans = userData;
       this.totalItems = this.filteredLoans.length;
       this.spinner.hide();
     });
@@ -131,15 +110,8 @@ export class UserTransactionsComponent implements OnInit {
     this.loanTable = [];
     this.spinner.show();
     this.userTransactions.getBranchApprovalDefferredLoans(this.User.branchId).subscribe((userData) => {
-      this.loanTable = userData.map((eachUser) => {
-        const oldDate = eachUser.CreatedAt;
-        const diffInDates = moment(this.age).diff(moment(oldDate));
-        const timeInMonths = moment(diffInDates).format(
-          'MM [months] DD [days]'
-        );
-        return { ...eachUser, TotalAge: timeInMonths };
-      });
-      this.filteredLoans = this.loanTable;
+      this.loanTable = userData;
+      this.filteredLoans = userData;
       this.totalItems = this.filteredLoans.length;
       this.spinner.hide();
     });
@@ -149,15 +121,8 @@ export class UserTransactionsComponent implements OnInit {
     this.loanTable = [];
     this.spinner.show();
     this.userTransactions.getReceivedBranchApprovalDefferredLoans(this.User.branchId).subscribe((userData) => {
-      this.loanTable = userData.map((eachUser) => {
-        const oldDate = eachUser.CreatedAt;
-        const diffInDates = moment(this.age).diff(moment(oldDate));
-        const timeInMonths = moment(diffInDates).format(
-          'MM [months] DD [days]'
-        );
-        return { ...eachUser, TotalAge: timeInMonths };
-      });
-      this.filteredLoans = this.loanTable;
+      this.loanTable = userData;
+      this.filteredLoans = userData;
       this.totalItems = this.filteredLoans.length;
       this.spinner.hide();
     });
@@ -167,15 +132,8 @@ export class UserTransactionsComponent implements OnInit {
     this.loanTable = [];
     this.spinner.show();
     this.userTransactions.getRectifiedBranchApprovalDefferredLoans(this.User.branchId).subscribe((userData) => {
-      this.loanTable = userData.map((eachUser) => {
-        const oldDate = eachUser.CreatedAt;
-        const diffInDates = moment(this.age).diff(moment(oldDate));
-        const timeInMonths = moment(diffInDates).format(
-          'MM [months] DD [days]'
-        );
-        return { ...eachUser, TotalAge: timeInMonths };
-      });
-      this.filteredLoans = this.loanTable;
+      this.loanTable = userData;
+      this.filteredLoans = userData;
       this.totalItems = this.filteredLoans.length;
       this.spinner.hide();
     });
