@@ -77,7 +77,7 @@ export class CreateLoansComponent implements OnInit {
     this.loaning.getLoanSecurityType().subscribe((res) => {
       for (const i of res) {
         // console.log(i);
-        this.securityNames.push(i.securityTypeName.toUpperCase());
+        // this.securityNames.push(i.securityTypeName.toUpperCase());
         this.securities.push(i);
       }
     });
@@ -174,19 +174,12 @@ export class CreateLoansComponent implements OnInit {
     this.spinner.show();
     setTimeout(() => {
       const security = {
-        securityTypeCode: null,
+        securityTypeCode: this.securityForm.controls.securityType.value,
         loanSecurityName: this.securityForm.controls.securityName.value.toUpperCase(),
         loanSecurityLocation: this.securityForm.controls.securityLocation.value.toUpperCase(),
         loanSecurityPhotoUrl: this.securityPhotoUrl,
       };
-      this.securities.forEach((sec) => {
-        if (
-          sec.securityTypeName.toUpperCase() ===
-          this.securityForm.controls.securityType.value
-        ) {
-          security.securityTypeCode = sec.securityTypeCode;
-        }
-      });
+
       if (security.securityTypeCode != null) {
         this.securityDetails.push(security);
         this.securityForm.reset();
@@ -213,19 +206,11 @@ export class CreateLoansComponent implements OnInit {
     this.spinner.show();
     setTimeout(() => {
       const security = {
-        securityTypeCode: null,
+        securityTypeCode: this.securityForm.controls.securityType.value,
         loanSecurityName: this.securityForm.controls.securityName.value.toUpperCase(),
         loanSecurityLocation: this.securityForm.controls.securityLocation.value.toUpperCase(),
         loanSecurityPhotoUrl: this.securityPhotoUrl,
       };
-      this.securities.forEach((sec) => {
-        if (
-          sec.securityTypeName.toUpperCase() ===
-          this.securityForm.controls.securityType.value
-        ) {
-          security.securityTypeCode = sec.securityTypeCode;
-        }
-      });
       if (security.securityTypeCode != null) {
         this.securityDetails.push(security);
         this.securityForm.reset();

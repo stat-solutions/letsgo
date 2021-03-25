@@ -227,7 +227,7 @@ class="container-fluid d-flex flex-row justify-content-center mb-0 mt-1 pt-0 pt-
           >
             <option value="" selected disabled>Select Security Type</option>
             <!-- <option value="" selected>Select Loan Threshold</option> -->
-            <option *ngFor="let name of securityNames">{{name}}</option>
+            <option *ngFor="let security of securities" [value]="security.securityTypeCode">{{security.securityTypeName}}</option>
           </select>
       </div>
           <div

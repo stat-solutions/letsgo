@@ -142,7 +142,7 @@ export class ApproveUsersComponent implements OnInit {
     this.userIndex = index;
   }
 
-  rejectUser(userInfo: any, id, index): any {
+  rejectUser(userInfo: any): any {
     // console.log(this.fval.role.value);
     this.spinner.show();
     this.disableButton = !this.disableButton;
@@ -170,21 +170,16 @@ export class ApproveUsersComponent implements OnInit {
     this.closeModal();
   }
 
-  approvedUser(userInfo: any, id, index): any {
+  approvedUser(userInfo: any): any {
     // console.log(this.fval.role.value);
     this.spinner.show();
     this.disableButton = !this.disableButton;
     const data = {
       userId: userInfo[0].userId,
       userStatus: 2,
-      roleId: null,
+      roleId: this.fval.role.value,
       userIdApprover: this.User.userId,
     };
-    this.roles.forEach((role) => {
-      if (this.fval.role.value === role.roleName) {
-        data.roleId = role.roleId;
-      }
-    });
     // console.log(data);
     this.userService.approveUser(data).subscribe(
       (res) => {

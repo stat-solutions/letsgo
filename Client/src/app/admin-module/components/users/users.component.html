@@ -308,7 +308,7 @@
               formControlName="role"
             >
               <option selected disabled>Assign Role</option>
-              <option [ngValue]="role.roleName" *ngFor="let role of roles">
+              <option [ngValue]="role.roleId" *ngFor="let role of roles">
                 {{ role.roleName }}
               </option>
             </select>

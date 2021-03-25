@@ -149,15 +149,10 @@ export class UsersComponent implements OnInit {
     const data = {
       userId: this.user.userId,
       userStatus: 2,
-      roleId: null,
+      roleId: this.userForm.controls.role.value,
       userIdApprover: this.User.userId,
     };
     this.spinner.show();
-    this.roles.forEach((role) => {
-      if (this.userForm.controls.role.value === role.roleName) {
-        data.roleId = role.roleId;
-      }
-    });
     this.userService.approveUser(data).subscribe(
       (res) => {
         this.posted = true;

@@ -145,13 +145,8 @@ export class RegistrationComponent implements OnInit {
           userPhone1: this.fval.userNumber.value,
           userPhone2: this.fval.userNumber2.value,
           userPassword: this.fval.userPassword.value,
-          branchId: null
+          branchId: this.fval.branch.value || null
       };
-      this.branches.forEach(branch => {
-        if (branch.branchName.toUpperCase() === this.fval.branch.value){
-          data.branchId = branch.branchId;
-        }
-      });
       // console.log(data);
       this.authService.registerUser(data).subscribe(
         (res ) => {

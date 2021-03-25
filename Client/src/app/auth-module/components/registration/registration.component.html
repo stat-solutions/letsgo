@@ -255,7 +255,9 @@
           required
         >
         <option value="" selected disabled>Select branch</option>
-        <option *ngFor="let branch of branches" >{{branch.branchName.toUpperCase()}}</option>
+        <option *ngFor="let branch of branches"[value]="branch.branchId" >
+          {{branch.branchName.toUpperCase()}}
+        </option>
         </select>
     </div>
         <div
