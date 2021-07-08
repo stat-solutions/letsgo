@@ -164,7 +164,7 @@ ng generate c admin-dashboard/view-branch-bankings/vbb-view-port --skip-tests tr
                  ng generate c admin-dashboard/view-branch-allocations/vba-allocations-made-state --skip-tests true
 
 
-                  ng g service  services/super-user  --skip-tests true
+                  ng g service  shared/services/other-services/toastr-messages  --skip-tests true
 
 
                     ng generate interface  models/area-region

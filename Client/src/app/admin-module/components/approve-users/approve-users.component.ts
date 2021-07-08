@@ -53,6 +53,7 @@ export class ApproveUsersComponent implements OnInit {
       role: ['', Validators.required],
     });
   }
+
   getUserToApproval(): any {
     this.spinner.show();
     this.userService.getUserForApproval().subscribe(
@@ -68,6 +69,8 @@ export class ApproveUsersComponent implements OnInit {
       }
     );
   }
+
+
   getRoles(): any {
     this.userService.getUserRoles().subscribe(
       (res) => {
@@ -84,6 +87,7 @@ export class ApproveUsersComponent implements OnInit {
       (err) => console.log(err.error.error.message)
     );
   }
+  
   goToUsers(): any {
     this.router.navigate(['admin/users']);
   }
