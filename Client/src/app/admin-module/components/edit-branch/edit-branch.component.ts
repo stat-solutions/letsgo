@@ -38,7 +38,7 @@ export class EditBranchComponent implements OnInit {
     private branchService: BranchesService,
     private alertService: AlertService,
     private route: ActivatedRoute,
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.branch = this.branchService.getEditBranch();
@@ -97,8 +97,9 @@ export class EditBranchComponent implements OnInit {
         (error) => {
           this.spinner.hide();
           this.errored = true;
+          this.spinner.hide();
           this.alertService.danger({
-            html: '<b> There was a problem<b>',
+            html: error,
           });
         }
       );

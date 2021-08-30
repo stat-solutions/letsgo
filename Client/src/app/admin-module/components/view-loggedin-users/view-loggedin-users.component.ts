@@ -41,12 +41,12 @@ export class ViewLoggedinUsersComponent implements OnInit {
     private exportService: ExportService,
     private alertService: AlertService,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): any {
     this.getLoggedInUsers();
   }
-  getLoggedInUsers(): any{
+  getLoggedInUsers(): any {
     this.spinner.show();
     this.userService.getLoggedInUsers().subscribe((loggedIn) => {
       if (loggedIn.length > 0) {
@@ -78,11 +78,11 @@ export class ViewLoggedinUsersComponent implements OnInit {
   filterCustomer(searchTerm: string): any {
     if (searchTerm) {
       return this.filteredUsers.filter(
-        user =>  user.userName.toLowerCase().indexOf(searchTerm.toLowerCase()) !==
-            -1 ||
+        user => user.userName.toLowerCase().indexOf(searchTerm.toLowerCase()) !==
+          -1 ||
           user.userEmail.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1
-        );
-      }
+      );
+    }
   }
 
   pageChanged(event): any {
@@ -96,30 +96,31 @@ export class ViewLoggedinUsersComponent implements OnInit {
 
   // modal method
   public openModal(template: TemplateRef<any>, imageUrl: string): any {
-      this.imageUrl = imageUrl;
-      this.modalRef = this.modalService.show(
+    this.imageUrl = imageUrl;
+    this.modalRef = this.modalService.show(
       template,
       Object.assign({}, { class: 'modal-dialog-center' })
     );
   }
-  exportToExcel(): any{
+  exportToExcel(): any {
     this.exportService.exportExcel(this.filteredUsers, 'loggenInUsers');
   }
   logOut(id: number): any {
     this.userService.userLogOut(id).subscribe(
-    (res) => {
-      this.posted = true;
-      this.getLoggedInUsers();
-      this.alertService.success({
-        html: '<b> User was logged out successfully<b>',
-      });
-    },
-    (error) => {
-      this.errored = true;
-      this.alertService.danger({
-        html: '<b> There was a problem<b>',
-      });
-    }
+      (res) => {
+        this.posted = true;
+        this.getLoggedInUsers();
+        this.alertService.success({
+          html: '<b> User was logged out successfully<b>',
+        });
+      },
+      (error) => {
+        this.errored = true;
+        this.spinner.hide();
+        this.alertService.danger({
+          html: error,
+        });
+      }
     );
   }
 

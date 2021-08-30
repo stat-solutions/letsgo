@@ -1,7 +1,7 @@
 import { Component, OnInit, TemplateRef, ElementRef, ViewChild } from '@angular/core';
 import { FormControl, Validators, FormGroup, FormBuilder, FormArray } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
-import {BsModalService, BsModalRef} from 'ngx-bootstrap/modal';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { Router } from '@angular/router';
 import { UsersService } from 'src/app/shared/services/users.service';
 import * as XLSX from 'xlsx';
@@ -45,7 +45,7 @@ export class ApproveUsersComponent implements OnInit {
     private alertService: AlertService,
     private exportService: ExportService,
     private router: Router
-  ) {}
+  ) { }
   ngOnInit(): void {
     this.getUserToApproval();
     this.getRoles();
@@ -64,7 +64,6 @@ export class ApproveUsersComponent implements OnInit {
         this.spinner.hide();
       },
       (err) => {
-        console.log(err.error.error.message);
         this.spinner.hide();
       }
     );
@@ -76,7 +75,7 @@ export class ApproveUsersComponent implements OnInit {
       (res) => {
         this.roles = res;
         // tslint:disable-next-line: only-arrow-functions
-        this.roles = this.roles.map(function(role: any): any {
+        this.roles = this.roles.map(function (role: any): any {
           return {
             roleId: role.roleId,
             roleName: role.roleName.replace(/_/g, ' ').toUpperCase(),
@@ -84,10 +83,12 @@ export class ApproveUsersComponent implements OnInit {
         });
         // console.log(this.roles);
       },
-      (err) => console.log(err.error.error.message)
+      (err) => {
+        this.spinner.hide()
+      }
     );
   }
-  
+
   goToUsers(): any {
     this.router.navigate(['admin/users']);
   }
@@ -120,7 +121,7 @@ export class ApproveUsersComponent implements OnInit {
       return this.filteredUsers.filter(
         (user) =>
           user.userName.toLowerCase().indexOf(searchTerm.toLowerCase()) !==
-            -1 ||
+          -1 ||
           user.userEmail.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1
       );
     }
@@ -134,7 +135,7 @@ export class ApproveUsersComponent implements OnInit {
     this.disableButton = false;
   }
 
-  exportToExcel(): any{
+  exportToExcel(): any {
     this.exportService.exportExcel(this.filteredUsers, 'registeredusers');
   }
 
@@ -159,14 +160,15 @@ export class ApproveUsersComponent implements OnInit {
         this.posted = true;
         this.spinner.hide();
         this.alertService.success({
-            html: '<b> Approved successfully<b>',
-          });
+          html: '<b> Approved successfully<b>',
+        });
       },
       (err) => {
         this.errored = true;
         this.spinner.hide();
+        this.spinner.hide();
         this.alertService.danger({
-            html: '<b> There was a problem<b>',
+          html: err,
         });
       }
     );
@@ -191,15 +193,16 @@ export class ApproveUsersComponent implements OnInit {
         this.spinner.hide();
         this.getUserToApproval();
         this.alertService.success({
-            html: '<b> Approved successfully<b>',
-          });
+          html: '<b> Approved successfully<b>',
+        });
       },
       (err) => {
         this.errored = true;
+        this.spinner.hide();
         this.getUserToApproval();
         this.spinner.hide();
         this.alertService.danger({
-            html: '<b> There was a problem<b>',
+          html: err,
         });
       }
     );

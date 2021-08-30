@@ -1,9 +1,9 @@
 import { CustomerService } from './../../../shared/services/customer.service';
-import { Component, OnInit , TemplateRef} from '@angular/core';
-import {FormBuilder, FormGroup, Validators, FormArray, FormControl} from '@angular/forms';
+import { Component, OnInit, TemplateRef } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
 import { CustomValidator } from 'src/app/validators/custom-validator';
 import { NgxSpinnerService } from 'ngx-spinner';
-import {BsModalService, BsModalRef} from 'ngx-bootstrap/modal';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { finalize } from 'rxjs/operators';
 import { LoaningService } from 'src/app/shared/services/loaning.service';
@@ -60,7 +60,7 @@ export class CreateLoansComponent implements OnInit {
     private alertService: AlertService,
     private authService: AuthServiceService,
     private spinner: NgxSpinnerService
-  ) {}
+  ) { }
 
   ngOnInit(): any {
     this.userForm = this.createFormGroup();
@@ -86,7 +86,7 @@ export class CreateLoansComponent implements OnInit {
   createFormGroup(): any {
     return new FormGroup({
       full_name: this.fb.control(
-        { value: ''},
+        { value: '' },
         Validators.compose([Validators.required])
       ),
       loan_type: this.fb.control('', Validators.compose([Validators.required])),
@@ -191,14 +191,15 @@ export class CreateLoansComponent implements OnInit {
       } else {
         this.errored = true;
         this.spinner.hide();
+        this.spinner.hide();
         this.alertService.danger({
           html: '<b>Security Type selected is not correct<b>',
         });
       }
     }, 3000);
   }
-  checkSecurityType(val: string): any{
-    if (val === 'Select Loan Type'){
+  checkSecurityType(val: string): any {
+    if (val === 'Select Loan Type') {
       // this.securityForm.controls.securityType.invalid = true;
     }
   }
@@ -222,6 +223,7 @@ export class CreateLoansComponent implements OnInit {
         });
       } else {
         this.errored = true;
+        this.spinner.hide();
         this.spinner.hide();
         this.alertService.danger({
           html: '<b>Security Type selected is not correct<b>',
@@ -247,6 +249,7 @@ export class CreateLoansComponent implements OnInit {
     // console.log(parseInt(event.target.value.replace(/[\D\s\._\-]+/g, '')));
     if (event.target.id === 'tenure' && event.target.value > this.maxTenure) {
       this.errored = true;
+      this.spinner.hide();
       this.alertService.danger({
         html: '<b>Tenure should not be greater than ' + this.maxTenure + '<b>',
       });
@@ -258,6 +261,7 @@ export class CreateLoansComponent implements OnInit {
       );
       if (amount > this.maxAmount) {
         this.errored = true;
+        this.spinner.hide();
         this.alertService.danger({
           html:
             '<b>Amount should not be greater than ' + this.maxAmount + '<b>',

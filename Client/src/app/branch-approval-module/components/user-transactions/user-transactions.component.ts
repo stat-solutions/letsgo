@@ -1,10 +1,10 @@
 import { FormBuilder, FormGroup, FormArray, Validators, FormControl } from '@angular/forms';
 import { LoaningService } from '../../../shared/services/loaning.service';
-import { Component, OnInit , OnChanges, TemplateRef} from '@angular/core';
-import {BsModalService, BsModalRef} from 'ngx-bootstrap/modal';
+import { Component, OnInit, OnChanges, TemplateRef } from '@angular/core';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import * as moment from 'moment';
 import { AlertService } from 'ngx-alerts';
-import {Router} from '@angular/router';
+import { Router } from '@angular/router';
 import { AuthServiceService } from 'src/app/shared/services/auth-service.service';
 import { CustomerService } from 'src/app/shared/services/customer.service';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -49,22 +49,22 @@ export class UserTransactionsComponent implements OnInit {
     private alertService: AlertService,
     private bsModalService: BsModalService,
     private spinner: NgxSpinnerService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.User = this.authService.loggedInUserInfo();
     this.getForwadedLoans();
     this.comment = this.commentForm();
   }
-  pageChanged(event): any{
+  pageChanged(event): any {
     this.currentPage = event;
   }
   commentForm(): any {
     return new FormGroup({
-        comments: this.fb.control(
-          'Missing comment',
-          Validators.compose([Validators.required])
-        ),
+      comments: this.fb.control(
+        'Missing comment',
+        Validators.compose([Validators.required])
+      ),
     });
   }
   // getcoment controls
@@ -154,15 +154,15 @@ export class UserTransactionsComponent implements OnInit {
       return this.filteredLoans.filter(
         (loan) =>
           loan.loanId.toString().indexOf(searchTerm) !==
-            -1 ||
+          -1 ||
           loan.loanAmount.toString().indexOf(searchTerm) !==
-            -1 ||
+          -1 ||
           loan.customerIdNumber.indexOf(searchTerm) !==
-            -1 ||
+          -1 ||
           loan.customerIdType.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1 ||
           loan.customerName.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1 ||
           loan.loanThresholdType.toLowerCase().indexOf(searchTerm.toLowerCase()) !==
-            -1 ||
+          -1 ||
           loan.loanThresholdProduct.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1
           || loan.loanOriginatingBranch.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1
           || loan.movementStage.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1
@@ -193,15 +193,15 @@ export class UserTransactionsComponent implements OnInit {
   }
 
   // receive defered
-  receive(loan: any, category: string, type: string): any{
+  receive(loan: any, category: string, type: string): any {
     const data = [];
     this.spinner.show();
     if (category === 'One') {
       data.push({
-      loanId: loan.loanId,
-      userId: this.User.userId,
-      branchId: this.User.branchId
-    });
+        loanId: loan.loanId,
+        userId: this.User.userId,
+        branchId: this.User.branchId
+      });
     } else if (category === 'All') {
       this.filteredLoans.forEach(ln => {
         data.push({
@@ -260,8 +260,9 @@ export class UserTransactionsComponent implements OnInit {
       err => {
         this.errored = true;
         this.spinner.hide();
+        this.spinner.hide();
         this.alertService.danger({
-          html: '<b> There was a problem </b>',
+          html: err,
         });
       }
     );
@@ -280,8 +281,9 @@ export class UserTransactionsComponent implements OnInit {
       err => {
         this.errored = true;
         this.spinner.hide();
+        this.spinner.hide();
         this.alertService.danger({
-          html: '<b> There was a problem </b>',
+          html: err,
         });
       }
     );
@@ -300,8 +302,9 @@ export class UserTransactionsComponent implements OnInit {
       err => {
         this.errored = true;
         this.spinner.hide();
+        this.spinner.hide();
         this.alertService.danger({
-          html: '<b> There was a problem </b>',
+          html: err,
         });
       }
     );
@@ -320,8 +323,9 @@ export class UserTransactionsComponent implements OnInit {
       err => {
         this.errored = true;
         this.spinner.hide();
+        this.spinner.hide();
         this.alertService.danger({
-          html: '<b> There was a problem </b>',
+          html: err,
         });
       }
     );
@@ -340,8 +344,9 @@ export class UserTransactionsComponent implements OnInit {
       err => {
         this.errored = true;
         this.spinner.hide();
+        this.spinner.hide();
         this.alertService.danger({
-          html: '<b> There was a problem </b>',
+          html: err,
         });
       }
     );
@@ -360,8 +365,9 @@ export class UserTransactionsComponent implements OnInit {
       err => {
         this.errored = true;
         this.spinner.hide();
+        this.spinner.hide();
         this.alertService.danger({
-          html: '<b> There was a problem </b>',
+          html: err,
         });
       }
     );
@@ -380,8 +386,9 @@ export class UserTransactionsComponent implements OnInit {
       er => {
         this.errored = true;
         this.spinner.hide();
+        this.spinner.hide();
         this.alertService.danger({
-          html: '<b> There was a problem </b>',
+          html: er,
         });
       }
     );
@@ -400,8 +407,9 @@ export class UserTransactionsComponent implements OnInit {
       err => {
         this.errored = true;
         this.spinner.hide();
+        this.spinner.hide();
         this.alertService.danger({
-          html: '<b> There was a problem </b>',
+          html: err,
         });
       }
     );

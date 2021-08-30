@@ -7,7 +7,7 @@ import { AuthServiceService } from 'src/app/shared/services/auth-service.service
 import { AlertService } from 'ngx-alerts';
 import { LayoutService } from 'src/app/shared/services/layout.service';
 import { Observable } from 'rxjs';
-import {UsersService} from 'src/app/shared/services/users.service';
+import { UsersService } from 'src/app/shared/services/users.service';
 import { JwtHelperService } from '@auth0/angular-jwt';
 // import { BootstrapAlertService, BootstrapAlert } from 'ngx-bootstrap-alert';
 @Component({
@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
     private alertService: AlertService,
     private spinner: NgxSpinnerService,
     private layoutService: LayoutService,
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.userForm = this.createFormGroup();
@@ -73,12 +73,12 @@ export class LoginComponent implements OnInit {
     this.userForm.reset();
   }
 
-// toggle visibility of password field
-    toggleFieldType(): any {
-      this.fieldType = !this.fieldType;
-    }
+  // toggle visibility of password field
+  toggleFieldType(): any {
+    this.fieldType = !this.fieldType;
+  }
 
-    login(): any {
+  login(): any {
     this.submitted = true;
     if (this.userForm.invalid === true) {
       return;
@@ -95,7 +95,7 @@ export class LoginComponent implements OnInit {
           if (this.jwtHelper.decodeToken(this.authService.getJwtToken()).userStatus === 2) {
             // console.log(this.jwtHelper.decodeToken(this.authService.getJwtToken()).roleId);
             this.authService.setUserPhotoUrl();
-            switch (this.jwtHelper.decodeToken(this.authService.getJwtToken()).roleId){
+            switch (this.jwtHelper.decodeToken(this.authService.getJwtToken()).roleId) {
               case 99:
                 this.alertService.danger({
                   html:
@@ -253,27 +253,20 @@ export class LoginComponent implements OnInit {
         } else {
           this.spinner.hide();
           this.errored = true;
+          this.spinner.hide();
         }
       },
-
-      (error: any) => {
-        this.spinner.hide();
-        this.errored = true;
-        this.loginStatus = error;
-        if (this.loginStatus.status === 412) {
+        (error: any) => {
+          this.spinner.hide();
+          this.errored = true;
+          this.spinner.hide();
+          this.loginStatus = error;
           this.alertService.danger({
-            html: '<b>User with specified email does not exist<br/>'
+            html: error
           });
           this.passwordFailed = true;
           this.spinner.hide();
-        } else {
-          this.alertService.danger({
-            html: '<b> There was a problem<br/>'
-          });
-        }
-        this.spinner.hide();
-
-      });
+        });
     }
   }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit , TemplateRef} from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertService } from 'ngx-alerts';
@@ -55,7 +55,7 @@ export class CreateCustomerComponent implements OnInit {
     private fb: FormBuilder,
     private customer: CustomerService,
     private storage: AngularFireStorage
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.userForm = this.createFormGroup();
@@ -88,7 +88,7 @@ export class CreateCustomerComponent implements OnInit {
           //   { nationalIdCheck: true }
           // )
         ])
-    ),
+      ),
       user_contact_two: this.fb.control(
         '',
         Validators.compose([
@@ -125,7 +125,7 @@ export class CreateCustomerComponent implements OnInit {
     const phoneTwo = this.fval.user_contact_two.value;
     if (phoneOne === '' && phoneTwo === '') { return false; }
     else {
-      if  (phoneOne === phoneTwo) { return true; }
+      if (phoneOne === phoneTwo) { return true; }
     }
 
   }
@@ -222,8 +222,8 @@ export class CreateCustomerComponent implements OnInit {
           Validators.maxLength(10)
         ]);
         break;
-      }
     }
+  }
 
   register(): any {
     this.submitted = true;
@@ -235,7 +235,7 @@ export class CreateCustomerComponent implements OnInit {
         customerName: this.fval.full_name.value.toUpperCase(),
         customerPhone1: this.fval.user_contact_number.value,
         customerPhone2: this.fval.user_contact_two.value === '' ?
-                this.fval.user_contact_number.value : this.fval.user_contact_two.value,
+          this.fval.user_contact_number.value : this.fval.user_contact_two.value,
         customerIdType: this.fval.document_type.value.toUpperCase(),
         customerIdNumber: this.fval.document_id_number.value.toUpperCase(),
         customerIdPhotoUrl: this.customerIdPhotoUrl,
@@ -259,11 +259,12 @@ export class CreateCustomerComponent implements OnInit {
         error => {
           this.spinner.hide();
           this.errored = true;
+          this.spinner.hide();
           this.alertService.danger({
-            html: '<b> There was a problem<b>'
+            html: error,
           });
         }
       );
     }
-   }
+  }
 }

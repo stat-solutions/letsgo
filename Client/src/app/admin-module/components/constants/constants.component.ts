@@ -33,7 +33,7 @@ export class ConstantsComponent implements OnInit {
     private router: Router,
     private fb: FormBuilder,
     private loan: LoaningService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.userForm = this.createFormGroup();
@@ -93,20 +93,20 @@ export class ConstantsComponent implements OnInit {
     this.values = this.numberValue === 0 ? '' : this.numberValue.toLocaleString('en-US');
     this.fval.maximum_amount.setValue(this.values);
   }
-  save(): any{
+  save(): any {
     this.submitted = true;
     this.spinner.show();
     if (this.userForm.invalid === true) {
       return this.invalid = true;
     } else {
-      const data =  {
-          userId: this.User.userId,
-          loanThresholdType: this.fval.loan_type.value.toUpperCase(),
-          loanThresholdProduct: this.fval.loan_product.value.toUpperCase(),
-          loanThresholdMaxAmount: parseInt(this.fval.maximum_amount.value.replace(/[\D\s\._\-]+/g, ''), 10 ),
-          loanThresholdMaxTenure: this.fval.tenure.value,
-          loanThresholdTime: this.fval.threshold.value
-        };
+      const data = {
+        userId: this.User.userId,
+        loanThresholdType: this.fval.loan_type.value.toUpperCase(),
+        loanThresholdProduct: this.fval.loan_product.value.toUpperCase(),
+        loanThresholdMaxAmount: parseInt(this.fval.maximum_amount.value.replace(/[\D\s\._\-]+/g, ''), 10),
+        loanThresholdMaxTenure: this.fval.tenure.value,
+        loanThresholdTime: this.fval.threshold.value
+      };
       this.loan.postCreateLoanThreshold(data).subscribe(
         res => {
           this.spinner.hide();
@@ -119,17 +119,18 @@ export class ConstantsComponent implements OnInit {
         error => {
           this.spinner.hide();
           this.errored = true;
+          this.spinner.hide();
           this.alertService.danger({
-            html: '<b> There was a problem<b>'
+            html: error
           });
         }
       );
     }
   }
-  createSecurity(): any{
+  createSecurity(): any {
     this.router.navigate(['admin/createsecurity']);
   }
-  viewConstants(): any{
+  viewConstants(): any {
     this.router.navigate(['admin/constantstable']);
   }
 }
