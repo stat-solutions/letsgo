@@ -183,10 +183,9 @@ export class ApproveUsersComponent implements OnInit {
     const data = {
       userId: userInfo[0].userId,
       userStatus: 2,
-      roleId: this.fval.role.value,
+      roleId: Number(this.fval.role.value),
       userIdApprover: this.User.userId,
     };
-    // console.log(data);
     this.userService.approveUser(data).subscribe(
       (res) => {
         this.posted = true;

@@ -29,7 +29,7 @@ export class InterceptorService implements HttpInterceptor {
           return throwError("This seems to be a network problem, please check your connection");
         } else {
           // console.log(error);
-          return throwError(error?.error?.error?.message || error?.error?.message || error?.statussText || "Something went wrong")
+          return throwError(error?.error?.error?.message || "Something went wrong")
         }
       })
     ) as Observable<HttpEvent<any>>;
