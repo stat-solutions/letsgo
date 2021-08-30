@@ -8,14 +8,14 @@ import { AuthServiceService } from './auth-service.service';
 @Injectable({
   providedIn: 'root'
 })
-export class InterceptorService  implements HttpInterceptor {
+export class InterceptorService implements HttpInterceptor {
 
-    private isRefreshing = false;
-    private refreshTokenSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+  private isRefreshing = false;
+  private refreshTokenSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
   constructor(
     private router: Router,
     private authService: AuthServiceService,
-    ) { }
+  ) { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     if (this.authService.getJwtToken()) {
@@ -23,14 +23,16 @@ export class InterceptorService  implements HttpInterceptor {
     }
     return next.handle(request).pipe(
       catchError(error => {
-      if (error instanceof HttpErrorResponse && error.status === 500){
-        // console.log(error.status);
-        return this.handle401Error(request, next);
-      } else {
-        return throwError(error);
-      }
-    })
-  ) as Observable<HttpEvent<any>>;
+        if (error instanceof HttpErrorResponse && error.status === 500) {
+          return this.handle401Error(request, next);
+        } else if (error.status === 0) {
+          return throwError("This seems to be a network problem, please check your connection");
+        } else {
+          // console.log(error);
+          return throwError(error?.error?.error?.message || error?.error?.message || error?.statussText || "Something went wrong")
+        }
+      })
+    ) as Observable<HttpEvent<any>>;
   }
 
   // tslint:disable-next-line: typedef
@@ -47,7 +49,7 @@ export class InterceptorService  implements HttpInterceptor {
       this.isRefreshing = true;
       this.refreshTokenSubject.next(null);
       // console.log('going to refresh');
-      if (this.authService.getRefreshToken()){
+      if (this.authService.getRefreshToken()) {
         return this.authService.refreshToken().pipe(
           switchMap((token: any) => {
             this.isRefreshing = false;

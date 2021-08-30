@@ -37,7 +37,7 @@ export class CreateBranchComponent implements OnInit {
     private fb: FormBuilder,
     private branchService: BranchesService,
     private alertService: AlertService,
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.userForm = this.createFormGroup();
@@ -89,8 +89,9 @@ export class CreateBranchComponent implements OnInit {
         error => {
           this.spinner.hide();
           this.errored = true;
+          this.spinner.hide();
           this.alertService.danger({
-            html: '<b> There was a problem<b>'
+            html: error
           });
         }
       );

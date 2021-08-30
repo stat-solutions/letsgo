@@ -13,7 +13,7 @@ import { LoaningService } from 'src/app/shared/services/loaning.service';
 })
 export class CreatesecurityComponent implements OnInit {
 
-   registered = false;
+  registered = false;
   submitted = false;
   errored = false;
   posted = false;
@@ -31,7 +31,7 @@ export class CreatesecurityComponent implements OnInit {
     private router: Router,
     private fb: FormBuilder,
     private loan: LoaningService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.userForm = this.createFormGroup();
@@ -59,10 +59,10 @@ export class CreatesecurityComponent implements OnInit {
     if (this.userForm.invalid === true) {
       return;
     } else {
-      const data =  {
-          userId: this.User.userId,
-          loanSecurityType: this.fval.security.value.toUpperCase(),
-        };
+      const data = {
+        userId: this.User.userId,
+        loanSecurityType: this.fval.security.value.toUpperCase(),
+      };
       this.loan.postCreateLoanSecurityType(data).subscribe(
         res => {
           this.spinner.hide();
@@ -75,8 +75,9 @@ export class CreatesecurityComponent implements OnInit {
         error => {
           this.spinner.hide();
           this.errored = true;
+          this.spinner.hide();
           this.alertService.danger({
-            html: '<b> There was a problem<b>'
+            html: error
           });
         }
       );

@@ -50,7 +50,7 @@ export class EditProfileComponent implements OnInit {
     private router: Router,
     private spinner: NgxSpinnerService,
     private bsModalService: BsModalService
-  ) {}
+  ) { }
   ngOnInit(): void {
     this.myDateValue = new Date();
     this.userForm = this.createFormGroup();
@@ -64,9 +64,9 @@ export class EditProfileComponent implements OnInit {
       {
         full_name: new FormControl(''),
         email2: new FormControl('',
-        Validators.compose([
-          Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')
-        ])
+          Validators.compose([
+            Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')
+          ])
         ),
         user_contact_number1: new FormControl(
           '',
@@ -89,8 +89,8 @@ export class EditProfileComponent implements OnInit {
       },
     );
   }
-  initializeForm(): any{
-    this.EditUser.getUser(this.User.userId).subscribe( res => {
+  initializeForm(): any {
+    this.EditUser.getUser(this.User.userId).subscribe(res => {
       const user = res[0];
       this.fval.full_name.setValue(user.userName);
       this.fval.email2.setValue(user.userEmail);
@@ -110,7 +110,7 @@ export class EditProfileComponent implements OnInit {
   disableForm(): any {
     return this.userForm.disable();
   }
-  getBranch(event): any {}
+  getBranch(event): any { }
 
   enableEdit(): any {
     return this.userForm.enable();
@@ -184,13 +184,14 @@ export class EditProfileComponent implements OnInit {
           this.posted = true;
           this.authService.setUserPhotoUrl();
           this.alertService.success({
-              html: '<b> Profile photo edited successfully<b>',
-            });
+            html: '<b> Profile photo edited successfully<b>',
+          });
         },
         (err) => {
           this.errored = true;
+          this.spinner.hide();
           this.alertService.danger({
-              html: '<b> There was a problem<b>',
+            html: err,
           });
         }
       );
@@ -208,39 +209,41 @@ export class EditProfileComponent implements OnInit {
       (res) => {
         this.posted = true;
         if (this.fval.email2.value !== '' && this.fval.email2.value !== this.userEmail) {
-            const dataEmal = {
-              userId: this.User.userId,
-              userEmail: this.fval.email2.value
-            };
-            this.EditUser.putEditUserEmail(dataEmal).subscribe(
-              (rs) => {
-                this.posted = true;
-                this.alertService.success({
-                    html: '<b> Email was edited successfully, please check your email to verify your account<b>',
-                  });
-              },
-              (err) => {
-                this.errored = true;
-                this.alertService.danger({
-                    html: '<b> There was a problem editing user email<b>',
-                });
-              }
-            );
-          }
+          const dataEmal = {
+            userId: this.User.userId,
+            userEmail: this.fval.email2.value
+          };
+          this.EditUser.putEditUserEmail(dataEmal).subscribe(
+            (rs) => {
+              this.posted = true;
+              this.alertService.success({
+                html: '<b> Email was edited successfully, please check your email to verify your account<b>',
+              });
+            },
+            (err) => {
+              this.errored = true;
+              this.spinner.hide();
+              this.alertService.danger({
+                html: err,
+              });
+            }
+          );
+        }
         setTimeout(() => {
           this.initializeForm();
           this.disableForm();
           this.alertService.success({
             html: '<b> Other details were edited successfully<b>',
           });
-        }, 3000);
+        }, 1000);
       },
       (err) => {
         this.errored = true;
+        this.spinner.hide();
         this.initializeForm();
         this.disableForm();
         this.alertService.danger({
-            html: '<b> There was a problem editingg other details<b>',
+          html: err,
         });
       }
     );

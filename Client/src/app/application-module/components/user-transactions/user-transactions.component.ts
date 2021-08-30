@@ -1,9 +1,9 @@
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { LoaningService } from 'src/app/shared/services/loaning.service';
-import { Component, OnInit , OnChanges, TemplateRef} from '@angular/core';
-import {BsModalService, BsModalRef} from 'ngx-bootstrap/modal';
+import { Component, OnInit, OnChanges, TemplateRef } from '@angular/core';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import * as moment from 'moment';
-import {AlertService} from 'ngx-alerts';
+import { AlertService } from 'ngx-alerts';
 import { Router } from '@angular/router';
 import { AuthServiceService } from 'src/app/shared/services/auth-service.service';
 import { CustomValidator } from 'src/app/validators/custom-validator';
@@ -48,7 +48,7 @@ export class UserTransactionsComponent implements OnInit {
     private alertService: AlertService,
     private bsModalService: BsModalService,
     private spinner: NgxSpinnerService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.User = this.authService.loggedInUserInfo();
@@ -59,15 +59,15 @@ export class UserTransactionsComponent implements OnInit {
     this.editLoanForm = this.createLoanForm();
     this.comment = this.commentForm();
   }
-  pageChanged(event): any{
+  pageChanged(event): any {
     this.currentPage = event;
   }
   commentForm(): any {
     return new FormGroup({
-        comments: this.fb.control(
-          'Missing comment',
-          Validators.compose([Validators.required])
-        ),
+      comments: this.fb.control(
+        'Missing comment',
+        Validators.compose([Validators.required])
+      ),
     });
   }
   // getcoment controls
@@ -121,7 +121,7 @@ export class UserTransactionsComponent implements OnInit {
   createLoanForm(): any {
     return new FormGroup({
       customerName: this.fb.control(
-        {value: ''},
+        { value: '' },
         Validators.compose([Validators.required])
       ),
       loanType: this.fb.control(
@@ -130,7 +130,7 @@ export class UserTransactionsComponent implements OnInit {
       ),
       amount: this.fb.control(
         '',
-        Validators.compose([Validators.required,  CustomValidator.patternValidator(/\d/, { hasNumber: true })])
+        Validators.compose([Validators.required, CustomValidator.patternValidator(/\d/, { hasNumber: true })])
       ),
       tenure: this.fb.control(
         '',
@@ -154,15 +154,15 @@ export class UserTransactionsComponent implements OnInit {
       return this.filteredLoans.filter(
         (loan) =>
           loan.loanId.toString().indexOf(searchTerm) !==
-            -1 ||
+          -1 ||
           loan.loanAmount.toString().indexOf(searchTerm) !==
-            -1 ||
+          -1 ||
           loan.customerIdNumber.indexOf(searchTerm) !==
-            -1 ||
+          -1 ||
           loan.customerIdType.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1 ||
           loan.customerName.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1 ||
           loan.loanThresholdType.toLowerCase().indexOf(searchTerm.toLowerCase()) !==
-            -1 ||
+          -1 ||
           loan.loanThresholdProduct.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1
           || loan.loanOriginatingBranch.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1
           || loan.movementStage.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1
@@ -194,7 +194,7 @@ export class UserTransactionsComponent implements OnInit {
   openComment(loan: any, template: TemplateRef<any>, type: string): any {
     this.actionType = type;
     this.actionLoan = loan;
-    if (this.actionType !== 'Rectified'){
+    if (this.actionType !== 'Rectified') {
       const { customerName, loanThresholdType, loanTenure, loanAmount } = loan;
       this.setMaxtenureAndAmount(loanThresholdType);
       this.editControls.customerName.setValue(customerName);
@@ -229,7 +229,7 @@ export class UserTransactionsComponent implements OnInit {
     );
   }
 
-  setMaxtenureAndAmount(val: any): any{
+  setMaxtenureAndAmount(val: any): any {
     // console.log(val);
     this.loanTypes.forEach(type => {
       if (type.loanThresholdType === val) {
@@ -242,17 +242,19 @@ export class UserTransactionsComponent implements OnInit {
       }
     });
   }
-  checkTenureAndAmount(event: any): any{
+  checkTenureAndAmount(event: any): any {
     if (event.target.id === 'tenure' && event.target.value > this.maxTenure) {
       this.errored = true;
+      this.spinner.hide();
       this.alertService.danger({
         html: '<b>Tenure should not be greater than ' + this.maxTenure + '<b>'
       });
       this.editControls.tenure.setValue('');
     } else if (event.target.id === 'amount') {
-      const amount = parseInt(event.target.value.replace(/[\D\s\._\-]+/g, ''), 10 );
-      if ( amount > this.maxAmount) {
+      const amount = parseInt(event.target.value.replace(/[\D\s\._\-]+/g, ''), 10);
+      if (amount > this.maxAmount) {
         this.errored = true;
+        this.spinner.hide();
         this.alertService.danger({
           html: '<b>Amount should not be greater than ' + this.maxAmount + '<b>'
         });
@@ -263,15 +265,15 @@ export class UserTransactionsComponent implements OnInit {
     }
   }
   // receive defered
-  receive(loan: any, category: string): any{
+  receive(loan: any, category: string): any {
     const data = [];
     this.spinner.show();
     if (category === 'One') {
       data.push({
-      loanId: loan.loanId,
-      userId: this.User.userId,
-      branchId: this.User.branchId
-    });
+        loanId: loan.loanId,
+        userId: this.User.userId,
+        branchId: this.User.branchId
+      });
     } else if (category === 'All') {
       this.filteredLoans.forEach(ln => {
         data.push({
@@ -293,8 +295,9 @@ export class UserTransactionsComponent implements OnInit {
       err => {
         this.errored = true;
         this.spinner.hide();
+        this.spinner.hide();
         this.alertService.danger({
-          html: '<b> There was a problem </b>',
+          html: err,
         });
       }
     );
@@ -336,8 +339,9 @@ export class UserTransactionsComponent implements OnInit {
       err => {
         this.errored = true;
         this.spinner.hide();
+        this.spinner.hide();
         this.alertService.danger({
-          html: '<b> There was a problem </b>',
+          html: err,
         });
       }
     );
@@ -356,23 +360,24 @@ export class UserTransactionsComponent implements OnInit {
       er => {
         this.errored = true;
         this.spinner.hide();
+        this.spinner.hide();
         this.alertService.danger({
-          html: '<b> There was a problem </b>',
+          html: er,
         });
       }
     );
   }
-  editOrRectify(template: TemplateRef<any>): any{
+  editOrRectify(template: TemplateRef<any>): any {
     if (this.actionType === 'Edit') {
       //
-    } else if (this.actionType === 'Rectify'){
+    } else if (this.actionType === 'Rectify') {
       this.bsModalService.show(template);
       this.rectifyData = {
         loanId: this.actionLoan.loanId,
         userId: this.User.userId,
         loanComment: '',
         loanThresholdId: this.loanThresholdId,
-        loanAmount: parseInt(this.editControls.amount.value.replace(/[\D\s\._\-]+/g, ''), 10 ),
+        loanAmount: parseInt(this.editControls.amount.value.replace(/[\D\s\._\-]+/g, ''), 10),
         loanTenure: this.editControls.tenure.value
       };
     }

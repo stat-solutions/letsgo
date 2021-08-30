@@ -36,7 +36,7 @@ export class ChangepasswordComponent implements OnInit {
     private spinner: NgxSpinnerService,
     private layoutService: LayoutService,
     private fb: FormBuilder
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.userForm = this.createFormGroup();
@@ -45,17 +45,17 @@ export class ChangepasswordComponent implements OnInit {
       this.userEmail = params['userEmail']; // (+) converts string 'id' to a number
 
       // In a real app: dispatch action to load the details here.
-   });
+    });
     console.log(this.userEmail);
   }
 
   sendResetPasswordLink(): any {
-    this.authService.passwordChangeCode({userEmail: this.userEmail}).subscribe(
+    this.authService.passwordChangeCode({ userEmail: this.userEmail }).subscribe(
       res => {
         this.posted = true;
         this.alertService.success({
           html: '<strong>A password change code has been sent to your email,</strong>' +
-                '<br>' + '<strong> use it to change password within 15 minutes</strong>'
+            '<br>' + '<strong> use it to change password within 15 minutes</strong>'
         });
       },
       err => {
@@ -110,7 +110,7 @@ export class ChangepasswordComponent implements OnInit {
           ),
         ])
       )
-    }, {validator: CustomValidator.passwordMatchValidator}
+    }, { validator: CustomValidator.passwordMatchValidator }
     );
   }
 
@@ -118,7 +118,7 @@ export class ChangepasswordComponent implements OnInit {
   revert(): any {
     this.userForm.reset();
   }
-// method for canceling action
+  // method for canceling action
   returnHome(): any {
     this.spinner.hide();
     this.revert();
@@ -132,14 +132,14 @@ export class ChangepasswordComponent implements OnInit {
     return this.userForm.controls;
   }
 
-// toggle visibility of password field
-    toggleFieldType(): any {
-      this.fieldType = !this.fieldType;
-    }
+  // toggle visibility of password field
+  toggleFieldType(): any {
+    this.fieldType = !this.fieldType;
+  }
 
 
 
-    changePassword(): any {
+  changePassword(): any {
     this.submitted = true;
 
     this.spinner.show();
@@ -164,14 +164,15 @@ export class ChangepasswordComponent implements OnInit {
                 html: '<strong>Password changed successfully, you can now log In</strong>'
               });
               setTimeout(() => {
-                  this.spinner.hide();
-                  this.router.navigate(['/authpage']);
-                }, 1000);
+                this.spinner.hide();
+                this.router.navigate(['/authpage']);
+              }, 1000);
             }
           },
           (error: string) => {
             this.spinner.hide();
             this.errored = true;
+            this.spinner.hide();
             this.loginStatus = error;
             // this.alertService.danger(this.loginStatus);
             this.alertService.danger({

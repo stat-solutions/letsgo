@@ -1,8 +1,8 @@
 import { Component, OnInit, ElementRef, TemplateRef, ViewChild } from '@angular/core';
-import {UsersService} from '../../../shared/services/users.service';
-import {FormGroup, FormBuilder, Validators} from '@angular/forms';
-import {NgxSpinnerService} from 'ngx-spinner';
-import {Router} from '@angular/router';
+import { UsersService } from '../../../shared/services/users.service';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { Router } from '@angular/router';
 import * as XLSX from 'xlsx';
 import { ngxCsv } from 'ngx-csv/ngx-csv';
 import { BsModalService } from 'ngx-bootstrap/modal';
@@ -49,7 +49,7 @@ export class UsersComponent implements OnInit {
     private exportService: ExportService,
     private alertService: AlertService,
     private branchService: BranchesService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.getUsers();
@@ -79,7 +79,7 @@ export class UsersComponent implements OnInit {
       (res) => {
         this.roles = res;
         // tslint:disable-next-line: only-arrow-functions
-        this.roles = this.roles.map(function(role: any): any {
+        this.roles = this.roles.map(function (role: any): any {
           return {
             roleId: role.roleId,
             roleName: role.roleName.replace(/_/g, ' ').toUpperCase(),
@@ -126,7 +126,7 @@ export class UsersComponent implements OnInit {
       return this.filteredUsers.filter(
         (user) =>
           user.userName.toLowerCase().indexOf(searchTerm.toLowerCase()) !==
-            -1 ||
+          -1 ||
           user.userEmail.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1
       );
     }
@@ -165,10 +165,11 @@ export class UsersComponent implements OnInit {
       },
       (err) => {
         this.errored = true;
+        this.spinner.hide();
         this.modalService.hide();
         this.spinner.hide();
         this.alertService.danger({
-          html: '<b> There was a problem<b>',
+          html: err,
         });
       }
     );

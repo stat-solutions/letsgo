@@ -5,7 +5,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { Router } from '@angular/router';
 import { CustomValidator } from 'src/app/validators/custom-validator';
 import { AlertService } from 'ngx-alerts';
-import {UserToProveService} from 'src/app/shared/services/user-to-prove.service';
+import { UserToProveService } from 'src/app/shared/services/user-to-prove.service';
 import { BranchesService } from 'src/app/shared/services/branches.service';
 import { constants } from 'os';
 @Component({
@@ -34,7 +34,7 @@ export class RegistrationComponent implements OnInit {
     private alertService: AlertService,
     private fb: FormBuilder,
     private registerUser: UserToProveService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.userForm = this.createFormGroup();
@@ -60,7 +60,7 @@ export class RegistrationComponent implements OnInit {
           Validators.required,
           Validators.minLength(8),
           CustomValidator.patternValidator(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$/, { hasNumber: true })
-      ])
+        ])
       ),
       confirm: this.fb.control(
         '',
@@ -103,9 +103,9 @@ export class RegistrationComponent implements OnInit {
   get fval(): any {
     return this.userForm.controls;
   }
-    // toggle visibility of userPassword field
+  // toggle visibility of userPassword field
   toggleFieldType(): any {
-      this.fieldType = !this.fieldType;
+    this.fieldType = !this.fieldType;
   }
   matchPasswords(): boolean {
     const userPassword = this.fval.userPassword.value;
@@ -114,7 +114,7 @@ export class RegistrationComponent implements OnInit {
     else { return false; }
   }
 
-  getBranches(): any{
+  getBranches(): any {
     this.branchService.getAllBranches().subscribe(
       res => {
         this.branches = res;
@@ -124,7 +124,7 @@ export class RegistrationComponent implements OnInit {
         // fkCompanyIdBranch: 500
         // console.log(this.branches);
       },
-      err => console.log(err)
+      err => {}
     );
   }
 
@@ -140,40 +140,34 @@ export class RegistrationComponent implements OnInit {
     } else {
       this.spinner.show();
       const data = {
-          userName: this.fval.userName.value.toUpperCase(),
-          userEmail: this.fval.userEmail.value,
-          userPhone1: this.fval.userNumber.value,
-          userPhone2: this.fval.userNumber2.value,
-          userPassword: this.fval.userPassword.value,
-          branchId: this.fval.branch.value || null
+        userName: this.fval.userName.value.toUpperCase(),
+        userEmail: this.fval.userEmail.value,
+        userPhone1: this.fval.userNumber.value,
+        userPhone2: this.fval.userNumber2.value,
+        userPassword: this.fval.userPassword.value,
+        branchId: this.fval.branch.value || null
       };
       // console.log(data);
       this.authService.registerUser(data).subscribe(
-        (res ) => {
-            this.spinner.hide();
-            this.alertService.success({
-              html:
-                '<b>Registration Was Successful</b>' +
-                '</br>' +
-                'check your registered email to verify your account'
-            });
-            setTimeout(() => {
-              this.router.navigate(['authpage/login']);
-            }, 2000);
+        (res) => {
+          this.spinner.hide();
+          this.alertService.success({
+            html:
+              '<b>Registration Was Successful</b>' +
+              '</br>' +
+              'check your registered email to verify your account'
+          });
+          setTimeout(() => {
+            this.router.navigate(['authpage/login']);
+          }, 2000);
         },
         (error: any) => {
           this.spinner.hide();
-          if (error.status === 500){
-            this.alertService.danger({
-              html: '<b> The Back End was not able to Handle this Request </b>'
-            });
-          } else {
-            this.alertService.danger({
-              html: '<b>' + error.error.error.message + '</b>'
-            });
-          }
+          this.alertService.danger({
+            html: error
+          });
         });
-      }
     }
+  }
 }
 

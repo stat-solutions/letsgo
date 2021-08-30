@@ -34,7 +34,7 @@ export class EditConstantsComponent implements OnInit {
     private router: Router,
     private fb: FormBuilder,
     private loan: LoaningService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.constant = this.loan.getEditConstant();
@@ -95,21 +95,21 @@ export class EditConstantsComponent implements OnInit {
     this.values = this.numberValue === 0 ? '' : this.numberValue.toLocaleString('en-US');
     this.fval.maximum_amount.setValue(this.values);
   }
-  save(): any{
+  save(): any {
     this.submitted = true;
     this.spinner.show();
     if (this.userForm.invalid === true) {
       return this.invalid = true;
     } else {
-      const data =  {
-          loanThresholdId: this.constant.loanThresholdId,
-          userId: this.User.userId,
-          loanThresholdType: this.fval.loan_type.value.toUpperCase(),
-          loanThresholdProduct: this.fval.loan_product.value.toUpperCase(),
-          loanThresholdMaxAmount: parseInt(this.fval.maximum_amount.value.replace(/[\D\s\._\-]+/g, ''), 10 ),
-          loanThresholdMaxTenure: this.fval.tenure.value,
-          loanThresholdTime: this.fval.threshold.value
-        };
+      const data = {
+        loanThresholdId: this.constant.loanThresholdId,
+        userId: this.User.userId,
+        loanThresholdType: this.fval.loan_type.value.toUpperCase(),
+        loanThresholdProduct: this.fval.loan_product.value.toUpperCase(),
+        loanThresholdMaxAmount: parseInt(this.fval.maximum_amount.value.replace(/[\D\s\._\-]+/g, ''), 10),
+        loanThresholdMaxTenure: this.fval.tenure.value,
+        loanThresholdTime: this.fval.threshold.value
+      };
       this.loan.putUpdateLoanThresholds(data).subscribe(
         res => {
           this.spinner.hide();
@@ -126,8 +126,9 @@ export class EditConstantsComponent implements OnInit {
         error => {
           this.spinner.hide();
           this.errored = true;
+          this.spinner.hide();
           this.alertService.danger({
-            html: '<b> There was a problem<b>'
+            html: error,
           });
         }
       );
