@@ -1,10 +1,6 @@
-<div
-  class="container-fluid justify-content-center mt-xl-0 mb-0 pt-1 pt-xl-0 pb-2 pb-md-0 shadow-lg col-xs-12"
->
+<div class="container-fluid justify-content-center mt-xl-0 mb-0 pt-1 pt-xl-0 pb-2 pb-md-0 shadow-lg col-xs-12">
   <div class="jumbotron-fluid mx-0 px-0 mt-1 mt-xl-0 pt-3 pt-xl-0 mb-0 pb-0">
-    <div
-      class="head-container container my-1 mx-auto px-auto pt-0 pb-2 shadow-lg"
-    >
+    <div class="head-container container my-1 mx-auto px-auto pt-0 pb-2 shadow-lg">
       <div class="row">
         <div class="col-12">
           <h3 class="rub-head4 text-info text-center font-weight-bold py-1">
@@ -17,24 +13,17 @@
         <div class="col-12 col-md-6 col-lg-4">
           <div class="mt-1 mt-xl-0 pt-xl-0 mb-2 mx-0 pl-0 pl-xl-2 pr-0">
             <!-- the search section -->
-            <input
-              type="text"
-              (input)="getValue($event)"
-              class="form-control col-12"
-              name=""
-              id="customer"
-              placeholder="Search by Customer name"
-              autocomplete="on"
-            />
+            <input type="text" (input)="getValue($event)" class="form-control col-12" name="" id="customer"
+              placeholder="Search by Customer name" autocomplete="on" />
           </div>
         </div>
         <div class="col-12 col-md-6 col-lg-8 d-flex justify-content-end">
-          <button
-            class="btn btn-primary my-2 ml-sm-4 ml-md-5 ml-xl-1 px-2"
-            tooltip="Export to Excel"
-            (click)="exportToExcel()"
-          >
+          <button class="btn btn-primary my-2 ml-sm-4 ml-md-5 ml-xl-1 px-2" tooltip="Export to Excel"
+            (click)="exportToExcel()">
             <i class="fas fa-file-export"></i> Export
+          </button>
+          <button class="btn btn-primary my-2 ml-sm-4 ml-md-5 ml-xl-1 px-2" (click)="goToAddCustomer()">
+            Add Customer
           </button>
         </div>
       </div>
@@ -42,14 +31,10 @@
     <div class="row my-0 py-0">
       <div class="col-12">
         <!--record container-->
-        <div
-          class="invest-card card mt-1 py-2 mb-2 mx-auto px-2 shadow-lg"
-          *ngIf="checkTable(filterCustomers); else noCustomer"
-        >
+        <div class="invest-card card mt-1 py-2 mb-2 mx-auto px-2 shadow-lg"
+          *ngIf="checkTable(filterCustomers); else noCustomer">
           <div class="item-container-1 mt-1">
-            <div
-              class="list-card card mt-1 pt-2 mb-0 mx-auto px-0 pb-1 shadow-lg"
-              *ngFor="
+            <div class="list-card card mt-1 pt-2 mb-0 mx-auto px-0 pb-1 shadow-lg" *ngFor="
                 let customer of filterCustomers
                   | orderBy: key:reverse
                   | paginate
@@ -60,31 +45,21 @@
                         totalItems: totalItems
                       };
                 let i = index
-              "
-            >
+              ">
               <div class="list-card-body card-body my-0 py-0 mx-0">
                 <div class="row my-0 py-0">
-                  <div
-                    class="col-2 col-md-1 mx-md-0 px-md-0 d-flex justify-content-center"
-                  >
-                    <img
-                      class="img-circle mx-auto mt-2 mt-md-0 mt-xl-1 mb-1 pb-0"
-                      [src]="customer.customerPhotoUrl"
-                      (click)="openModal(template, customer.customerPhotoUrl)"
-                    />
+                  <div class="col-2 col-md-1 mx-md-0 px-md-0 d-flex justify-content-center">
+                    <img class="img-circle mx-auto mt-2 mt-md-0 mt-xl-1 mb-1 pb-0" [src]="customer.customerPhotoUrl"
+                      (click)="openModal(template, customer.customerPhotoUrl)" />
                   </div>
                   <div class="break-text col-10 col-md-11 mx-0 px-0">
                     <div class="row mx-md-0 px-md-0">
                       <div class="col-12 col-md-6 col-xl-3 mx-xl-0 px-xl-0">
                         <div class="row">
-                          <div
-                            class="col-4 col-lg-3 d-flex justify-content-start mx-md-0 px-md-0"
-                          >
+                          <div class="col-4 col-lg-3 d-flex justify-content-start mx-md-0 px-md-0">
                             <span class="">ID:</span>
                           </div>
-                          <div
-                            class="col-8 col-lg-9 d-flex justify-content-start font-weight-bold mx-0 px-0"
-                          >
+                          <div class="col-8 col-lg-9 d-flex justify-content-start font-weight-bold mx-0 px-0">
                             <span class="itemCreated">
                               {{ customer.customerId }}
                             </span>
@@ -93,14 +68,10 @@
                       </div>
                       <div class="col-12 col-md-6 col-xl-5 mx-xl-0 px-xl-0">
                         <div class="row">
-                          <div
-                            class="col-4 col-md-3 col-xl-2 d-flex justify-content-start mx-md-0 px-md-0"
-                          >
+                          <div class="col-4 col-md-3 col-xl-2 d-flex justify-content-start mx-md-0 px-md-0">
                             <span class="">Name:</span>
                           </div>
-                          <div
-                            class="col-8 col-md-9 col-xl-10 d-flex justify-content-start font-weight-bold mx-0 px-0"
-                          >
+                          <div class="col-8 col-md-9 col-xl-10 d-flex justify-content-start font-weight-bold mx-0 px-0">
                             <span class="itemCreated">
                               {{ customer.customerName }}
                             </span>
@@ -109,14 +80,10 @@
                       </div>
                       <div class="col-12 col-md-6 col-xl-3 mx-xl-0 px-xl-0">
                         <div class="row">
-                          <div
-                            class="col-4 col-lg-3 d-flex justify-content-start mx-md-0 px-md-0"
-                          >
+                          <div class="col-4 col-lg-3 d-flex justify-content-start mx-md-0 px-md-0">
                             <span class="">Document:</span>
                           </div>
-                          <div
-                            class="col-8 col-lg-9 d-flex justify-content-start font-weight-bold mx-0 px-0"
-                          >
+                          <div class="col-8 col-lg-9 d-flex justify-content-start font-weight-bold mx-0 px-0">
                             <span class="itemCreated">
                               {{ customer.customerIdType }}
                             </span>
@@ -125,14 +92,10 @@
                       </div>
                       <div class="col-12 col-md-6 col-xl-3 mx-xl-0 px-xl-0">
                         <div class="row">
-                          <div
-                            class="col-4 col-lg-3 d-flex justify-content-start mx-md-0 px-md-0"
-                          >
+                          <div class="col-4 col-lg-3 d-flex justify-content-start mx-md-0 px-md-0">
                             <span class="">ID No:</span>
                           </div>
-                          <div
-                            class="col-8 col-lg-9 d-flex justify-content-start font-weight-bold mx-0 px-0"
-                          >
+                          <div class="col-8 col-lg-9 d-flex justify-content-start font-weight-bold mx-0 px-0">
                             <span class="itemCreated">
                               {{ customer.customerIdNumber }}
                             </span>
@@ -141,14 +104,10 @@
                       </div>
                       <div class="col-12 col-md-4 col-xl-3 mx-xl-0 px-xl-0">
                         <div class="row">
-                          <div
-                            class="col-4 col-lg-3 d-flex justify-content-start mx-md-0 px-md-0"
-                          >
+                          <div class="col-4 col-lg-3 d-flex justify-content-start mx-md-0 px-md-0">
                             <span class="">Phone 1:</span>
                           </div>
-                          <div
-                            class="col-8 col-lg-9 d-flex justify-content-start font-weight-bold mx-0 px-0"
-                          >
+                          <div class="col-8 col-lg-9 d-flex justify-content-start font-weight-bold mx-0 px-0">
                             <span class="itemCreated">
                               {{ customer.customerPhone1 }}
                             </span>
@@ -157,14 +116,10 @@
                       </div>
                       <div class="col-12 col-md-4 col-xl-3 mx-xl-0 px-xl-0">
                         <div class="row">
-                          <div
-                            class="col-4 col-lg-3 d-flex justify-content-start mx-md-0 px-md-0"
-                          >
+                          <div class="col-4 col-lg-3 d-flex justify-content-start mx-md-0 px-md-0">
                             <class class="">Phone 2:</class>
                           </div>
-                          <div
-                            class="col-8 col-lg-9 d-flex justify-content-start font-weight-bold mx-0 px-0"
-                          >
+                          <div class="col-8 col-lg-9 d-flex justify-content-start font-weight-bold mx-0 px-0">
                             <span class="itemCreated">
                               {{ customer.customerPhone2 }}
                             </span>
@@ -173,16 +128,12 @@
                       </div>
                       <div class="col-12 col-md-4 col-xl-2 mx-xl-0 px-xl-0">
                         <div class="row">
-                          <div
-                            class="col-4 col-md-3 d-flex justify-content-start mx-md-0 px-md-0"
-                          >
+                          <div class="col-4 col-md-3 d-flex justify-content-start mx-md-0 px-md-0">
                             <span class="">Branch:</span>
                           </div>
-                          <div
-                            class="col-8 col-md-9 d-flex justify-content-start font-weight-bold mx-0 px-0"
-                          >
+                          <div class="col-8 col-md-9 d-flex justify-content-start font-weight-bold mx-0 px-0">
                             <span class="itemCreated">
-                                {{ customer.branchName }}
+                              {{ customer.branchName }}
                             </span>
                           </div>
                         </div>
@@ -195,12 +146,8 @@
           </div>
         </div>
         <!--/ end of record container-->
-        <pagination-controls
-          id="my_pages"
-          (pageChange)="pageChanged($event)"
-          (pageBoundsCorrection)="pageChanged($event)"
-          directionLinks="true"
-        >
+        <pagination-controls id="my_pages" (pageChange)="pageChanged($event)"
+          (pageBoundsCorrection)="pageChanged($event)" directionLinks="true">
         </pagination-controls>
       </div>
       <ng-template #noCustomer>
@@ -215,12 +162,7 @@
   <div class="modal-header bg-info">
     <h4 class="modal-title text-white-75">Customer Photo</h4>
 
-    <button
-      type="button"
-      class="close pull-right"
-      aria-label="Close"
-      (click)="modalRef.hide()"
-    >
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
@@ -229,10 +171,7 @@
       <div class="list-card-body card-body">
         <div class="row d-flex justify-content-center">
           <div class="col-12 d-flex justify-content-center">
-            <img
-              class="img-circle-1 mx-auto mt-2 mt-md-0 mt-xl-1 mb-1 pb-0"
-              [src]="imageUrl"
-            />
+            <img class="img-circle-1 mx-auto mt-2 mt-md-0 mt-xl-1 mb-1 pb-0" [src]="imageUrl" />
           </div>
         </div>
       </div>

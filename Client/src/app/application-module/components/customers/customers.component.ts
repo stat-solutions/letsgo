@@ -66,7 +66,7 @@ export class CustomersComponent implements OnInit {
       );
     }
   }
-  pageChanged(event): any {
+  pageChanged(event): void {
     this.currentPage = event;
   }
 
@@ -80,11 +80,15 @@ export class CustomersComponent implements OnInit {
     }
 
   // export to excel
-  exportToExcel(): any{
+  exportToExcel(): void {
     this.exportService.exportExcel(this.filterCustomers, 'customers');
   }
 
-  sort(item: string): any {
+  goToAddCustomer(): void {
+    this.router.navigate(['application/createcustomer'])
+  }
+
+  sort(item: string): void {
     this.key = item;
     this.reverse = !this.reverse;
   }
